@@ -7,6 +7,13 @@ import it.sincrono.beans.Esito;
 public class GenericResponse {
 
 	private Esito esito = new Esito();
+	
+	
+
+	public GenericResponse(Esito esito) {
+		super();
+		this.esito = esito;
+	}
 
 	public GenericResponse() {
 		super();
