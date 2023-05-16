@@ -49,7 +49,7 @@ public class StoricoCommesseController {
 	}
 
 	@GetMapping("/StoricoCommesse/{id}")
-	public @ResponseBody HttpEntity<StoricoCommesseResponse> getStoricoCommesseById(@PathVariable Long id) {
+	public @ResponseBody HttpEntity<StoricoCommesseResponse> getStoricoCommesseById(@PathVariable Integer id) {
 
 		HttpEntity<StoricoCommesseResponse> httpEntity;
 
@@ -109,7 +109,7 @@ public class StoricoCommesseController {
 	}
 
 	@DeleteMapping("/StoricoCommesse/{id}")
-	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Long id) {
+	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
 
 		HttpEntity<GenericResponse> httpEntity;
 
