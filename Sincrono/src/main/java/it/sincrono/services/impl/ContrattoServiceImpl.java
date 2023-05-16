@@ -2,17 +2,18 @@ package it.sincrono.services.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
 
 import it.sincrono.entities.Contratto;
 import it.sincrono.repositories.ContrattoRepository;
+import it.sincrono.services.ContrattoService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 
-@
+@Service
 public class ContrattoServiceImpl implements ContrattoService {
 
 	@Autowired
@@ -20,15 +21,15 @@ public class ContrattoServiceImpl implements ContrattoService {
 
 	@Override
 	public List<Contratto> listContratto() throws ServiceException {
-		List<Contratto> contratto = contrattoRepository.findAll();
-		return contratto;
+		List<Contratto> contratti = contrattoRepository.findAll();
+		return contratti;
 	}
 
 	@Override
-	public Contratto getContrattoById(Long id) {
-		Optional<Contratto> contratto = contrattoRepository.findById(id);
-		if (contratto.isPresent()) {
-			return contratto.get();
+	public Contratto getContrattoById(Integer id) {
+		Contratto contratto = contrattoRepository.findById(id).get();
+		if (!contratto.equals(null)) {
+			return contratto;
 		}
 		return null;
 	}
@@ -40,13 +41,11 @@ public class ContrattoServiceImpl implements ContrattoService {
 
 	@Override
 	public void update(Contratto contratto) throws ServiceException {
-		try {
 
+		try {
 			Contratto currentContratto = contrattoRepository.findById(contratto.getId()).get();
 
-			currentContratto.setId(contratto.getId());
-			currentContratto.setNome(contratto.getNome());
-
+			currentContratto.setAttivo(false);
 			contrattoRepository.saveAndFlush(currentContratto);
 
 		} catch (NoSuchElementException ne) {
@@ -58,7 +57,8 @@ public class ContrattoServiceImpl implements ContrattoService {
 		}
 	}
 
-	public void delete(Long id) throws ServiceException {
+	@Override
+	public void delete(Integer id) throws ServiceException {
 
 		try {
 			Contratto contratto = contrattoRepository.findById(id).get();

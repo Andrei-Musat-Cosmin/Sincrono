@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Contratto;
+import it.sincrono.requests.ContrattoRequest;
 import it.sincrono.responses.ContrattoListResponse;
 import it.sincrono.responses.ContrattoResponse;
 import it.sincrono.responses.GenericResponse;
+import it.sincrono.services.ContrattoService;
 import it.sincrono.services.exceptions.ServiceException;
 
 public class ContrattoController {
@@ -24,7 +26,14 @@ public class ContrattoController {
 	@Autowired
 	private ContrattoService contrattoService;
 
-	@GetMapping("/contratto")
+//	@GetMapping("/contratto-list")
+//	public @ResponseBody HttpEntity<ContrattoDTO> filter(){
+//		HttpEntity<ContrattoDTO> httpEntity;
+//		
+//		
+//	}
+	
+	@GetMapping("/contratto-list")
 	public @ResponseBody HttpEntity<ContrattoListResponse> fetchAllContratto() {
 		HttpEntity<ContrattoListResponse> httpEntity;
 
@@ -37,7 +46,6 @@ public class ContrattoController {
 			contrattoListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
-			System.out.println("ciao");
 		} catch (Exception e) {
 			contrattoListResponse.setEsito(new Esito(404, e.getMessage(), null));
 			httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
@@ -47,7 +55,7 @@ public class ContrattoController {
 	}
 
 	@GetMapping("/contratto/{id}")
-	public @ResponseBody HttpEntity<ContrattoResponse> getContrattoById(@PathVariable Long id) {
+	public @ResponseBody HttpEntity<ContrattoResponse> getContrattoById(@PathVariable Integer id) {
 
 		HttpEntity<ContrattoResponse> httpEntity;
 
@@ -79,7 +87,6 @@ public class ContrattoController {
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-			System.out.println("ciao");
 		} catch (Exception e) {
 			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -107,7 +114,7 @@ public class ContrattoController {
 	}
 
 	@DeleteMapping("/contratto/{id}")
-	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Long id) {
+	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
 
 		HttpEntity<GenericResponse> httpEntity;
 

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import it.sincrono.entities.Contratto;
 
-public class ContrattoListResponse {
+public class ContrattoListResponse extends GenericResponse{
 
 	private List<Contratto> contrattoList;
 
@@ -46,6 +46,10 @@ public class ContrattoListResponse {
 	public ContrattoListResponse() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public void setContrattoList(List<Contratto> contrattoList) {
+		this.contrattoList = contrattoList;
 	}
 
 	public void setList(List<Contratto> oggetti) {
