@@ -51,7 +51,7 @@ public class CommessaController {
 	}
 
 	@GetMapping("/Commessa/{id}")
-	public @ResponseBody HttpEntity<CommessaResponse> getCommessaById(@PathVariable Long id) {
+	public @ResponseBody HttpEntity<CommessaResponse> getCommessaById(@PathVariable Integer id) {
 
 		HttpEntity<CommessaResponse> httpEntity;
 
@@ -111,7 +111,7 @@ public class CommessaController {
 	}
 
 	@DeleteMapping("/Commessa/{id}")
-	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Long id) {
+	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
 
 		HttpEntity<GenericResponse> httpEntity;
 
