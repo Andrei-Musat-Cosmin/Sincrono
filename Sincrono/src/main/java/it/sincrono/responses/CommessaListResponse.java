@@ -3,6 +3,7 @@ package it.sincrono.responses;
 import java.util.List;
 import java.util.Objects;
 
+import it.sincrono.beans.Esito;
 import it.sincrono.entities.Commessa;
 
 public class CommessaListResponse {
@@ -49,5 +50,10 @@ public class CommessaListResponse {
 
 	public void setList(List<Commessa> Commesse) {
 		this.commesseList = Commesse;
+	}
+
+	public void setEsito(Esito esito) {
+		// TODO Auto-generated method stub
+		
 	}
 }

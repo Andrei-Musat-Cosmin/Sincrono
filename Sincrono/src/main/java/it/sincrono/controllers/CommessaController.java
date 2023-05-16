@@ -18,6 +18,7 @@ import it.sincrono.entities.Commessa;
 import it.sincrono.requests.CommessaRequest;
 import it.sincrono.responses.CommessaListResponse;
 import it.sincrono.responses.CommessaResponse;
+import it.sincrono.responses.GenericResponse;
 import it.sincrono.services.CommessaService;
 import it.sincrono.services.exceptions.ServiceException;
 
@@ -37,7 +38,7 @@ public class CommessaController {
 			List<Commessa> commesse = CommessaService.listCommessa();
 
 			CommessaListResponse.setList(commesse);
-			 CommessaListResponse.setEsito(new Esito());
+			//CommessaListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<CommessaListResponse>(CommessaListResponse);
 			System.out.println("bau");

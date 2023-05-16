@@ -17,7 +17,7 @@ public class Commessa {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long id;
+	private Integer id;
 
 	@Column(name = "cliente")
 	private String cliente;
@@ -44,11 +44,11 @@ public class Commessa {
 	@Column(name = "costo_mese")
 	private String costoMese;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -174,7 +174,7 @@ public class Commessa {
 	@Column(name = "stato")
 	private Boolean stato;
 
-	public Commessa(Long id, String cliente, String clienteFinale, String titoloPosizione, String distacco,
+	public Commessa(Integer id, String cliente, String clienteFinale, String titoloPosizione, String distacco,
 			Date dataInizio, Date dataFine, String costoMese, String tariffaGiornaliera, String attesaLavori,
 			String nominativo, String azienda, String aziendaDiFatturazioneInterna, Boolean stato) {
 		super();

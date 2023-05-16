@@ -9,12 +9,12 @@ public interface CommessaService {
 	
 	public List<Commessa> listCommessa() throws ServiceException;
 
-	public Commessa getCommessaById(Long id) throws ServiceException;
+	public Commessa getCommessaById(Integer id) throws ServiceException;
 
 	public void insert(Commessa Commessa) throws ServiceException;
 
 	public void update(Commessa Commessa) throws ServiceException;
 
-	public void delete(Long id) throws ServiceException;
+	public void delete(Integer id) throws ServiceException;
 
 }

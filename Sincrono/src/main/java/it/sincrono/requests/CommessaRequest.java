@@ -1,7 +1,5 @@
 package it.sincrono.requests;
 
-import java.util.Objects;
-
 import it.sincrono.entities.Commessa;
 
 public class CommessaRequest extends GenericRequest {

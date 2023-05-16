@@ -1,5 +1,6 @@
 package it.sincrono.responses;
 
+import it.sincrono.beans.Esito;
 import it.sincrono.entities.Commessa;
 
 public class CommessaResponse {
@@ -22,4 +23,14 @@ public class CommessaResponse {
 		super();
 		this.Commessa = Commessa;
 	}
+
+	public void setEsito(Esito esito) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 }
+
+
