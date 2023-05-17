@@ -28,7 +28,7 @@ public class CommessaController {
 	@Autowired
 	private CommessaService CommessaService;
 
-	@GetMapping("/Commessa")
+	@GetMapping("/commessa-list")
 	public @ResponseBody HttpEntity<CommessaListResponse> fetchAllCommessa() {
 		HttpEntity<CommessaListResponse> httpEntity;
 
@@ -38,7 +38,7 @@ public class CommessaController {
 			List<Commessa> commesse = CommessaService.listCommessa();
 
 			commessaListResponse.setList(commesse);
-			//CommessaListResponse.setEsito(new Esito());
+			commessaListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 			System.out.println("bau");
@@ -50,7 +50,7 @@ public class CommessaController {
 
 	}
 
-	@GetMapping("/Commessa/{id}")
+	@GetMapping("/commessa/{id}")
 	public @ResponseBody HttpEntity<CommessaResponse> getCommessaById(@PathVariable Integer id) {
 
 		HttpEntity<CommessaResponse> httpEntity;
@@ -72,7 +72,7 @@ public class CommessaController {
 		return httpEntity;
 	}
 
-	@PostMapping("/Commessa")
+	@PostMapping("/commessa")
 	public @ResponseBody HttpEntity<GenericResponse> saveCommessa(@RequestBody CommessaRequest CommessaRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
@@ -91,7 +91,7 @@ public class CommessaController {
 		return httpEntity;
 	}
 
-	@PutMapping("/Commessa")
+	@PutMapping("/commessa")
 	public @ResponseBody HttpEntity<GenericResponse> updateCommessa(@RequestBody CommessaRequest CommessaRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
@@ -110,7 +110,7 @@ public class CommessaController {
 		return httpEntity;
 	}
 
-	@DeleteMapping("/Commessa/{id}")
+	@DeleteMapping("/commessa/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
 
 		HttpEntity<GenericResponse> httpEntity;

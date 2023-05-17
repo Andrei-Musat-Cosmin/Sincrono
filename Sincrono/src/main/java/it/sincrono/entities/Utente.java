@@ -12,6 +12,11 @@ import jakarta.persistence.Table;
 @Table(name = "utenti")
 public class Utente {
 	
+	public Utente() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

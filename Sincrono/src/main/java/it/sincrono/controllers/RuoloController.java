@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Ruolo;
-import it.sincrono.entities.Utente;
 import it.sincrono.requests.RuoloRequest;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.RuoloListResponse;
@@ -29,10 +28,7 @@ public class RuoloController {
 	@Autowired
 	private RuoloService ruoloService;
 
-	/**
-	 * @param ID
-	 * @return HttpEntity<RuoloResponse>
-	 */
+	
 	@GetMapping("/ruoli/{id}")
 	public @ResponseBody HttpEntity<RuoloResponse> get(@PathVariable("id") Integer ID) {
 
@@ -129,10 +125,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	/**
-	 * @param ID
-	 * @return HttpEntity<GenericResponse>
-	 */
+	
 	@DeleteMapping("/ruoli/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer ID) {
 
@@ -156,9 +149,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	/**
-	 * @return HttpEntity<RuoloListResponse>
-	 */
+	
 	@GetMapping("/ruoli/tree")
 	public @ResponseBody HttpEntity<RuoloListResponse> tree() {
 
@@ -183,9 +174,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	/**
-	 * @return HttpEntity<RuoloListResponse>
-	 */
+	
 	@GetMapping("/ruoli/map")
 	public @ResponseBody HttpEntity<RuoloListResponse> map() {
 

@@ -8,6 +8,7 @@ import it.sincrono.entities.Commessa;
 
 public class CommessaListResponse {
 	private List<Commessa> commesseList;
+	private Esito esito;
 
 	public List<Commessa> getCommesseList() {
 		return commesseList;
@@ -53,7 +54,13 @@ public class CommessaListResponse {
 	}
 
 	public void setEsito(Esito esito) {
-		// TODO Auto-generated method stub
+	this.esito = esito;
 		
 	}
+
+	public Esito getEsito() {
+		return esito;
+	}
+	
+	
 }
