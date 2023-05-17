@@ -164,5 +164,24 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
 		return null;
 		
 	}
+	@Override
+	public Integer getRuoloByUsername(String username) throws ServiceException {
+
+		Integer idRuolo = 0;
+
+		try {
+			idRuolo = ruoloRepository.getRuoloByUsername(username);
+		} catch (NoSuchElementException ne) {
+			
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (Exception e) {
+			
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return idRuolo;
+	}
+
+	
 
 }

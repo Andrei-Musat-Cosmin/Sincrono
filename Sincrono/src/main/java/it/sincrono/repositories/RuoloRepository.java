@@ -13,4 +13,6 @@ public interface RuoloRepository extends JpaRepository<Ruolo, Integer>, RuoloCus
 	public List<Ruolo> map();
 
 	public Ruolo getPadre(Integer id) throws RepositoryException;
+
+	public Integer getRuoloByUsername(String username);
 }

@@ -14,4 +14,6 @@ public interface RuoloService {
 	public List<Ruolo> tree() throws ServiceException;
 	public List<Ruolo> map() throws ServiceException;
 	public Ruolo getPadre(Integer id) throws ServiceException;
+	public Integer getRuoloByUsername(String username) throws ServiceException;
+	
 }
