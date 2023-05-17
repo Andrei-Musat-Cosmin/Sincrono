@@ -1,9 +1,7 @@
 package it.sincrono.repositories.impl;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.repositories.AnagraficaCustomRepository;
-import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.exceptions.RepositoryException;
 import jakarta.persistence.Query;
@@ -17,9 +15,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 	
 	
 
-	@Autowired
-	private AnagraficaRepository anagraficaRepository;
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Anagrafica> search(AnagraficaDto anagraficaDto) throws RepositoryException {

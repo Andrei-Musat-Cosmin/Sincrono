@@ -2,12 +2,10 @@ package it.sincrono.services.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.StoricoContratti;
 import it.sincrono.repositories.StoricoContrattiRepository;
 import it.sincrono.services.StoricoContrattiService;
