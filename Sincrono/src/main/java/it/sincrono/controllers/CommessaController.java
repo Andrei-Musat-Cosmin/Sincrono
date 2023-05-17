@@ -32,19 +32,19 @@ public class CommessaController {
 	public @ResponseBody HttpEntity<CommessaListResponse> fetchAllCommessa() {
 		HttpEntity<CommessaListResponse> httpEntity;
 
-		CommessaListResponse CommessaListResponse = new CommessaListResponse();
+		CommessaListResponse commessaListResponse = new CommessaListResponse();
 
 		try {
 			List<Commessa> commesse = CommessaService.listCommessa();
 
-			CommessaListResponse.setList(commesse);
+			commessaListResponse.setList(commesse);
 			//CommessaListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<CommessaListResponse>(CommessaListResponse);
+			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 			System.out.println("bau");
 		} catch (Exception e) {
-			 CommessaListResponse.setEsito(new Esito(404, e.getMessage(), null));
-			httpEntity = new HttpEntity<CommessaListResponse>(CommessaListResponse);
+			 commessaListResponse.setEsito(new Esito(404, e.getMessage(), null));
+			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 		}
 		return httpEntity;
 
@@ -55,19 +55,19 @@ public class CommessaController {
 
 		HttpEntity<CommessaResponse> httpEntity;
 
-		CommessaResponse CommessaResponse = new CommessaResponse();
+		CommessaResponse commessaResponse = new CommessaResponse();
 
 		try {
-			Commessa Commessa = CommessaService.getCommessaById(id);
+			Commessa commessa = CommessaService.getCommessaById(id);
 
-			CommessaResponse.setCommessa(Commessa);
-			CommessaResponse.setEsito(new Esito());
+			commessaResponse.setCommessa(commessa);
+			commessaResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<CommessaResponse>(CommessaResponse);
+			httpEntity = new HttpEntity<CommessaResponse>(commessaResponse);
 			System.out.println("ciao");
 		} catch (Exception e) {
-			CommessaResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
-			httpEntity = new HttpEntity<CommessaResponse>(CommessaResponse);
+			commessaResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
+			httpEntity = new HttpEntity<CommessaResponse>(commessaResponse);
 		}
 		return httpEntity;
 	}

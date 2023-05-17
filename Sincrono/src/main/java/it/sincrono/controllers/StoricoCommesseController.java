@@ -32,19 +32,19 @@ public class StoricoCommesseController {
 	public @ResponseBody HttpEntity<StoricoCommesseListResponse> fetchAllStoricoCommesse() {
 		HttpEntity<StoricoCommesseListResponse> httpEntity;
 
-		StoricoCommesseListResponse StoricoCommesseListResponse = new StoricoCommesseListResponse();
+		StoricoCommesseListResponse storicoCommesseListResponse = new StoricoCommesseListResponse();
 
 		try {
 			List<StoricoCommesse> commesse = StoricoCommesseService.listStoricoCommesse();
 
-			StoricoCommesseListResponse.setList(commesse);
-			StoricoCommesseListResponse.setEsito(new Esito());
+			storicoCommesseListResponse.setList(commesse);
+			storicoCommesseListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<StoricoCommesseListResponse>(StoricoCommesseListResponse);
+			httpEntity = new HttpEntity<StoricoCommesseListResponse>(storicoCommesseListResponse);
 			System.out.println("bau");
 		} catch (Exception e) {
-			StoricoCommesseListResponse.setEsito(new Esito(404, e.getMessage(), null));
-			httpEntity = new HttpEntity<StoricoCommesseListResponse>(StoricoCommesseListResponse);
+			storicoCommesseListResponse.setEsito(new Esito(404, e.getMessage(), null));
+			httpEntity = new HttpEntity<StoricoCommesseListResponse>(storicoCommesseListResponse);
 		}
 		return httpEntity;
 
@@ -55,19 +55,19 @@ public class StoricoCommesseController {
 
 		HttpEntity<StoricoCommesseResponse> httpEntity;
 
-		StoricoCommesseResponse StoricoCommesseResponse = new StoricoCommesseResponse();
+		StoricoCommesseResponse storicoCommesseResponse = new StoricoCommesseResponse();
 
 		try {
 			StoricoCommesse StoricoCommesse = StoricoCommesseService.getStoricoCommesseById(id);
 
-			StoricoCommesseResponse.setStoricoCommesse(StoricoCommesse);
-			StoricoCommesseResponse.setEsito(new Esito());
+			storicoCommesseResponse.setStoricoCommesse(StoricoCommesse);
+			storicoCommesseResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<StoricoCommesseResponse>(StoricoCommesseResponse);
+			httpEntity = new HttpEntity<StoricoCommesseResponse>(storicoCommesseResponse);
 			System.out.println("ciao");
 		} catch (Exception e) {
-			StoricoCommesseResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
-			httpEntity = new HttpEntity<StoricoCommesseResponse>(StoricoCommesseResponse);
+			storicoCommesseResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
+			httpEntity = new HttpEntity<StoricoCommesseResponse>(storicoCommesseResponse);
 		}
 		return httpEntity;
 	}
