@@ -1,6 +1,7 @@
 package it.sincrono.entities;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -44,6 +45,26 @@ public class Commessa {
 	@Column(name = "costo_mese")
 	private String costoMese;
 
+	@Column(name = "tariffa_giornaliera")
+	private String tariffaGiornaliera;
+
+	@Column(name = "attesaLavori")
+	private String attesaLavori;
+
+	@Column(name = "nominativo")
+	private String nominativo;
+
+	@Column(name = "azienda")
+	private String azienda;
+
+	@Column(name = "azienda_di_fatturazione_interna")
+	private String aziendaDiFatturazioneInterna;
+
+	@Column(name = "stato")
+	private Boolean stato;
+	
+	transient private List<Object> dashboard;
+
 	public Integer getId() {
 		return id;
 	}
@@ -62,6 +83,14 @@ public class Commessa {
 
 	public String getClienteFinale() {
 		return clienteFinale;
+	}
+
+	public List<Object> getDashboard() {
+		return dashboard;
+	}
+
+	public void setDashboard(List<Object> dashboard) {
+		this.dashboard = dashboard;
 	}
 
 	public void setClienteFinale(String clienteFinale) {
@@ -155,24 +184,6 @@ public class Commessa {
 	public void setStato(Boolean stato) {
 		this.stato = stato;
 	}
-
-	@Column(name = "tariffa_giornaliera")
-	private String tariffaGiornaliera;
-
-	@Column(name = "attesaLavori")
-	private String attesaLavori;
-
-	@Column(name = "nominativo")
-	private String nominativo;
-
-	@Column(name = "azienda")
-	private String azienda;
-
-	@Column(name = "azienda_di_fatturazione_interna")
-	private String aziendaDiFatturazioneInterna;
-
-	@Column(name = "stato")
-	private Boolean stato;
 
 	public Commessa(Integer id, String cliente, String clienteFinale, String titoloPosizione, String distacco,
 			Date dataInizio, Date dataFine, String costoMese, String tariffaGiornaliera, String attesaLavori,

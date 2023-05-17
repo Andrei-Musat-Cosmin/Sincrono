@@ -26,7 +26,28 @@ import it.sincrono.services.exceptions.ServiceException;
 public class CommessaController {
 
 	@Autowired
-	private CommessaService CommessaService;
+	private CommessaService commessaService;
+	
+	@PostMapping("/dashboard")
+	public @ResponseBody HttpEntity<Commessa> search() {
+		HttpEntity<Commessa> httpEntity;
+
+		CommessaResponse contrattoResponse = new CommessaResponse();
+
+		Commessa commessa = new Commessa();
+		try {
+
+			contrattoResponse.setEsito(new Esito());
+
+			commessa.setDashboard(commessaService.view());
+
+			httpEntity = new HttpEntity<Commessa>(commessa);
+		} catch (Exception e) {
+			contrattoResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+			httpEntity = new HttpEntity<Commessa>(commessa);
+		}
+		return httpEntity;
+	}
 
 	@GetMapping("/commessa-list")
 	public @ResponseBody HttpEntity<CommessaListResponse> fetchAllCommessa() {
@@ -35,7 +56,7 @@ public class CommessaController {
 		CommessaListResponse commessaListResponse = new CommessaListResponse();
 
 		try {
-			List<Commessa> commesse = CommessaService.listCommessa();
+			List<Commessa> commesse = commessaService.listCommessa();
 
 			commessaListResponse.setList(commesse);
 			commessaListResponse.setEsito(new Esito());
@@ -58,7 +79,7 @@ public class CommessaController {
 		CommessaResponse commessaResponse = new CommessaResponse();
 
 		try {
-			Commessa commessa = CommessaService.getCommessaById(id);
+			Commessa commessa = commessaService.getCommessaById(id);
 
 			commessaResponse.setCommessa(commessa);
 			commessaResponse.setEsito(new Esito());
@@ -79,7 +100,7 @@ public class CommessaController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			CommessaService.insert(CommessaRequest.getCommessa());
+			commessaService.insert(CommessaRequest.getCommessa());
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -98,7 +119,7 @@ public class CommessaController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			CommessaService.update(CommessaRequest.getCommessa());
+			commessaService.update(CommessaRequest.getCommessa());
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -119,7 +140,7 @@ public class CommessaController {
 
 		try {
 
-			CommessaService.delete(id);
+			commessaService.delete(id);
 
 			genericResponse.setEsito(new Esito());
 
