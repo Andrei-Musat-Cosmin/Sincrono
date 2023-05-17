@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 
 public class StoricoCommesse {
 	@Id
@@ -13,12 +13,12 @@ public class StoricoCommesse {
 	@Column(name = "id")
 	private Integer id;
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "id_anagrafica")
 	private Anagrafica idAnagrafica;
 	
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "id_commessa")
 	private Commessa idCommessa;
 
