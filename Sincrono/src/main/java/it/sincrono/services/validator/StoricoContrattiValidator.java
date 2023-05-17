@@ -1,7 +1,10 @@
 package it.sincrono.services.validator;
 
+import org.springframework.stereotype.Component;
+
 import it.sincrono.entities.StoricoContratti;
 
+@Component
 public class StoricoContrattiValidator {
 	
 	public Boolean validate(StoricoContratti storicoContratti, Boolean isNew) {

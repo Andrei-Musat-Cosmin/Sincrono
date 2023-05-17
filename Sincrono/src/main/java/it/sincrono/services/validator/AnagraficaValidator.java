@@ -1,7 +1,10 @@
 package it.sincrono.services.validator;
 
+import org.springframework.stereotype.Component;
+
 import it.sincrono.entities.Anagrafica;
 
+@Component
 public class AnagraficaValidator {
 
 	
