@@ -12,6 +12,6 @@ import it.sincrono.repositories.dto.ProfiloDto;
 
 @Repository
 public interface ProfiloRepository extends JpaRepository<Profilo, Integer> {
-	@Query(value = "SELECT a.ruolo.nome,a.dataInizio,a.dataFine FROM profili a WHERE a.utente.id = :id")
+	@Query(value = "SELECT a.ruolo.nome,a.dataInizio,a.dataFine FROM Profilo a WHERE a.utente.id = :id")
 	public List<ProfiloDto> getProfiloByAnagrafica(@Param("id") Integer id);
 }
