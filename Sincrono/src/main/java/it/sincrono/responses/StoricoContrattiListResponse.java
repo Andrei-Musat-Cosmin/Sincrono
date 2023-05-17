@@ -3,19 +3,14 @@ package it.sincrono.responses;
 import java.util.List;
 import java.util.Objects;
 
-import it.sincrono.beans.Esito;
 import it.sincrono.entities.StoricoContratti;
 
-public class StoricoContrattiListResponse {
+public class StoricoContrattiListResponse extends GenericResponse {
 
 	private List<StoricoContratti> storicoContrattiList;
 
-	public List<StoricoContratti> getStoricoContrattiList() {
-		return storicoContrattiList;
-	}
-
-	public void setStoricoContrattiList(List<StoricoContratti> storicoContrattiList) {
-		this.storicoContrattiList = storicoContrattiList;
+	public StoricoContrattiListResponse() {
+		super();
 	}
 
 	public StoricoContrattiListResponse(List<StoricoContratti> storicoContrattiList) {
@@ -23,14 +18,12 @@ public class StoricoContrattiListResponse {
 		this.storicoContrattiList = storicoContrattiList;
 	}
 
-	public StoricoContrattiListResponse() {
-		super();
-		// TODO Auto-generated constructor stub
+	public List<StoricoContratti> getStoricoContrattiList() {
+		return storicoContrattiList;
 	}
 
-	@Override
-	public String toString() {
-		return "StoricoContrattiListResponse [storicoContrattiList=" + storicoContrattiList + "]";
+	public void setStoricoContrattiList(List<StoricoContratti> storicoContrattiList) {
+		this.storicoContrattiList = storicoContrattiList;
 	}
 
 	@Override
@@ -50,16 +43,4 @@ public class StoricoContrattiListResponse {
 		return Objects.equals(storicoContrattiList, other.storicoContrattiList);
 	}
 
-	public void setList(List<StoricoContratti> Contratti) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setEsito(Esito esito) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
 }

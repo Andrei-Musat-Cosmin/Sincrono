@@ -1,5 +1,7 @@
 package it.sincrono.controllers;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,14 +12,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.StoricoContratti;
 import it.sincrono.requests.StoricoContrattiRequest;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.StoricoContrattiListResponse;
 import it.sincrono.responses.StoricoContrattiResponse;
-import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.StoricoContrattiService;
+import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
 public class StoricoContrattiController {
@@ -34,7 +37,7 @@ public class StoricoContrattiController {
 		try {
 			List<StoricoContratti> contratti = storicoContrattiService.listStoricoContratti();
 
-			storicoContrattiListResponse.setList(contratti);
+			storicoContrattiListResponse.setStoricoContrattiList(contratti);
 			storicoContrattiListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<StoricoContrattiListResponse>(storicoContrattiListResponse);

@@ -6,9 +6,24 @@ import java.util.Objects;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.StoricoCommesse;
 
-public class StoricoCommesseListResponse {
+public class StoricoCommesseListResponse extends GenericResponse {
 
 	private List<StoricoCommesse> storicoCommesseList;
+
+	public StoricoCommesseListResponse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public StoricoCommesseListResponse(Esito esito) {
+		super(esito);
+		// TODO Auto-generated constructor stub
+	}
+
+	public StoricoCommesseListResponse(Esito esito, List<StoricoCommesse> storicoCommesseList) {
+		super(esito);
+		this.storicoCommesseList = storicoCommesseList;
+	}
 
 	public List<StoricoCommesse> getStoricoCommesseList() {
 		return storicoCommesseList;
@@ -16,21 +31,6 @@ public class StoricoCommesseListResponse {
 
 	public void setStoricoCommesseList(List<StoricoCommesse> storicoCommesseList) {
 		this.storicoCommesseList = storicoCommesseList;
-	}
-
-	public StoricoCommesseListResponse(List<StoricoCommesse> storicoCommesseList) {
-		super();
-		this.storicoCommesseList = storicoCommesseList;
-	}
-
-	public StoricoCommesseListResponse() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "StoricoCommesseListResponse [storicoCommesseList=" + storicoCommesseList + "]";
 	}
 
 	@Override
@@ -50,16 +50,4 @@ public class StoricoCommesseListResponse {
 		return Objects.equals(storicoCommesseList, other.storicoCommesseList);
 	}
 
-	public void setList(List<StoricoCommesse> commesse) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void setEsito(Esito esito) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	
 }
