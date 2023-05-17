@@ -18,21 +18,21 @@ import it.sincrono.services.exceptions.ServiceException;
 public class StoricoCommesseServiceImpl implements StoricoCommesseService {
 
 	@Autowired
-	public StoricoCommesseRepository StoricoCommesseRepository;
+	public StoricoCommesseRepository storicoCommesseRepository;
 
 	@Override
 	public List<StoricoCommesse> listStoricoCommesse() throws ServiceException {
 
 		List<StoricoCommesse> storicoCommesse = null;
 
-		storicoCommesse = StoricoCommesseRepository.findAll();
+		storicoCommesse = storicoCommesseRepository.findAll();
 
 		return storicoCommesse;
 	}
 
 	@Override
 	public StoricoCommesse getStoricoCommesseById(Integer id) throws ServiceException {
-		Optional<StoricoCommesse> storicoCommesse = StoricoCommesseRepository.findById(id);
+		Optional<StoricoCommesse> storicoCommesse = storicoCommesseRepository.findById(id);
 		if (storicoCommesse.isPresent()) {
 			return storicoCommesse.get();
 		}
@@ -41,7 +41,7 @@ public class StoricoCommesseServiceImpl implements StoricoCommesseService {
 
 	@Override
 	public void insert(StoricoCommesse storicoCommesse) throws ServiceException {
-		StoricoCommesseRepository.saveAndFlush(storicoCommesse);
+		storicoCommesseRepository.saveAndFlush(storicoCommesse);
 
 	}
 
@@ -49,9 +49,9 @@ public class StoricoCommesseServiceImpl implements StoricoCommesseService {
 	public void update(StoricoCommesse storicoCommesse) throws ServiceException {
 		try {
 
-			StoricoCommesse currentStoricoCommesse = StoricoCommesseRepository.findById(storicoCommesse.getId()).get();
+			StoricoCommesse currentStoricoCommesse = storicoCommesseRepository.findById(storicoCommesse.getId()).get();
 			currentStoricoCommesse.setId(storicoCommesse.getId());
-			StoricoCommesseRepository.saveAndFlush(storicoCommesse);
+			storicoCommesseRepository.saveAndFlush(storicoCommesse);
 
 		} catch (NoSuchElementException ne) {
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
@@ -66,9 +66,9 @@ public class StoricoCommesseServiceImpl implements StoricoCommesseService {
 	public void delete(Integer id) throws ServiceException {
 
 		try {
-			StoricoCommesse storicoCommesse = StoricoCommesseRepository.findById(id).get();
-			StoricoCommesseRepository.delete(storicoCommesse);
-			StoricoCommesseRepository.flush();
+			StoricoCommesse storicoCommesse = storicoCommesseRepository.findById(id).get();
+			storicoCommesseRepository.delete(storicoCommesse);
+			storicoCommesseRepository.flush();
 
 		} catch (NoSuchElementException ne) {
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
