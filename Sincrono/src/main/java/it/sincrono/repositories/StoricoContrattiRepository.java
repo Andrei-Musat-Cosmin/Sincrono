@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
 
-import it.sincrono.entities.StoricoCommesse;
+import it.sincrono.entities.StoricoContratti;
 
 @Repository
-public interface StoricoCommesseRepository extends JpaRepository<StoricoCommesse, Integer> {
+public interface StoricoContrattiRepository  extends JpaRepository<StoricoContratti, Integer>  {
 
 }
