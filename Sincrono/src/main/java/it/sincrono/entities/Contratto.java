@@ -1,6 +1,7 @@
 package it.sincrono.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,9 +9,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "contratto")
 public class Contratto {
 
 	@Id
@@ -18,21 +21,26 @@ public class Contratto {
 	@Column(name = "id")
 	private Integer id;
 
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "id_tipo_contratto")
 	private TipoContratto tipoContratto;
-	@OneToMany
+
+	@ManyToOne
 	@JoinColumn(name = "id_tipo_livello")
 	private LivelloContratto livelloContratto;
-	@OneToMany
+
+	@ManyToOne
 	@JoinColumn(name = "id_tipo_societa")
 	private TipoSocieta tipoSocieta;
-	@OneToMany
+
+	@ManyToOne
 	@JoinColumn(name = "id_contratto_nazionale")
-	private ContrattoNazionale contarttoNazionale;
-	@OneToMany
+	private ContrattoNazionale contrattoNazionale;
+
+	@ManyToOne
 	@JoinColumn(name = "id_apprendistato")
 	private Apprendistato apprendistato;
+
 	@Column
 	private Boolean attivo;
 
@@ -129,6 +137,16 @@ public class Contratto {
 	@Column
 	private String canale_reclutamento;
 
+	transient private List<Object> organico;
+
+	public List<Object> getOrganico() {
+		return organico;
+	}
+
+	public void setOrganico(List<Object> organico) {
+		this.organico = organico;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -161,12 +179,12 @@ public class Contratto {
 		this.tipoSocieta = tipoSocieta;
 	}
 
-	public ContrattoNazionale getContarttoNazionale() {
-		return contarttoNazionale;
+	public ContrattoNazionale getContrattoNazionale() {
+		return contrattoNazionale;
 	}
 
-	public void setContarttoNazionale(ContrattoNazionale contarttoNazionale) {
-		this.contarttoNazionale = contarttoNazionale;
+	public void setContrattoNazionale(ContrattoNazionale contrattoNazionale) {
+		this.contrattoNazionale = contrattoNazionale;
 	}
 
 	public Apprendistato getApprendistato() {
@@ -434,7 +452,7 @@ public class Contratto {
 	}
 
 	public Contratto(Integer id, TipoContratto tipoContratto, LivelloContratto livelloContratto,
-			TipoSocieta tipoSocieta, ContrattoNazionale contarttoNazionale, Apprendistato apprendistato, Boolean attivo,
+			TipoSocieta tipoSocieta, ContrattoNazionale contrattoNazionale, Apprendistato apprendistato, Boolean attivo,
 			String sede_assunzione, String qualifica, Date data_assunzione, Date data_inizio_prova,
 			Date data_fine_prova, Date data_fine_rapporto, Integer mesi_durata, Integer livello_iniziale,
 			Integer livello_attuale, Integer livello_finale, Boolean dimissioni, String part_time, String part_timeA,
@@ -448,7 +466,7 @@ public class Contratto {
 		this.tipoContratto = tipoContratto;
 		this.livelloContratto = livelloContratto;
 		this.tipoSocieta = tipoSocieta;
-		this.contarttoNazionale = contarttoNazionale;
+		this.contrattoNazionale = contrattoNazionale;
 		this.apprendistato = apprendistato;
 		this.attivo = attivo;
 		this.sede_assunzione = sede_assunzione;

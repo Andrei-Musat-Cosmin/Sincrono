@@ -1,9 +1,6 @@
 package it.sincrono.controllers;
 
-
-
 import java.util.List;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import it.sincrono.beans.Esito;
-
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.requests.AnagraficaRequest;
@@ -25,9 +21,9 @@ import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.costants.ControllerMaps;
 import it.sincrono.services.exceptions.ServiceException;
 
-
+//@RestController
 public class AnagraficaController {
-	
+
 	@Autowired
 	private AnagraficaService anagraficaService;
 
@@ -57,7 +53,7 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-	
+
 	@RequestMapping(value = "/anagrafica-list", method = RequestMethod.GET, produces = ControllerMaps.JSON)
 	public @ResponseBody HttpEntity<AnagraficaListResponse> getAll() {
 
@@ -84,90 +80,88 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-	
+
 	@RequestMapping(value = "/anagrafica", method = RequestMethod.POST, produces = ControllerMaps.JSON)
 	public @ResponseBody HttpEntity<GenericResponse> insert(@RequestBody AnagraficaRequest anagraficaRequest) {
-		
+
 		HttpEntity<GenericResponse> httpEntity = null;
 
-        GenericResponse genericResponse = new GenericResponse();
+		GenericResponse genericResponse = new GenericResponse();
 
-        try {
-            System.out.println("START invocation insert(ruolo) of controller layer");
+		try {
+			System.out.println("START invocation insert(ruolo) of controller layer");
 
-            anagraficaService.insert(anagraficaRequest.getAnagrafica());
+			anagraficaService.insert(anagraficaRequest.getAnagrafica());
 
-            genericResponse.setEsito(new Esito());
+			genericResponse.setEsito(new Esito());
 
-            httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
-            System.out.println("END invocation insert(ruolo) of controller layer");
+			System.out.println("END invocation insert(ruolo) of controller layer");
 
-        } catch(ServiceException e) {
-            genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-            httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-        }
+		} catch (ServiceException e) {
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
 
-        return httpEntity;
+		return httpEntity;
 	}
-	
-	
+
 	@RequestMapping(value = "/anagrafica", method = RequestMethod.PUT, consumes = ControllerMaps.JSON)
 	public @ResponseBody HttpEntity<GenericResponse> update(@RequestBody AnagraficaRequest anagraficaRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
 
-        GenericResponse genericResponse = new GenericResponse();
+		GenericResponse genericResponse = new GenericResponse();
 
-        try {
-            System.out.println("START invocation insert(ruolo) of controller layer");
+		try {
+			System.out.println("START invocation insert(ruolo) of controller layer");
 
-            anagraficaService.update(anagraficaRequest.getAnagrafica());
+			anagraficaService.update(anagraficaRequest.getAnagrafica());
 
-            genericResponse.setEsito(new Esito());
+			genericResponse.setEsito(new Esito());
 
-            httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
-            System.out.println("END invocation insert(ruolo) of controller layer");
+			System.out.println("END invocation insert(ruolo) of controller layer");
 
-        } catch(ServiceException e) {
-            genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-            httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-        }
+		} catch (ServiceException e) {
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
 
-        return httpEntity;
+		return httpEntity;
 	}
-	
+
 	@RequestMapping(value = "/anagrafica/{id}", method = RequestMethod.DELETE, consumes = ControllerMaps.JSON)
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer ID) {
 
-
 		HttpEntity<GenericResponse> httpEntity = null;
 
-        GenericResponse genericResponse = new GenericResponse();
+		GenericResponse genericResponse = new GenericResponse();
 
-        try {
-            System.out.println("START invocation insert(ruolo) of controller layer");
+		try {
+			System.out.println("START invocation insert(ruolo) of controller layer");
 
-            anagraficaService.delete(ID);
+			anagraficaService.delete(ID);
 
-            genericResponse.setEsito(new Esito());
+			genericResponse.setEsito(new Esito());
 
-            httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
-            System.out.println("END invocation insert(ruolo) of controller layer");
+			System.out.println("END invocation insert(ruolo) of controller layer");
 
-        } catch(ServiceException e) {
-            genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-            httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-        }
+		} catch (ServiceException e) {
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
 
-        return httpEntity;
+		return httpEntity;
 	}
-	
+
 	@RequestMapping(value = "/anagrafica", method = RequestMethod.POST, produces = ControllerMaps.JSON)
 	public @ResponseBody HttpEntity<AnagraficaListResponse> Search(@RequestBody AnagraficaDto anagraficaDto) {
-		
+
 		HttpEntity<AnagraficaListResponse> httpEntity = null;
 
 		AnagraficaListResponse anagraficaListResponse = new AnagraficaListResponse();

@@ -17,4 +17,5 @@ public interface ContrattoService {
 
 	public void delete(Integer id) throws ServiceException;
 
+	public List<Object> search() throws ServiceException;
 }

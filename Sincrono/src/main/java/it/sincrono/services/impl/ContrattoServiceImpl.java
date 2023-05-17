@@ -75,4 +75,16 @@ public class ContrattoServiceImpl implements ContrattoService {
 		}
 	}
 
+	@Override
+	public List<Object> search() throws ServiceException {
+		List<Object> organico;
+		try {
+			organico = contrattoRepository.search();
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+		return organico;
+	}
+
 }

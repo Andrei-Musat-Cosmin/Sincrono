@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import it.sincrono.entities.Contratto;
 
 @Repository
-public interface ContrattoRepository extends JpaRepository<Contratto, Integer> {
+public interface ContrattoRepository extends JpaRepository<Contratto, Integer>, ContrattoCustomRepository {
 
 }

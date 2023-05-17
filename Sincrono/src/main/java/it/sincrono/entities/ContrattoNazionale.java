@@ -1,16 +1,20 @@
 package it.sincrono.entities;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "tipo_contratto_nazionale")
 public class ContrattoNazionale {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
+
 	@Column
 	private String descrizione;
 
@@ -40,6 +44,5 @@ public class ContrattoNazionale {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 }

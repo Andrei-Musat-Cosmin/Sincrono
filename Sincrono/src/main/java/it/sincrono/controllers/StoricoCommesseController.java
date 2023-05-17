@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.StoricoCommesse;
@@ -21,6 +22,7 @@ import it.sincrono.responses.StoricoCommesseResponse;
 import it.sincrono.services.StoricoCommesseService;
 import it.sincrono.services.exceptions.ServiceException;
 
+@RestController
 public class StoricoCommesseController {
 
 	@Autowired
@@ -41,7 +43,7 @@ public class StoricoCommesseController {
 			httpEntity = new HttpEntity<StoricoCommesseListResponse>(StoricoCommesseListResponse);
 			System.out.println("bau");
 		} catch (Exception e) {
-			 StoricoCommesseListResponse.setEsito(new Esito(404, e.getMessage(), null));
+			StoricoCommesseListResponse.setEsito(new Esito(404, e.getMessage(), null));
 			httpEntity = new HttpEntity<StoricoCommesseListResponse>(StoricoCommesseListResponse);
 		}
 		return httpEntity;
@@ -71,7 +73,8 @@ public class StoricoCommesseController {
 	}
 
 	@PostMapping("/StoricoCommesse")
-	public @ResponseBody HttpEntity<GenericResponse> saveStoricoCommesse(@RequestBody StoricoCommesseRequest StoricoCommesseRequest) {
+	public @ResponseBody HttpEntity<GenericResponse> saveStoricoCommesse(
+			@RequestBody StoricoCommesseRequest StoricoCommesseRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
 		GenericResponse genericResponse = new GenericResponse();
@@ -90,7 +93,8 @@ public class StoricoCommesseController {
 	}
 
 	@PutMapping("/StoricoCommesse")
-	public @ResponseBody HttpEntity<GenericResponse> updateStoricoCommesse(@RequestBody StoricoCommesseRequest StoricoCommesseRequest) {
+	public @ResponseBody HttpEntity<GenericResponse> updateStoricoCommesse(
+			@RequestBody StoricoCommesseRequest StoricoCommesseRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
 		GenericResponse genericResponse = new GenericResponse();
@@ -130,5 +134,5 @@ public class StoricoCommesseController {
 
 		return httpEntity;
 	}
-	
+
 }

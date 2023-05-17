@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Contratto;
@@ -21,18 +22,33 @@ import it.sincrono.responses.GenericResponse;
 import it.sincrono.services.ContrattoService;
 import it.sincrono.services.exceptions.ServiceException;
 
+@RestController
 public class ContrattoController {
 
 	@Autowired
 	private ContrattoService contrattoService;
 
-//	@GetMapping("/contratto-list")
-//	public @ResponseBody HttpEntity<ContrattoDTO> filter(){
-//		HttpEntity<ContrattoDTO> httpEntity;
-//		
-//		
-//	}
-	
+	@PostMapping("/organico")
+	public @ResponseBody HttpEntity<Contratto> search() {
+		HttpEntity<Contratto> httpEntity;
+
+		ContrattoResponse contrattoResponse = new ContrattoResponse();
+
+		Contratto contratto = new Contratto();
+		try {
+
+			contrattoResponse.setEsito(new Esito());
+
+			contratto.setOrganico(contrattoService.search());
+
+			httpEntity = new HttpEntity<Contratto>(contratto);
+		} catch (Exception e) {
+			contrattoResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+			httpEntity = new HttpEntity<Contratto>(contratto);
+		}
+		return httpEntity;
+	}
+
 	@GetMapping("/contratto-list")
 	public @ResponseBody HttpEntity<ContrattoListResponse> fetchAllContratto() {
 		HttpEntity<ContrattoListResponse> httpEntity;
