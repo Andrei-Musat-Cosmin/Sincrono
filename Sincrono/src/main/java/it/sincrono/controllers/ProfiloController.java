@@ -2,11 +2,14 @@ package it.sincrono.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Profilo;
@@ -15,9 +18,9 @@ import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.ProfiloResponse;
 import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.ProfiloService;
-import it.sincrono.services.costants.ControllerMaps;
 import it.sincrono.services.exceptions.ServiceException;
 
+@RestController
 public class ProfiloController {
 	
 	@Autowired
@@ -26,7 +29,7 @@ public class ProfiloController {
 	@Autowired
 	private AnagraficaService anagraficaService;
 	
-	@RequestMapping(value = "/profilo/{id}", method = RequestMethod.GET, produces = ControllerMaps.JSON)
+	@GetMapping("/profilo/{id}")
     public @ResponseBody HttpEntity<ProfiloResponse> get(@PathVariable("id") Integer Id) {
 
         HttpEntity<ProfiloResponse> httpEntity = null;
@@ -54,7 +57,7 @@ public class ProfiloController {
         return httpEntity;
     }
 
-	@RequestMapping(value = "/profilo", method = RequestMethod.POST, consumes = ControllerMaps.JSON)
+	@PostMapping("/profilo")
     public @ResponseBody HttpEntity<GenericResponse> insert(@RequestBody ProfiloRequest profiloRequest) {
 
         HttpEntity<GenericResponse> httpEntity = null;
@@ -80,7 +83,7 @@ public class ProfiloController {
         return httpEntity;
     }
 
-	@RequestMapping(value = "/profilo", method = RequestMethod.PUT, consumes = ControllerMaps.JSON)
+	@PutMapping("/profilo")
 	public @ResponseBody HttpEntity<GenericResponse> update(@RequestBody ProfiloRequest profiloRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -106,7 +109,7 @@ public class ProfiloController {
 		return httpEntity;
 	}
 
-	@RequestMapping(value = "/profilo/{id}", method = RequestMethod.DELETE, consumes = ControllerMaps.JSON)
+	@DeleteMapping("/profilo/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer ID) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
