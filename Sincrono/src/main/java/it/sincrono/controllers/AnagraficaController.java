@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Anagrafica;
@@ -18,16 +21,15 @@ import it.sincrono.responses.AnagraficaListResponse;
 import it.sincrono.responses.AnagraficaResponse;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.services.AnagraficaService;
-import it.sincrono.services.costants.ControllerMaps;
 import it.sincrono.services.exceptions.ServiceException;
 
-//@RestController
+@RestController
 public class AnagraficaController {
 
 	@Autowired
 	private AnagraficaService anagraficaService;
 
-	@RequestMapping(value = "/anagrafica/{id}", method = RequestMethod.GET, produces = ControllerMaps.JSON)
+	@GetMapping("/angrafica/{id}")
 	public @ResponseBody HttpEntity<AnagraficaResponse> getById(@PathVariable Integer id) {
 
 		HttpEntity<AnagraficaResponse> httpEntity = null;
@@ -53,8 +55,8 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-
-	@RequestMapping(value = "/anagrafica-list", method = RequestMethod.GET, produces = ControllerMaps.JSON)
+	
+	@GetMapping("/anagrafica-list")
 	public @ResponseBody HttpEntity<AnagraficaListResponse> getAll() {
 
 		HttpEntity<AnagraficaListResponse> httpEntity = null;
@@ -81,7 +83,7 @@ public class AnagraficaController {
 		return httpEntity;
 	}
 
-	@RequestMapping(value = "/anagrafica", method = RequestMethod.POST, produces = ControllerMaps.JSON)
+	@PostMapping("/Anagrafica")
 	public @ResponseBody HttpEntity<GenericResponse> insert(@RequestBody AnagraficaRequest anagraficaRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -107,7 +109,7 @@ public class AnagraficaController {
 		return httpEntity;
 	}
 
-	@RequestMapping(value = "/anagrafica", method = RequestMethod.PUT, consumes = ControllerMaps.JSON)
+	@PutMapping("/angrafica")
 	public @ResponseBody HttpEntity<GenericResponse> update(@RequestBody AnagraficaRequest anagraficaRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -133,7 +135,7 @@ public class AnagraficaController {
 		return httpEntity;
 	}
 
-	@RequestMapping(value = "/anagrafica/{id}", method = RequestMethod.DELETE, consumes = ControllerMaps.JSON)
+	@DeleteMapping("/anagrafica/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer ID) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -159,7 +161,7 @@ public class AnagraficaController {
 		return httpEntity;
 	}
 
-	@RequestMapping(value = "/anagrafica", method = RequestMethod.POST, produces = ControllerMaps.JSON)
+	/*@PostMapping("/Anagrafica-filter")
 	public @ResponseBody HttpEntity<AnagraficaListResponse> Search(@RequestBody AnagraficaDto anagraficaDto) {
 
 		HttpEntity<AnagraficaListResponse> httpEntity = null;
@@ -168,9 +170,9 @@ public class AnagraficaController {
 		try {
 			System.out.println("START invocation getAll() of controller layer");
 
-			List<Anagrafica> anagrafiche = anagraficaService.search(anagraficaDto);
+			List<Object> anagrafiche = anagraficaService.search(anagraficaDto);
 
-			anagraficaListResponse.setList(anagrafiche);
+			//anagraficaListResponse.setList(anagrafiche);
 			anagraficaListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<AnagraficaListResponse>(anagraficaListResponse);
@@ -183,6 +185,6 @@ public class AnagraficaController {
 		}
 
 		return httpEntity;
-	}
+	}*/
 
 }

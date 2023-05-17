@@ -148,10 +148,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	
 
-	@Override
-	public List<Anagrafica> search(AnagraficaDto anagraficaDto) throws ServiceException {
+	/*@Override
+	public List<Object> search(AnagraficaDto anagraficaDto) throws ServiceException {
 
-		List<Anagrafica> list = null;
+		List<Object> list = null;
 
 		try {
 			list = anagraficaRepository.search(anagraficaDto);
@@ -161,7 +161,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		}
 
 		return list;
-	}
+	}*/
 
 
 	

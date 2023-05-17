@@ -1,7 +1,5 @@
 package it.sincrono.controllers;
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,75 +10,74 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import it.sincrono.beans.Esito;
-import it.sincrono.entities.StoricoCommesse;
-import it.sincrono.requests.StoricoCommesseRequest;
+import it.sincrono.entities.StoricoContratti;
+import it.sincrono.requests.StoricoContrattiRequest;
 import it.sincrono.responses.GenericResponse;
-import it.sincrono.responses.StoricoCommesseListResponse;
-import it.sincrono.responses.StoricoCommesseResponse;
-import it.sincrono.services.StoricoCommesseService;
+import it.sincrono.responses.StoricoContrattiListResponse;
+import it.sincrono.responses.StoricoContrattiResponse;
 import it.sincrono.services.exceptions.ServiceException;
+import it.sincrono.services.StoricoContrattiService;
 
 @RestController
 public class StoricoContrattiController {
 
 	@Autowired
-	private StoricoCommesseService StoricoCommesseService;
+	private StoricoContrattiService storicoContrattiService;
 
-	@GetMapping("/StoricoCommesse")
-	public @ResponseBody HttpEntity<StoricoCommesseListResponse> fetchAllStoricoCommesse() {
-		HttpEntity<StoricoCommesseListResponse> httpEntity;
+	@GetMapping("/Storico-Contratti")
+	public @ResponseBody HttpEntity<StoricoContrattiListResponse> fetchAllStoricoContratti() {
+		HttpEntity<StoricoContrattiListResponse> httpEntity;
 
-		StoricoCommesseListResponse StoricoCommesseListResponse = new StoricoCommesseListResponse();
+		StoricoContrattiListResponse StoricoContrattiListResponse = new StoricoContrattiListResponse();
 
 		try {
-			List<StoricoCommesse> commesse = StoricoCommesseService.listStoricoCommesse();
+			List<StoricoContratti> contratti = storicoContrattiService.listStoricoContratti();
 
-			StoricoCommesseListResponse.setList(commesse);
-			StoricoCommesseListResponse.setEsito(new Esito());
+			StoricoContrattiListResponse.setList(contratti);
+			StoricoContrattiListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<StoricoCommesseListResponse>(StoricoCommesseListResponse);
+			httpEntity = new HttpEntity<StoricoContrattiListResponse>(StoricoContrattiListResponse);
 			System.out.println("bau");
 		} catch (Exception e) {
-			StoricoCommesseListResponse.setEsito(new Esito(404, e.getMessage(), null));
-			httpEntity = new HttpEntity<StoricoCommesseListResponse>(StoricoCommesseListResponse);
+			StoricoContrattiListResponse.setEsito(new Esito(404, e.getMessage(), null));
+			httpEntity = new HttpEntity<StoricoContrattiListResponse>(StoricoContrattiListResponse);
 		}
 		return httpEntity;
 
 	}
 
-	@GetMapping("/StoricoCommesse/{id}")
-	public @ResponseBody HttpEntity<StoricoCommesseResponse> getStoricoCommesseById(@PathVariable Integer id) {
+	@GetMapping("/Storico-Contratti/{id}")
+	public @ResponseBody HttpEntity<StoricoContrattiResponse> getStoricoContrattiById(@PathVariable Integer id) {
 
-		HttpEntity<StoricoCommesseResponse> httpEntity;
+		HttpEntity<StoricoContrattiResponse> httpEntity;
 
-		StoricoCommesseResponse StoricoCommesseResponse = new StoricoCommesseResponse();
+		StoricoContrattiResponse StoricoContrattiResponse = new StoricoContrattiResponse();
 
 		try {
-			StoricoCommesse StoricoCommesse = StoricoCommesseService.getStoricoCommesseById(id);
+			StoricoContratti storicoContratti = storicoContrattiService.getStoricoContrattiById(id);
 
-			StoricoCommesseResponse.setStoricoCommesse(StoricoCommesse);
-			StoricoCommesseResponse.setEsito(new Esito());
+			StoricoContrattiResponse.setStoricoContratti(storicoContratti);
+			StoricoContrattiResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<StoricoCommesseResponse>(StoricoCommesseResponse);
+			httpEntity = new HttpEntity<StoricoContrattiResponse>(StoricoContrattiResponse);
 			System.out.println("ciao");
 		} catch (Exception e) {
-			StoricoCommesseResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
-			httpEntity = new HttpEntity<StoricoCommesseResponse>(StoricoCommesseResponse);
+			StoricoContrattiResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
+			httpEntity = new HttpEntity<StoricoContrattiResponse>(StoricoContrattiResponse);
 		}
 		return httpEntity;
 	}
 
-	@PostMapping("/StoricoCommesse")
-	public @ResponseBody HttpEntity<GenericResponse> saveStoricoCommesse(
-			@RequestBody StoricoCommesseRequest StoricoCommesseRequest) {
+	@PostMapping("/Storico-Contratti")
+	public @ResponseBody HttpEntity<GenericResponse> saveStoricoContratti(
+			@RequestBody StoricoContrattiRequest StoricoContrattiRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			StoricoCommesseService.insert(StoricoCommesseRequest.getStoricoCommesse());
+			storicoContrattiService.insert(StoricoContrattiRequest.getStoricoContratti());
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -92,15 +89,15 @@ public class StoricoContrattiController {
 		return httpEntity;
 	}
 
-	@PutMapping("/StoricoCommesse")
-	public @ResponseBody HttpEntity<GenericResponse> updateStoricoCommesse(
-			@RequestBody StoricoCommesseRequest StoricoCommesseRequest) {
+	@PutMapping("/Storico-Contratti")
+	public @ResponseBody HttpEntity<GenericResponse> updateStoricoContratti(
+			@RequestBody StoricoContrattiRequest StoricoContrattiRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			StoricoCommesseService.update(StoricoCommesseRequest.getStoricoCommesse());
+			storicoContrattiService.update(StoricoContrattiRequest.getStoricoContratti());
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -112,7 +109,7 @@ public class StoricoContrattiController {
 		return httpEntity;
 	}
 
-	@DeleteMapping("/StoricoCommesse/{id}")
+	@DeleteMapping("/StoricoContratti/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
 
 		HttpEntity<GenericResponse> httpEntity;
@@ -121,7 +118,7 @@ public class StoricoContrattiController {
 
 		try {
 
-			StoricoCommesseService.delete(id);
+			storicoContrattiService.delete(id);
 
 			genericResponse.setEsito(new Esito());
 

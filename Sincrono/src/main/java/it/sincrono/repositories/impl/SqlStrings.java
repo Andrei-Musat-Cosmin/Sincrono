@@ -3,7 +3,7 @@ package it.sincrono.repositories.impl;
 public interface SqlStrings {
 
 	//SQL ANAGRAFICA
-	public final String SQL_LIST_ANAGRAFICA_FILTER = "SELECT new Anagrafica(a.id ,a.utente , a.nome , a.cognome ,a.codiceFiscale) FROM Anagrafica a WHERE 1=1 {0} ORDER BY a.nome ,a.cognome";
+	public final String SQL_LIST_ANAGRAFICA_FILTER = "SELECT a.nome,a.cognome,t.azienda,g.inquadramento,c.data_assunzione,c.data_fine_rapporto,c.ral_annua,t.cliente FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = b.id_anagrafica INNER JOIN commessa t ON d.id_commessa = t.id INNER JOIN tipo_livelli_contrattuali G ON g.id=c.id_tipo_livello WHERE 1=1 AND {0}";
 
 	
 	//SQL CONTRATTI
@@ -23,5 +23,9 @@ public interface SqlStrings {
 	public final String SQL_GET_PRIVILEGIO_ESISTENTE = "SELECT CASE WHEN COUNT(a) > 0 THEN true ELSE false END FROM Privilegio a WHERE a.ruolo.id = :idRuolo AND a.funzione.id = :idFunzione";
 	public final String SQL_GET_FUNZIONI_FIGLIE = "SELECT a FROM Funzione a WHERE a.funzione.id = id";
 	public final String SQL_GET_RUOLO_UTENTE = "SELECT r.id FROM ruoli r INNER JOIN profili a ON r.id = a.id_ruolo INNER JOIN utenti u ON u.id = a.id_utente WHERE 1=1 AND u.username = '{0}'";
+
+
+		
+	
 	
 }

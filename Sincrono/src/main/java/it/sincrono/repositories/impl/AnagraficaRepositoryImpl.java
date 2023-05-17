@@ -15,10 +15,10 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 	
 	
 
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	@Override
-	public List<Anagrafica> search(AnagraficaDto anagraficaDto) throws RepositoryException {
-		List<Anagrafica> list;
+	public List<Object> search(AnagraficaDto anagraficaDto) throws RepositoryException {
+		List<AnagraficaDto> list;
 		try {
 
 			String queryString = SqlStrings.SQL_LIST_ANAGRAFICA_FILTER;
@@ -28,72 +28,48 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 				if (anagraficaDto.getNome() != null) {
 
-					subString = "AND anagrafica.nome LIKE :nome ";
+					subString = "AND a.nome LIKE '"+anagraficaDto.getNome()+"'";
 				}
 				if (anagraficaDto.getCognome() != null) {
-					subString += "AND anagrafica.cognome LIKE :cognome ";
+					subString += "AND a.cognome LIKE '"+anagraficaDto.getCognome()+"'";
 				}
 				if (anagraficaDto.getContratto().getRal_annua() != null) {
-					subString += "AND anagrafica.contratto.ral_annua LIKE :ral_annua ";
+					subString += "AND c.ral_annua LIKE '"+anagraficaDto.getContratto().getRal_annua()+"'";
 				}
 				if (anagraficaDto.getContratto().getData_assunzione()!= null) {
-					subString += "AND anagrafica.contratto.data_assunzione LIKE :data_assunzione ";
+					subString += "AND c.data_assunzione LIKE '"+anagraficaDto.getContratto().getData_assunzione()+"'";
 				}
 				if (anagraficaDto.getContratto().getData_fine_rapporto()!= null) {
-					subString += "AND anagrafica.contratto.data_fine_rapporto LIKE :data_fine_rapporto ";
+					subString += "AND c.data_fine_rapporto LIKE '"+anagraficaDto.getContratto().getData_fine_rapporto()+"'";
 				}
-				if (anagraficaDto.getContratto().getTipoContratto()!= null) {
-					subString += "AND anagrafica.contratto.tipoContratto LIKE :tipoContratto ";
+				if (anagraficaDto.getContratto().getLivelloContratto().getDescrizione()!= null) {
+					subString += "AND g.descrizione LIKE  '"+anagraficaDto.getContratto().getLivelloContratto().getDescrizione()+"'";
 				}
 				if (anagraficaDto.getCommessa().getAzienda()!= null) {
-					subString += "AND anagrafica.commessa.cliente LIKE :cliente ";
+					subString += "AND t.cliente LIKE '"+anagraficaDto.getCommessa().getAzienda()+"'";
 				}
 				if (anagraficaDto.getCommessa().getCliente()!= null) {
-					subString += "AND anagrafica.commessa.azienda LIKE :azienda ";
+					subString += "AND t.azienda LIKE '"+anagraficaDto.getCommessa().getCliente()+"'";
 				}
-
-
-
-
 			}
 			queryString = queryString.replace("{0}", subString);
-			Query query = entityManager.createQuery(queryString);
-			if (anagraficaDto != null) {
-				if (anagraficaDto.getNome() != null) {
-					query.setParameter("nome", anagraficaDto.getNome() + "%");
-				}
-			if (anagraficaDto.getCognome() != null) {
-				query.setParameter("cognome", anagraficaDto.getCognome() + "%");
-			}
-			if (anagraficaDto.getContratto().getRal_annua() != null) {
-				query.setParameter("ral_annua", anagraficaDto.getContratto().getRal_annua() + "%");
-			}
-			if (anagraficaDto.getContratto().getData_assunzione()!= null) {
-				query.setParameter("data_assunzione", anagraficaDto.getContratto().getData_assunzione() + "%");
-			}
-			if (anagraficaDto.getContratto().getData_fine_rapporto()!= null) {
-				query.setParameter("data_fine_rapporto", anagraficaDto.getContratto().getData_fine_rapporto()+ "%");
-			}
-			if (anagraficaDto.getContratto().getTipoContratto()!= null) {
-				query.setParameter("tipoContratto", anagraficaDto.getContratto().getTipoContratto() + "%");
-			}
-			if (anagraficaDto.getCommessa().getAzienda()!= null) {
-				query.setParameter("cliente", anagraficaDto.getCommessa().getAzienda() + "%");
-			}
-			if (anagraficaDto.getCommessa().getCliente()!= null) {
-				query.setParameter("azienda", anagraficaDto.getCommessa().getCliente() + "%");
-			}
-			}
-
-			list = query.getResultList();
+			Query query = entityManager.createNativeQuery(queryString);
+			
+			List<Object> listFilter = query.getResultList();
+			
+			
+			return listFilter;
+				
+				
+			
 
 			
 		} catch (Exception e) {
 			throw new RepositoryException(e);
 		}
 
-		return list;
+		return listFilter;
 
-	}
+	}*/
 
 }
