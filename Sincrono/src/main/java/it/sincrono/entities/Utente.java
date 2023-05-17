@@ -19,6 +19,9 @@ public class Utente {
 
 	@Column(name = "username")
 	private String username;
+	
+	@Column(name = "token_password")
+	private String token;
 
 	@Column(name = "attivo")
 	private Boolean attivo;

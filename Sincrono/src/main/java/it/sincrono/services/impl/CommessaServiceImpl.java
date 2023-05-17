@@ -16,64 +16,75 @@ import it.sincrono.services.exceptions.ServiceException;
 
 @Service
 public class CommessaServiceImpl implements CommessaService {
-	
 
-		@Autowired
-		private CommessaRepository CommessaRepository;
-		
-		@Override
-		public List<Commessa> listCommessa() throws ServiceException {
-			List<Commessa> commessa = CommessaRepository.findAll();
-			return commessa;
+	@Autowired
+	private CommessaRepository commessaRepository;
+
+	@Override
+	public List<Commessa> listCommessa() throws ServiceException {
+		List<Commessa> commessa = commessaRepository.findAll();
+		return commessa;
+	}
+
+	@Override
+	public Commessa getCommessaById(Integer id) throws ServiceException {
+		Optional<Commessa> commessa = commessaRepository.findById(id);
+		if (commessa.isPresent()) {
+			return commessa.get();
 		}
+		return null;
+	}
 
-		@Override
-		public Commessa getCommessaById(Integer id) throws ServiceException {
-			Optional<Commessa> commessa = CommessaRepository.findById(id);
-			if (commessa.isPresent()) {
-				return commessa.get();
-			}
-			return null;
+	@Override
+	public void insert(Commessa commessa) {
+		commessaRepository.saveAndFlush(commessa);
+	}
+
+	@Override
+	public void update(Commessa commessa) throws ServiceException {
+		try {
+
+			Commessa currentCommessa = commessaRepository.findById(commessa.getId()).get();
+
+			currentCommessa.setId(commessa.getId());
+
+			commessaRepository.saveAndFlush(currentCommessa);
+
+		} catch (NoSuchElementException ne) {
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (DataIntegrityViolationException de) {
+			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
+	}
 
-		@Override
-		public void insert(Commessa commessa) {
-			CommessaRepository.saveAndFlush(commessa);
+	public void delete(Integer id) throws ServiceException {
+
+		try {
+			Commessa commessa = commessaRepository.findById(id).get();
+
+			commessaRepository.delete(commessa);
+			commessaRepository.flush();
+
+		} catch (NoSuchElementException ne) {
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (DataIntegrityViolationException de) {
+			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
+	}
 
-		@Override
-		public void update(Commessa commessa) throws ServiceException {
-			try {
-
-				Commessa currentCommessa = CommessaRepository.findById(commessa.getId()).get();
-
-				currentCommessa.setId(commessa.getId());
-
-				CommessaRepository.saveAndFlush(currentCommessa);
-
-			} catch (NoSuchElementException ne) {
-				throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-			} catch (DataIntegrityViolationException de) {
-				throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-			} catch (Exception e) {
-				throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-			}
+	@Override
+	public List<Object> view() throws ServiceException {
+		List<Object> dashboard;
+		try {
+			dashboard = commessaRepository.view();
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
-
-		public void delete(Integer id) throws ServiceException {
-
-			try {
-				Commessa commessa = CommessaRepository.findById(id).get();
-
-				CommessaRepository.delete(commessa);
-				CommessaRepository.flush();
-
-			} catch (NoSuchElementException ne) {
-				throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-			} catch (DataIntegrityViolationException de) {
-				throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-			} catch (Exception e) {
-				throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-			}
-		}
+		return dashboard;
+	}
 }

@@ -24,4 +24,12 @@ public class CommessaRequest extends GenericRequest {
 		this.Commessa = Commessa;
 	}
 
+	@Override
+	public String toString() {
+		return "CommessaRequest [Commessa=" + Commessa + ", getCommessa()=" + getCommessa() + ", toString()="
+				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+	}
+
+	
+
 }

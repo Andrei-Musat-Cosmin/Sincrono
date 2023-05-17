@@ -17,4 +17,6 @@ public interface CommessaService {
 
 	public void delete(Integer id) throws ServiceException;
 
+	public List<Object> view() throws ServiceException;
+
 }
