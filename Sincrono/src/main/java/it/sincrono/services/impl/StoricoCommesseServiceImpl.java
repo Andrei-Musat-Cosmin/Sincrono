@@ -23,7 +23,7 @@ public class StoricoCommesseServiceImpl implements StoricoCommesseService {
 	@Override
 	public List<StoricoCommesse> listStoricoCommesse() throws ServiceException {
 
-		List<StoricoCommesse> storicoCommesse = null;
+		List<StoricoCommesse> storicoCommesse;
 
 		storicoCommesse = storicoCommesseRepository.findAll();
 
