@@ -1,7 +1,6 @@
 package it.sincrono.services;
 
 import java.util.List;
-
 import it.sincrono.entities.StoricoContratti;
 import it.sincrono.services.exceptions.ServiceException;
 

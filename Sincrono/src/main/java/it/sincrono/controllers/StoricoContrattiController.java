@@ -29,19 +29,19 @@ public class StoricoContrattiController {
 	public @ResponseBody HttpEntity<StoricoContrattiListResponse> fetchAllStoricoContratti() {
 		HttpEntity<StoricoContrattiListResponse> httpEntity;
 
-		StoricoContrattiListResponse StoricoContrattiListResponse = new StoricoContrattiListResponse();
+		StoricoContrattiListResponse storicoContrattiListResponse = new StoricoContrattiListResponse();
 
 		try {
 			List<StoricoContratti> contratti = storicoContrattiService.listStoricoContratti();
 
-			StoricoContrattiListResponse.setList(contratti);
-			StoricoContrattiListResponse.setEsito(new Esito());
+			storicoContrattiListResponse.setList(contratti);
+			storicoContrattiListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<StoricoContrattiListResponse>(StoricoContrattiListResponse);
+			httpEntity = new HttpEntity<StoricoContrattiListResponse>(storicoContrattiListResponse);
 			System.out.println("bau");
 		} catch (Exception e) {
-			StoricoContrattiListResponse.setEsito(new Esito(404, e.getMessage(), null));
-			httpEntity = new HttpEntity<StoricoContrattiListResponse>(StoricoContrattiListResponse);
+			storicoContrattiListResponse.setEsito(new Esito(404, e.getMessage(), null));
+			httpEntity = new HttpEntity<StoricoContrattiListResponse>(storicoContrattiListResponse);
 		}
 		return httpEntity;
 
@@ -52,32 +52,32 @@ public class StoricoContrattiController {
 
 		HttpEntity<StoricoContrattiResponse> httpEntity;
 
-		StoricoContrattiResponse StoricoContrattiResponse = new StoricoContrattiResponse();
+		StoricoContrattiResponse storicoContrattiResponse = new StoricoContrattiResponse();
 
 		try {
 			StoricoContratti storicoContratti = storicoContrattiService.getStoricoContrattiById(id);
 
-			StoricoContrattiResponse.setStoricoContratti(storicoContratti);
-			StoricoContrattiResponse.setEsito(new Esito());
+			storicoContrattiResponse.setStoricoContratti(storicoContratti);
+			storicoContrattiResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<StoricoContrattiResponse>(StoricoContrattiResponse);
+			httpEntity = new HttpEntity<StoricoContrattiResponse>(storicoContrattiResponse);
 			System.out.println("ciao");
 		} catch (Exception e) {
-			StoricoContrattiResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
-			httpEntity = new HttpEntity<StoricoContrattiResponse>(StoricoContrattiResponse);
+			storicoContrattiResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
+			httpEntity = new HttpEntity<StoricoContrattiResponse>(storicoContrattiResponse);
 		}
 		return httpEntity;
 	}
 
 	@PostMapping("/Storico-Contratti")
 	public @ResponseBody HttpEntity<GenericResponse> saveStoricoContratti(
-			@RequestBody StoricoContrattiRequest StoricoContrattiRequest) {
+			@RequestBody StoricoContrattiRequest storicoContrattiRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			storicoContrattiService.insert(StoricoContrattiRequest.getStoricoContratti());
+			storicoContrattiService.insert(storicoContrattiRequest.getStoricoContratti());
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -91,13 +91,13 @@ public class StoricoContrattiController {
 
 	@PutMapping("/Storico-Contratti")
 	public @ResponseBody HttpEntity<GenericResponse> updateStoricoContratti(
-			@RequestBody StoricoContrattiRequest StoricoContrattiRequest) {
+			@RequestBody StoricoContrattiRequest storicoContrattiRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			storicoContrattiService.update(StoricoContrattiRequest.getStoricoContratti());
+			storicoContrattiService.update(storicoContrattiRequest.getStoricoContratti());
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
