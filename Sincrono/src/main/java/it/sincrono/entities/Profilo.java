@@ -52,6 +52,11 @@ public class Profilo {
 		this.utenteAggiornamento = utenteAggiornamento;
 	}
 
+	public Profilo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -106,11 +111,6 @@ public class Profilo {
 
 	public void setUtenteAggiornamento(String utenteAggiornamento) {
 		this.utenteAggiornamento = utenteAggiornamento;
-	}
-
-	public Profilo() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

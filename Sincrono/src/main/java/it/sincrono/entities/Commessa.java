@@ -2,7 +2,6 @@ package it.sincrono.entities;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Commessa")
+@Table(name = "commessa")
 public class Commessa {
 
 	@Id
@@ -32,12 +31,8 @@ public class Commessa {
 	@Column(name = "distacco")
 	private String distacco;
 
-	// VarChar originariamente su DB
-
 	@Column(name = "data_inizio")
 	private Date dataInizio;
-
-	// VarChar originariamente su DB
 
 	@Column(name = "data_fine")
 	private Date dataFine;
@@ -47,9 +42,6 @@ public class Commessa {
 
 	@Column(name = "tariffa_giornaliera")
 	private String tariffaGiornaliera;
-
-	@Column(name = "attesaLavori")
-	private String attesaLavori;
 
 	@Column(name = "nominativo")
 	private String nominativo;
@@ -62,8 +54,38 @@ public class Commessa {
 
 	@Column(name = "stato")
 	private Boolean stato;
-	
+
+	@Column(name = "attesaLavori")
+	private String attesaLavori;
+
 	transient private List<Object> dashboard;
+
+	public Commessa(Integer id, String cliente, String clienteFinale, String titoloPosizione, String distacco,
+			Date dataInizio, Date dataFine, String costoMese, String tariffaGiornaliera, String nominativo,
+			String azienda, String aziendaDiFatturazioneInterna, Boolean stato, String attesaLavori,
+			List<Object> dashboard) {
+		super();
+		this.id = id;
+		this.cliente = cliente;
+		this.clienteFinale = clienteFinale;
+		this.titoloPosizione = titoloPosizione;
+		this.distacco = distacco;
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
+		this.costoMese = costoMese;
+		this.tariffaGiornaliera = tariffaGiornaliera;
+		this.nominativo = nominativo;
+		this.azienda = azienda;
+		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
+		this.stato = stato;
+		this.attesaLavori = attesaLavori;
+		this.dashboard = dashboard;
+	}
+
+	public Commessa() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -83,14 +105,6 @@ public class Commessa {
 
 	public String getClienteFinale() {
 		return clienteFinale;
-	}
-
-	public List<Object> getDashboard() {
-		return dashboard;
-	}
-
-	public void setDashboard(List<Object> dashboard) {
-		this.dashboard = dashboard;
 	}
 
 	public void setClienteFinale(String clienteFinale) {
@@ -145,14 +159,6 @@ public class Commessa {
 		this.tariffaGiornaliera = tariffaGiornaliera;
 	}
 
-	public String getAttesaLavori() {
-		return attesaLavori;
-	}
-
-	public void setAttesaLavori(String attesaLavori) {
-		this.attesaLavori = attesaLavori;
-	}
-
 	public String getNominativo() {
 		return nominativo;
 	}
@@ -185,54 +191,20 @@ public class Commessa {
 		this.stato = stato;
 	}
 
-	public Commessa(Integer id, String cliente, String clienteFinale, String titoloPosizione, String distacco,
-			Date dataInizio, Date dataFine, String costoMese, String tariffaGiornaliera, String attesaLavori,
-			String nominativo, String azienda, String aziendaDiFatturazioneInterna, Boolean stato) {
-		super();
-		this.id = id;
-		this.cliente = cliente;
-		this.clienteFinale = clienteFinale;
-		this.titoloPosizione = titoloPosizione;
-		this.distacco = distacco;
-		this.dataInizio = dataInizio;
-		this.dataFine = dataFine;
-		this.costoMese = costoMese;
-		this.tariffaGiornaliera = tariffaGiornaliera;
+	public String getAttesaLavori() {
+		return attesaLavori;
+	}
+
+	public void setAttesaLavori(String attesaLavori) {
 		this.attesaLavori = attesaLavori;
-		this.nominativo = nominativo;
-		this.azienda = azienda;
-		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
-		this.stato = stato;
 	}
 
-	public Commessa() {
-		super();
-		// TODO Auto-generated constructor stub
+	public List<Object> getDashboard() {
+		return dashboard;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(attesaLavori, azienda, aziendaDiFatturazioneInterna, cliente, clienteFinale, costoMese,
-				dataFine, dataInizio, distacco, id, nominativo, stato, tariffaGiornaliera, titoloPosizione);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Commessa other = (Commessa) obj;
-		return Objects.equals(attesaLavori, other.attesaLavori) && Objects.equals(azienda, other.azienda)
-				&& Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
-				&& Objects.equals(cliente, other.cliente) && Objects.equals(clienteFinale, other.clienteFinale)
-				&& Objects.equals(costoMese, other.costoMese) && Objects.equals(dataFine, other.dataFine)
-				&& Objects.equals(dataInizio, other.dataInizio) && Objects.equals(distacco, other.distacco)
-				&& Objects.equals(id, other.id) && Objects.equals(nominativo, other.nominativo)
-				&& Objects.equals(stato, other.stato) && Objects.equals(tariffaGiornaliera, other.tariffaGiornaliera)
-				&& Objects.equals(titoloPosizione, other.titoloPosizione);
+	public void setDashboard(List<Object> dashboard) {
+		this.dashboard = dashboard;
 	}
 
 }

@@ -9,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "storico_commesse")
 public class StoricoCommesse {
@@ -17,60 +16,49 @@ public class StoricoCommesse {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_anagrafica")
-	private Anagrafica idAnagrafica;
-	
-	
+	private Anagrafica anagrafica;
+
 	@ManyToOne
 	@JoinColumn(name = "id_commessa")
-	private Commessa idCommessa;
+	private Commessa commessa;
 
+	public StoricoCommesse(Integer id, Anagrafica anagrafica, Commessa commessa) {
+		super();
+		this.id = id;
+		this.anagrafica = anagrafica;
+		this.commessa = commessa;
+	}
+
+	public StoricoCommesse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
 	}
 
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
-	public Anagrafica getIdAnagrafica() {
-		return idAnagrafica;
+	public Anagrafica getAnagrafica() {
+		return anagrafica;
 	}
 
-
-	public void setIdAnagrafica(Anagrafica idAnagrafica) {
-		this.idAnagrafica = idAnagrafica;
+	public void setAnagrafica(Anagrafica anagrafica) {
+		this.anagrafica = anagrafica;
 	}
 
-
-	public Commessa getIdCommessa() {
-		return idCommessa;
+	public Commessa getCommessa() {
+		return commessa;
 	}
 
-
-	public void setIdCommessa(Commessa idCommessa) {
-		this.idCommessa = idCommessa;
+	public void setCommessa(Commessa commessa) {
+		this.commessa = commessa;
 	}
 
-
-	public StoricoCommesse(Integer id, Anagrafica idAnagrafica, Commessa idCommessa) {
-		super();
-		this.id = id;
-		this.idAnagrafica = idAnagrafica;
-		this.idCommessa = idCommessa;
-	}
-
-
-	public static StoricoCommesse get() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
 }

@@ -8,15 +8,27 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tipo_societa")
-public class TipoSocieta {
+@Table(name = "tipo_azienda")
+public class TipoAzienda {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 
-	@Column
+	@Column(name = "descrizione")
 	private String descrizione;
+
+	public TipoAzienda(Integer id, String descrizione) {
+		super();
+		this.id = id;
+		this.descrizione = descrizione;
+	}
+
+	public TipoAzienda() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -32,17 +44,6 @@ public class TipoSocieta {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
-	}
-
-	public TipoSocieta(Integer id, String descrizione) {
-		super();
-		this.id = id;
-		this.descrizione = descrizione;
-	}
-
-	public TipoSocieta() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

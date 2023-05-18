@@ -14,9 +14,20 @@ public class TipoContratto {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
-	@Column
+
+	@Column(name = "descrizione")
 	private String descrizione;
+
+	public TipoContratto(Integer id, String descrizione) {
+		super();
+		this.id = id;
+		this.descrizione = descrizione;
+	}
+
+	public TipoContratto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -34,16 +45,4 @@ public class TipoContratto {
 		this.descrizione = descrizione;
 	}
 
-	public TipoContratto(Integer id, String descrizione) {
-		super();
-		this.id = id;
-		this.descrizione = descrizione;
-	}
-
-	public TipoContratto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
 }

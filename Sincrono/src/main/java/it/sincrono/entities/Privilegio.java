@@ -47,6 +47,45 @@ public class Privilegio {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Ruolo getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(Ruolo ruolo) {
+		this.ruolo = ruolo;
+	}
+
+	public Funzione getFunzione() {
+		return funzione;
+	}
+
+	public void setFunzione(Funzione funzione) {
+		this.funzione = funzione;
+	}
+
+	public Date getDataAggiornamento() {
+		return dataAggiornamento;
+	}
+
+	public void setDataAggiornamento(Date dataAggiornamento) {
+		this.dataAggiornamento = dataAggiornamento;
+	}
+
+	public String getUtenteAggiornamento() {
+		return utenteAggiornamento;
+	}
+
+	public void setUtenteAggiornamento(String utenteAggiornamento) {
+		this.utenteAggiornamento = utenteAggiornamento;
+	}
+
 }

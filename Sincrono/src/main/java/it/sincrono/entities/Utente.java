@@ -7,15 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "utenti")
 public class Utente {
-	
-	public Utente() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +18,29 @@ public class Utente {
 
 	@Column(name = "username")
 	private String username;
-	
+
+	@Column(name = "password")
+	private String password;
+
 	@Column(name = "token_password")
-	private String token;
+	private String tokenPassword;
 
 	@Column(name = "attivo")
 	private Boolean attivo;
+
+	public Utente(Integer id, String username, String password, String tokenPassword, Boolean attivo) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.tokenPassword = tokenPassword;
+		this.attivo = attivo;
+	}
+
+	public Utente() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -47,12 +58,20 @@ public class Utente {
 		this.username = username;
 	}
 
-	public String getToken() {
-		return token;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getTokenPassword() {
+		return tokenPassword;
+	}
+
+	public void setTokenPassword(String tokenPassword) {
+		this.tokenPassword = tokenPassword;
 	}
 
 	public Boolean getAttivo() {
@@ -62,14 +81,5 @@ public class Utente {
 	public void setAttivo(Boolean attivo) {
 		this.attivo = attivo;
 	}
-
-	public Utente(Integer id, String username, String token, Boolean attivo) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.token = token;
-		this.attivo = attivo;
-	}
-	
 
 }

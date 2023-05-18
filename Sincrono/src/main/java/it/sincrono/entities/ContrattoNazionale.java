@@ -10,13 +10,25 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tipo_contratto_nazionale")
 public class ContrattoNazionale {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 
-	@Column
+	@Column(name = "descrizione")
 	private String descrizione;
+
+	public ContrattoNazionale(Integer id, String descrizione) {
+		super();
+		this.id = id;
+		this.descrizione = descrizione;
+	}
+
+	public ContrattoNazionale() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -32,17 +44,6 @@ public class ContrattoNazionale {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
-	}
-
-	public ContrattoNazionale(Integer id, String descrizione) {
-		super();
-		this.id = id;
-		this.descrizione = descrizione;
-	}
-
-	public ContrattoNazionale() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 }

@@ -24,8 +24,8 @@ public class Funzione {
 	@JoinColumn(name = "id_padre")
 	private Funzione funzione;
 
-	@Column(name = "menuitem")
-	private Boolean menuItem;
+	@Column(name = "menu_item")
+	private Integer menuItem;
 
 	@Column(name = "nome")
 	private String nome;
@@ -42,30 +42,96 @@ public class Funzione {
 	private transient List<Funzione> funzioni;
 
 	private transient Boolean privilegio;
-	
-	public Funzione(Integer id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
-	}
-	
-	public Funzione(Integer id) {
-		super();
-		this.id = id;
-	}
 
-	public Funzione(Integer id, String nome, String percorso) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.percorso = percorso;
-	}
-	
-	public Funzione(Integer id, Funzione funzione, String nome, String percorso) {
+	public Funzione(Integer id, Funzione funzione, Integer menuItem, String nome, String percorso, String immagine,
+			Integer ordinamento, List<Funzione> funzioni, Boolean privilegio) {
 		super();
 		this.id = id;
 		this.funzione = funzione;
+		this.menuItem = menuItem;
 		this.nome = nome;
 		this.percorso = percorso;
+		this.immagine = immagine;
+		this.ordinamento = ordinamento;
+		this.funzioni = funzioni;
+		this.privilegio = privilegio;
 	}
+
+	public Funzione() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Funzione getFunzione() {
+		return funzione;
+	}
+
+	public void setFunzione(Funzione funzione) {
+		this.funzione = funzione;
+	}
+
+	public Integer getMenuItem() {
+		return menuItem;
+	}
+
+	public void setMenuItem(Integer menuItem) {
+		this.menuItem = menuItem;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getPercorso() {
+		return percorso;
+	}
+
+	public void setPercorso(String percorso) {
+		this.percorso = percorso;
+	}
+
+	public String getImmagine() {
+		return immagine;
+	}
+
+	public void setImmagine(String immagine) {
+		this.immagine = immagine;
+	}
+
+	public Integer getOrdinamento() {
+		return ordinamento;
+	}
+
+	public void setOrdinamento(Integer ordinamento) {
+		this.ordinamento = ordinamento;
+	}
+
+	public List<Funzione> getFunzioni() {
+		return funzioni;
+	}
+
+	public void setFunzioni(List<Funzione> funzioni) {
+		this.funzioni = funzioni;
+	}
+
+	public Boolean getPrivilegio() {
+		return privilegio;
+	}
+
+	public void setPrivilegio(Boolean privilegio) {
+		this.privilegio = privilegio;
+	}
+
 }

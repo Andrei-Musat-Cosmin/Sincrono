@@ -12,70 +12,54 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "storico_contratti")
 public class StoricoContratti {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_anagrafica")
-	private Anagrafica idAnagrafica;
-	
-	
+	private Anagrafica anagrafica;
+
 	@ManyToOne
 	@JoinColumn(name = "id_contratto")
-	private Commessa idContratto;
+	private Commessa contratto;
 
-	
-	
-	
+	public StoricoContratti(Integer id, Anagrafica anagrafica, Commessa contratto) {
+		super();
+		this.id = id;
+		this.anagrafica = anagrafica;
+		this.contratto = contratto;
+	}
+
+	public StoricoContratti() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
 	}
 
-	
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
-	public Anagrafica getIdAnagrafica() {
-		return idAnagrafica;
+	public Anagrafica getAnagrafica() {
+		return anagrafica;
 	}
 
-
-	public void setIdAnagrafica(Anagrafica idAnagrafica) {
-		this.idAnagrafica = idAnagrafica;
+	public void setAnagrafica(Anagrafica anagrafica) {
+		this.anagrafica = anagrafica;
 	}
 
-
-	public Commessa getIdContratto() {
-		return idContratto;
+	public Commessa getContratto() {
+		return contratto;
 	}
 
-
-	public void setIdContratto(Commessa idContratto) {
-		this.idContratto = idContratto;
+	public void setContratto(Commessa contratto) {
+		this.contratto = contratto;
 	}
-
-
-	public StoricoContratti(Integer id, Anagrafica idAnagrafica, Commessa idContratto) {
-		super();
-		this.id = id;
-		this.idAnagrafica = idAnagrafica;
-		this.idContratto = idContratto;
-	}
-
-
-	public StoricoContratti() {
-		super();
-	}
-
-	
-	
-	
 
 }

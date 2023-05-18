@@ -10,13 +10,29 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tipo_livelli_contrattuali")
 public class LivelloContratto {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
-	@Column
+
+	@Column(name = "descrizione")
 	private String descrizione;
+
+	@Column(name = "minimi_ret_23")
+	private String minimiRet23;
+
+	public LivelloContratto(Integer id, String descrizione, String minimiRet23) {
+		super();
+		this.id = id;
+		this.descrizione = descrizione;
+		this.minimiRet23 = minimiRet23;
+	}
+
+	public LivelloContratto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -34,16 +50,12 @@ public class LivelloContratto {
 		this.descrizione = descrizione;
 	}
 
-	public LivelloContratto() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getMinimiRet23() {
+		return minimiRet23;
 	}
 
-	public LivelloContratto(Integer id, String descrizione) {
-		super();
-		this.id = id;
-		this.descrizione = descrizione;
+	public void setMinimiRet23(String minimiRet23) {
+		this.minimiRet23 = minimiRet23;
 	}
-	
-	
+
 }

@@ -86,8 +86,4 @@ public class Ruolo {
 		this.ruoli = ruoli;
 	}
 
-		
-	
-	
-	
 }
