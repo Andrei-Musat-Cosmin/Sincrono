@@ -28,7 +28,7 @@ public class StoricoContrattiController {
 	@Autowired
 	private StoricoContrattiService storicoContrattiService;
 
-	@GetMapping("/Storico-Contratti")
+	@GetMapping("/storico-Contratti")
 	public @ResponseBody HttpEntity<StoricoContrattiListResponse> fetchAllStoricoContratti() {
 		HttpEntity<StoricoContrattiListResponse> httpEntity;
 
@@ -41,7 +41,6 @@ public class StoricoContrattiController {
 			storicoContrattiListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<StoricoContrattiListResponse>(storicoContrattiListResponse);
-			System.out.println("bau");
 		} catch (Exception e) {
 			storicoContrattiListResponse.setEsito(new Esito(404, e.getMessage(), null));
 			httpEntity = new HttpEntity<StoricoContrattiListResponse>(storicoContrattiListResponse);
@@ -50,7 +49,7 @@ public class StoricoContrattiController {
 
 	}
 
-	@GetMapping("/Storico-Contratti/{id}")
+	@GetMapping("/storico-Contratti/{id}")
 	public @ResponseBody HttpEntity<StoricoContrattiResponse> getStoricoContrattiById(@PathVariable Integer id) {
 
 		HttpEntity<StoricoContrattiResponse> httpEntity;
@@ -64,7 +63,6 @@ public class StoricoContrattiController {
 			storicoContrattiResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<StoricoContrattiResponse>(storicoContrattiResponse);
-			System.out.println("ciao");
 		} catch (Exception e) {
 			storicoContrattiResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
 			httpEntity = new HttpEntity<StoricoContrattiResponse>(storicoContrattiResponse);
@@ -72,7 +70,7 @@ public class StoricoContrattiController {
 		return httpEntity;
 	}
 
-	@PostMapping("/Storico-Contratti")
+	@PostMapping("/storico-Contratti")
 	public @ResponseBody HttpEntity<GenericResponse> saveStoricoContratti(
 			@RequestBody StoricoContrattiRequest storicoContrattiRequest) {
 		HttpEntity<GenericResponse> httpEntity;
@@ -84,7 +82,6 @@ public class StoricoContrattiController {
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-			System.out.println("ciao");
 		} catch (Exception e) {
 			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -92,7 +89,7 @@ public class StoricoContrattiController {
 		return httpEntity;
 	}
 
-	@PutMapping("/Storico-Contratti")
+	@PutMapping("/storico-Contratti")
 	public @ResponseBody HttpEntity<GenericResponse> updateStoricoContratti(
 			@RequestBody StoricoContrattiRequest storicoContrattiRequest) {
 		HttpEntity<GenericResponse> httpEntity;
@@ -104,7 +101,6 @@ public class StoricoContrattiController {
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-			System.out.println("ciao");
 		} catch (Exception e) {
 			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -112,7 +108,7 @@ public class StoricoContrattiController {
 		return httpEntity;
 	}
 
-	@DeleteMapping("/StoricoContratti/{id}")
+	@DeleteMapping("/storico-Contratti/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
 
 		HttpEntity<GenericResponse> httpEntity;

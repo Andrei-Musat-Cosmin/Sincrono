@@ -3,7 +3,7 @@ package it.sincrono.repositories.impl;
 public interface SqlStrings {
 
 	//SQL ANAGRAFICA
-	public final String SQL_LIST_ANAGRAFICA_FILTER = "SELECT a.nome,a.cognome,t.azienda,g.inquadramento,c.data_assunzione,c.data_fine_rapporto,c.ral_annua,t.cliente FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = b.id_anagrafica INNER JOIN commessa t ON d.id_commessa = t.id INNER JOIN tipo_livelli_contrattuali G ON g.id=c.id_tipo_livello WHERE 1=1 AND {0}";
+	public final String SQL_LIST_ANAGRAFICA_FILTER = "SELECT Distinct a.id,a.nome,a.cognome,t.azienda,g.descrizione,c.data_assunzione,c.data_fine_rapporto,c.ral_annua,t.cliente FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = b.id_anagrafica INNER JOIN commessa t ON d.id_commessa = t.id INNER JOIN tipo_livelli_contrattuali G ON g.id=c.id_tipo_livello WHERE 1=1 {0}";
 
 	
 	//SQL CONTRATTI

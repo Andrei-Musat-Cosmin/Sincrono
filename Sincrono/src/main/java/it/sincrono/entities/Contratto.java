@@ -189,6 +189,16 @@ public class Contratto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public Contratto(LivelloContratto livelloContratto) {
+		super();
+		this.tipoContratto = tipoContratto;
+		this.livelloContratto = livelloContratto;
+		this.tipoSocieta = tipoSocieta;
+		this.contrattoNazionale = contrattoNazionale;
+	}
 
 	public Integer getId() {
 		return id;

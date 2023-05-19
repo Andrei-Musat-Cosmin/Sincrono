@@ -8,7 +8,7 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 
 public interface AnagraficaCustomRepository extends BaseCustomRepository {
 	
-	//public List<Object> search(AnagraficaDto anagraficaDto) throws RepositoryException;
+	public List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws RepositoryException;
 
 
 

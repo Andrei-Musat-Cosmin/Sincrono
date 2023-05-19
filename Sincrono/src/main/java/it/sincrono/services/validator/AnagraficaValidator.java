@@ -15,9 +15,9 @@ public class AnagraficaValidator {
 
 			// if (isNew) {
 
-			if (anagrafica.getId() != null) {
+			/*if (anagrafica.getId() != null) {
 				result = false;
-			}
+			}*/
 
 			if (anagrafica.getNome() == null
 					|| anagrafica.getNome().equals("")

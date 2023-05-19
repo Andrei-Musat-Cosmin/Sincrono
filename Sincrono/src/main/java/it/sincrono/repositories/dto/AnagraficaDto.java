@@ -58,6 +58,12 @@ public class AnagraficaDto {
 	public void setCommessa(Commessa commessa) {
 		this.commessa = commessa;
 	}
+
+	public AnagraficaDto(String nome, String cognome) {
+		super();
+		this.nome = nome;
+		this.cognome = cognome;
+	}
 	
 	
 	

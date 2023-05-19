@@ -13,7 +13,7 @@ public interface AnagraficaService {
 	public void insert(Anagrafica anagrafica) throws ServiceException;
 	public void update(Anagrafica anagrafica) throws ServiceException;
 	public void delete(Integer ID) throws ServiceException;
-	//List<Object> search(AnagraficaDto anagraficaDto) throws ServiceException;
+	List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws ServiceException;
 
 
 }

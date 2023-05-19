@@ -1,5 +1,7 @@
 package it.sincrono.responses;
 
+
+
 import it.sincrono.entities.Anagrafica;
 
 public class AnagraficaResponse extends GenericResponse {
@@ -10,6 +12,12 @@ public class AnagraficaResponse extends GenericResponse {
 		
 	}
 
+	public Anagrafica getAnagrafica() {
+		return anagrafica;
+	}
+
+
+
 	public AnagraficaResponse(Anagrafica anagrafica) {
 		super();
 		this.anagrafica = anagrafica;
@@ -18,6 +26,7 @@ public class AnagraficaResponse extends GenericResponse {
 	public AnagraficaResponse() {
 		super();
 	}
+
 	
 	
 }

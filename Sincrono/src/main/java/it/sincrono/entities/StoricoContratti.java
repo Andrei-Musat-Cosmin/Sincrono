@@ -24,9 +24,9 @@ public class StoricoContratti {
 
 	@ManyToOne
 	@JoinColumn(name = "id_contratto")
-	private Commessa contratto;
+	private Contratto contratto;
 
-	public StoricoContratti(Integer id, Anagrafica anagrafica, Commessa contratto) {
+	public StoricoContratti(Integer id, Anagrafica anagrafica, Contratto contratto) {
 		super();
 		this.id = id;
 		this.anagrafica = anagrafica;
@@ -54,11 +54,11 @@ public class StoricoContratti {
 		this.anagrafica = anagrafica;
 	}
 
-	public Commessa getContratto() {
+	public Contratto getContratto() {
 		return contratto;
 	}
 
-	public void setContratto(Commessa contratto) {
+	public void setContratto(Contratto contratto) {
 		this.contratto = contratto;
 	}
 
