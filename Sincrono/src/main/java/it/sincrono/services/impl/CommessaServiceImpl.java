@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import it.sincrono.entities.Commessa;
 import it.sincrono.repositories.CommessaRepository;
+import it.sincrono.repositories.dto.CommessaDto;
 import it.sincrono.services.CommessaService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
@@ -77,10 +78,10 @@ public class CommessaServiceImpl implements CommessaService {
 	}
 
 	@Override
-	public List<Object> view() throws ServiceException {
-		List<Object> dashboard;
+	public List<CommessaDto> view() throws ServiceException {
+		List<CommessaDto> dashboard;
 		try {
-			dashboard = commessaRepository.view();
+			dashboard = commessaRepository.dashboard();
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);

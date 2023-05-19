@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Commessa;
 import it.sincrono.requests.CommessaRequest;
+import it.sincrono.responses.CommessaDtoListResponse;
 import it.sincrono.responses.CommessaListResponse;
 import it.sincrono.responses.CommessaResponse;
 import it.sincrono.responses.GenericResponse;
@@ -27,24 +28,24 @@ public class CommessaController {
 
 	@Autowired
 	private CommessaService commessaService;
-	
+
 	@PostMapping("/dashboard")
-	public @ResponseBody HttpEntity<Commessa> search() {
-		HttpEntity<Commessa> httpEntity;
+	public @ResponseBody HttpEntity<CommessaDtoListResponse> dashboard() {
+		HttpEntity<CommessaDtoListResponse> httpEntity;
 
-		CommessaResponse contrattoResponse = new CommessaResponse();
+		CommessaDtoListResponse commessaDtoListResponse = new CommessaDtoListResponse();
 
-		Commessa commessa = new Commessa();
+		
 		try {
 
-			contrattoResponse.setEsito(new Esito());
+			commessaDtoListResponse.setEsito(new Esito());
 
-			commessa.setDashboard(commessaService.view());
+			commessaDtoListResponse.setList(commessaService.view());
 
-			httpEntity = new HttpEntity<Commessa>(commessa);
+			httpEntity = new HttpEntity<CommessaDtoListResponse>(commessaDtoListResponse);
 		} catch (Exception e) {
-			contrattoResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
-			httpEntity = new HttpEntity<Commessa>(commessa);
+			commessaDtoListResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+			httpEntity = new HttpEntity<CommessaDtoListResponse>(commessaDtoListResponse);
 		}
 		return httpEntity;
 	}
@@ -64,7 +65,7 @@ public class CommessaController {
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 			System.out.println("bau");
 		} catch (Exception e) {
-			 commessaListResponse.setEsito(new Esito(404, e.getMessage(), null));
+			commessaListResponse.setEsito(new Esito(404, e.getMessage(), null));
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 		}
 		return httpEntity;

@@ -1,7 +1,6 @@
 package it.sincrono.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -58,12 +57,11 @@ public class Commessa {
 	@Column(name = "attesaLavori")
 	private String attesaLavori;
 
-	transient private List<Object> dashboard;
+	
 
 	public Commessa(Integer id, String cliente, String clienteFinale, String titoloPosizione, String distacco,
 			Date dataInizio, Date dataFine, String costoMese, String tariffaGiornaliera, String nominativo,
-			String azienda, String aziendaDiFatturazioneInterna, Boolean stato, String attesaLavori,
-			List<Object> dashboard) {
+			String azienda, String aziendaDiFatturazioneInterna, Boolean stato, String attesaLavori) {
 		super();
 		this.id = id;
 		this.cliente = cliente;
@@ -79,7 +77,7 @@ public class Commessa {
 		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
 		this.stato = stato;
 		this.attesaLavori = attesaLavori;
-		this.dashboard = dashboard;
+	
 	}
 
 	public Commessa() {
@@ -199,12 +197,5 @@ public class Commessa {
 		this.attesaLavori = attesaLavori;
 	}
 
-	public List<Object> getDashboard() {
-		return dashboard;
-	}
-
-	public void setDashboard(List<Object> dashboard) {
-		this.dashboard = dashboard;
-	}
-
+	
 }

@@ -3,6 +3,7 @@ package it.sincrono.services;
 import java.util.List;
 
 import it.sincrono.entities.Commessa;
+import it.sincrono.repositories.dto.CommessaDto;
 import it.sincrono.services.exceptions.ServiceException;
 
 public interface CommessaService {
@@ -17,6 +18,6 @@ public interface CommessaService {
 
 	public void delete(Integer id) throws ServiceException;
 
-	public List<Object> view() throws ServiceException;
+	public List<CommessaDto> view() throws ServiceException;
 
 }

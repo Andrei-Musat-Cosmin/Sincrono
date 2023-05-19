@@ -1,7 +1,6 @@
 package it.sincrono.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -133,8 +132,6 @@ public class Contratto {
 	@Column(name = "canale_reclutamento")
 	private String canaleReclutamento;
 
-	transient private List<Object> organico;
-
 	public Contratto(Integer id, TipoContratto tipoContratto, LivelloContratto livelloContratto,
 			TipoAzienda tipoAzienda, ContrattoNazionale contrattoNazionale, Boolean attivo, String sedeAssunzione,
 			String qualifica, Date dataAssunzione, Date dataInizioProva, Date dataFineProva, Date dataFineRapporto,
@@ -143,7 +140,7 @@ public class Contratto {
 			String ralAnnua, String superminimoRal, String diariaMese, String diariaGg, String ticket,
 			String valoreTicket, String categoriaProtetta, String tutor, String pfi, String assicurazioneObbligatoria,
 			Date corsoSicurezza, String motivazioneFineRapporto, Boolean pc, String scattiAnzianita,
-			String tariffaPartitaIva, String canaleReclutamento, List<Object> organico) {
+			String tariffaPartitaIva, String canaleReclutamento) {
 		super();
 		this.id = id;
 		this.tipoContratto = tipoContratto;
@@ -182,15 +179,16 @@ public class Contratto {
 		this.scattiAnzianita = scattiAnzianita;
 		this.tariffaPartitaIva = tariffaPartitaIva;
 		this.canaleReclutamento = canaleReclutamento;
-		this.organico = organico;
+
 	}
+	
+	
 
 	public Contratto(LivelloContratto livelloContratto) {
 		super();
-		this.tipoContratto = tipoContratto;
+		
 		this.livelloContratto = livelloContratto;
-		this.tipoAzienda = tipoAzienda;
-		this.contrattoNazionale = contrattoNazionale;
+	
 	}
 
 	public Contratto() {
@@ -494,12 +492,13 @@ public class Contratto {
 		this.canaleReclutamento = canaleReclutamento;
 	}
 
-	public List<Object> getOrganico() {
-		return organico;
-	}
 
-	public void setOrganico(List<Object> organico) {
-		this.organico = organico;
+
+	public Contratto(TipoContratto tipoContratto, TipoAzienda tipoAzienda, ContrattoNazionale contrattoNazionale) {
+		super();
+		this.tipoContratto = tipoContratto;
+		this.tipoAzienda = tipoAzienda;
+		this.contrattoNazionale = contrattoNazionale;
 	}
 
 }
