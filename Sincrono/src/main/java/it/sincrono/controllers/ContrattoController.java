@@ -19,6 +19,7 @@ import it.sincrono.requests.ContrattoRequest;
 import it.sincrono.responses.ContrattoListResponse;
 import it.sincrono.responses.ContrattoResponse;
 import it.sincrono.responses.GenericResponse;
+import it.sincrono.responses.OrganicoDtoListResponse;
 import it.sincrono.services.ContrattoService;
 import it.sincrono.services.exceptions.ServiceException;
 
@@ -29,22 +30,19 @@ public class ContrattoController {
 	private ContrattoService contrattoService;
 
 	@PostMapping("/organico")
-	public @ResponseBody HttpEntity<Contratto> search() {
-		HttpEntity<Contratto> httpEntity;
+	public @ResponseBody HttpEntity<OrganicoDtoListResponse> search() {
+		HttpEntity<OrganicoDtoListResponse> httpEntity;
 
-		ContrattoResponse contrattoResponse = new ContrattoResponse();
+		OrganicoDtoListResponse organicoDtoListResponse = new OrganicoDtoListResponse();
 
-		Contratto contratto = new Contratto();
 		try {
 
-			contrattoResponse.setEsito(new Esito());
-
-			contratto.setOrganico(contrattoService.search());
-
-			httpEntity = new HttpEntity<Contratto>(contratto);
+			organicoDtoListResponse.setEsito(new Esito());
+			organicoDtoListResponse.setList(contrattoService.organico());
+			httpEntity = new HttpEntity<OrganicoDtoListResponse>(organicoDtoListResponse);
 		} catch (Exception e) {
-			contrattoResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
-			httpEntity = new HttpEntity<Contratto>(contratto);
+			organicoDtoListResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+			httpEntity = new HttpEntity<OrganicoDtoListResponse>(organicoDtoListResponse);
 		}
 		return httpEntity;
 	}

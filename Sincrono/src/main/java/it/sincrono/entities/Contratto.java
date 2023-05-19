@@ -30,8 +30,8 @@ public class Contratto {
 	private LivelloContratto livelloContratto;
 
 	@ManyToOne
-	@JoinColumn(name = "id_tipo_societa")
-	private TipoAzienda tipoSocieta;
+	@JoinColumn(name = "id_tipo_azienda")
+	private TipoAzienda tipoAzienda;
 
 	@ManyToOne
 	@JoinColumn(name = "id_contratto_nazionale")
@@ -136,7 +136,7 @@ public class Contratto {
 	transient private List<Object> organico;
 
 	public Contratto(Integer id, TipoContratto tipoContratto, LivelloContratto livelloContratto,
-			TipoAzienda tipoSocieta, ContrattoNazionale contrattoNazionale, Boolean attivo, String sedeAssunzione,
+			TipoAzienda tipoAzienda, ContrattoNazionale contrattoNazionale, Boolean attivo, String sedeAssunzione,
 			String qualifica, Date dataAssunzione, Date dataInizioProva, Date dataFineProva, Date dataFineRapporto,
 			Integer mesiDurata, String livelloIniziale, String livelloAttuale, String livelloFinale, Boolean dimissioni,
 			Boolean partTime, Boolean partTimeA, String retribuzioneMensileLorda, String superminimoMensile,
@@ -148,7 +148,7 @@ public class Contratto {
 		this.id = id;
 		this.tipoContratto = tipoContratto;
 		this.livelloContratto = livelloContratto;
-		this.tipoSocieta = tipoSocieta;
+		this.tipoAzienda = tipoAzienda;
 		this.contrattoNazionale = contrattoNazionale;
 		this.attivo = attivo;
 		this.sedeAssunzione = sedeAssunzione;
@@ -185,19 +185,17 @@ public class Contratto {
 		this.organico = organico;
 	}
 
-	public Contratto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-
 	public Contratto(LivelloContratto livelloContratto) {
 		super();
 		this.tipoContratto = tipoContratto;
 		this.livelloContratto = livelloContratto;
-		this.tipoSocieta = tipoSocieta;
+		this.tipoAzienda = tipoAzienda;
 		this.contrattoNazionale = contrattoNazionale;
+	}
+
+	public Contratto() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
@@ -224,12 +222,12 @@ public class Contratto {
 		this.livelloContratto = livelloContratto;
 	}
 
-	public TipoAzienda getTipoSocieta() {
-		return tipoSocieta;
+	public TipoAzienda getTipoAzienda() {
+		return tipoAzienda;
 	}
 
-	public void setTipoSocieta(TipoAzienda tipoSocieta) {
-		this.tipoSocieta = tipoSocieta;
+	public void setTipoAzienda(TipoAzienda tipoAzienda) {
+		this.tipoAzienda = tipoAzienda;
 	}
 
 	public ContrattoNazionale getContrattoNazionale() {

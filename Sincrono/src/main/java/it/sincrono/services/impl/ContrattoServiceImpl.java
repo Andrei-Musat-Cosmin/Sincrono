@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import it.sincrono.entities.Contratto;
 import it.sincrono.repositories.ContrattoRepository;
+import it.sincrono.repositories.dto.OrganicoDto;
 import it.sincrono.services.ContrattoService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
@@ -76,10 +77,10 @@ public class ContrattoServiceImpl implements ContrattoService {
 	}
 
 	@Override
-	public List<Object> search() throws ServiceException {
-		List<Object> organico;
+	public List<OrganicoDto> organico() throws ServiceException {
+		List<OrganicoDto> organico;
 		try {
-			organico = contrattoRepository.search();
+			organico = contrattoRepository.organico();
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);

@@ -3,6 +3,7 @@ package it.sincrono.services;
 import java.util.List;
 
 import it.sincrono.entities.Contratto;
+import it.sincrono.repositories.dto.OrganicoDto;
 import it.sincrono.services.exceptions.ServiceException;
 
 public interface ContrattoService {
@@ -17,5 +18,5 @@ public interface ContrattoService {
 
 	public void delete(Integer id) throws ServiceException;
 
-	public List<Object> search() throws ServiceException;
+	public List<OrganicoDto> organico() throws ServiceException;
 }
