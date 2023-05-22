@@ -10,9 +10,14 @@ public class OrganicoDto {
 	private Integer consulenza;
 	private Integer stage;
 	private Integer partitaIva;
+	private Integer potenzialeStage;
+	private Integer slotStage;
+	private Integer potenzialeApprendistato;
+	private Integer slotApprendistato;
 
 	public OrganicoDto(String azienda, Integer numeroDipendenti, Integer indeterminati, Integer determinati,
-			Integer apprendistato, Integer consulenza, Integer stage, Integer partitaIva) {
+			Integer apprendistato, Integer consulenza, Integer stage, Integer partitaIva, Integer potenzialeStage,
+			Integer slotStage, Integer potenzialeApprendistato, Integer slotApprendistato) {
 		super();
 		this.azienda = azienda;
 		this.numeroDipendenti = numeroDipendenti;
@@ -22,6 +27,10 @@ public class OrganicoDto {
 		this.consulenza = consulenza;
 		this.stage = stage;
 		this.partitaIva = partitaIva;
+		this.potenzialeStage = potenzialeStage;
+		this.slotStage = slotStage;
+		this.potenzialeApprendistato = potenzialeApprendistato;
+		this.slotApprendistato = slotApprendistato;
 	}
 
 	public OrganicoDto() {
@@ -91,6 +100,38 @@ public class OrganicoDto {
 
 	public void setPartitaIva(Integer partitaIva) {
 		this.partitaIva = partitaIva;
+	}
+
+	public Integer getPotenzialeStage() {
+		return potenzialeStage;
+	}
+
+	public void setPotenzialeStage(Integer potenzialeStage) {
+		this.potenzialeStage = potenzialeStage;
+	}
+
+	public Integer getSlotStage() {
+		return slotStage;
+	}
+
+	public void setSlotStage(Integer slotStage) {
+		this.slotStage = slotStage;
+	}
+
+	public Integer getPotenzialeApprendistato() {
+		return potenzialeApprendistato;
+	}
+
+	public void setPotenzialeApprendistato(Integer potenzialeApprendistato) {
+		this.potenzialeApprendistato = potenzialeApprendistato;
+	}
+
+	public Integer getSlotApprendistato() {
+		return slotApprendistato;
+	}
+
+	public void setSlotApprendistato(Integer slotApprendistato) {
+		this.slotApprendistato = slotApprendistato;
 	}
 
 }
