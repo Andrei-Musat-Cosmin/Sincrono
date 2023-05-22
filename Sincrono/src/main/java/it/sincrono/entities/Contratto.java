@@ -182,14 +182,6 @@ public class Contratto {
 
 	}
 	
-	
-
-	public Contratto(LivelloContratto livelloContratto) {
-		super();
-		
-		this.livelloContratto = livelloContratto;
-	
-	}
 
 	public Contratto() {
 		super();

@@ -23,6 +23,10 @@ public class Anagrafica {
 	@OneToOne
 	@JoinColumn(name = "id_utente")
 	private Utente utente;
+	
+	@Column(name = "attivo")
+	private Boolean attivo;
+
 
 	@Column(name = "azienda_tipo")
 	private String aziendaTipo;
@@ -75,13 +79,15 @@ public class Anagrafica {
 	@Column(name = "figli_a_carico")
 	private Boolean figliaCario;
 
-	public Anagrafica(Integer id, Utente utente, String aziendaTipo, String cognome, String nome, String codiceFiscale,
-			String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio, String cellularePrivato,
-			String celllulareAziendale, String mailPrivata, String mailAziendale, String mailPec, String titoliDiStudio,
-			String altriTitoli, Boolean coniugato, Boolean figliaCario) {
+
+	public Anagrafica(Integer id, Utente utente, Boolean attivo, String aziendaTipo, String cognome, String nome,
+			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
+			String cellularePrivato, String celllulareAziendale, String mailPrivata, String mailAziendale,
+			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliaCario) {
 		super();
 		this.id = id;
 		this.utente = utente;
+		this.attivo = attivo;
 		this.aziendaTipo = aziendaTipo;
 		this.cognome = cognome;
 		this.nome = nome;
@@ -257,5 +263,15 @@ public class Anagrafica {
 	public void setFigliaCario(Boolean figliaCario) {
 		this.figliaCario = figliaCario;
 	}
+
+	public Boolean getAttivo() {
+		return attivo;
+	}
+
+	public void setAttivo(Boolean attivo) {
+		this.attivo = attivo;
+	}
+	
+	
 
 }
