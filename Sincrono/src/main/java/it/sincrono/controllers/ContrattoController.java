@@ -30,7 +30,7 @@ public class ContrattoController {
 	private ContrattoService contrattoService;
 
 	@PostMapping("/organico")
-	public @ResponseBody HttpEntity<OrganicoDtoListResponse> search() {
+	public @ResponseBody HttpEntity<OrganicoDtoListResponse> organico() {
 		HttpEntity<OrganicoDtoListResponse> httpEntity;
 
 		OrganicoDtoListResponse organicoDtoListResponse = new OrganicoDtoListResponse();
