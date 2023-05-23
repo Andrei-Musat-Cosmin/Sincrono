@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import it.sincrono.entities.Contratto;
 
-public class ContrattoResponse  extends GenericResponse{
+public class ContrattoResponse extends GenericResponse {
 
 	private Contratto contratto;
 

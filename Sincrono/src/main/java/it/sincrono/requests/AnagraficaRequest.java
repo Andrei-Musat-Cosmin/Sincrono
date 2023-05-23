@@ -21,6 +21,5 @@ public class AnagraficaRequest extends GenericRequest {
 	public void setAnagrafica(Anagrafica anagrafica) {
 		this.anagrafica = anagrafica;
 	}
-	
-	
+
 }

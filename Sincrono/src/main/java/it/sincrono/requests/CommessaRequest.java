@@ -30,6 +30,4 @@ public class CommessaRequest extends GenericRequest {
 				+ super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 
-	
-
 }

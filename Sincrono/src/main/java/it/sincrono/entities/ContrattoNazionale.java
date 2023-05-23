@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tipo_contratto_nazionale")
 public class ContrattoNazionale {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

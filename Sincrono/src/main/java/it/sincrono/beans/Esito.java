@@ -1,4 +1,5 @@
 package it.sincrono.beans;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ public class Esito {
 
 	public Esito() {
 		super();
-		// TODO Auto-generated constructor stub
+		// Auto-generated constructor stub
 	}
 
 	public Esito(Integer code, String target, String[] args) {

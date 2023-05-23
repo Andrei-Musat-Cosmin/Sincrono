@@ -3,7 +3,7 @@ package it.sincrono.requests;
 import it.sincrono.entities.StoricoContratti;
 
 public class StoricoContrattiRequest {
-	
+
 	private StoricoContratti storicoContratti;
 
 	public StoricoContratti getStoricoContratti() {
@@ -24,6 +24,4 @@ public class StoricoContrattiRequest {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 }

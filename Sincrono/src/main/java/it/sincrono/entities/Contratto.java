@@ -181,7 +181,6 @@ public class Contratto {
 		this.canaleReclutamento = canaleReclutamento;
 
 	}
-	
 
 	public Contratto() {
 		super();
@@ -483,8 +482,6 @@ public class Contratto {
 	public void setCanaleReclutamento(String canaleReclutamento) {
 		this.canaleReclutamento = canaleReclutamento;
 	}
-
-
 
 	public Contratto(TipoContratto tipoContratto, TipoAzienda tipoAzienda, ContrattoNazionale contrattoNazionale) {
 		super();

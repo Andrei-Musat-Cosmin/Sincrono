@@ -3,8 +3,7 @@ package it.sincrono.requests;
 import it.sincrono.entities.Profilo;
 
 public class ProfiloRequest {
-	
-	
+
 	private Profilo profilo;
 
 	public Profilo getProfilo() {
@@ -19,6 +18,5 @@ public class ProfiloRequest {
 		super();
 		this.profilo = profilo;
 	}
-	
-	
+
 }

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import it.sincrono.entities.Contratto;
 
-public class ContrattoListResponse extends GenericResponse{
+public class ContrattoListResponse extends GenericResponse {
 
 	private List<Contratto> contrattoList;
 

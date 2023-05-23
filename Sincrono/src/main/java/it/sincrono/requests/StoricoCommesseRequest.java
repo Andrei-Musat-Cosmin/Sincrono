@@ -3,7 +3,7 @@ package it.sincrono.requests;
 import it.sincrono.entities.StoricoCommesse;
 
 public class StoricoCommesseRequest {
-	
+
 	private StoricoCommesse storicoCommesse;
 
 	public StoricoCommesse getStoricoCommesse() {
@@ -24,6 +24,4 @@ public class StoricoCommesseRequest {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 }

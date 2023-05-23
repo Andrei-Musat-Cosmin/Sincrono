@@ -9,7 +9,7 @@ public class ProfiloResponse extends GenericResponse {
 
 	public void setProfilo(Profilo profilo2) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public ProfiloResponse() {

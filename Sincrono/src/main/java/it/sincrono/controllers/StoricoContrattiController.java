@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,12 +24,13 @@ import it.sincrono.services.StoricoContrattiService;
 import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
+@CrossOrigin
 public class StoricoContrattiController {
 
 	@Autowired
 	private StoricoContrattiService storicoContrattiService;
 
-	@GetMapping("/storico-Contratti")
+	@GetMapping("/storico-contratti")
 	public @ResponseBody HttpEntity<StoricoContrattiListResponse> fetchAllStoricoContratti() {
 		HttpEntity<StoricoContrattiListResponse> httpEntity;
 
@@ -49,7 +51,7 @@ public class StoricoContrattiController {
 
 	}
 
-	@GetMapping("/storico-Contratti/{id}")
+	@GetMapping("/storico-contratti/{id}")
 	public @ResponseBody HttpEntity<StoricoContrattiResponse> getStoricoContrattiById(@PathVariable Integer id) {
 
 		HttpEntity<StoricoContrattiResponse> httpEntity;
@@ -70,7 +72,7 @@ public class StoricoContrattiController {
 		return httpEntity;
 	}
 
-	@PostMapping("/storico-Contratti")
+	@PostMapping("/storico-contratti")
 	public @ResponseBody HttpEntity<GenericResponse> saveStoricoContratti(
 			@RequestBody StoricoContrattiRequest storicoContrattiRequest) {
 		HttpEntity<GenericResponse> httpEntity;
@@ -108,7 +110,7 @@ public class StoricoContrattiController {
 		return httpEntity;
 	}
 
-	@DeleteMapping("/storico-Contratti/{id}")
+	@DeleteMapping("/storico-contratti/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
 
 		HttpEntity<GenericResponse> httpEntity;

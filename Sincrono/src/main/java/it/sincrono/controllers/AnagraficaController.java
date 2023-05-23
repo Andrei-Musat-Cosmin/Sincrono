@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
+@CrossOrigin
 public class AnagraficaController {
 
 	@Autowired
@@ -46,7 +48,6 @@ public class AnagraficaController {
 			anagraficaResponse.setEsito(new Esito());
 			anagraficaResponse.setAnagrafica(anagrafica);
 
-
 			httpEntity = new HttpEntity<AnagraficaResponse>(anagraficaResponse);
 
 			System.out.println("END invocation getAll() of controller layer");
@@ -58,7 +59,7 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-	
+
 	@GetMapping("/anagrafica-list")
 	public @ResponseBody HttpEntity<AnagraficaListResponse> getAll() {
 
@@ -165,7 +166,8 @@ public class AnagraficaController {
 	}
 
 	@PostMapping("/anagrafica-list-filter")
-	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> Search(@RequestBody AnagraficaRequestDto AnagraficaRequestDto) {
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> Search(
+			@RequestBody AnagraficaRequestDto AnagraficaRequestDto) {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 

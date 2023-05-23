@@ -35,8 +35,5 @@ public class CommessaDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-
-	
 
 }

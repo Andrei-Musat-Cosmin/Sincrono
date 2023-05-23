@@ -26,11 +26,7 @@ public class CommessaResponse {
 
 	public void setEsito(Esito esito) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
-	
+
 }
-
-

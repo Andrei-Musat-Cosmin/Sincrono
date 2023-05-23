@@ -44,12 +44,11 @@ public class ContrattoRepositoryImpl extends BaseRepositoryImpl implements Contr
 				if (object[7] != null)
 					organicoDto.setPartitaIva(((Long) object[7]).intValue());
 				if (object[8] != null)
-					organicoDto.setPotenzialeStage(
-							(int) ((double) (Double.valueOf(((BigDecimal) object[8]).toString()))));
+					organicoDto
+							.setPotenzialeStage((int) ((double) (Double.valueOf(((BigDecimal) object[8]).toString()))));
 
 				if (object[9] != null)
-					organicoDto.setSlotStage(
-							(int) ((double) (Double.valueOf(((BigDecimal) object[9]).toString()))));
+					organicoDto.setSlotStage((int) ((double) (Double.valueOf(((BigDecimal) object[9]).toString()))));
 
 				if (object[10] != null)
 					organicoDto.setPotenzialeApprendistato(

@@ -15,13 +15,11 @@ public class AnagraficaValidator {
 
 			// if (isNew) {
 
-			/*if (anagrafica.getId() != null) {
-				result = false;
-			}*/
+			/*
+			 * if (anagrafica.getId() != null) { result = false; }
+			 */
 
-			if (anagrafica.getNome() == null
-					|| anagrafica.getNome().equals("")
-					|| anagrafica.getCognome() == null
+			if (anagrafica.getNome() == null || anagrafica.getNome().equals("") || anagrafica.getCognome() == null
 					|| anagrafica.getCognome().equals("") || anagrafica.getCodiceFiscale() == null
 					|| anagrafica.getCodiceFiscale().equals("")) {
 				result = false;

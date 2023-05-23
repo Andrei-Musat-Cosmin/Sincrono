@@ -138,17 +138,19 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		}
 	}
 
-	
-	  @Override public List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws
-	  ServiceException {
-	  
-	  List<AnagraficaDto> list = null;
-	  
-	  try { list = anagraficaRepository.search(anagraficaDto); } catch (Exception
-	  e) { System.out.println("Exception occurs {}"); throw new
-	  ServiceException(ServiceMessages.ERRORE_GENERICO); }
-	  
-	  return list; }
-	 
+	@Override
+	public List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws ServiceException {
+
+		List<AnagraficaDto> list = null;
+
+		try {
+			list = anagraficaRepository.search(anagraficaDto);
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
 
 }

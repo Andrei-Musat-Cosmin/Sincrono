@@ -4,7 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 public class BaseRepositoryImpl {
-	
+
 	@PersistenceContext
 	protected EntityManager entityManager = null;
 

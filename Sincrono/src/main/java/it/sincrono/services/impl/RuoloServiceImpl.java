@@ -16,8 +16,8 @@ import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.validator.RuoloValidator;
 
 @Service
-public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
-	
+public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService {
+
 	@Autowired
 	private RuoloRepository ruoloRepository;
 
@@ -31,11 +31,11 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
 
 		try {
 			ruolo = ruoloRepository.findById(id).get();
-		} catch(NoSuchElementException ne) {
-			
+		} catch (NoSuchElementException ne) {
+
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch(Exception e) {
-		
+		} catch (Exception e) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -43,31 +43,31 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
 	}
 
 	@Override
-	
+
 	public void insert(Ruolo ruolo) throws ServiceException {
 
-		if(!ruoloValidator.validate(ruolo, true)) {
-			
+		if (!ruoloValidator.validate(ruolo, true)) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		}
 
 		try {
 			ruoloRepository.saveAndFlush(ruolo);
-		} catch(DataIntegrityViolationException de) {
-		
+		} catch (DataIntegrityViolationException de) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch(Exception e) {
-			
+		} catch (Exception e) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
 
 	@Override
-	
+
 	public void update(Ruolo ruolo) throws ServiceException {
 
-		if(!ruoloValidator.validate(ruolo, false)) {
-			
+		if (!ruoloValidator.validate(ruolo, false)) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		}
 
@@ -81,40 +81,39 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
 
 			ruoloRepository.saveAndFlush(currentRuolo);
 
-		} catch(NoSuchElementException ne) {
-			
+		} catch (NoSuchElementException ne) {
+
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch(DataIntegrityViolationException de) {
-			
+		} catch (DataIntegrityViolationException de) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch(Exception e) {
-			
+		} catch (Exception e) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
 
 	@Override
-	
+
 	public void delete(Integer id) throws ServiceException {
 
 		try {
 			Ruolo ruolo = ruoloRepository.findById(id).get();
-			
-			if (!ruoloValidator.validate(ruolo,false))
+
+			if (!ruoloValidator.validate(ruolo, false))
 				throw new ServiceException(ServiceMessages.ERRORE_FIGLI);
-				
 
 			ruoloRepository.delete(ruolo);
 			ruoloRepository.flush();
 
-		} catch(NoSuchElementException ne) {
-			
+		} catch (NoSuchElementException ne) {
+
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch(DataIntegrityViolationException de) {
-		
+		} catch (DataIntegrityViolationException de) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch(Exception e) {
-			
+		} catch (Exception e) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
@@ -126,8 +125,8 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
 
 		try {
 			tree = ruoloRepository.tree();
-		} catch(Exception e) {
-			
+		} catch (Exception e) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -141,8 +140,8 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
 
 		try {
 			map = ruoloRepository.map();
-		} catch(Exception e) {
-			
+		} catch (Exception e) {
+
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -156,14 +155,15 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
 		try {
 			list = ruoloRepository.getPadre(id);
 			return list;
-			
+
 		} catch (RepositoryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
+
 	@Override
 	public Integer getRuoloByUsername(String username) throws ServiceException {
 
@@ -172,16 +172,14 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService{
 		try {
 			idRuolo = ruoloRepository.getRuoloByUsername(username);
 		} catch (NoSuchElementException ne) {
-			
+
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (Exception e) {
-			
+
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return idRuolo;
 	}
-
-	
 
 }
