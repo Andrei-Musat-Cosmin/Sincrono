@@ -117,10 +117,10 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					anagraficDtoFilter.getAnagrafica().setCodiceFiscale((String) object[6]);
 				if (object[7] != null)
 					anagraficDtoFilter.getContratto()
-							.setDataFineRapporto(new SimpleDateFormat("dd/MM/yyyy").parse((String) object[7]));
+							.setDataFineRapporto(new SimpleDateFormat("yyyy-MM-dd").parse((String) object[7]));
 				if (object[8] != null)
 					anagraficDtoFilter.getCommessa()
-							.setDataFine(new SimpleDateFormat("dd/MM/yyyy").parse((String) object[8]));
+							.setDataFine(new SimpleDateFormat("yyyy-MM-dd").parse((String) object[8]));
 
 				listAnagraficaDto.add(anagraficDtoFilter);
 

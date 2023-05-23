@@ -48,9 +48,9 @@ public class CommessaRepositoryImpl extends BaseRepositoryImpl implements Commes
 					commessaDto.getContratto().getContrattoNazionale().setDescrizione((String) object[3]);
 				if (object[4] != null)
 					commessaDto.getCommessa()
-							.setDataInizio(new SimpleDateFormat("dd/MM/yyyy").parse((String) object[4]));
+							.setDataInizio(new SimpleDateFormat("yyyy-MM-dd").parse((String) object[4]));
 				if (object[5] != null)
-					commessaDto.getCommessa().setDataFine(new SimpleDateFormat("dd/MM/yyyy").parse((String) object[5]));
+					commessaDto.getCommessa().setDataFine(new SimpleDateFormat("yyyy-MM-dd").parse((String) object[5]));
 				if (object[6] != null)
 					commessaDto.getContratto().setMesiDurata((Integer) object[6]);
 
