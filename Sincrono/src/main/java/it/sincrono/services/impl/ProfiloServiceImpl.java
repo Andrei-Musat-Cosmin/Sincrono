@@ -95,7 +95,6 @@ public class ProfiloServiceImpl implements ProfiloService {
 			currentProfilo.setUtente(profilo.getUtente());
 			currentProfilo.setDataInizio(profilo.getDataInizio());
 			currentProfilo.setDataFine(profilo.getDataFine());
-			currentProfilo.setDataAggiornamento(profilo.getDataAggiornamento());
 			currentProfilo.setUtenteAggiornamento(profilo.getUtenteAggiornamento());
 
 			profiloRepository.saveAndFlush(currentProfilo);
