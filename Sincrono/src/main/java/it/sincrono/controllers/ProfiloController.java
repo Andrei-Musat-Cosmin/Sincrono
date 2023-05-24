@@ -28,7 +28,7 @@ public class ProfiloController {
 	private ProfiloService profiloService;
 
 	@GetMapping("/profilo/{id}")
-	public @ResponseBody HttpEntity<ProfiloResponse> get(@PathVariable("id") Integer Id) {
+	public @ResponseBody HttpEntity<ProfiloResponse> get(@PathVariable("id") Integer id) {
 
 		HttpEntity<ProfiloResponse> httpEntity = null;
 
@@ -36,7 +36,7 @@ public class ProfiloController {
 
 		try {
 
-			Profilo profilo = profiloService.get(Id);
+			Profilo profilo = profiloService.get(id);
 
 			profiloResponse.setProfilo(profilo);
 			profiloResponse.setEsito(new Esito());
@@ -44,7 +44,7 @@ public class ProfiloController {
 			httpEntity = new HttpEntity<ProfiloResponse>(profiloResponse);
 
 		} catch (ServiceException e) {
-			profiloResponse.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] { String.valueOf(Id) }));
+			profiloResponse.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] { String.valueOf(id) }));
 			httpEntity = new HttpEntity<ProfiloResponse>(profiloResponse);
 		}
 

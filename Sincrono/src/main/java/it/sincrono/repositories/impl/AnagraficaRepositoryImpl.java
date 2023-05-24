@@ -1,6 +1,5 @@
 package it.sincrono.repositories.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,7 +17,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws RepositoryException {
-		List<AnagraficaDto> list;
 		try {
 
 			String queryString = SqlStrings.SQL_LIST_ANAGRAFICA_FILTER;
@@ -58,15 +56,18 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						subString += " AND c.data_fine_rapporto LIKE '"
 								+ anagraficaDto.getContratto().getDataFineRapporto() + "'";
 					}
-					if (anagraficaDto.getContratto().getLivelloContratto().getDescrizione() != null) {
+					if (anagraficaDto.getContratto().getLivelloContratto() != null
+							&& anagraficaDto.getContratto().getLivelloContratto().getDescrizione() != null) {
 						subString += " AND f.descrizione LIKE  '"
 								+ anagraficaDto.getContratto().getLivelloContratto().getDescrizione() + "'";
 					}
-					if (anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() != null) {
+					if (anagraficaDto.getContratto().getContrattoNazionale() != null
+							&& anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() != null) {
 						subString += " AND i.descrizione LIKE  '"
 								+ anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() + "'";
 					}
-					if (anagraficaDto.getContratto().getTipoContratto().getDescrizione() != null) {
+					if (anagraficaDto.getContratto().getTipoContratto() != null
+							&& anagraficaDto.getContratto().getTipoContratto().getDescrizione() != null) {
 						subString += " AND g.descrizione LIKE  '"
 								+ anagraficaDto.getContratto().getTipoContratto().getDescrizione() + "'";
 					}
@@ -117,10 +118,10 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					anagraficDtoFilter.getAnagrafica().setCodiceFiscale((String) object[6]);
 				if (object[7] != null)
 					anagraficDtoFilter.getContratto()
-							.setDataFineRapporto(new SimpleDateFormat("yyyy-MM-dd").parse((String) object[7]));
+							.setDataFineRapporto((new java.util.Date(((java.sql.Date) object[7]).getTime())));
 				if (object[8] != null)
 					anagraficDtoFilter.getCommessa()
-							.setDataFine(new SimpleDateFormat("yyyy-MM-dd").parse((String) object[8]));
+							.setDataFine((new java.util.Date(((java.sql.Date) object[8]).getTime())));
 
 				listAnagraficaDto.add(anagraficDtoFilter);
 

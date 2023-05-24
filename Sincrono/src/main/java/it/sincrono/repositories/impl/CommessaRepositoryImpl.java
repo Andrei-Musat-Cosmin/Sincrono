@@ -1,6 +1,5 @@
 package it.sincrono.repositories.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,9 +47,10 @@ public class CommessaRepositoryImpl extends BaseRepositoryImpl implements Commes
 					commessaDto.getContratto().getContrattoNazionale().setDescrizione((String) object[3]);
 				if (object[4] != null)
 					commessaDto.getCommessa()
-							.setDataInizio(new SimpleDateFormat("yyyy-MM-dd").parse((String) object[4]));
+							.setDataInizio((new java.util.Date(((java.sql.Date) object[4]).getTime())));
 				if (object[5] != null)
-					commessaDto.getCommessa().setDataFine(new SimpleDateFormat("yyyy-MM-dd").parse((String) object[5]));
+					commessaDto.getCommessa()
+							.setDataFine((new java.util.Date(((java.sql.Date) object[4]).getTime())));
 				if (object[6] != null)
 					commessaDto.getContratto().setMesiDurata((Integer) object[6]);
 

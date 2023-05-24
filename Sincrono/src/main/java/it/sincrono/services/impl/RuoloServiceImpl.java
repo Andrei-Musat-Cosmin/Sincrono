@@ -167,7 +167,7 @@ public class RuoloServiceImpl extends BaseServiceImpl implements RuoloService {
 	@Override
 	public Integer getRuoloByUsername(String username) throws ServiceException {
 
-		Integer idRuolo = 0;
+		Integer idRuolo = null;
 
 		try {
 			idRuolo = ruoloRepository.getRuoloByUsername(username);

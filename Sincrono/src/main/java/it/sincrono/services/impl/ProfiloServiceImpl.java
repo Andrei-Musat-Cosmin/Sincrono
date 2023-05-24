@@ -25,12 +25,12 @@ public class ProfiloServiceImpl implements ProfiloService {
 	private ProfiloValidator profiloValidator;
 
 	@Override
-	public Profilo get(Integer ID) throws ServiceException {
+	public Profilo get(Integer id) throws ServiceException {
 
 		Profilo profilo = null;
 
 		try {
-			profilo = profiloRepository.findById(ID).get();
+			profilo = profiloRepository.findById(id).get();
 		} catch (NoSuchElementException ne) {
 
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);

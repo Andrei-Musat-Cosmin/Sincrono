@@ -7,9 +7,9 @@ public class ProfiloResponse extends GenericResponse {
 
 	private Profilo profilo;
 
-	public void setProfilo(Profilo profilo2) {
-		// TODO Auto-generated method stub
-
+	public ProfiloResponse(Esito esito, Profilo profilo) {
+		super(esito);
+		this.profilo = profilo;
 	}
 
 	public ProfiloResponse() {
@@ -22,12 +22,12 @@ public class ProfiloResponse extends GenericResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProfiloResponse(Esito esito, Profilo profilo) {
-		super(esito);
-		this.profilo = profilo;
-	}
-
 	public Profilo getProfilo() {
 		return profilo;
 	}
+
+	public void setProfilo(Profilo profilo) {
+		this.profilo = profilo;
+	}
+
 }
