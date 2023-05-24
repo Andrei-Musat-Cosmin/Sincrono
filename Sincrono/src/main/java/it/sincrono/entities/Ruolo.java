@@ -31,6 +31,14 @@ public class Ruolo {
 	private String descrizione;
 
 	private transient List<Ruolo> ruoli;
+	
+	
+
+	public Ruolo(Integer id, String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
+	}
 
 	public Ruolo(Integer id, Ruolo ruolo, String nome, String descrizione, List<Ruolo> ruoli) {
 		super();

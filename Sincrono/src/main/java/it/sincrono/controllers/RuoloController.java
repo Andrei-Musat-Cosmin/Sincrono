@@ -30,7 +30,7 @@ public class RuoloController {
 	@Autowired
 	private RuoloService ruoloService;
 
-	@GetMapping("/ruoli/{id}")
+	@GetMapping("/ruolo/{id}")
 	public @ResponseBody HttpEntity<RuoloResponse> get(@PathVariable("id") Integer ID) {
 
 		HttpEntity<RuoloResponse> httpEntity = null;
@@ -80,7 +80,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	@PostMapping("/ruoli")
+	@PostMapping("/ruolo")
 	public @ResponseBody HttpEntity<GenericResponse> insert(@RequestBody RuoloRequest ruoloRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -103,7 +103,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	@PutMapping("/ruoli")
+	@PutMapping("/ruolo")
 	public @ResponseBody HttpEntity<GenericResponse> update(@RequestBody RuoloRequest ruoloRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -126,7 +126,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	@DeleteMapping("/ruoli/{id}")
+	@DeleteMapping("/ruolo/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer ID) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
