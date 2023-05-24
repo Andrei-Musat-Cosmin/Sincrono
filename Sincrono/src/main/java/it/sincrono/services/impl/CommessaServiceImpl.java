@@ -49,7 +49,7 @@ public class CommessaServiceImpl implements CommessaService {
 
 			currentCommessa.setId(commessa.getId());
 
-			commessaRepository.saveAndFlush(currentCommessa);
+			commessaRepository.saveAndFlush(commessa);
 
 		} catch (NoSuchElementException ne) {
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
