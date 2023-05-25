@@ -16,7 +16,7 @@ public class RuoloRepositoryImpl extends BaseRepositoryImpl implements RuoloCust
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Ruolo> tree(Integer ID) throws RepositoryException {
+	public List<Ruolo> tree(Integer id) throws RepositoryException {
 
 		List<Ruolo> list;
 
@@ -26,10 +26,10 @@ public class RuoloRepositoryImpl extends BaseRepositoryImpl implements RuoloCust
 
 			String subString;
 
-			if (ID == null) {
+			if (id == null) {
 				subString = "AND a.ruolo IS NULL";
 			} else {
-				subString = "AND a.ruolo = " + ID;
+				subString = "AND a.ruolo = " + id;
 			}
 
 			queryString = queryString.replace("{0}", subString);
