@@ -13,37 +13,38 @@ public class AnagraficaValidator {
 
 		if (anagrafica != null) {
 
-			// if (isNew) {
+			if (isNew) {
 
-			/*
-			 * if (anagrafica.getId() != null) { result = false; }
-			 */
+			
+				if (anagrafica.getId() == null) {
+			 
 
-			if (anagrafica.getNome() == null || anagrafica.getNome().equals("") || anagrafica.getCognome() == null
-					|| anagrafica.getCognome().equals("") || anagrafica.getCodiceFiscale() == null
-					|| anagrafica.getCodiceFiscale().equals("")) {
-				result = false;
-			}
+					if (anagrafica.getNome() == null || anagrafica.getNome().equals("") || anagrafica.getCognome() == null
+							|| anagrafica.getCognome().equals("") || anagrafica.getCodiceFiscale() == null
+							|| anagrafica.getCodiceFiscale().equals("")) {
+						result = false;
+					}
 
-			/*
-			 * } else {
-			 * 
-			 * 
-			 * if (anagrafica.getId() == null) { result = false; }
-			 * 
-			 * 
-			 * if (anagrafica != null && ruolo.getRuolo().getId() == ruolo.getId()) { result
-			 * = false; }
-			 * 
-			 * 
-			 * if (anagrafica.getNome() == null || anagrafica.getNome().equals("") ||
-			 * anagrafica.getCognome() == null ||anagrafica.getCognome().equals("") ||
-			 * anagrafica.getCodiceFiscale() == null
-			 * ||anagrafica.getCodiceFiscale().equals("") || anagrafica.getAttivo() == null
-			 * ) { result = false; } } }
-			 */
+				}
+			} else {
+			 
+			  
+				if (anagrafica.getId() != null) {
+			  
+			 
+			  
+			  
+			  
+					if (anagrafica.getNome() == null || anagrafica.getNome().equals("") ||
+							anagrafica.getCognome() == null ||anagrafica.getCognome().equals("") ||
+							anagrafica.getCodiceFiscale() == null
+							||anagrafica.getCodiceFiscale().equals("") || anagrafica.getAttivo() == null
+							) { result = false; }
+				} 
+		  }
+			 
 
-		}
+	}
 
 		return result;
 	}

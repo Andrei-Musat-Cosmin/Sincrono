@@ -186,6 +186,13 @@ public class Contratto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public Contratto(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

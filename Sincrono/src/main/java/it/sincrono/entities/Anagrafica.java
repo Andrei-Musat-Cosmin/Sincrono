@@ -109,6 +109,13 @@ public class Anagrafica {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public Anagrafica(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

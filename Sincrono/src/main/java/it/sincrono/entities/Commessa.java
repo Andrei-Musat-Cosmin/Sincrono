@@ -82,6 +82,13 @@ public class Commessa {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public Commessa(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;

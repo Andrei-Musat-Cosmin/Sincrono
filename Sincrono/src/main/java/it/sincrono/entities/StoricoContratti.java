@@ -37,6 +37,14 @@ public class StoricoContratti {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public StoricoContratti(Anagrafica anagrafica, Contratto contratto) {
+		super();
+		this.anagrafica = anagrafica;
+		this.contratto = contratto;
+	}
 
 	public Integer getId() {
 		return id;
