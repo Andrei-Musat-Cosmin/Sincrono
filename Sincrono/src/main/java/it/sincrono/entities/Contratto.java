@@ -103,7 +103,7 @@ public class Contratto {
 	private String valoreTicket;
 
 	@Column(name = "categoria_protetta")
-	private String categoriaProtetta;
+	private Boolean categoriaProtetta;
 
 	@Column(name = "tutor")
 	private String tutor;
@@ -138,7 +138,7 @@ public class Contratto {
 			Integer mesiDurata, String livelloIniziale, String livelloAttuale, String livelloFinale, Boolean dimissioni,
 			Boolean partTime, Boolean partTimeA, String retribuzioneMensileLorda, String superminimoMensile,
 			String ralAnnua, String superminimoRal, String diariaMese, String diariaGg, String ticket,
-			String valoreTicket, String categoriaProtetta, String tutor, String pfi, String assicurazioneObbligatoria,
+			String valoreTicket, Boolean categoriaProtetta, String tutor, String pfi, String assicurazioneObbligatoria,
 			Date corsoSicurezza, String motivazioneFineRapporto, Boolean pc, String scattiAnzianita,
 			String tariffaPartitaIva, String canaleReclutamento) {
 		super();
@@ -410,11 +410,11 @@ public class Contratto {
 		this.valoreTicket = valoreTicket;
 	}
 
-	public String getCategoriaProtetta() {
+	public Boolean getCategoriaProtetta() {
 		return categoriaProtetta;
 	}
 
-	public void setCategoriaProtetta(String categoriaProtetta) {
+	public void setCategoriaProtetta(Boolean categoriaProtetta) {
 		this.categoriaProtetta = categoriaProtetta;
 	}
 
