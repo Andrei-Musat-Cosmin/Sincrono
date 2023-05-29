@@ -25,6 +25,9 @@ public class AnagraficaValidator {
 						result = false;
 					}
 
+				}else {
+					
+					result=false;
 				}
 			} else {
 			 
@@ -40,7 +43,10 @@ public class AnagraficaValidator {
 							anagrafica.getCodiceFiscale() == null
 							||anagrafica.getCodiceFiscale().equals("") || anagrafica.getAttivo() == null
 							) { result = false; }
-				} 
+				} else {
+					
+					result=false;
+				}
 		  }
 			 
 

@@ -7,7 +7,5 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 
 public interface AnagraficaRepository extends JpaRepository<Anagrafica, Integer>, AnagraficaCustomRepository {
 	
-	@Query(value = "SELECT a.id FROM Anagrafica a ORDER BY id DESC LIMIT 1")
-	public Integer getLastId() throws RepositoryException;
 
 }

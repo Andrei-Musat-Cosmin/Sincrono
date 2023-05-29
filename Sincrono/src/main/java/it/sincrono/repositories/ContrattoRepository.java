@@ -10,7 +10,6 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 @Repository
 public interface ContrattoRepository extends JpaRepository<Contratto, Integer>, ContrattoCustomRepository {
 	
-	@Query(value = "SELECT c.id FROM Contratto c ORDER BY id DESC LIMIT 1")
-	public Integer getLastId() throws RepositoryException;
+
 
 }

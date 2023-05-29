@@ -223,7 +223,7 @@ public class AnagraficaController {
 	
 	
 
-	@PutMapping("/modifica-nagrafica")
+	@PutMapping("/modifica-anagrafica")
 	public @ResponseBody HttpEntity<GenericResponse> updateAnagraficadto(@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
 		HttpEntity<GenericResponse> httpEntity = null;

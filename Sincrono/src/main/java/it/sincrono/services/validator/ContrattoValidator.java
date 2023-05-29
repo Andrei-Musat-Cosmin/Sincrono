@@ -19,16 +19,16 @@ public class ContrattoValidator {
 					
 				 if (contratto.getId() == null) {
 					if (contratto.getAttivo() == null ||
-							contratto.getTipoContratto().getDescrizione() == null||
-							contratto.getTipoContratto().getDescrizione().equals("") || 
-							 contratto.getLivelloContratto().getDescrizione() == null || 
-							 contratto.getLivelloContratto().getDescrizione().equals("") ||
-							 contratto.getTipoAzienda().getDescrizione() == null || 
-							 contratto.getTipoAzienda().getDescrizione().equals("") ||
-							 contratto.getContrattoNazionale().getDescrizione() == null || 
-							 contratto.getContrattoNazionale().getDescrizione().equals("")) {
+							contratto.getTipoContratto().getId()==null||
+							contratto.getLivelloContratto().getId() == null || 
+							contratto.getTipoAzienda().getId() == null || 
+							contratto.getContrattoNazionale().getId() == null 
+							) {
 						result = false;
 					}
+				  }else {
+					  
+					  result=false;
 				  }
 					
 			  } else {
@@ -37,21 +37,24 @@ public class ContrattoValidator {
 					
 				 if (contratto.getId() != null) {
 					if (contratto.getAttivo() == null ||
-							contratto.getTipoContratto().getDescrizione() == null||
-							contratto.getTipoContratto().getDescrizione().equals("") || 
-							 contratto.getLivelloContratto().getDescrizione() == null || 
-							 contratto.getLivelloContratto().getDescrizione().equals("") ||
-							 contratto.getTipoAzienda().getDescrizione() == null || 
-							 contratto.getTipoAzienda().getDescrizione().equals("") ||
-							 contratto.getContrattoNazionale().getDescrizione() == null || 
-							 contratto.getContrattoNazionale().getDescrizione().equals("")) {
+						contratto.getTipoContratto().getId()==null||
+						contratto.getLivelloContratto().getId() == null || 
+						contratto.getTipoAzienda().getId() == null || 
+						contratto.getContrattoNazionale().getId() == null 
+						) {
 						result = false;
 					}
+				  }else {
+					  
+					  result=false;
 				  }
 
 				
 			  }
 
+		}else {
+			
+			result=false;
 		}
 		
 		 return result;

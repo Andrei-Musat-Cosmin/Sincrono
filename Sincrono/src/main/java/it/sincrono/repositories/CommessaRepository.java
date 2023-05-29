@@ -9,9 +9,7 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 
 @Repository
 public interface CommessaRepository extends JpaRepository<Commessa, Integer>, CommessaCustomRepository {
-	
-	@Query(value = "SELECT c.id FROM Commessa c ORDER BY id DESC LIMIT 1")
-	public Integer getLastId() throws RepositoryException;
+
 
 
 }

@@ -17,28 +17,40 @@ public class CommessaValidator {
 			 if (commessa.getId() == null) {
 			 
 
-			if (commessa.getCliente()!=null && commessa.getCliente().equals("") ||
-				commessa.getAzienda()!=null && commessa.getAzienda().equals("") ||
-				commessa.getDataInizio()!=null && commessa.getDataFine()!=null) {
+			if (commessa.getCliente()==null && commessa.getCliente().equals("") ||
+				commessa.getAzienda()==null && commessa.getAzienda().equals("") ||
+				commessa.getDataInizio()==null && commessa.getDataFine()==null) {
 				result = false;
 			}
 
 			
-			  } else {
+			}else {
+				
+				result=false;
+			}
+			 
+			} else {
 			  
 			  
 				  if (commessa.getId() != null) {
 				  
-					  if (commessa.getCliente()!=null && commessa.getCliente().equals("") ||
-							  commessa.getAzienda()!=null && commessa.getAzienda().equals("") ||
-							  commessa.getDataInizio()!=null && commessa.getDataFine()!=null) {
+					  if (commessa.getCliente()==null && commessa.getCliente().equals("") ||
+							  commessa.getAzienda()==null && commessa.getAzienda().equals("") ||
+							  commessa.getDataInizio()==null && commessa.getDataFine()==null) {
 								result = false;
 							}
+				  }else {
+					  
+					  
+					  result=false;
 				  }
 
 			  }
-			}
+			
 
+		}else {
+			
+			result=false;
 		}
 		
 		return result;
