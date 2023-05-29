@@ -76,12 +76,12 @@ public class Anagrafica {
 	private Boolean coniugato;
 
 	@Column(name = "figli_a_carico")
-	private Boolean figliaCarico;
+	private Boolean figliACarico;
 
 	public Anagrafica(Integer id, Utente utente, Boolean attivo, String aziendaTipo, String cognome, String nome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
 			String cellularePrivato, String celllulareAziendale, String mailPrivata, String mailAziendale,
-			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliaCarico) {
+			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico) {
 		super();
 		this.id = id;
 		this.utente = utente;
@@ -102,7 +102,7 @@ public class Anagrafica {
 		this.titoliDiStudio = titoliDiStudio;
 		this.altriTitoli = altriTitoli;
 		this.coniugato = coniugato;
-		this.figliaCarico = figliaCarico;
+		this.figliACarico = figliACarico;
 	}
 
 	public Anagrafica() {
@@ -262,11 +262,11 @@ public class Anagrafica {
 	}
 
 	public Boolean getFigliaCario() {
-		return figliaCarico;
+		return figliACarico;
 	}
 
-	public void setFigliaCario(Boolean figliaCario) {
-		this.figliaCarico = figliaCario;
+	public void setFigliaCario(Boolean figliACarico) {
+		this.figliACarico = figliACarico;
 	}
 
 	public Boolean getAttivo() {
