@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.entities.StoricoContratti;
+import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
 import it.sincrono.repositories.ContrattoRepository;
@@ -191,6 +192,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
+			anagraficaDto.getAnagrafica().setUtente(new Utente(anagraficaDto.getAnagrafica().getMailAziendale()));
 			Integer idAnagrafica=anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
 			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica),
 					new Commessa(0)));

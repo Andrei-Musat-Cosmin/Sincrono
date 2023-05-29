@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import it.sincrono.services.utils.TokenGenerator;
 
 @Entity
 @Table(name = "utenti")
@@ -37,9 +38,10 @@ public class Utente {
 		this.attivo = attivo;
 	}
 
-	public Utente() {
+	public Utente(String username) {
 		super();
-		// TODO Auto-generated constructor stub
+		this.username=username;
+		this.tokenPassword=new TokenGenerator().nextToken();
 	}
 
 	public Integer getId() {
