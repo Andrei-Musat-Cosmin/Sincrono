@@ -134,4 +134,11 @@ public class Funzione {
 		this.privilegio = privilegio;
 	}
 
+	public Funzione(Integer id) {
+		super();
+		this.id = id;
+	}
+
+	
+	
 }

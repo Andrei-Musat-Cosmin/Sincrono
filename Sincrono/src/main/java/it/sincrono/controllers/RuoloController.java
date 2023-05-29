@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,13 +24,13 @@ import it.sincrono.services.RuoloService;
 import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
+@CrossOrigin
 public class RuoloController {
 
 	@Autowired
 	private RuoloService ruoloService;
 
-	
-	@GetMapping("/ruoli/{id}")
+	@GetMapping("/ruolo/{id}")
 	public @ResponseBody HttpEntity<RuoloResponse> get(@PathVariable("id") Integer ID) {
 
 		HttpEntity<RuoloResponse> httpEntity = null;
@@ -79,7 +80,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	@PostMapping("/ruoli")
+	@PostMapping("/ruolo")
 	public @ResponseBody HttpEntity<GenericResponse> insert(@RequestBody RuoloRequest ruoloRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -102,7 +103,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	@PutMapping("/ruoli")
+	@PutMapping("/ruolo")
 	public @ResponseBody HttpEntity<GenericResponse> update(@RequestBody RuoloRequest ruoloRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -125,8 +126,7 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	
-	@DeleteMapping("/ruoli/{id}")
+	@DeleteMapping("/ruolo/{id}")
 	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer ID) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -149,7 +149,6 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	
 	@GetMapping("/ruoli/tree")
 	public @ResponseBody HttpEntity<RuoloListResponse> tree() {
 
@@ -174,7 +173,6 @@ public class RuoloController {
 		return httpEntity;
 	}
 
-	
 	@GetMapping("/ruoli/map")
 	public @ResponseBody HttpEntity<RuoloListResponse> map() {
 

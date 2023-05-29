@@ -7,7 +7,7 @@ import it.sincrono.repositories.dto.CommessaDto;
 import it.sincrono.services.exceptions.ServiceException;
 
 public interface CommessaService {
-	
+
 	public List<Commessa> listCommessa() throws ServiceException;
 
 	public Commessa getCommessaById(Integer id) throws ServiceException;

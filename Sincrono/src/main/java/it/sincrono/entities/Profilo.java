@@ -52,6 +52,16 @@ public class Profilo {
 		this.utenteAggiornamento = utenteAggiornamento;
 	}
 
+	public Profilo(Integer id, Ruolo ruolo, Utente utente, Date dataInizio, Date dataFine, String utenteAggiornamento) {
+		super();
+		this.id = id;
+		this.ruolo = ruolo;
+		this.utente = utente;
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
+		this.utenteAggiornamento = utenteAggiornamento;
+	}
+
 	public Profilo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -99,10 +109,6 @@ public class Profilo {
 
 	public Date getDataAggiornamento() {
 		return dataAggiornamento;
-	}
-
-	public void setDataAggiornamento(Date dataAggiornamento) {
-		this.dataAggiornamento = dataAggiornamento;
 	}
 
 	public String getUtenteAggiornamento() {

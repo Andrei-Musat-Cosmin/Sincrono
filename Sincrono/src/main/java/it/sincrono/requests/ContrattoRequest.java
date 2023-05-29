@@ -10,7 +10,7 @@ public class ContrattoRequest {
 		super();
 		this.contratto = contratto;
 	}
-	
+
 	public ContrattoRequest() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -23,7 +23,6 @@ public class ContrattoRequest {
 	public void setContratto(Contratto contratto) {
 		this.contratto = contratto;
 	}
-
 
 	@Override
 	public String toString() {

@@ -54,13 +54,12 @@ public class CommessaListResponse {
 	}
 
 	public void setEsito(Esito esito) {
-	this.esito = esito;
-		
+		this.esito = esito;
+
 	}
 
 	public Esito getEsito() {
 		return esito;
 	}
-	
-	
+
 }

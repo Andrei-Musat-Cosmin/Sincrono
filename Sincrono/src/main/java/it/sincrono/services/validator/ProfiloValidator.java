@@ -7,7 +7,7 @@ import it.sincrono.entities.Profilo;
 @Component
 public class ProfiloValidator {
 
-	public boolean validate(Profilo profilo) /* throws ParseException */ {
+	public boolean validate(Profilo profilo){
 
 		boolean result = true;
 
@@ -25,6 +25,9 @@ public class ProfiloValidator {
 
 			}
 		}
+
+		if (profilo.getDataAggiornamento() != null)
+			result = false;
 		return result;
 	}
 }

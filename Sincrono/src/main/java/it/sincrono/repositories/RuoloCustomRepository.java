@@ -11,7 +11,7 @@ public interface RuoloCustomRepository extends BaseCustomRepository {
 	public List<Ruolo> tree(Integer id) throws RepositoryException;
 
 	public Ruolo getPadre(Integer id) throws RepositoryException;
-	
+
 	public Integer getRuoloByUsername(String username) throws RepositoryException;
-	
+
 }

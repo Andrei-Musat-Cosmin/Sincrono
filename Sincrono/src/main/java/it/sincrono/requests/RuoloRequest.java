@@ -13,6 +13,4 @@ public class RuoloRequest extends GenericRequest {
 		this.ruolo = ruolo;
 	}
 
-	
-	}
-
+}

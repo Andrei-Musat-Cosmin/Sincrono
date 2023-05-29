@@ -181,11 +181,17 @@ public class Contratto {
 		this.canaleReclutamento = canaleReclutamento;
 
 	}
-	
 
 	public Contratto() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public Contratto(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	public Integer getId() {
@@ -483,8 +489,6 @@ public class Contratto {
 	public void setCanaleReclutamento(String canaleReclutamento) {
 		this.canaleReclutamento = canaleReclutamento;
 	}
-
-
 
 	public Contratto(TipoContratto tipoContratto, TipoAzienda tipoAzienda, ContrattoNazionale contrattoNazionale) {
 		super();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import it.sincrono.services.StoricoCommesseService;
 import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
+@CrossOrigin
 public class StoricoCommesseController {
 
 	@Autowired
@@ -41,7 +43,7 @@ public class StoricoCommesseController {
 			storicoCommesseListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<StoricoCommesseListResponse>(storicoCommesseListResponse);
-			System.out.println("bau");
+
 		} catch (Exception e) {
 			storicoCommesseListResponse.setEsito(new Esito(404, e.getMessage(), null));
 			httpEntity = new HttpEntity<StoricoCommesseListResponse>(storicoCommesseListResponse);
@@ -64,7 +66,7 @@ public class StoricoCommesseController {
 			storicoCommesseResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<StoricoCommesseResponse>(storicoCommesseResponse);
-			System.out.println("ciao");
+
 		} catch (Exception e) {
 			storicoCommesseResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
 			httpEntity = new HttpEntity<StoricoCommesseResponse>(storicoCommesseResponse);
@@ -84,7 +86,7 @@ public class StoricoCommesseController {
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-			System.out.println("ciao");
+
 		} catch (Exception e) {
 			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -104,7 +106,7 @@ public class StoricoCommesseController {
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-			System.out.println("ciao");
+
 		} catch (Exception e) {
 			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);

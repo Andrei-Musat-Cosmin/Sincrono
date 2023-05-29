@@ -36,6 +36,14 @@ public class StoricoCommesse {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+
+	public StoricoCommesse(Anagrafica anagrafica, Commessa commessa) {
+		super();
+		this.anagrafica = anagrafica;
+		this.commessa = commessa;
+	}
 
 	public Integer getId() {
 		return id;

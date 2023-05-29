@@ -9,6 +9,7 @@ import it.sincrono.entities.Ruolo;
 import it.sincrono.repositories.exceptions.RepositoryException;
 
 public interface RuoloRepository extends JpaRepository<Ruolo, Integer>, RuoloCustomRepository {
+
 	@Query(value = "SELECT new Ruolo(a.id, a.nome) FROM Ruolo a ORDER BY a.nome ASC")
 	public List<Ruolo> map();
 

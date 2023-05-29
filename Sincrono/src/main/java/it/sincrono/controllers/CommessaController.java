@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import it.sincrono.services.CommessaService;
 import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
+@CrossOrigin
 public class CommessaController {
 
 	@Autowired
@@ -35,7 +37,6 @@ public class CommessaController {
 
 		CommessaDtoListResponse commessaDtoListResponse = new CommessaDtoListResponse();
 
-		
 		try {
 
 			commessaDtoListResponse.setEsito(new Esito());
@@ -63,7 +64,7 @@ public class CommessaController {
 			commessaListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
-			System.out.println("bau");
+
 		} catch (Exception e) {
 			commessaListResponse.setEsito(new Esito(404, e.getMessage(), null));
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
@@ -86,7 +87,7 @@ public class CommessaController {
 			commessaResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<CommessaResponse>(commessaResponse);
-			System.out.println("ciao");
+
 		} catch (Exception e) {
 			commessaResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
 			httpEntity = new HttpEntity<CommessaResponse>(commessaResponse);
@@ -95,17 +96,17 @@ public class CommessaController {
 	}
 
 	@PostMapping("/commessa")
-	public @ResponseBody HttpEntity<GenericResponse> saveCommessa(@RequestBody CommessaRequest CommessaRequest) {
+	public @ResponseBody HttpEntity<GenericResponse> saveCommessa(@RequestBody CommessaRequest commessaRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			commessaService.insert(CommessaRequest.getCommessa());
+			commessaService.insert(commessaRequest.getCommessa());
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-			System.out.println("ciao");
+
 		} catch (Exception e) {
 			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -114,17 +115,17 @@ public class CommessaController {
 	}
 
 	@PutMapping("/commessa")
-	public @ResponseBody HttpEntity<GenericResponse> updateCommessa(@RequestBody CommessaRequest CommessaRequest) {
+	public @ResponseBody HttpEntity<GenericResponse> updateCommessa(@RequestBody CommessaRequest commessaRequest) {
 		HttpEntity<GenericResponse> httpEntity;
 
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			commessaService.update(CommessaRequest.getCommessa());
+			commessaService.update(commessaRequest.getCommessa());
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-			System.out.println("ciao");
+
 		} catch (Exception e) {
 			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);

@@ -57,8 +57,6 @@ public class Commessa {
 	@Column(name = "attesaLavori")
 	private String attesaLavori;
 
-	
-
 	public Commessa(Integer id, String cliente, String clienteFinale, String titoloPosizione, String distacco,
 			Date dataInizio, Date dataFine, String costoMese, String tariffaGiornaliera, String nominativo,
 			String azienda, String aziendaDiFatturazioneInterna, Boolean stato, String attesaLavori) {
@@ -77,12 +75,19 @@ public class Commessa {
 		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
 		this.stato = stato;
 		this.attesaLavori = attesaLavori;
-	
+
 	}
 
 	public Commessa() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public Commessa(Integer id) {
+		super();
+		this.id = id;
 	}
 
 	public Integer getId() {
@@ -197,5 +202,4 @@ public class Commessa {
 		this.attesaLavori = attesaLavori;
 	}
 
-	
 }
