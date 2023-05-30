@@ -6,14 +6,6 @@ import it.sincrono.entities.Privilegio;
 public class PrivilegioResponse extends GenericResponse {
 	Privilegio privilegio;
 
-	public Privilegio getPrivilegio() {
-		return privilegio;
-	}
-
-	public void setPrivilegio(Privilegio privilegio) {
-		this.privilegio = privilegio;
-	}
-
 	public PrivilegioResponse(Esito esito, Privilegio privilegio) {
 		super(esito);
 		this.privilegio = privilegio;
@@ -29,5 +21,12 @@ public class PrivilegioResponse extends GenericResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	public Privilegio getPrivilegio() {
+		return privilegio;
+	}
+
+	public void setPrivilegio(Privilegio privilegio) {
+		this.privilegio = privilegio;
+	}
+
 }

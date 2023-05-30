@@ -2,11 +2,27 @@ package it.sincrono.responses;
 
 import java.util.Objects;
 
+import it.sincrono.beans.Esito;
 import it.sincrono.entities.Contratto;
 
 public class ContrattoResponse extends GenericResponse {
 
 	private Contratto contratto;
+
+	public ContrattoResponse(Esito esito, Contratto contratto) {
+		super(esito);
+		this.contratto = contratto;
+	}
+
+	public ContrattoResponse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public ContrattoResponse(Esito esito) {
+		super(esito);
+		// TODO Auto-generated constructor stub
+	}
 
 	public Contratto getContratto() {
 		return contratto;
@@ -16,38 +32,4 @@ public class ContrattoResponse extends GenericResponse {
 		this.contratto = contratto;
 	}
 
-	public ContrattoResponse(Contratto contratto) {
-		super();
-		this.contratto = contratto;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(contratto);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ContrattoResponse other = (ContrattoResponse) obj;
-		return Objects.equals(contratto, other.contratto);
-	}
-
-	@Override
-	public String toString() {
-		return "ContrattoResponse [contratto=" + contratto + "]";
-	}
-
-	public ContrattoResponse() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 }

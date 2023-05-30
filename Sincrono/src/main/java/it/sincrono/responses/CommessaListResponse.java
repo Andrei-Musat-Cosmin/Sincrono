@@ -6,42 +6,12 @@ import java.util.Objects;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Commessa;
 
-public class CommessaListResponse {
+public class CommessaListResponse extends GenericResponse{
 	private List<Commessa> commesseList;
-	private Esito esito;
 
-	public List<Commessa> getCommesseList() {
-		return commesseList;
-	}
-
-	public CommessaListResponse(List<Commessa> CommesseList) {
-		super();
-		this.commesseList = CommesseList;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(commesseList);
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CommessaListResponse other = (CommessaListResponse) obj;
-		return Objects.equals(commesseList, other.commesseList);
-	}
-
-	@Override
-	public String toString() {
-		return "CommessaListResponse [CommesseList=" + commesseList + "]";
+	public CommessaListResponse(Esito esito, List<Commessa> commesseList) {
+		super(esito);
+		this.commesseList = commesseList;
 	}
 
 	public CommessaListResponse() {
@@ -49,17 +19,18 @@ public class CommessaListResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void setList(List<Commessa> Commesse) {
-		this.commesseList = Commesse;
+	public CommessaListResponse(Esito esito) {
+		super(esito);
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setEsito(Esito esito) {
-		this.esito = esito;
-
+	public List<Commessa> getCommesseList() {
+		return commesseList;
 	}
 
-	public Esito getEsito() {
-		return esito;
+	public void setCommesseList(List<Commessa> commesseList) {
+		this.commesseList = commesseList;
 	}
 
+	
 }

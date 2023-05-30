@@ -41,19 +41,16 @@ public class PrivilegioController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-		
 
 			privilegioService.insert(privilegioRequest.getPrivilegio());
-			
+
 			privilegioService.checkPrivilegioFunzionePadre(privilegioRequest.getPrivilegio().getFunzione().getId());
 
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
-			
-
-		} catch(ServiceException e) {
+		} catch (ServiceException e) {
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
@@ -73,7 +70,6 @@ public class PrivilegioController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-		
 
 			privilegioService.delete(id);
 
@@ -81,10 +77,8 @@ public class PrivilegioController {
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
-	
-
-		} catch(ServiceException e) {
-			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] {String.valueOf(id)}));
+		} catch (ServiceException e) {
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] { String.valueOf(id) }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
 
@@ -95,8 +89,8 @@ public class PrivilegioController {
 	 * @param id
 	 * @return HttpEntity
 	 */
-	
-	//Tree funzioni che può effettuare utente in base al ruolo
+
+	// Tree funzioni che può effettuare utente in base al ruolo
 	@RequestMapping(value = "/privilegi/funzioni-ruolo/tree/{id}", method = RequestMethod.GET, produces = ControllerMaps.JSON)
 	public @ResponseBody HttpEntity<FunzioniListResponse> treeFunzioniRuolo(@PathVariable("id") Integer id) {
 
@@ -105,52 +99,44 @@ public class PrivilegioController {
 		FunzioniListResponse funzioneListResponse = new FunzioniListResponse();
 
 		try {
-		
 
 			List<Funzione> funzioni = funzioneService.funzioneTree(id);
 
-			funzioneListResponse.setFunzioniList(funzioni);
+			funzioneListResponse.setFunzioni(funzioni);
 			funzioneListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<FunzioniListResponse>(funzioneListResponse);
 
-		
-
-		} catch(ServiceException e) {
+		} catch (ServiceException e) {
 			funzioneListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<FunzioniListResponse>(funzioneListResponse);
 		}
 
 		return httpEntity;
 	}
-	
+
 	@RequestMapping(value = "/get-id-privilegio", method = RequestMethod.POST, consumes = ControllerMaps.JSON)
-	public @ResponseBody HttpEntity<PrivilegioResponse> getIdPrivilegio(@RequestBody PrivilegioRequest privilegioRequest) {
+	public @ResponseBody HttpEntity<PrivilegioResponse> getIdPrivilegio(
+			@RequestBody PrivilegioRequest privilegioRequest) {
 
 		HttpEntity<PrivilegioResponse> httpEntity = null;
 
 		PrivilegioResponse privilegioResponse = new PrivilegioResponse();
 
 		try {
-		
 
-			
 			privilegioResponse.setEsito(new Esito());
-			
+
 			privilegioResponse.setPrivilegio(privilegioService.getIdPrivilegio(privilegioRequest.getPrivilegio()));
 
 			httpEntity = new HttpEntity<PrivilegioResponse>(privilegioResponse);
 
-		
-
-		} catch(ServiceException e) {
+		} catch (ServiceException e) {
 			privilegioResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<PrivilegioResponse>(privilegioResponse);
 		}
 
 		return httpEntity;
 	}
-	
-	
-	
+
 }

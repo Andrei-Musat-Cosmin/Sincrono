@@ -60,7 +60,7 @@ public class CommessaController {
 		try {
 			List<Commessa> commesse = commessaService.listCommessa();
 
-			commessaListResponse.setList(commesse);
+			commessaListResponse.setCommesseList(commesse);
 			commessaListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);

@@ -7,12 +7,10 @@ import it.sincrono.repositories.dto.CommessaDto;
 
 public class CommessaDtoListResponse extends GenericResponse {
 	private List<CommessaDto> dashboardList;
-	private Esito esito;
 
 	public CommessaDtoListResponse(List<CommessaDto> dashboardList, Esito esito) {
-		super();
+		super(esito);
 		this.dashboardList = dashboardList;
-		this.esito = esito;
 	}
 
 	public CommessaDtoListResponse() {
@@ -26,14 +24,6 @@ public class CommessaDtoListResponse extends GenericResponse {
 
 	public void setDashboardList(List<CommessaDto> dashboardList) {
 		this.dashboardList = dashboardList;
-	}
-
-	public Esito getEsito() {
-		return esito;
-	}
-
-	public void setEsito(Esito esito) {
-		this.esito = esito;
 	}
 
 	public void setList(List<CommessaDto> view) {

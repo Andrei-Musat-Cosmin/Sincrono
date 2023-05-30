@@ -2,7 +2,6 @@ package it.sincrono.controllers;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -171,7 +170,7 @@ public class AnagraficaController {
 			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
-		
+
 		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
 			System.out.println("START invocation getAll() of controller layer");
@@ -192,8 +191,7 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-	
-	
+
 	@PostMapping("/nuova-anagrafica")
 	public @ResponseBody HttpEntity<GenericResponse> insertAnagraficaDto(
 			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
@@ -205,7 +203,6 @@ public class AnagraficaController {
 			System.out.println("START invocation getAll() of controller layer");
 
 			anagraficaService.insertAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
-
 
 			genericResponse.setEsito(new Esito());
 
@@ -220,11 +217,10 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-	
-	
 
 	@PutMapping("/modifica-anagrafica")
-	public @ResponseBody HttpEntity<GenericResponse> updateAnagraficadto(@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+	public @ResponseBody HttpEntity<GenericResponse> updateAnagraficadto(
+			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
 
@@ -250,7 +246,8 @@ public class AnagraficaController {
 	}
 
 	@PostMapping("/aggiungi-contratto-commessa")
-	public @ResponseBody HttpEntity<GenericResponse> insertAnagraficaDtoRelations(@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+	public @ResponseBody HttpEntity<GenericResponse> insertAnagraficaDtoRelations(
+			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
 
@@ -274,6 +271,5 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-
 
 }

@@ -3,15 +3,12 @@ package it.sincrono.responses;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.StoricoCommesse;
 
-public class StoricoCommesseResponse {
+public class StoricoCommesseResponse extends GenericResponse{
 
 	private StoricoCommesse storicoCommesse;
 
-	public StoricoCommesse getStoricoCommesse() {
-		return storicoCommesse;
-	}
-
-	public void setStoricoCommesse(StoricoCommesse storicoCommesse) {
+	public StoricoCommesseResponse(Esito esito, StoricoCommesse storicoCommesse) {
+		super(esito);
 		this.storicoCommesse = storicoCommesse;
 	}
 
@@ -20,14 +17,17 @@ public class StoricoCommesseResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public StoricoCommesseResponse(StoricoCommesse storicoCommesse) {
-		super();
-		this.storicoCommesse = storicoCommesse;
+	public StoricoCommesseResponse(Esito esito) {
+		super(esito);
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setEsito(Esito esito) {
-		// TODO Auto-generated method stub
+	public StoricoCommesse getStoricoCommesse() {
+		return storicoCommesse;
+	}
 
+	public void setStoricoCommesse(StoricoCommesse storicoCommesse) {
+		this.storicoCommesse = storicoCommesse;
 	}
 
 }

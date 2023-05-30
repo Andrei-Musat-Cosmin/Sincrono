@@ -14,6 +14,13 @@ public class OrganicoDtoListResponse extends GenericResponse {
 	}
 
 	public OrganicoDtoListResponse() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public OrganicoDtoListResponse(Esito esito) {
+		super(esito);
+		// TODO Auto-generated constructor stub
 	}
 
 	public List<OrganicoDto> getList() {

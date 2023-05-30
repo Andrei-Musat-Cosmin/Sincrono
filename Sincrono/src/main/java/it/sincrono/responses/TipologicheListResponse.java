@@ -30,5 +30,4 @@ public class TipologicheListResponse<T> extends GenericResponse {
 		this.list = list;
 	}
 
-	
 }
