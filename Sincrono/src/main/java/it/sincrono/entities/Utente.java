@@ -44,6 +44,10 @@ public class Utente {
 		this.tokenPassword=new TokenGenerator().nextToken();
 	}
 
+	public Utente() {
+		super();
+	}
+	
 	public Integer getId() {
 		return id;
 	}
