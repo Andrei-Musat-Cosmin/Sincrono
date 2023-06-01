@@ -102,7 +102,7 @@ public class PrivilegioController {
 
 			List<Funzione> funzioni = funzioneService.funzioneTree(id);
 
-			funzioneListResponse.setFunzioni(funzioni);
+			funzioneListResponse.setList(funzioni);
 			funzioneListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<FunzioniListResponse>(funzioneListResponse);

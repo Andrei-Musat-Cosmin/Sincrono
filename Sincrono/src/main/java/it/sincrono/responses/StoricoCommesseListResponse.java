@@ -8,11 +8,11 @@ import it.sincrono.entities.StoricoCommesse;
 
 public class StoricoCommesseListResponse extends GenericResponse {
 
-	private List<StoricoCommesse> storicoCommesseList;
+	private List<StoricoCommesse> list;
 
-	public StoricoCommesseListResponse(Esito esito, List<StoricoCommesse> storicoCommesseList) {
+	public StoricoCommesseListResponse(Esito esito, List<StoricoCommesse> list) {
 		super(esito);
-		this.storicoCommesseList = storicoCommesseList;
+		this.list = list;
 	}
 
 	public StoricoCommesseListResponse() {
@@ -25,12 +25,12 @@ public class StoricoCommesseListResponse extends GenericResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<StoricoCommesse> getStoricoCommesseList() {
-		return storicoCommesseList;
+	public List<StoricoCommesse> getList() {
+		return list;
 	}
 
-	public void setStoricoCommesseList(List<StoricoCommesse> storicoCommesseList) {
-		this.storicoCommesseList = storicoCommesseList;
+	public void setList(List<StoricoCommesse> list) {
+		this.list = list;
 	}
 
 }

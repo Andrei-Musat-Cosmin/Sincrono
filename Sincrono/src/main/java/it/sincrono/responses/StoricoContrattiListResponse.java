@@ -8,11 +8,11 @@ import it.sincrono.entities.StoricoContratti;
 
 public class StoricoContrattiListResponse extends GenericResponse {
 
-	private List<StoricoContratti> storicoContrattiList;
+	private List<StoricoContratti> list;
 
-	public StoricoContrattiListResponse(Esito esito, List<StoricoContratti> storicoContrattiList) {
+	public StoricoContrattiListResponse(Esito esito, List<StoricoContratti> list) {
 		super(esito);
-		this.storicoContrattiList = storicoContrattiList;
+		this.list = list;
 	}
 
 	public StoricoContrattiListResponse() {
@@ -25,12 +25,12 @@ public class StoricoContrattiListResponse extends GenericResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<StoricoContratti> getStoricoContrattiList() {
-		return storicoContrattiList;
+	public List<StoricoContratti> getList() {
+		return list;
 	}
 
-	public void setStoricoContrattiList(List<StoricoContratti> storicoContrattiList) {
-		this.storicoContrattiList = storicoContrattiList;
+	public void setList(List<StoricoContratti> list) {
+		this.list = list;
 	}
 
 }

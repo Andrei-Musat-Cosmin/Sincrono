@@ -39,7 +39,7 @@ public class StoricoCommesseController {
 		try {
 			List<StoricoCommesse> commesse = storicoCommesseService.listStoricoCommesse();
 
-			storicoCommesseListResponse.setStoricoCommesseList(commesse);
+			storicoCommesseListResponse.setList(commesse);
 			storicoCommesseListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<StoricoCommesseListResponse>(storicoCommesseListResponse);

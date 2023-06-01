@@ -6,11 +6,11 @@ import it.sincrono.beans.Esito;
 import it.sincrono.entities.Funzione;
 
 public class FunzioniListResponse extends GenericResponse{
-	private List<Funzione> funzioni;
+	private List<Funzione> list;
 
-	public FunzioniListResponse(Esito esito, List<Funzione> funzioni) {
+	public FunzioniListResponse(Esito esito, List<Funzione> list) {
 		super(esito);
-		this.funzioni = funzioni;
+		this.list = list;
 	}
 
 	public FunzioniListResponse() {
@@ -23,12 +23,12 @@ public class FunzioniListResponse extends GenericResponse{
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Funzione> getFunzioni() {
-		return funzioni;
+	public List<Funzione> getList() {
+		return list;
 	}
 
-	public void setFunzioni(List<Funzione> funzioni) {
-		this.funzioni = funzioni;
+	public void setList(List<Funzione> list) {
+		this.list = list;
 	}
 
 }

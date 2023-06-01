@@ -6,13 +6,8 @@ import java.util.Objects;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Commessa;
 
-public class CommessaListResponse extends GenericResponse{
-	private List<Commessa> commesseList;
-
-	public CommessaListResponse(Esito esito, List<Commessa> commesseList) {
-		super(esito);
-		this.commesseList = commesseList;
-	}
+public class CommessaListResponse extends GenericResponse {
+	private List<Commessa> list;
 
 	public CommessaListResponse() {
 		super();
@@ -24,13 +19,16 @@ public class CommessaListResponse extends GenericResponse{
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Commessa> getCommesseList() {
-		return commesseList;
+	public List<Commessa> getList() {
+		return list;
 	}
 
-	public void setCommesseList(List<Commessa> commesseList) {
-		this.commesseList = commesseList;
+	public void setList(List<Commessa> list) {
+		this.list = list;
 	}
 
-	
+	public CommessaListResponse(Esito esito, List<Commessa> list) {
+		super(esito);
+		this.list = list;
+	}
 }

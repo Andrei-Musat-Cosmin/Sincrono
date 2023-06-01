@@ -4,7 +4,12 @@ import it.sincrono.beans.Esito;
 import it.sincrono.entities.Commessa;
 
 public class CommessaResponse extends GenericResponse{
-	private Commessa Commessa;
+	private Commessa commessa;
+
+	public CommessaResponse(Esito esito, Commessa commessa) {
+		super(esito);
+		this.commessa = commessa;
+	}
 
 	public CommessaResponse() {
 		super();
@@ -16,17 +21,12 @@ public class CommessaResponse extends GenericResponse{
 		// TODO Auto-generated constructor stub
 	}
 
-	public CommessaResponse(Esito esito, it.sincrono.entities.Commessa commessa) {
-		super(esito);
-		Commessa = commessa;
-	}
-
 	public Commessa getCommessa() {
-		return Commessa;
+		return commessa;
 	}
 
 	public void setCommessa(Commessa commessa) {
-		Commessa = commessa;
+		this.commessa = commessa;
 	}
 
 }

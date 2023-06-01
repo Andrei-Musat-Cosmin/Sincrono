@@ -42,17 +42,14 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private StoricoContrattiRepository storicoContrattiRepository;
 
-
 	@Autowired
 	private AnagraficaValidator anagraficaValidator;
-	
+
 	@Autowired
 	private ContrattoValidator contrattoValidator;
-	
+
 	@Autowired
 	private CommessaValidator commessaValidator;
-
-
 
 	@Override
 	public List<Anagrafica> list() throws ServiceException {
@@ -117,7 +114,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Anagrafica Currentanagrafica = anagraficaRepository.findById(anagrafica.getId()).get();
 			Currentanagrafica.setId(anagrafica.getId());
 			Currentanagrafica.setAltriTitoli(anagrafica.getAltriTitoli());
-			Currentanagrafica.setCelllulareAziendale(anagrafica.getCelllulareAziendale());
+			Currentanagrafica.setCellulareAziendale(anagrafica.getCellulareAziendale());
 			Currentanagrafica.setCellularePrivato(anagrafica.getCellularePrivato());
 			Currentanagrafica.setCodiceFiscale(anagrafica.getCodiceFiscale());
 			Currentanagrafica.setCognome(anagrafica.getCognome());
@@ -125,7 +122,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Currentanagrafica.setConiugato(anagrafica.getConiugato());
 			Currentanagrafica.setDataDiNascita(anagrafica.getDataDiNascita());
 			Currentanagrafica.setDomicilio(anagrafica.getDomicilio());
-			Currentanagrafica.setFigliaCario(anagrafica.getFigliaCario());
+			Currentanagrafica.setFigliACarico(anagrafica.getFigliACarico());
 			Currentanagrafica.setMailAziendale(anagrafica.getMailAziendale());
 			Currentanagrafica.setMailPec(anagrafica.getMailPec());
 			Currentanagrafica.setMailPrivata(anagrafica.getMailPrivata());
@@ -182,7 +179,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		return list;
 	}
-	
+
 	@Transactional
 	@Override
 	public void insertAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
@@ -193,31 +190,29 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				throw new ServiceException();
 			}
 			anagraficaDto.getAnagrafica().setUtente(new Utente(anagraficaDto.getAnagrafica().getMailAziendale()));
-			Integer idAnagrafica=anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
-			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica),
-					new Commessa(0)));
-			storicoContrattiRepository.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica),
-					new Contratto(0)));
-			
-			
-			if(anagraficaDto.getCommessa()!=null) {
+			Integer idAnagrafica = anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
+			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(0)));
+			storicoContrattiRepository
+					.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(0)));
+
+			if (anagraficaDto.getCommessa() != null) {
 				if (!commessaValidator.validate(anagraficaDto.getCommessa(), true)) {
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
 				Integer idCommessa = commesseRepository.saveAndFlush(anagraficaDto.getCommessa()).getId();
-				storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica),
-						new Commessa(idCommessa)));
+				storicoCommessaRepository
+						.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
 			}
-			
-			if(anagraficaDto.getContratto()!=null) {
+
+			if (anagraficaDto.getContratto() != null) {
 				if (!contrattoValidator.validate(anagraficaDto.getContratto(), true)) {
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
 				Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
-				storicoContrattiRepository.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica),
-						new Contratto(idContratto)));
+				storicoContrattiRepository
+						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
 
 		} catch (DataIntegrityViolationException de) {
@@ -226,13 +221,13 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		} catch (ServiceException e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 	}
-	
+
 	@Override
 	public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
 		if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), false)) {
@@ -268,40 +263,40 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		}
 
 	}
-	
+
 	@Override
 	public void insertAnagraficaDtoRelations(AnagraficaDto anagraficaDto) throws ServiceException {
 
 		try {
 
 			Integer idAnagrafica;
-			
-			if(anagraficaDto.getAnagrafica().getId()!=null) {
-				idAnagrafica=anagraficaDto.getAnagrafica().getId();
-			}else {
-				
+
+			if (anagraficaDto.getAnagrafica().getId() != null) {
+				idAnagrafica = anagraficaDto.getAnagrafica().getId();
+			} else {
+
 				throw new ServiceException();
 			}
-			
-			if(anagraficaDto.getCommessa()!=null) {
+
+			if (anagraficaDto.getCommessa() != null) {
 				if (!commessaValidator.validate(anagraficaDto.getCommessa(), true)) {
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
 				Integer idCommessa = commesseRepository.saveAndFlush(anagraficaDto.getCommessa()).getId();
-				storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica),
-						new Commessa(idCommessa)));
+				storicoCommessaRepository
+						.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
 			}
-			
-			if(anagraficaDto.getContratto()!=null) {
+
+			if (anagraficaDto.getContratto() != null) {
 				if (!contrattoValidator.validate(anagraficaDto.getContratto(), true)) {
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
 				Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
 				contrattoRepository.saveAndFlush(anagraficaDto.getContratto());
-				storicoContrattiRepository.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica),
-						new Contratto(idContratto)));
+				storicoContrattiRepository
+						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
 
 		} catch (DataIntegrityViolationException de) {
@@ -310,7 +305,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		} catch (ServiceException e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}

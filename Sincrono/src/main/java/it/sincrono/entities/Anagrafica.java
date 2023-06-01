@@ -55,7 +55,7 @@ public class Anagrafica {
 	private String cellularePrivato;
 
 	@Column(name = "cellulare_aziendale")
-	private String celllulareAziendale;
+	private String cellulareAziendale;
 
 	@Column(name = "mail_privata")
 	private String mailPrivata;
@@ -80,7 +80,7 @@ public class Anagrafica {
 
 	public Anagrafica(Integer id, Utente utente, Boolean attivo, String aziendaTipo, String cognome, String nome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
-			String cellularePrivato, String celllulareAziendale, String mailPrivata, String mailAziendale,
+			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
 			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico) {
 		super();
 		this.id = id;
@@ -95,7 +95,7 @@ public class Anagrafica {
 		this.residenza = residenza;
 		this.domicilio = domicilio;
 		this.cellularePrivato = cellularePrivato;
-		this.celllulareAziendale = celllulareAziendale;
+		this.cellulareAziendale = cellulareAziendale;
 		this.mailPrivata = mailPrivata;
 		this.mailAziendale = mailAziendale;
 		this.mailPec = mailPec;
@@ -205,12 +205,12 @@ public class Anagrafica {
 		this.cellularePrivato = cellularePrivato;
 	}
 
-	public String getCelllulareAziendale() {
-		return celllulareAziendale;
+	public String getCellulareAziendale() {
+		return cellulareAziendale;
 	}
 
-	public void setCelllulareAziendale(String celllulareAziendale) {
-		this.celllulareAziendale = celllulareAziendale;
+	public void setCellulareAziendale(String cellulareAziendale) {
+		this.cellulareAziendale = cellulareAziendale;
 	}
 
 	public String getMailPrivata() {
@@ -261,11 +261,11 @@ public class Anagrafica {
 		this.coniugato = coniugato;
 	}
 
-	public Boolean getFigliaCario() {
+	public Boolean getFigliACarico() {
 		return figliACarico;
 	}
 
-	public void setFigliaCario(Boolean figliACarico) {
+	public void setFigliACarico(Boolean figliACarico) {
 		this.figliACarico = figliACarico;
 	}
 

@@ -8,11 +8,11 @@ import it.sincrono.entities.Contratto;
 
 public class ContrattoListResponse extends GenericResponse {
 
-	private List<Contratto> contrattoList;
+	private List<Contratto> list;
 
-	public ContrattoListResponse(Esito esito, List<Contratto> contrattoList) {
+	public ContrattoListResponse(Esito esito, List<Contratto> list) {
 		super(esito);
-		this.contrattoList = contrattoList;
+		this.list = list;
 	}
 
 	public ContrattoListResponse() {
@@ -25,13 +25,12 @@ public class ContrattoListResponse extends GenericResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<Contratto> getContrattoList() {
-		return contrattoList;
+	public List<Contratto> getList() {
+		return list;
 	}
 
-	public void setContrattoList(List<Contratto> contrattoList) {
-		this.contrattoList = contrattoList;
+	public void setList(List<Contratto> list) {
+		this.list = list;
 	}
 
-	
 }

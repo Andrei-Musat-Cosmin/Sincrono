@@ -6,11 +6,16 @@ import it.sincrono.beans.Esito;
 import it.sincrono.repositories.dto.CommessaDto;
 
 public class CommessaDtoListResponse extends GenericResponse {
-	private List<CommessaDto> dashboardList;
+	private List<CommessaDto> list;
 
-	public CommessaDtoListResponse(List<CommessaDto> dashboardList, Esito esito) {
+	public CommessaDtoListResponse(List<CommessaDto> list, Esito esito) {
 		super(esito);
-		this.dashboardList = dashboardList;
+		this.list = list;
+	}
+
+	public CommessaDtoListResponse(Esito esito, List<CommessaDto> list) {
+		super(esito);
+		this.list = list;
 	}
 
 	public CommessaDtoListResponse() {
@@ -18,17 +23,12 @@ public class CommessaDtoListResponse extends GenericResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<CommessaDto> getDashboardList() {
-		return dashboardList;
+	public List<CommessaDto> getList() {
+		return list;
 	}
 
-	public void setDashboardList(List<CommessaDto> dashboardList) {
-		this.dashboardList = dashboardList;
-	}
-
-	public void setList(List<CommessaDto> view) {
-		this.dashboardList = view;
-
+	public void setList(List<CommessaDto> list) {
+		this.list = list;
 	}
 
 }

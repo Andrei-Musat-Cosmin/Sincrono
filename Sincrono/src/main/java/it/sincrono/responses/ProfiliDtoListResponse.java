@@ -6,11 +6,11 @@ import it.sincrono.beans.Esito;
 import it.sincrono.repositories.dto.ProfiloDto;
 
 public class ProfiliDtoListResponse extends GenericResponse {
-	private List<ProfiloDto> profili;
+	private List<ProfiloDto> list;
 
-	public ProfiliDtoListResponse(Esito esito, List<ProfiloDto> profili) {
+	public ProfiliDtoListResponse(Esito esito, List<ProfiloDto> list) {
 		super(esito);
-		this.profili = profili;
+		this.list = list;
 	}
 
 	public ProfiliDtoListResponse() {
@@ -23,13 +23,13 @@ public class ProfiliDtoListResponse extends GenericResponse {
 		// TODO Auto-generated constructor stub
 	}
 
-	public List<ProfiloDto> getProfili() {
-		return profili;
+	public List<ProfiloDto> getList() {
+		return list;
 	}
 
-	public void setProfili(List<ProfiloDto> profili) {
-		this.profili = profili;
+	public void setList(List<ProfiloDto> list) {
+		this.list = list;
 	}
 
-
+	
 }

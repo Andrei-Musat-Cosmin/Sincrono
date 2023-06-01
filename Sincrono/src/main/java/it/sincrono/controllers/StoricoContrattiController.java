@@ -39,7 +39,7 @@ public class StoricoContrattiController {
 		try {
 			List<StoricoContratti> contratti = storicoContrattiService.listStoricoContratti();
 
-			storicoContrattiListResponse.setStoricoContrattiList(contratti);
+			storicoContrattiListResponse.setList(contratti);
 			storicoContrattiListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<StoricoContrattiListResponse>(storicoContrattiListResponse);

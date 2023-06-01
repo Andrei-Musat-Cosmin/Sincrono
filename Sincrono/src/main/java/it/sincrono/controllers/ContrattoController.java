@@ -58,7 +58,7 @@ public class ContrattoController {
 		try {
 			List<Contratto> oggetti = contrattoService.listContratto();
 
-			contrattoListResponse.setContrattoList(oggetti);
+			contrattoListResponse.setList(oggetti);
 			contrattoListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
