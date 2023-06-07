@@ -148,6 +148,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		try {
 			String queryString = SqlStrings.SQL_DETTAGLIO_ANAGRAFICA_DTO;
 
+			queryString = queryString.replace("{0}", String.valueOf(id));
+
 			Query query = entityManager.createNativeQuery(queryString);
 
 			Object[] result = (Object[]) query.getSingleResult();
