@@ -19,11 +19,13 @@ public interface AnagraficaService {
 	public void delete(Integer ID) throws ServiceException;
 
 	List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws ServiceException;
-	
+
+	public AnagraficaDto getAnagraficaDto(Integer id) throws ServiceException;
+
 	public void insertAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
-	
+
 	public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
-	
+
 	public void insertAnagraficaDtoRelations(AnagraficaDto anagraficaDto) throws ServiceException;
 
 }

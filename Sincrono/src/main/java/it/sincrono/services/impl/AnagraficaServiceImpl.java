@@ -112,7 +112,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		try {
 			Anagrafica Currentanagrafica = anagraficaRepository.findById(anagrafica.getId()).get();
-			Currentanagrafica.setId(anagrafica.getId());
+//			Currentanagrafica.setId(anagrafica.getId());
 			Currentanagrafica.setAltriTitoli(anagrafica.getAltriTitoli());
 			Currentanagrafica.setCellulareAziendale(anagrafica.getCellulareAziendale());
 			Currentanagrafica.setCellularePrivato(anagrafica.getCellularePrivato());
@@ -179,7 +179,24 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		return list;
 	}
+	
+	@Override
+	public AnagraficaDto getAnagraficaDto(Integer id) throws ServiceException {
+		AnagraficaDto anagraficaDto = null;
 
+		try {
+			anagraficaDto = anagraficaRepository.getAnagraficaDto(id);
+		} catch (NoSuchElementException ne) {
+			System.out.println("Exception occurs {}, ID {}");
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return anagraficaDto;
+	}
+	
 	@Transactional
 	@Override
 	public void insertAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {

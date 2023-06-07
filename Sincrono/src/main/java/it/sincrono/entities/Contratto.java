@@ -96,6 +96,9 @@ public class Contratto {
 	@Column(name = "diaria_gg")
 	private String diariaGg;
 
+//	@Column(name = "data_visita_medica")
+//	private Date dataVisitaMedica;
+	
 	@Column(name = "ticket")
 	private String ticket;
 

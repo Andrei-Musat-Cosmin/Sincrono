@@ -9,4 +9,5 @@ public interface AnagraficaCustomRepository extends BaseCustomRepository {
 
 	public List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws RepositoryException;
 
+	public AnagraficaDto getAnagraficaDto(Integer id) throws RepositoryException;
 }
