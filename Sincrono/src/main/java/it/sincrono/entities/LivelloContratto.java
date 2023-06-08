@@ -16,15 +16,19 @@ public class LivelloContratto {
 	@Column(name = "id")
 	private Integer id;
 
+	@Column(name = "ccnl")
+	private String ccnl;
+
 	@Column(name = "descrizione")
 	private String descrizione;
 
 	@Column(name = "minimi_ret_23")
 	private String minimiRet23;
 
-	public LivelloContratto(Integer id, String descrizione, String minimiRet23) {
+	public LivelloContratto(Integer id, String ccnl, String descrizione, String minimiRet23) {
 		super();
 		this.id = id;
+		this.ccnl = ccnl;
 		this.descrizione = descrizione;
 		this.minimiRet23 = minimiRet23;
 	}
@@ -33,7 +37,7 @@ public class LivelloContratto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -42,6 +46,14 @@ public class LivelloContratto {
 		this.id = id;
 	}
 
+	public String getCcnl() {
+		return ccnl;
+	}
+
+	public void setCcnl(String ccnl) {
+		this.ccnl = ccnl;
+	}
+	
 	public String getDescrizione() {
 		return descrizione;
 	}

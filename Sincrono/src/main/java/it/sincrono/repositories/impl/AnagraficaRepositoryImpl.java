@@ -64,18 +64,23 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					}
 					if (anagraficaDto.getContratto().getLivelloContratto() != null
 							&& anagraficaDto.getContratto().getLivelloContratto().getDescrizione() != null) {
-						subString += " AND f.descrizione LIKE  '"
+						subString += " AND f.descrizione LIKE '"
 								+ anagraficaDto.getContratto().getLivelloContratto().getDescrizione() + "'";
 					}
 					if (anagraficaDto.getContratto().getContrattoNazionale() != null
 							&& anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() != null) {
-						subString += " AND i.descrizione LIKE  '"
+						subString += " AND i.descrizione LIKE '"
 								+ anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() + "'";
 					}
 					if (anagraficaDto.getContratto().getTipoContratto() != null
 							&& anagraficaDto.getContratto().getTipoContratto().getDescrizione() != null) {
-						subString += " AND g.descrizione LIKE  '"
+						subString += " AND g.descrizione LIKE '"
 								+ anagraficaDto.getContratto().getTipoContratto().getDescrizione() + "'";
+					}
+					if (anagraficaDto.getContratto().getTipoAzienda() != null
+							&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != null) {
+						subString += " AND i.descrizione LIKE '"
+								+ anagraficaDto.getContratto().getTipoAzienda().getDescrizione() + "'";
 					}
 				}
 
@@ -110,6 +115,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				anagraficDtoFilter.setContratto(new Contratto());
 				anagraficDtoFilter.setCommessa(new Commessa());
 
+				if (object[0] != null)
+					anagraficDtoFilter.getAnagrafica().setId((Integer) object[0]);
 				if (object[1] != null)
 					anagraficDtoFilter.getAnagrafica().setNome((String) object[1]);
 				if (object[2] != null)
@@ -171,8 +178,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				Utente utente = new Utente();
 				if (result[4] != null)
 					utente.setId((Integer) result[4]);
-				if (result[79] != null)
-					utente.setUsername((String) result[79]);
 
 				anagrafica.setUtente(utente);
 
@@ -228,6 +233,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				LivelloContratto livelloContratto = new LivelloContratto();
 				if (result[25] != null)
 					livelloContratto.setId((Integer) result[25]);
+				if (result[78] != null)
+					livelloContratto.setCcnl((String) result[78]);
 				if (result[79] != null)
 					livelloContratto.setDescrizione((String) result[79]);
 				if (result[80] != null)
@@ -268,89 +275,87 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[35] != null)
 					contratto.setMesiDurata((Integer) result[35]);
 				if (result[36] != null)
-					contratto.setLivelloIniziale((String) result[36]);
+					contratto.setLivelloAttuale((String) result[36]);
 				if (result[37] != null)
-					contratto.setLivelloAttuale((String) result[37]);
+					contratto.setLivelloFinale((String) result[37]);
 				if (result[38] != null)
-					contratto.setLivelloFinale((String) result[38]);
+					contratto.setDimissioni((Boolean) result[38]);
 				if (result[39] != null)
-					contratto.setDimissioni((Boolean) result[39]);
+					contratto.setPartTime((Boolean) result[39]);
 				if (result[40] != null)
-					contratto.setPartTime((Boolean) result[40]);
+					contratto.setPartTimeA((Boolean) result[40]);
 				if (result[41] != null)
-					contratto.setPartTimeA((Boolean) result[41]);
+					contratto.setRetribuzioneMensileLorda((String) result[41]);
 				if (result[42] != null)
-					contratto.setRetribuzioneMensileLorda((String) result[42]);
+					contratto.setSuperminimoMensile((String) result[42]);
 				if (result[43] != null)
-					contratto.setSuperminimoMensile((String) result[43]);
+					contratto.setRalAnnua((String) result[43]);
 				if (result[44] != null)
-					contratto.setRalAnnua((String) result[44]);
+					contratto.setSuperminimoRal((String) result[44]);
 				if (result[45] != null)
-					contratto.setSuperminimoRal((String) result[45]);
+					contratto.setDiariaMese((String) result[45]);
 				if (result[46] != null)
-					contratto.setDiariaMese((String) result[46]);
+					contratto.setDiariaGg((String) result[46]);
 				if (result[47] != null)
-					contratto.setDiariaGg((String) result[47]);
+					contratto.setTicket((String) result[47]);
 				if (result[48] != null)
-					contratto.setTicket((String) result[48]);
+					contratto.setValoreTicket((String) result[48]);
 				if (result[49] != null)
-					contratto.setValoreTicket((String) result[49]);
+					contratto.setCategoriaProtetta((Boolean) result[49]);
 				if (result[50] != null)
-					contratto.setCategoriaProtetta((Boolean) result[50]);
+					contratto.setTutor((String) result[50]);
 				if (result[51] != null)
-					contratto.setTutor((String) result[51]);
+					contratto.setPfi((String) result[51]);
 				if (result[52] != null)
-					contratto.setPfi((String) result[52]);
+					contratto.setCorsoSicurezza((Date) result[52]);
 				if (result[53] != null)
-					contratto.setCorsoSicurezza((Date) result[53]);
+					contratto.setMotivazioneFineRapporto((String) result[53]);
 				if (result[54] != null)
-					contratto.setMotivazioneFineRapporto((String) result[54]);
-				if (result[55] != null)
-					contratto.setPc((Boolean) result[55]);
+					contratto.setPc((Boolean) result[54]);
 
-				// if (result[56] != null)contratto.setDataVisitaMedica((Boolean) result[56]);
+				// if (result[55] != null)contratto.setDataVisitaMedica((Boolean) result[56]);
 
+				if (result[56] != null)
+					contratto.setScattiAnzianita((String) result[56]);
 				if (result[57] != null)
-					contratto.setScattiAnzianita((String) result[57]);
+					contratto.setTariffaPartitaIva((String) result[57]);
 				if (result[58] != null)
-					contratto.setTariffaPartitaIva((String) result[58]);
+					contratto.setCanaleReclutamento((String) result[58]);
 				if (result[59] != null)
-					contratto.setCanaleReclutamento((String) result[59]);
-				if (result[60] != null)
-					contratto.setAssicurazioneObbligatoria((String) result[60]);
+					contratto.setAssicurazioneObbligatoria((String) result[59]);
 
 				anagraficaDto.setContratto(contratto);
 
 				// SET COMMESSA
 				Commessa commessa = new Commessa();
+				if (result[63] != null)
+					commessa.setId((Integer) result[63]);
 				if (result[64] != null)
-					commessa.setId((Integer) result[64]);
+					commessa.setCliente((String) result[64]);
 				if (result[65] != null)
-					commessa.setCliente((String) result[65]);
+					commessa.setClienteFinale((String) result[65]);
 				if (result[66] != null)
-					commessa.setClienteFinale((String) result[66]);
+					commessa.setTitoloPosizione((String) result[66]);
 				if (result[67] != null)
-					commessa.setTitoloPosizione((String) result[67]);
+					commessa.setDistacco((String) result[67]);
 				if (result[68] != null)
-					commessa.setDistacco((String) result[68]);
+					commessa.setDataInizio((Date) result[68]);
 				if (result[69] != null)
-					commessa.setDataInizio((Date) result[69]);
+					commessa.setDataFine((Date) result[69]);
 				if (result[70] != null)
-					commessa.setDataFine((Date) result[70]);
+					commessa.setCostoMese((String) result[70]);
 				if (result[71] != null)
-					commessa.setCostoMese((String) result[71]);
+					commessa.setTariffaGiornaliera((String) result[71]);
 				if (result[72] != null)
-					commessa.setTariffaGiornaliera((String) result[72]);
+					commessa.setNominativo((String) result[72]);
 				if (result[73] != null)
-					commessa.setNominativo((String) result[73]);
+					commessa.setAzienda((String) result[73]);
 				if (result[74] != null)
-					commessa.setAzienda((String) result[74]);
+					commessa.setAziendaDiFatturazioneInterna((String) result[74]);
 				if (result[75] != null)
-					commessa.setAziendaDiFatturazioneInterna((String) result[75]);
+					commessa.setStato((Boolean) result[75]);
 				if (result[76] != null)
-					commessa.setStato((Boolean) result[76]);
-				if (result[77] != null)
-					commessa.setAttesaLavori((String) result[77]);
+					commessa.setAttesaLavori((String) result[76]);
 
 				anagraficaDto.setCommessa(commessa);
 

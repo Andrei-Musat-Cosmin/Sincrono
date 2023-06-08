@@ -60,9 +60,6 @@ public class Contratto {
 	@Column(name = "mesi_durata")
 	private Integer mesiDurata;
 
-	@Column(name = "livello_iniziale")
-	private String livelloIniziale;
-
 	@Column(name = "livello_attuale")
 	private String livelloAttuale;
 
@@ -138,7 +135,7 @@ public class Contratto {
 	public Contratto(Integer id, TipoContratto tipoContratto, LivelloContratto livelloContratto,
 			TipoAzienda tipoAzienda, ContrattoNazionale contrattoNazionale, Boolean attivo, String sedeAssunzione,
 			String qualifica, Date dataAssunzione, Date dataInizioProva, Date dataFineProva, Date dataFineRapporto,
-			Integer mesiDurata, String livelloIniziale, String livelloAttuale, String livelloFinale, Boolean dimissioni,
+			Integer mesiDurata, String livelloAttuale, String livelloFinale, Boolean dimissioni,
 			Boolean partTime, Boolean partTimeA, String retribuzioneMensileLorda, String superminimoMensile,
 			String ralAnnua, String superminimoRal, String diariaMese, String diariaGg, String ticket,
 			String valoreTicket, Boolean categoriaProtetta, String tutor, String pfi, String assicurazioneObbligatoria,
@@ -158,7 +155,6 @@ public class Contratto {
 		this.dataFineProva = dataFineProva;
 		this.dataFineRapporto = dataFineRapporto;
 		this.mesiDurata = mesiDurata;
-		this.livelloIniziale = livelloIniziale;
 		this.livelloAttuale = livelloAttuale;
 		this.livelloFinale = livelloFinale;
 		this.dimissioni = dimissioni;
@@ -299,14 +295,6 @@ public class Contratto {
 
 	public void setMesiDurata(Integer mesiDurata) {
 		this.mesiDurata = mesiDurata;
-	}
-
-	public String getLivelloIniziale() {
-		return livelloIniziale;
-	}
-
-	public void setLivelloIniziale(String livelloIniziale) {
-		this.livelloIniziale = livelloIniziale;
 	}
 
 	public String getLivelloAttuale() {
