@@ -73,7 +73,7 @@ public class CommessaRepositoryImpl extends BaseRepositoryImpl implements Commes
 	public Commessa currentCommessa(Integer id) throws RepositoryException {
 		try {
 			
-			String queryString = SqlStrings.SQL_CURRENT_COMESSA;
+			String queryString = SqlStrings.SQL_CURRENT_COMMESSA;
 
 			Query query = entityManager.createNativeQuery(queryString);
 			
