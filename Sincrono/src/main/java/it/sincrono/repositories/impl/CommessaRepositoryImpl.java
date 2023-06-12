@@ -53,10 +53,12 @@ public class CommessaRepositoryImpl extends BaseRepositoryImpl implements Commes
 							.setDataFine((new java.util.Date(((java.sql.Date) object[5]).getTime())));
 				if (object[6] != null)
 					commessaDto.getContratto().setMesiDurata((Integer) object[6]);
+				if (object[7] != null)
+					commessaDto.getContratto().setLivelloAttuale((String) object[7]);
 				if (object[8] != null)
-					commessaDto.getContratto().setLivelloAttuale((String) object[8]);
+					commessaDto.getContratto().setLivelloFinale((String) object[8]);
 				if (object[9] != null)
-					commessaDto.getContratto().setLivelloFinale((String) object[9]);
+					commessaDto.getContratto().setDataAssunzione((new java.util.Date(((java.sql.Date) object[9]).getTime())));
 				
 				commessaDtoList.add(commessaDto);
 			}
