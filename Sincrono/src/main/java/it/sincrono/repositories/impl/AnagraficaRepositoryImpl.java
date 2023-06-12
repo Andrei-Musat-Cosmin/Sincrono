@@ -83,22 +83,24 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 								+ anagraficaDto.getContratto().getTipoAzienda().getDescrizione() + "'";
 					}
 				}
+				
+				if (anagraficaDto.getCommessa() != null) {
+
+					if (anagraficaDto.getCommessa().getAzienda() != null) {
+						subString += "AND e.cliente LIKE '" + anagraficaDto.getCommessa().getAzienda() + "'";
+					}
+					if (anagraficaDto.getCommessa().getCliente() != null) {
+						subString += "AND e.azienda LIKE '" + anagraficaDto.getCommessa().getCliente() + "'";
+					}
+					if (anagraficaDto.getCommessa().getNominativo() != null) {
+						subString += "AND e.nominativo LIKE '" + anagraficaDto.getCommessa().getNominativo() + "'";
+					}
+
+				}
 
 			}
 
-			if (anagraficaDto.getCommessa() != null) {
-
-				if (anagraficaDto.getCommessa().getAzienda() != null) {
-					subString += "AND e.cliente LIKE '" + anagraficaDto.getCommessa().getAzienda() + "'";
-				}
-				if (anagraficaDto.getCommessa().getCliente() != null) {
-					subString += "AND e.azienda LIKE '" + anagraficaDto.getCommessa().getCliente() + "'";
-				}
-				if (anagraficaDto.getCommessa().getNominativo() != null) {
-					subString += "AND e.nominativo LIKE '" + anagraficaDto.getCommessa().getNominativo() + "'";
-				}
-
-			}
+			
 
 			queryString = queryString.replace("{0}", subString);
 			Query query = entityManager.createNativeQuery(queryString);
@@ -108,33 +110,204 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			List<AnagraficaDto> listAnagraficaDto = new ArrayList<AnagraficaDto>();
 
 			for (Iterator<Object> it = listFilter.iterator(); it.hasNext();) {
-				Object[] object = (Object[]) it.next();
+				Object[] result = (Object[]) it.next();
 
 				AnagraficaDto anagraficDtoFilter = new AnagraficaDto();
-				anagraficDtoFilter.setAnagrafica(new Anagrafica());
-				anagraficDtoFilter.setContratto(new Contratto());
-				anagraficDtoFilter.setCommessa(new Commessa());
+				
+				Anagrafica anagrafica = new Anagrafica();
+				if (result[0] != null)
+					anagrafica.setId((Integer) result[0]);
+				if (result[1] != null)
+					anagrafica.setNome((String) result[1]);
+				if (result[2] != null)
+					anagrafica.setCognome((String) result[2]);
+				if (result[3] != null)
+					anagrafica.setCodiceFiscale((String) result[3]);
 
-				if (object[0] != null)
-					anagraficDtoFilter.getAnagrafica().setId((Integer) object[0]);
-				if (object[1] != null)
-					anagraficDtoFilter.getAnagrafica().setNome((String) object[1]);
-				if (object[2] != null)
-					anagraficDtoFilter.getAnagrafica().setCognome((String) object[2]);
-				if (object[3] != null)
-					anagraficDtoFilter.getCommessa().setNominativo((String) object[3]);
-				if (object[4] != null)
-					anagraficDtoFilter.getAnagrafica().setMailAziendale((String) object[4]);
-				if (object[5] != null)
-					anagraficDtoFilter.getAnagrafica().setCellularePrivato((String) object[5]);
-				if (object[6] != null)
-					anagraficDtoFilter.getAnagrafica().setCodiceFiscale((String) object[6]);
-				if (object[7] != null)
-					anagraficDtoFilter.getContratto()
-							.setDataFineRapporto((new java.util.Date(((java.sql.Date) object[7]).getTime())));
-				if (object[8] != null)
-					anagraficDtoFilter.getCommessa()
-							.setDataFine((new java.util.Date(((java.sql.Date) object[8]).getTime())));
+				// SET DI UTENTE
+				Utente utente = new Utente();
+				if (result[4] != null)
+					utente.setId((Integer) result[4]);
+
+				anagrafica.setUtente(utente);
+
+				if (result[5] != null)
+					anagrafica.setAziendaTipo((String) result[5]);
+				if (result[6] != null)
+					anagrafica.setComuneDiNascita((String) result[6]);
+				if (result[7] != null)
+					anagrafica.setDataDiNascita((Date) result[7]);
+				if (result[8] != null)
+					anagrafica.setResidenza((String) result[8]);
+				if (result[9] != null)
+					anagrafica.setDomicilio((String) result[9]);
+				if (result[10] != null)
+					anagrafica.setCellularePrivato((String) result[10]);
+				if (result[11] != null)
+					anagrafica.setCellulareAziendale((String) result[11]);
+				if (result[12] != null)
+					anagrafica.setMailPrivata((String) result[12]);
+				if (result[13] != null)
+					anagrafica.setMailAziendale((String) result[13]);
+				if (result[14] != null)
+					anagrafica.setMailPec((String) result[14]);
+				if (result[15] != null)
+					anagrafica.setAltriTitoli((String) result[15]);
+				if (result[16] != null)
+					anagrafica.setTitoliDiStudio((String) result[16]);
+				if (result[17] != null)
+					anagrafica.setConiugato((Boolean) result[17]);
+				if (result[18] != null)
+					anagrafica.setFigliACarico((Boolean) result[18]);
+				if (result[19] != null)
+					anagrafica.setAttivo((Boolean) result[19]);
+
+				anagraficDtoFilter.setAnagrafica(anagrafica);
+
+				// SET DI CONTRATTO
+				Contratto contratto = new Contratto();
+
+				if (result[23] != null)
+					contratto.setId((Integer) result[23]);
+
+				// SET DI TIPO CONTRATTO
+				TipoContratto tipoContratto = new TipoContratto();
+				if (result[24] != null)
+					tipoContratto.setId((Integer) result[24]);
+				if (result[82] != null)
+					tipoContratto.setDescrizione((String) result[82]);
+
+				contratto.setTipoContratto(tipoContratto);
+
+				// SET DI TIPO LIVELLO
+				LivelloContratto livelloContratto = new LivelloContratto();
+				if (result[25] != null)
+					livelloContratto.setId((Integer) result[25]);
+				if (result[78] != null)
+					livelloContratto.setCcnl((String) result[78]);
+				if (result[79] != null)
+					livelloContratto.setDescrizione((String) result[79]);
+				if (result[80] != null)
+					livelloContratto.setMinimiRet23((String) result[80]);
+				contratto.setLivelloContratto(livelloContratto);
+
+				// SET TIPO AZIENDA
+				TipoAzienda tipoAzienda = new TipoAzienda();
+				if (result[26] != null)
+					tipoAzienda.setId((Integer) result[26]);
+				if (result[86] != null)
+					tipoAzienda.setDescrizione((String) result[86]);
+				contratto.setTipoAzienda(tipoAzienda);
+
+				// SET DI CONTRATTO NAZIONALE
+				ContrattoNazionale contrattoNazionale = new ContrattoNazionale();
+
+				if (result[27] != null)
+					contrattoNazionale.setId((Integer) result[27]);
+				if (result[84] != null)
+					contrattoNazionale.setDescrizione((String) result[84]);
+				contratto.setContrattoNazionale(contrattoNazionale);
+
+				if (result[28] != null)
+					contratto.setAttivo((Boolean) result[28]);
+				if (result[29] != null)
+					contratto.setQualifica((String) result[29]);
+				if (result[30] != null)
+					contratto.setSedeAssunzione((String) result[30]);
+				if (result[31] != null)
+					contratto.setDataAssunzione((Date) result[31]);
+				if (result[32] != null)
+					contratto.setDataInizioProva((Date) result[32]);
+				if (result[33] != null)
+					contratto.setDataFineProva((Date) result[33]);
+				if (result[34] != null)
+					contratto.setDataFineRapporto((Date) result[34]);
+				if (result[35] != null)
+					contratto.setMesiDurata((Integer) result[35]);
+				if (result[36] != null)
+					contratto.setLivelloAttuale((String) result[36]);
+				if (result[37] != null)
+					contratto.setLivelloFinale((String) result[37]);
+				if (result[38] != null)
+					contratto.setDimissioni((Boolean) result[38]);
+				if (result[39] != null)
+					contratto.setPartTime((Boolean) result[39]);
+				if (result[40] != null)
+					contratto.setPartTimeA((Boolean) result[40]);
+				if (result[41] != null)
+					contratto.setRetribuzioneMensileLorda((String) result[41]);
+				if (result[42] != null)
+					contratto.setSuperminimoMensile((String) result[42]);
+				if (result[43] != null)
+					contratto.setRalAnnua((String) result[43]);
+				if (result[44] != null)
+					contratto.setSuperminimoRal((String) result[44]);
+				if (result[45] != null)
+					contratto.setDiariaMese((String) result[45]);
+				if (result[46] != null)
+					contratto.setDiariaGg((String) result[46]);
+				if (result[47] != null)
+					contratto.setTicket((String) result[47]);
+				if (result[48] != null)
+					contratto.setValoreTicket((String) result[48]);
+				if (result[49] != null)
+					contratto.setCategoriaProtetta((Boolean) result[49]);
+				if (result[50] != null)
+					contratto.setTutor((String) result[50]);
+				if (result[51] != null)
+					contratto.setPfi((String) result[51]);
+				if (result[52] != null)
+					contratto.setCorsoSicurezza((Date) result[52]);
+				if (result[53] != null)
+					contratto.setMotivazioneFineRapporto((String) result[53]);
+				if (result[54] != null)
+					contratto.setPc((Boolean) result[54]);
+
+				// if (result[55] != null)contratto.setDataVisitaMedica((Boolean) result[56]);
+
+				if (result[56] != null)
+					contratto.setScattiAnzianita((String) result[56]);
+				if (result[57] != null)
+					contratto.setTariffaPartitaIva((String) result[57]);
+				if (result[58] != null)
+					contratto.setCanaleReclutamento((String) result[58]);
+				if (result[59] != null)
+					contratto.setAssicurazioneObbligatoria((String) result[59]);
+
+				anagraficDtoFilter.setContratto(contratto);
+
+				// SET COMMESSA
+				Commessa commessa = new Commessa();
+				if (result[63] != null)
+					commessa.setId((Integer) result[63]);
+				if (result[64] != null)
+					commessa.setCliente((String) result[64]);
+				if (result[65] != null)
+					commessa.setClienteFinale((String) result[65]);
+				if (result[66] != null)
+					commessa.setTitoloPosizione((String) result[66]);
+				if (result[67] != null)
+					commessa.setDistacco((String) result[67]);
+				if (result[68] != null)
+					commessa.setDataInizio((Date) result[68]);
+				if (result[69] != null)
+					commessa.setDataFine((Date) result[69]);
+				if (result[70] != null)
+					commessa.setCostoMese((String) result[70]);
+				if (result[71] != null)
+					commessa.setTariffaGiornaliera((String) result[71]);
+				if (result[72] != null)
+					commessa.setNominativo((String) result[72]);
+				if (result[73] != null)
+					commessa.setAzienda((String) result[73]);
+				if (result[74] != null)
+					commessa.setAziendaDiFatturazioneInterna((String) result[74]);
+				if (result[75] != null)
+					commessa.setStato((Boolean) result[75]);
+				if (result[76] != null)
+					commessa.setAttesaLavori((String) result[76]);
+
+				anagraficDtoFilter.setCommessa(commessa);
 
 				listAnagraficaDto.add(anagraficDtoFilter);
 

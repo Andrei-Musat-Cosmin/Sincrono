@@ -272,7 +272,7 @@ public class AnagraficaController {
 		return httpEntity;
 	}
 
-	@PostMapping("/aggiungi-contratto-commessa")
+	/*@PostMapping("/aggiungi-contratto-commessa")
 	public @ResponseBody HttpEntity<GenericResponse> insertAnagraficaDtoRelations(
 			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
@@ -297,7 +297,7 @@ public class AnagraficaController {
 		}
 
 		return httpEntity;
-	}
+	}*/
 
 	@GetMapping("/utenti-list")
 	public @ResponseBody HttpEntity<UtenteListResponse> getUtenti() {
@@ -325,5 +325,31 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
+	
+	@DeleteMapping("/delete-anagrafica/{id}")
+	public @ResponseBody HttpEntity<GenericResponse> deleteAnagraficaDto(
+				@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+
+		try {
+			System.out.println("START invocation insert(anagrafica) of controller layer");
+
+			anagraficaService.deleteAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+			System.out.println("END invocation insert(anagrafica) of controller layer");
+
+		} catch (ServiceException e) {
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+
+		return httpEntity;
+	}
 }

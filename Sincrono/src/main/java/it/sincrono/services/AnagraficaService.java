@@ -2,6 +2,7 @@ package it.sincrono.services;
 
 import java.util.List;
 
+
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.services.exceptions.ServiceException;
@@ -25,7 +26,9 @@ public interface AnagraficaService {
 	public void insertAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
 
 	public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
+	
+	public void deleteAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
 
-	public void insertAnagraficaDtoRelations(AnagraficaDto anagraficaDto) throws ServiceException;
+	//public void insertAnagraficaDtoRelations(AnagraficaDto anagraficaDto) throws ServiceException;
 
 }

@@ -1,10 +1,12 @@
 package it.sincrono.repositories.impl;
 
 import java.math.BigDecimal;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import it.sincrono.entities.Contratto;
 import it.sincrono.repositories.ContrattoCustomRepository;
 import it.sincrono.repositories.dto.OrganicoDto;
 import it.sincrono.repositories.exceptions.RepositoryException;
@@ -68,6 +70,24 @@ public class ContrattoRepositoryImpl extends BaseRepositoryImpl implements Contr
 		Exception e) {
 			throw new RepositoryException(e);
 		}
+	}
+	
+	public Contratto currentContratto(Integer id) throws RepositoryException {
+		try {
+			
+			String queryString = SqlStrings.SQL_CURRENT_CONTRATTO;
+
+			Query query = entityManager.createNativeQuery(queryString);
+			
+			Contratto contratto = (Contratto) query.getSingleResult();
+			
+			return contratto;
+			
+
+		} catch (Exception e) {
+			throw new RepositoryException(e);
+		}
+
 	}
 
 }
