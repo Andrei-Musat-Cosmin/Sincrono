@@ -326,7 +326,7 @@ public class AnagraficaController {
 		return httpEntity;
 	}
 	
-	@DeleteMapping("/delete-anagrafica/{id}")
+	@PutMapping("/delete-anagrafica")
 	public @ResponseBody HttpEntity<GenericResponse> deleteAnagraficaDto(
 				@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 

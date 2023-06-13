@@ -352,20 +352,21 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		
 		try {
 			
-			anagraficaDto.getAnagrafica().setAttivo(false);
+		
 			
 			Anagrafica anagrafica=anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get();
-			anagraficaRepository.delete(anagrafica);
+			anagrafica.setAttivo(false);
+			anagraficaRepository.saveAndFlush(anagrafica);
 			
-			anagraficaDto.getCommessa().setStato(false);
 			
 			Commessa commessa=commesseRepository.findById(anagraficaDto.getCommessa().getId()).get();
-			commesseRepository.delete(commessa);
+			commessa.setStato(false);
+			commesseRepository.saveAndFlush(commessa);
 			
-			anagraficaDto.getContratto().setAttivo(false);
-			
+		
 			Contratto contratto=contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
-			contrattoRepository.delete(contratto);
+			contratto.setAttivo(false);
+			contrattoRepository.saveAndFlush(contratto);
 			
 
 		} catch (NoSuchElementException ne) {
