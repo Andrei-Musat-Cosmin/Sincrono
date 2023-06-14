@@ -32,11 +32,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 				if (anagraficaDto.getAnagrafica() != null) {
 
-					if (anagraficaDto.getAnagrafica().getNome() != null) {
+					if (anagraficaDto.getAnagrafica().getNome() != null
+							&& anagraficaDto.getAnagrafica().getNome() != "") {
 
 						subString = "AND a.nome LIKE '" + anagraficaDto.getAnagrafica().getNome() + "'";
 					}
-					if (anagraficaDto.getAnagrafica().getCognome() != null) {
+					if (anagraficaDto.getAnagrafica().getCognome() != null
+							&& anagraficaDto.getAnagrafica().getCognome() != "") {
 						subString += " AND a.cognome LIKE '" + anagraficaDto.getAnagrafica().getCognome() + "'";
 					}
 					if (anagraficaDto.getAnagrafica().getAttivo() != null) {
@@ -44,14 +46,16 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						subString = "AND a.attivo LIKE '" + anagraficaDto.getAnagrafica().getAttivo() + "'";
 					}
 
-					if (anagraficaDto.getAnagrafica().getAziendaTipo() != null) {
+					if (anagraficaDto.getAnagrafica().getAziendaTipo() != null
+							&& anagraficaDto.getAnagrafica().getAziendaTipo() != "") {
 
 						subString = "AND a.azienda_tipo LIKE '" + anagraficaDto.getAnagrafica().getAziendaTipo() + "'";
 					}
 				}
 				if (anagraficaDto.getContratto() != null) {
 
-					if (anagraficaDto.getContratto().getRalAnnua() != null) {
+					if (anagraficaDto.getContratto().getRalAnnua() != null
+							&& anagraficaDto.getContratto().getRalAnnua() != "") {
 						subString += " AND c.ral_annua LIKE '" + anagraficaDto.getContratto().getRalAnnua() + "'";
 					}
 					if (anagraficaDto.getContratto().getDataAssunzione() != null) {
@@ -63,44 +67,49 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 								+ anagraficaDto.getContratto().getDataFineRapporto() + "'";
 					}
 					if (anagraficaDto.getContratto().getLivelloContratto() != null
-							&& anagraficaDto.getContratto().getLivelloContratto().getDescrizione() != null) {
+							&& anagraficaDto.getContratto().getLivelloContratto().getDescrizione() != null
+							&& anagraficaDto.getContratto().getLivelloContratto().getDescrizione() != "") {
 						subString += " AND f.descrizione LIKE '"
 								+ anagraficaDto.getContratto().getLivelloContratto().getDescrizione() + "'";
 					}
 					if (anagraficaDto.getContratto().getContrattoNazionale() != null
-							&& anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() != null) {
+							&& anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() != null
+							&& anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() != "") {
 						subString += " AND i.descrizione LIKE '"
 								+ anagraficaDto.getContratto().getContrattoNazionale().getDescrizione() + "'";
 					}
 					if (anagraficaDto.getContratto().getTipoContratto() != null
-							&& anagraficaDto.getContratto().getTipoContratto().getDescrizione() != null) {
+							&& anagraficaDto.getContratto().getTipoContratto().getDescrizione() != null
+							&& anagraficaDto.getContratto().getTipoContratto().getDescrizione() != "") {
 						subString += " AND g.descrizione LIKE '"
 								+ anagraficaDto.getContratto().getTipoContratto().getDescrizione() + "'";
 					}
 					if (anagraficaDto.getContratto().getTipoAzienda() != null
-							&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != null) {
+							&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != null
+							&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != "") {
 						subString += " AND i.descrizione LIKE '"
 								+ anagraficaDto.getContratto().getTipoAzienda().getDescrizione() + "'";
 					}
 				}
-				
+
 				if (anagraficaDto.getCommessa() != null) {
 
-					if (anagraficaDto.getCommessa().getAzienda() != null) {
+					if (anagraficaDto.getCommessa().getAzienda() != null
+							&& anagraficaDto.getCommessa().getAzienda() != "") {
 						subString += "AND e.cliente LIKE '" + anagraficaDto.getCommessa().getAzienda() + "'";
 					}
-					if (anagraficaDto.getCommessa().getCliente() != null) {
+					if (anagraficaDto.getCommessa().getCliente() != null
+							&& anagraficaDto.getCommessa().getCliente() != "") {
 						subString += "AND e.azienda LIKE '" + anagraficaDto.getCommessa().getCliente() + "'";
 					}
-					if (anagraficaDto.getCommessa().getNominativo() != null) {
+					if (anagraficaDto.getCommessa().getNominativo() != null
+							&& anagraficaDto.getCommessa().getNominativo() != "") {
 						subString += "AND e.nominativo LIKE '" + anagraficaDto.getCommessa().getNominativo() + "'";
 					}
 
 				}
 
 			}
-
-			
 
 			queryString = queryString.replace("{0}", subString);
 			Query query = entityManager.createNativeQuery(queryString);
@@ -113,7 +122,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				Object[] result = (Object[]) it.next();
 
 				AnagraficaDto anagraficDtoFilter = new AnagraficaDto();
-				
+
 				Anagrafica anagrafica = new Anagrafica();
 				if (result[0] != null)
 					anagrafica.setId((Integer) result[0]);
