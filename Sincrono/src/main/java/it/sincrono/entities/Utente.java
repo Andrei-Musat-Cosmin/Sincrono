@@ -38,10 +38,11 @@ public class Utente {
 		this.attivo = attivo;
 	}
 
-	public Utente(String username) {
+	public Utente(String username,Boolean attivo) {
 		super();
 		this.username=username;
 		this.tokenPassword=new TokenGenerator().nextToken();
+		this.attivo=attivo;
 	}
 
 	public Utente() {

@@ -7,6 +7,9 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.StoricoCommesse;
@@ -26,6 +29,7 @@ import it.sincrono.services.validator.CommessaValidator;
 import it.sincrono.services.validator.ContrattoValidator;
 import jakarta.transaction.Transactional;
 import it.sincrono.repositories.StoricoContrattiRepository;
+import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
 
@@ -42,6 +46,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private StoricoCommesseRepository storicoCommessaRepository;
 	@Autowired
 	private StoricoContrattiRepository storicoContrattiRepository;
+	@Autowired
+	private UtenteRepository utenteRepository;
+	
 
 	@Autowired
 	private AnagraficaValidator anagraficaValidator;
@@ -52,8 +59,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private CommessaValidator commessaValidator;
 	
+	
 	@Autowired
 	private ObjectCompare objectCompare;
+	@Autowired
+	private PlatformTransactionManager transactionManager;
+
 
 
 	@Override
@@ -202,7 +213,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		return anagraficaDto;
 	}
 	
-	@Transactional
+	
 	@Override
 	public void insertAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
 
@@ -211,7 +222,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
-			anagraficaDto.getAnagrafica().setUtente(new Utente(anagraficaDto.getAnagrafica().getMailAziendale()));
+			anagraficaDto.getAnagrafica().setUtente(new Utente(anagraficaDto.getAnagrafica().getMailAziendale(),true));
+			Integer idUtente=utenteRepository.saveAndFlush(anagraficaDto.getAnagrafica().getUtente()).getId();
+			anagraficaDto.getAnagrafica().getUtente().setId(idUtente);
 			Integer idAnagrafica = anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
 			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(0)));
 			storicoContrattiRepository
@@ -286,8 +299,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	}*/
 
+
+	@Transactional
 	@Override
 	public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
+		
+		 //TransactionStatus status = null;
 
 		try {
 
@@ -295,15 +312,18 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
-			if (!commessaValidator.validate(anagraficaDto.getCommessa(), true)) {
+			if (!commessaValidator.validate(anagraficaDto.getCommessa(), false)) {
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
 			
-			if (!contrattoValidator.validate(anagraficaDto.getContratto(), true)) {
+			if (!contrattoValidator.validate(anagraficaDto.getContratto(), false)) {
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
+			
+	        //status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+
 			
 			anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica());
 			Integer idAnagrafica=anagraficaDto.getAnagrafica().getId();
@@ -312,6 +332,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Commessa commessa=commesseRepository.findById(anagraficaDto.getCommessa().getId()).get();
 			if(!objectCompare.Compare(anagraficaDto.getCommessa(),commessa)) {
 				anagraficaDto.getCommessa().setId(null);
+				anagraficaDto.getCommessa().setStato(true);
 				Integer idCommessa = commesseRepository.saveAndFlush(anagraficaDto.getCommessa()).getId();
 				storicoCommessaRepository
 						.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
@@ -323,6 +344,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Contratto contratto=contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 			if(!objectCompare.Compare(anagraficaDto.getContratto(),contratto)) {
 				anagraficaDto.getContratto().setId(null);
+				anagraficaDto.getContratto().setAttivo(true);
 				Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
 				contrattoRepository.saveAndFlush(anagraficaDto.getContratto());
 				storicoContrattiRepository
@@ -332,15 +354,26 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			}
 			
 			
+			//transactionManager.commit(status);
+			
 			
 
 		} catch (DataIntegrityViolationException de) {
+			/*if (status != null) {
+	            transactionManager.rollback(status);
+	        }*/
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (ServiceException e) {
+			/*if (status != null) {
+	            transactionManager.rollback(status);
+	        }*/
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
+			/*if (status != null) {
+	            transactionManager.rollback(status);
+	        }*/
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
