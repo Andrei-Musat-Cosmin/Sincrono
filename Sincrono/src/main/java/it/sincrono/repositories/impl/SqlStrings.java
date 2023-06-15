@@ -15,7 +15,7 @@ public interface SqlStrings {
 	public final String SQL_TREE_RUOLI = "SELECT a FROM Ruolo a WHERE 1 = 1 {0} ORDER BY a.nome";
 	
 	// SQL DETTAGLIO ANAGRAFICA DTO
-	public final String SQL_DETTAGLIO_ANAGRAFICA_DTO = "SELECT * FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = d.id_anagrafica INNER JOIN commessa e ON d.id_commessa = e.id INNER JOIN tipo_livelli_contrattuali f ON f.id=c.id_tipo_livello INNER JOIN tipo_contratto g ON g.id=c.id_tipo_contratto INNER JOIN tipo_contratto_nazionale h ON h.id=c.id_contratto_nazionale INNER JOIN tipo_azienda i ON i.id=c.id_tipo_azienda WHERE a.id = {0}";
+	public final String SQL_DETTAGLIO_ANAGRAFICA_DTO = "SELECT *  FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = d.id_anagrafica INNER JOIN commessa e ON d.id_commessa = e.id INNER JOIN tipo_livelli_contrattuali f ON f.id=c.id_tipo_livello INNER JOIN tipo_contratto g ON g.id=c.id_tipo_contratto INNER JOIN tipo_contratto_nazionale h ON h.id=c.id_contratto_nazionale INNER JOIN tipo_azienda i ON i.id=c.id_tipo_azienda WHERE a.id = {0} AND c.attivo = true AND e.stato";
 	
 	// Possibile aggiunta alle funzioni di anagrafica ( query da modificare)
 	//public final String SQL_RUOLO_PROFILO = "SELECT b.nome FROM profili a INNER JOIN ruoli b ON a.id_ruolo = b.id INNER JOIN utenti c ON a.id_utente = c.id WHERE c.id = :id ORDER BY b.nome"; 
