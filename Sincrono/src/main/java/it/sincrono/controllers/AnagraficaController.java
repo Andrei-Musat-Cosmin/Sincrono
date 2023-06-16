@@ -298,33 +298,6 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}*/
-
-	@GetMapping("/utenti-list")
-	public @ResponseBody HttpEntity<UtenteListResponse> getUtenti() {
-
-		HttpEntity<UtenteListResponse> httpEntity = null;
-
-		UtenteListResponse utenteListResponse = new UtenteListResponse();
-
-		try {
-			System.out.println("START invocation getAll() of controller layer");
-
-			List<Utente> utenti = utenteService.list();
-
-			utenteListResponse.setList(utenti);
-			utenteListResponse.setEsito(new Esito());
-
-			httpEntity = new HttpEntity<UtenteListResponse>(utenteListResponse);
-
-			System.out.println("END invocation getAll() of controller layer");
-
-		} catch (ServiceException e) {
-			utenteListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<UtenteListResponse>(utenteListResponse);
-		}
-
-		return httpEntity;
-	}
 	
 	@PutMapping("/delete-anagrafica")
 	public @ResponseBody HttpEntity<GenericResponse> deleteAnagraficaDto(

@@ -62,6 +62,15 @@ public class Profilo {
 		this.utenteAggiornamento = utenteAggiornamento;
 	}
 
+	public Profilo(Utente utente, Ruolo ruolo, Date dataInizio, Date dataFine, String utenteAggiornamento) {
+		super();
+		this.ruolo = ruolo;
+		this.utente = utente;
+		this.dataInizio = dataInizio;
+		this.dataFine = dataFine;
+		this.utenteAggiornamento = utenteAggiornamento;
+	}
+
 	public Profilo() {
 		super();
 		// TODO Auto-generated constructor stub

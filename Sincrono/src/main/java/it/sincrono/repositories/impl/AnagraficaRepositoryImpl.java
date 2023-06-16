@@ -41,10 +41,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 							&& anagraficaDto.getAnagrafica().getCognome() != "") {
 						subString += " AND a.cognome LIKE '" + anagraficaDto.getAnagrafica().getCognome() + "'";
 					}
-					if (anagraficaDto.getAnagrafica().getAttivo() != null) {
-
-						subString = "AND a.attivo LIKE '" + anagraficaDto.getAnagrafica().getAttivo() + "'";
-					}
 
 					if (anagraficaDto.getAnagrafica().getAziendaTipo() != null
 							&& anagraficaDto.getAnagrafica().getAziendaTipo() != "") {

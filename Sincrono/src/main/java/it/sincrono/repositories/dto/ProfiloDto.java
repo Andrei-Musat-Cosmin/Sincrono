@@ -1,13 +1,39 @@
 package it.sincrono.repositories.dto;
 
-import java.util.Date;
+import it.sincrono.entities.Ruolo;
+import it.sincrono.entities.Utente;
 
 public class ProfiloDto {
 
-	private String nome;
+	private Utente utente;
 
-	private Date dataInizio;
+	private Ruolo ruolo;
 
-	private Date dataFine;
+	public ProfiloDto(Utente utente, Ruolo ruolo) {
+		super();
+		this.utente = utente;
+		this.ruolo = ruolo;
+	}
+
+	public ProfiloDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Utente getUtente() {
+		return utente;
+	}
+
+	public void setUtente(Utente utente) {
+		this.utente = utente;
+	}
+
+	public Ruolo getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(Ruolo ruolo) {
+		this.ruolo = ruolo;
+	}
 
 }

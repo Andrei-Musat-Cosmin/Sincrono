@@ -1,12 +1,15 @@
 package it.sincrono.entities;
 
+import java.util.Set;
+
+import it.sincrono.services.utils.TokenGenerator;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import it.sincrono.services.utils.TokenGenerator;
 
 @Entity
 @Table(name = "utenti")
@@ -29,6 +32,9 @@ public class Utente {
 	@Column(name = "attivo")
 	private Boolean attivo;
 
+	@OneToMany(mappedBy = "utente")
+	Set<Profilo> profilo;
+
 	public Utente(Integer id, String username, String password, String tokenPassword, Boolean attivo) {
 		super();
 		this.id = id;
@@ -38,17 +44,17 @@ public class Utente {
 		this.attivo = attivo;
 	}
 
-	public Utente(String username,Boolean attivo) {
+	public Utente(String username, Boolean attivo) {
 		super();
-		this.username=username;
-		this.tokenPassword=new TokenGenerator().nextToken();
-		this.attivo=attivo;
+		this.username = username;
+		this.tokenPassword = new TokenGenerator().nextToken();
+		this.attivo = attivo;
 	}
 
 	public Utente() {
 		super();
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
