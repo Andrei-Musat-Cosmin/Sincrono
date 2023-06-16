@@ -18,8 +18,7 @@ public class ContrattoValidator {
 		
 					
 				 if (contratto.getId() == null) {
-					if (contratto.getAttivo() == null ||
-							contratto.getTipoContratto().getId()==null||
+					if (contratto.getTipoContratto().getId()==null||
 							contratto.getLivelloContratto().getId() == null || 
 							contratto.getTipoAzienda().getId() == null || 
 							contratto.getContrattoNazionale().getId() == null 
