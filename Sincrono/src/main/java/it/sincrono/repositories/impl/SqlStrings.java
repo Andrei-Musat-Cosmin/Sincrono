@@ -25,6 +25,6 @@ public interface SqlStrings {
 	public final String SQL_GET_RUOLO_UTENTE = "SELECT r.id FROM ruoli r INNER JOIN profili a ON r.id = a.id_ruolo INNER JOIN utenti u ON u.id = a.id_utente WHERE 1=1 AND u.username = '{0}'";
 	public final String SQL_CURRENT_COMMESSA="select * from commessa c where c.id=(select  c.id from storico_commesse st inner join anagrafica a on a.id=st.id_anagrafica inner join commessa c on c.id=st.id_commessa where c.stato=1 and a.id={0}";
 	public final String SQL_CURRENT_CONTRATTO="select * from contratto c where c.id=(select c.id from storico_contratti st inner join anagrafica a on a.id=st.id_anagrafica inner join contratto c  on c.id=st.id_contratto where c.attivo=1 and a.id={0})";
-		
+	public final String SQL_GET_STORICO_COMMESSE_BY_ID = "select c.* from commessa c inner join storico_commesse s on c.id=s.id_commessa where s.id_anagrafica=1 and c.stato=true";
 
 }

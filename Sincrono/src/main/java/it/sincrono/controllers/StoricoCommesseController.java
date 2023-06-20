@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
+import it.sincrono.entities.Commessa;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.requests.StoricoCommesseRequest;
+import it.sincrono.responses.CommessaListResponse;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.StoricoCommesseListResponse;
 import it.sincrono.responses.StoricoCommesseResponse;
@@ -134,6 +136,28 @@ public class StoricoCommesseController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
 
+		return httpEntity;
+	}
+	
+	@GetMapping("/storico-commesse-anagrafica/{id}")
+	public @ResponseBody HttpEntity<CommessaListResponse> getStoricoCommesseByAnagrafica(@PathVariable Integer id) {
+
+		HttpEntity<CommessaListResponse> httpEntity;
+
+		CommessaListResponse commessaListResponse = new CommessaListResponse();
+
+		try {
+			List<Commessa> storicoCommesse = storicoCommesseService.getStoricoCommesseByAnagrafica(id);
+
+			commessaListResponse.setList(storicoCommesse);
+			commessaListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
+
+		} catch (Exception e) {
+			commessaListResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
+			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
+		}
 		return httpEntity;
 	}
 

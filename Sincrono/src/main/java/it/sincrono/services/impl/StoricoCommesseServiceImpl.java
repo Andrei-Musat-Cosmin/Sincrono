@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import it.sincrono.entities.Commessa;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.services.StoricoCommesseService;
@@ -78,6 +79,20 @@ public class StoricoCommesseServiceImpl implements StoricoCommesseService {
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
+	}
+
+	public List<Commessa> getStoricoCommesseByAnagrafica(Integer id) throws ServiceException {
+
+		try {
+			return storicoCommesseRepository.getStoricoCommesseByAnagrafica(id);
+			
+		} catch (NoSuchElementException ne) {
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (DataIntegrityViolationException de) {
+			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
 	}
 
 }

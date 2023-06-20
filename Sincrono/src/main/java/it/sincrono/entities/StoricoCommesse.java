@@ -44,6 +44,11 @@ public class StoricoCommesse {
 		this.anagrafica = anagrafica;
 		this.commessa = commessa;
 	}
+	
+	public StoricoCommesse( Commessa commessa) {
+		super();
+		this.commessa = commessa;
+	}
 
 	public Integer getId() {
 		return id;
