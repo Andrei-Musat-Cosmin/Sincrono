@@ -18,7 +18,7 @@ public class CommessaValidator {
 			 
 
 			if (commessa.getCliente()==null && commessa.getCliente().equals("") ||
-				commessa.getAzienda()==null && commessa.getAzienda().equals("") ||
+				commessa.getNominativo()==null && commessa.getNominativo().equals("") ||
 				commessa.getDataInizio()==null && commessa.getDataFine()==null) {
 				result = false;
 			}
@@ -35,8 +35,8 @@ public class CommessaValidator {
 				  if (commessa.getId() != null) {
 				  
 					  if (commessa.getCliente()==null && commessa.getCliente().equals("") ||
-							  commessa.getAzienda()==null && commessa.getAzienda().equals("") ||
-							  commessa.getDataInizio()==null && commessa.getDataFine()==null) {
+						  commessa.getNominativo()==null && commessa.getNominativo().equals("") ||
+						  commessa.getDataInizio()==null && commessa.getDataFine()==null) {
 								result = false;
 							}
 				  }else {

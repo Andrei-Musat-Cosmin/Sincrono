@@ -26,5 +26,7 @@ public interface SqlStrings {
 	public final String SQL_CURRENT_COMMESSA="select * from commessa c where c.id=(select  c.id from storico_commesse st inner join anagrafica a on a.id=st.id_anagrafica inner join commessa c on c.id=st.id_commessa where c.stato=1 and a.id={0}";
 	public final String SQL_CURRENT_CONTRATTO="select * from contratto c where c.id=(select c.id from storico_contratti st inner join anagrafica a on a.id=st.id_anagrafica inner join contratto c  on c.id=st.id_contratto where c.attivo=1 and a.id={0})";
 	public final String SQL_GET_STORICO_COMMESSE_BY_ID = "select c.* from commessa c inner join storico_commesse s on c.id=s.id_commessa where s.id_anagrafica=1 and c.stato=true";
+	
+	public final String SQL_STORICO_CONTRATTI="select c.*,tc.descrizione,tl.descrizione,tl.ccnl,tl.minimi_ret_23,ta.descrizione,tcn.descrizione from contratto c  inner join storico_contratti s  on c.id=s.id_contratto  inner join tipo_contratto tc  on c.id_tipo_contratto=tc.id  inner join tipo_livelli_contrattuali tl  on c.id_tipo_livello=tl.id  inner join tipo_azienda ta  on c.id_tipo_azienda=ta.id  inner join tipo_contratto_nazionale tcn  on c.id_contratto_nazionale=tcn.id  where s.id_anagrafica=1 and c.attivo=true";
 
 }

@@ -41,8 +41,10 @@ public class AnagraficaValidator {
 					if (anagrafica.getNome() == null || anagrafica.getNome().equals("") ||
 							anagrafica.getCognome() == null ||anagrafica.getCognome().equals("") ||
 							anagrafica.getCodiceFiscale() == null
-							||anagrafica.getCodiceFiscale().equals("") || anagrafica.getAttivo() == null
-							) { result = false; }
+							||anagrafica.getCodiceFiscale().equals("") 
+							) { 
+								result = false; 
+							}
 				} else {
 					
 					result=false;

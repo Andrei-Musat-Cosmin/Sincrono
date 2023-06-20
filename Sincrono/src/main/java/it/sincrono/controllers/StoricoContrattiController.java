@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.StoricoContratti;
 import it.sincrono.requests.StoricoContrattiRequest;
+import it.sincrono.responses.ContrattoListResponse;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.StoricoContrattiListResponse;
 import it.sincrono.responses.StoricoContrattiResponse;
@@ -130,6 +131,28 @@ public class StoricoContrattiController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
 
+		return httpEntity;
+	}
+	
+	@GetMapping("/storico-Contratti/{id}")
+	public @ResponseBody HttpEntity<ContrattoListResponse> getStoricoContratti(@PathVariable("id")  Integer id) {
+		
+		HttpEntity<ContrattoListResponse> httpEntity;
+
+		ContrattoListResponse contrattoListResponse= new ContrattoListResponse();
+		
+		
+		try {
+		
+		 contrattoListResponse.setList(storicoContrattiService.getStoricoContratti(id));
+		 contrattoListResponse.setEsito(new Esito());
+		
+		 httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
+		 
+		} catch (Exception e) {
+			contrattoListResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+			httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
+		}
 		return httpEntity;
 	}
 

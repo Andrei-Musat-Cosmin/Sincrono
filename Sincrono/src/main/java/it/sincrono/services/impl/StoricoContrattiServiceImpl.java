@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import it.sincrono.entities.Contratto;
 import it.sincrono.entities.StoricoContratti;
 import it.sincrono.repositories.StoricoContrattiRepository;
 import it.sincrono.services.StoricoContrattiService;
@@ -109,6 +110,27 @@ public class StoricoContrattiServiceImpl implements StoricoContrattiService {
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
+	}
+	
+	@Override
+	public List<Contratto> getStoricoContratti(Integer id) throws ServiceException {
+		
+		List<Contratto> listStoricoContratti=null;
+		
+		try {
+
+			listStoricoContratti=storicoContrattiRepository.getStoricoContratti(id);
+			
+			return listStoricoContratti;
+			
+
+		} catch (NoSuchElementException ne) {
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (DataIntegrityViolationException de) {
+			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
 	}
 
 }
