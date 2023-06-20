@@ -1,7 +1,9 @@
 package it.sincrono.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
+import it.sincrono.services.utils.DateUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -187,6 +189,55 @@ public class Contratto {
 	}
 	
 	
+	
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(assicurazioneObbligatoria, attivo, canaleReclutamento, categoriaProtetta,
+				contrattoNazionale, corsoSicurezza, dataAssunzione, dataFineProva, dataFineRapporto, dataInizioProva,
+				diariaGg, diariaMese, dimissioni, id, livelloAttuale, livelloContratto, livelloFinale, mesiDurata,
+				motivazioneFineRapporto, partTime, partTimeA, pc, pfi, qualifica, ralAnnua, retribuzioneMensileLorda,
+				scattiAnzianita, sedeAssunzione, superminimoMensile, superminimoRal, tariffaPartitaIva, ticket,
+				tipoAzienda, tipoContratto, tutor, valoreTicket);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Contratto other = (Contratto) obj;
+		return Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
+				&&  Objects.equals(canaleReclutamento, other.canaleReclutamento)
+				&& Objects.equals(categoriaProtetta, other.categoriaProtetta)
+				&& Objects.equals(contrattoNazionale.getId(), other.contrattoNazionale.getId())
+				&& DateUtil.dateCompare(corsoSicurezza, other.corsoSicurezza)
+				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
+				&& DateUtil.dateCompare(dataFineProva, other.dataFineProva)
+				&& DateUtil.dateCompare(dataFineRapporto, other.dataFineRapporto)
+				&& DateUtil.dateCompare(dataInizioProva, other.dataInizioProva) && Objects.equals(diariaGg, other.diariaGg)
+				&& Objects.equals(diariaMese, other.diariaMese) && Objects.equals(dimissioni, other.dimissioni)
+				&&  Objects.equals(livelloAttuale, other.livelloAttuale)
+				&& Objects.equals(livelloContratto.getId(), other.livelloContratto.getId())
+				&& Objects.equals(livelloFinale, other.livelloFinale) && Objects.equals(mesiDurata, other.mesiDurata)
+				&& Objects.equals(motivazioneFineRapporto, other.motivazioneFineRapporto)
+				&& Objects.equals(partTime, other.partTime) && Objects.equals(partTimeA, other.partTimeA)
+				&& Objects.equals(pc, other.pc) && Objects.equals(pfi, other.pfi)
+				&& Objects.equals(qualifica, other.qualifica) && Objects.equals(ralAnnua, other.ralAnnua)
+				&& Objects.equals(retribuzioneMensileLorda, other.retribuzioneMensileLorda)
+				&& Objects.equals(scattiAnzianita, other.scattiAnzianita)
+				&& Objects.equals(sedeAssunzione, other.sedeAssunzione)
+				&& Objects.equals(superminimoMensile, other.superminimoMensile)
+				&& Objects.equals(superminimoRal, other.superminimoRal)
+				&& Objects.equals(tariffaPartitaIva, other.tariffaPartitaIva) && Objects.equals(ticket, other.ticket)
+				&& Objects.equals(tipoAzienda.getId(), other.tipoAzienda.getId()) && Objects.equals(tipoContratto.getId(), other.tipoContratto.getId())
+				&& Objects.equals(tutor, other.tutor) && Objects.equals(valoreTicket, other.valoreTicket);
+	}
 
 	public Contratto(Integer id) {
 		super();

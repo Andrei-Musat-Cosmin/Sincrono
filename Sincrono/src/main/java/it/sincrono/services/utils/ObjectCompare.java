@@ -7,9 +7,7 @@ import it.sincrono.entities.Contratto;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.Date;
 
 
 @Component
@@ -20,11 +18,8 @@ public class ObjectCompare {
 		
 		boolean check=false;
 		
-		currentContratto.setAttivo(null);
 		
-		ObjectMapper objectMapper = new ObjectMapper();
-		
-		if(objectMapper.writeValueAsString(contratto).equals(objectMapper.writeValueAsString(currentContratto))){
+		if(contratto.equals(currentContratto)){
 			
 			check=true;
 			
@@ -39,10 +34,10 @@ public class ObjectCompare {
 		
 		boolean check=false;
 		
-		/*if(commessa.getAttesaLavori()==currentCommessa.getAttesaLavori() &&
-		   commessa.getAzienda()==currentCommessa.getAzienda() &&
-		   commessa.getAziendaDiFatturazioneInterna()==currentCommessa.getAziendaDiFatturazioneInterna() &&
-		   commessa)*/
+		if(commessa.equals(currentCommessa)) {
+			
+			check=true;
+		}
 				   
 		
 		return check;

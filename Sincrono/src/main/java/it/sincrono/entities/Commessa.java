@@ -1,7 +1,9 @@
 package it.sincrono.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
+import it.sincrono.services.utils.DateUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -84,6 +86,33 @@ public class Commessa {
 	}
 	
 	
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(attesaLavori, azienda, aziendaDiFatturazioneInterna, cliente, clienteFinale, costoMese,
+				dataFine, dataInizio, distacco, id, nominativo, stato, tariffaGiornaliera, titoloPosizione);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Commessa other = (Commessa) obj;
+		return Objects.equals(attesaLavori, other.attesaLavori) && Objects.equals(azienda, other.azienda)
+				&& Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
+				&& Objects.equals(cliente, other.cliente) && Objects.equals(clienteFinale, other.clienteFinale)
+				&& Objects.equals(costoMese, other.costoMese) && DateUtil.dateCompare((Date)dataFine, (Date)other.dataFine)
+				&& DateUtil.dateCompare((Date)dataInizio, (Date)other.dataInizio) && Objects.equals(distacco, other.distacco)
+				&&  Objects.equals(nominativo, other.nominativo)
+				&&  Objects.equals(tariffaGiornaliera, other.tariffaGiornaliera)
+				&& Objects.equals(titoloPosizione, other.titoloPosizione);
+	}
 
 	public Commessa(Integer id) {
 		super();
