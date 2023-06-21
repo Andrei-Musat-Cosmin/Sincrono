@@ -2,7 +2,7 @@ package it.sincrono.entities;
 
 import java.util.Set;
 
-import it.sincrono.services.utils.TokenGenerator;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -47,7 +47,6 @@ public class Utente {
 	public Utente(String username, Boolean attivo) {
 		super();
 		this.username = username;
-		this.tokenPassword = new TokenGenerator().nextToken();
 		this.attivo = attivo;
 	}
 
