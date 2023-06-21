@@ -22,13 +22,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws RepositoryException {
+	public List<AnagraficaDto> listAnagraficaDto() throws RepositoryException {
 		try {
 
-			String queryString = SqlStrings.SQL_LIST_ANAGRAFICA_FILTER;
+			String queryString = SqlStrings.SQL_LIST_ANAGRAFICA;
 			String subString = "";
 
-			if (anagraficaDto != null) {
+			/*if (anagraficaDto != null) {
 
 				if (anagraficaDto.getAnagrafica() != null) {
 
@@ -107,7 +107,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 			}
 
-			queryString = queryString.replace("{0}", subString);
+			queryString = queryString.replace("{0}", subString);*/
+			
 			Query query = entityManager.createNativeQuery(queryString);
 
 			List<Object> listFilter = query.getResultList();

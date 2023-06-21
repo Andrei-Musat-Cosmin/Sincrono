@@ -172,9 +172,8 @@ public class AnagraficaController {
 		return httpEntity;
 	}
 
-	@PostMapping("/anagrafica-list-filter")
-	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> Search(
-			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+	@GetMapping("/anagraficaDto-list")
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> listAnagraficaDto() {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
@@ -182,7 +181,7 @@ public class AnagraficaController {
 		try {
 			System.out.println("START invocation getAll() of controller layer");
 
-			List<AnagraficaDto> anagrafiche = anagraficaService.search(anagraficaRequestDto.getAnagraficaDto());
+			List<AnagraficaDto> anagrafiche = anagraficaService.listAnagraficaDto();
 
 			anagraficaDtoListResponse.setList(anagrafiche);
 			anagraficaDtoListResponse.setEsito(new Esito());

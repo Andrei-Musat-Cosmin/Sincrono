@@ -19,7 +19,7 @@ public interface AnagraficaService {
 
 	public void delete(Integer ID) throws ServiceException;
 
-	List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws ServiceException;
+	List<AnagraficaDto> listAnagraficaDto() throws ServiceException;
 
 	public AnagraficaDto getAnagraficaDto(Integer id) throws ServiceException;
 

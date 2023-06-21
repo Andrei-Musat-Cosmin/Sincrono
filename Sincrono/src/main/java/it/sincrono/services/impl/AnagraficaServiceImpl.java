@@ -182,12 +182,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	@Override
-	public List<AnagraficaDto> search(AnagraficaDto anagraficaDto) throws ServiceException {
+	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException {
 
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.search(anagraficaDto);
+			list = anagraficaRepository.listAnagraficaDto();
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -327,7 +327,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			
 	        //status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
-			
+			anagraficaDto.getAnagrafica().setAttivo(true);
 			anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica());
 			Integer idAnagrafica=anagraficaDto.getAnagrafica().getId();
 			
