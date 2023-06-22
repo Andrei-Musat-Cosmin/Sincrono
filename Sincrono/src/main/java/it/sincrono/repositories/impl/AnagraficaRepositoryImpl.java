@@ -1,10 +1,11 @@
 package it.sincrono.repositories.impl;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-
+import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
@@ -537,7 +538,25 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					commessa.setAttesaLavori((String) result[76]);
 
 				anagraficaDto.setCommessa(commessa);
-
+				
+				Ruolo ruolo = new Ruolo();
+				
+				if(result[99]!=null) {
+					
+					ruolo.setId((Integer)result[99]);
+					
+					
+				}
+				
+				
+				if(result[101]!=null) {
+					
+					ruolo.setNome((String)result[101]);
+					
+					
+				}
+				
+				anagraficaDto.setRuolo(ruolo);
 			}
 		} catch (Exception e) {
 			throw new RepositoryException(e);

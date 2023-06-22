@@ -238,8 +238,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			anagraficaDto.getAnagrafica().setAttivo(true);
 			Integer idAnagrafica = anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
 			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(0)));
-			storicoContrattiRepository
-					.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(0)));
+			storicoContrattiRepository.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(0)));
+			
+			
 			
 			if(anagraficaDto.getRuolo()!=null) {
 				
@@ -351,8 +352,25 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	        //status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
 			anagraficaDto.getAnagrafica().setAttivo(true);
+			anagraficaDto.getAnagrafica().setUtente(anagraficaRepository.
+					findById(anagraficaDto.getAnagrafica().getId()).get().getUtente());
 			anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica());
 			Integer idAnagrafica=anagraficaDto.getAnagrafica().getId();
+			
+			
+			if(anagraficaDto.getRuolo()!=null) {
+				
+				if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
+					System.out.println("Exception occurs {}");
+					throw new ServiceException();
+				}
+			
+				Integer idProfilo=profiloRepository.getidProfilo(idAnagrafica);
+				profiloRepository.saveAndFlush(new Profilo(idProfilo,anagraficaDto.getRuolo(),anagraficaDto.getAnagrafica().getUtente()));
+				
+			}
+			
+			
 			
 			
 			Commessa commessa=commesseRepository.findById(anagraficaDto.getCommessa().getId()).get();

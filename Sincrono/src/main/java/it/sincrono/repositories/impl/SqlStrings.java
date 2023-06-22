@@ -14,7 +14,7 @@ public interface SqlStrings {
 	public final String SQL_TREE_RUOLI = "SELECT a FROM Ruolo a WHERE 1 = 1 {0} ORDER BY a.nome";
 	
 	// SQL DETTAGLIO ANAGRAFICA DTO
-	public final String SQL_DETTAGLIO_ANAGRAFICA_DTO = "SELECT *  FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = d.id_anagrafica INNER JOIN commessa e ON d.id_commessa = e.id INNER JOIN tipo_livelli_contrattuali f ON f.id=c.id_tipo_livello INNER JOIN tipo_contratto g ON g.id=c.id_tipo_contratto INNER JOIN tipo_contratto_nazionale h ON h.id=c.id_contratto_nazionale INNER JOIN tipo_azienda i ON i.id=c.id_tipo_azienda WHERE a.id = {0} AND c.attivo = true AND e.stato";
+	public final String SQL_DETTAGLIO_ANAGRAFICA_DTO = "SELECT *  FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = d.id_anagrafica INNER JOIN commessa e ON d.id_commessa = e.id INNER JOIN tipo_livelli_contrattuali f  ON f.id=c.id_tipo_livello  INNER JOIN tipo_contratto g  ON g.id=c.id_tipo_contratto  INNER JOIN tipo_contratto_nazionale h  ON h.id=c.id_contratto_nazionale  INNER JOIN tipo_azienda i  ON i.id=c.id_tipo_azienda  INNER JOIN utenti u  ON a.id_utente=u.id  INNER JOIN profili p  ON p.id_utente =u.id  INNER JOIN ruoli r  ON p.id_ruolo=r.id  WHERE a.id = {0} AND  c.id=(select max(c1.id)  from contratto c1  inner join storico_contratti s  on s.id_contratto=c1.id  where s.id_anagrafica=a.id)   AND e.id=(select max(c2.id) from commessa c2 inner join storico_commesse s1  on s1.id_commessa=c2.id  where s1.id_anagrafica=a.id)";
 	
 	// Possibile aggiunta alle funzioni di anagrafica ( query da modificare)
 	//public final String SQL_RUOLO_PROFILO = "SELECT b.nome FROM profili a INNER JOIN ruoli b ON a.id_ruolo = b.id INNER JOIN utenti c ON a.id_utente = c.id WHERE c.id = :id ORDER BY b.nome"; 
@@ -25,8 +25,10 @@ public interface SqlStrings {
 	public final String SQL_GET_RUOLO_UTENTE = "SELECT r.id FROM ruoli r INNER JOIN profili a ON r.id = a.id_ruolo INNER JOIN utenti u ON u.id = a.id_utente WHERE 1=1 AND u.username = '{0}'";
 	public final String SQL_CURRENT_COMMESSA="select * from commessa c where c.id=(select  c.id from storico_commesse st inner join anagrafica a on a.id=st.id_anagrafica inner join commessa c on c.id=st.id_commessa where c.stato=1 and a.id={0}";
 	public final String SQL_CURRENT_CONTRATTO="select * from contratto c where c.id=(select c.id from storico_contratti st inner join anagrafica a on a.id=st.id_anagrafica inner join contratto c  on c.id=st.id_contratto where c.attivo=1 and a.id={0})";
-	public final String SQL_GET_STORICO_COMMESSE_BY_ID = "select c.* from commessa c inner join storico_commesse s on c.id=s.id_commessa where s.id_anagrafica=1 and c.stato=true";
+	public final String SQL_GET_STORICO_COMMESSE_BY_ID = "select c.* from commessa c inner join storico_commesse s on c.id=s.id_commessa where s.id_anagrafica={0} and c.id>0";
 	
-	public final String SQL_STORICO_CONTRATTI="select c.*,tc.descrizione,tl.descrizione,tl.ccnl,tl.minimi_ret_23,ta.descrizione,tcn.descrizione from contratto c  inner join storico_contratti s  on c.id=s.id_contratto  inner join tipo_contratto tc  on c.id_tipo_contratto=tc.id  inner join tipo_livelli_contrattuali tl  on c.id_tipo_livello=tl.id  inner join tipo_azienda ta  on c.id_tipo_azienda=ta.id  inner join tipo_contratto_nazionale tcn  on c.id_contratto_nazionale=tcn.id  where s.id_anagrafica=1 and c.attivo=true";
+	public final String SQL_STORICO_CONTRATTI="select c.*,tc.descrizione,tl.descrizione,tl.ccnl,tl.minimi_ret_23,ta.descrizione,tcn.descrizione from contratto c  inner join storico_contratti s  on c.id=s.id_contratto  inner join tipo_contratto tc  on c.id_tipo_contratto=tc.id  inner join tipo_livelli_contrattuali tl  on c.id_tipo_livello=tl.id  inner join tipo_azienda ta  on c.id_tipo_azienda=ta.id  inner join tipo_contratto_nazionale tcn  on c.id_contratto_nazionale=tcn.id  where s.id_anagrafica={0} and c.id>0";
+	
+	public final String SQL_GET_PROFILO="select p.id from profili p inner join utenti u on u.id=p.id_utente where u.id=(select a.id_utente  from anagrafica a where a.id={0});";
 
 }

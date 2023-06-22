@@ -78,6 +78,18 @@ public class Profilo {
 		this.ruolo = ruolo;
 		this.utente = utente;
 	}
+	
+	
+	
+
+	
+
+	public Profilo(Integer id, Ruolo ruolo, Utente utente) {
+		super();
+		this.id = id;
+		this.ruolo = ruolo;
+		this.utente = utente;
+	}
 
 	public Profilo() {
 		super();
