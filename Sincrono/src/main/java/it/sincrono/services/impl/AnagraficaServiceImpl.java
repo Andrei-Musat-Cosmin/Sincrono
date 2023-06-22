@@ -18,6 +18,7 @@ import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
 import it.sincrono.repositories.ContrattoRepository;
+import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.services.AnagraficaService;
@@ -27,11 +28,14 @@ import it.sincrono.services.utils.ObjectCompare;
 import it.sincrono.services.validator.AnagraficaValidator;
 import it.sincrono.services.validator.CommessaValidator;
 import it.sincrono.services.validator.ContrattoValidator;
+import it.sincrono.services.validator.RuoloValidator;
 import jakarta.transaction.Transactional;
 import it.sincrono.repositories.StoricoContrattiRepository;
 import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
+import it.sincrono.entities.Profilo;
+import it.sincrono.entities.Ruolo;
 
 @Service
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
@@ -48,6 +52,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private StoricoContrattiRepository storicoContrattiRepository;
 	@Autowired
 	private UtenteRepository utenteRepository;
+	@Autowired
+	private ProfiloRepository profiloRepository;
+	
 	
 
 	@Autowired
@@ -59,9 +66,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private CommessaValidator commessaValidator;
 	
-	
+	@Autowired
+	private RuoloValidator ruoloValidator;
+
 	@Autowired
 	private ObjectCompare objectCompare;
+	
 	@Autowired
 	private PlatformTransactionManager transactionManager;
 
@@ -230,6 +240,17 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(0)));
 			storicoContrattiRepository
 					.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(0)));
+			
+			if(anagraficaDto.getRuolo()!=null) {
+				
+				if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
+					System.out.println("Exception occurs {}");
+					throw new ServiceException();
+				}
+				
+				profiloRepository.saveAndFlush(new Profilo(new Ruolo(anagraficaDto.getRuolo().getId()),
+								  new Utente(idUtente)));
+			}
 
 			if (anagraficaDto.getCommessa() != null) {
 				if (!commessaValidator.validate(anagraficaDto.getCommessa(), true)) {
@@ -252,6 +273,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				storicoContrattiRepository
 						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
+			
+			
 
 		} catch (DataIntegrityViolationException de) {
 			System.out.println("Exception occurs {}");

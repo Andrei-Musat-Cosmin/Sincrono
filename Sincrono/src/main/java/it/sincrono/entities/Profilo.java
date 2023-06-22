@@ -70,6 +70,14 @@ public class Profilo {
 		this.dataFine = dataFine;
 		this.utenteAggiornamento = utenteAggiornamento;
 	}
+	
+	
+
+	public Profilo(Ruolo ruolo, Utente utente) {
+		super();
+		this.ruolo = ruolo;
+		this.utente = utente;
+	}
 
 	public Profilo() {
 		super();

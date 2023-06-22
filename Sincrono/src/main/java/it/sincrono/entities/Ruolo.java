@@ -52,6 +52,13 @@ public class Ruolo {
 		this.descrizione = descrizione;
 		this.ruoli = ruoli;
 	}
+	
+	
+
+	public Ruolo(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	public Ruolo() {
 		super();

@@ -49,6 +49,13 @@ public class Utente {
 		this.username = username;
 		this.attivo = attivo;
 	}
+	
+	
+
+	public Utente(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	public Utente() {
 		super();

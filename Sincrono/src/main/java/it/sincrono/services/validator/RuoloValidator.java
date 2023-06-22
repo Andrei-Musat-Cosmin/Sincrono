@@ -19,27 +19,32 @@ public class RuoloValidator {
 					result = false;
 				}
 
-				if (ruolo.getNome() == null || ruolo.getNome().equals("") || ruolo.getDescrizione() == null
+				/*if (ruolo.getNome() == null || ruolo.getNome().equals("") || ruolo.getDescrizione() == null
 						|| ruolo.getDescrizione().equals("")) {
-					result = false;
+					result = false;*/
 				}
 
-			} else {
+			 else {
 
 				if (ruolo.getId() == null) {
 					result = false;
 				}
 
-				if (ruolo.getRuolo() != null && ruolo.getRuolo().getId() == ruolo.getId()) {
+				/*if (ruolo.getRuolo() != null && ruolo.getRuolo().getId() == ruolo.getId()) {
 					result = false;
 				}
 
 				if (ruolo.getNome() == null || ruolo.getNome().equals("") || ruolo.getDescrizione() == null
 						|| ruolo.getDescrizione().equals("")) {
 					result = false;
-				}
+				}*/
 			}
+			
+		}else {
+			
+			return false;
 		}
+		
 
 		return result;
 	}
