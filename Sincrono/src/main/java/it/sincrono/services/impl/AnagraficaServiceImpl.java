@@ -2,8 +2,10 @@ package it.sincrono.services.impl;
 
 import java.util.List;
 
+
 import java.util.NoSuchElementException;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -22,9 +24,11 @@ import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.services.AnagraficaService;
+import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.ObjectCompare;
+import it.sincrono.services.utils.TokenGenerator;
 import it.sincrono.services.validator.AnagraficaValidator;
 import it.sincrono.services.validator.CommessaValidator;
 import it.sincrono.services.validator.ContrattoValidator;
@@ -54,7 +58,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private UtenteRepository utenteRepository;
 	@Autowired
 	private ProfiloRepository profiloRepository;
-	
+	@Autowired
+	private EmailService emailService;
+
 	
 
 	@Autowired
@@ -232,7 +238,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
-			anagraficaDto.getAnagrafica().setUtente(new Utente(anagraficaDto.getAnagrafica().getMailAziendale(),true));
+			
+			String passwordUtente= new TokenGenerator().nextToken();
+			Utente utente=new Utente(anagraficaDto.getAnagrafica().getMailAziendale(),true, BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
+			anagraficaDto.getAnagrafica().setUtente(utente);
 			Integer idUtente=utenteRepository.saveAndFlush(anagraficaDto.getAnagrafica().getUtente()).getId();
 			anagraficaDto.getAnagrafica().getUtente().setId(idUtente);
 			anagraficaDto.getAnagrafica().setAttivo(true);
@@ -251,6 +260,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				
 				profiloRepository.saveAndFlush(new Profilo(new Ruolo(anagraficaDto.getRuolo().getId()),
 								  new Utente(idUtente)));
+			}else {
+				
+				profiloRepository.saveAndFlush(new Profilo(new Ruolo(2),
+						  new Utente(idUtente)));
+				
 			}
 
 			if (anagraficaDto.getCommessa() != null) {
@@ -275,6 +289,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
 			
+			emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null,"CREAZIONE UTENZA","username:"+
+					anagraficaDto.getAnagrafica().getUtente().getUsername()+"\n"+
+					"password:"+passwordUtente);
 			
 
 		} catch (DataIntegrityViolationException de) {
@@ -458,6 +475,33 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 		
 		
+	}
+
+	@Override
+	public List<AnagraficaDto> anagraficaListContratti() throws ServiceException {
+		List<AnagraficaDto> list = null;
+
+		try {
+			list = anagraficaRepository.listAnagraficaDtoContratti();
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
+
+	@Override
+	public void deleteScattoContratti() throws ServiceException {
+	
+
+		try {
+			 anagraficaRepository.deleteScattoContratti();
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
 	}
 
 }

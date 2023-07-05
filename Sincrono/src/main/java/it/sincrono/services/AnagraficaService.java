@@ -12,6 +12,8 @@ public interface AnagraficaService {
 	public List<Anagrafica> list() throws ServiceException;
 
 	public Anagrafica getById(Integer ID) throws ServiceException;
+	
+	public List<AnagraficaDto> anagraficaListContratti() throws ServiceException;
 
 	public void insert(Anagrafica anagrafica) throws ServiceException;
 
@@ -19,7 +21,7 @@ public interface AnagraficaService {
 
 	public void delete(Integer ID) throws ServiceException;
 
-	List<AnagraficaDto> listAnagraficaDto() throws ServiceException;
+	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException;
 
 	public AnagraficaDto getAnagraficaDto(Integer id) throws ServiceException;
 
@@ -28,6 +30,8 @@ public interface AnagraficaService {
 	public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
 	
 	public void deleteAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
+	
+	public void deleteScattoContratti() throws ServiceException;
 
 	//public void insertAnagraficaDtoRelations(AnagraficaDto anagraficaDto) throws ServiceException;
 

@@ -18,6 +18,7 @@ import it.sincrono.repositories.AnagraficaCustomRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.exceptions.RepositoryException;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 
 public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements AnagraficaCustomRepository {
 
@@ -563,6 +564,110 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		}
 
 		return anagraficaDto;
+	}
+
+	@Override
+	public List<AnagraficaDto> listAnagraficaDtoContratti() throws RepositoryException {
+		try {
+
+			String queryStringContratti = SqlStrings.CONTRATTI_SCATTI_LIVELLO;
+			
+			Query queryContratti = entityManager.createNativeQuery(queryStringContratti);
+			
+			List<Object> listContratti = queryContratti.getResultList();
+			
+			String idContratti=new String();
+			
+			
+			for (Iterator<Object> it = listContratti.iterator(); it.hasNext();) {
+				 
+				
+			    idContratti+=((Integer)it.next())+"";
+			    
+			    if (it.hasNext()) {
+			        idContratti+=",";
+			    }
+				
+			}
+			
+			
+			
+			String queryString = SqlStrings.SQL_ANAGRAFICA_DTO_CONTRATTI;
+
+			queryString = queryString.replace("{0}",idContratti);
+			
+			Query query = entityManager.createNativeQuery(queryString);
+
+			List<Object> listFilter = query.getResultList();
+
+			List<AnagraficaDto> listAnagraficaDto = new ArrayList<AnagraficaDto>();
+
+			for (Iterator<Object> it = listFilter.iterator(); it.hasNext();) {
+				Object[] result = (Object[]) it.next();
+
+				AnagraficaDto anagraficDto = new AnagraficaDto();
+
+				Anagrafica anagrafica = new Anagrafica();
+				if (result[0] != null)
+					anagrafica.setId((Integer) result[0]);
+				if (result[1] != null)
+					anagrafica.setNome((String) result[1]);
+				if (result[2] != null)
+					anagrafica.setCognome((String) result[2]);
+				if (result[3] != null)
+					anagrafica.setCodiceFiscale((String) result[3]);
+
+				anagraficDto.setAnagrafica(anagrafica);
+
+			
+				Contratto contratto = new Contratto();
+
+				if (result[4] != null)
+					contratto.setDataAssunzione((Date) result[4]);
+		
+				LivelloContratto livelloContratto = new LivelloContratto();
+	
+				if (result[5] != null)
+					livelloContratto.setCcnl((String) result[5]);
+				if (result[6] != null)
+					livelloContratto.setDescrizione((String) result[6]);
+				if (result[7] != null)
+					livelloContratto.setMinimiRet23((String) result[7]);
+				
+				contratto.setLivelloContratto(livelloContratto);
+				
+				
+				anagraficDto.setContratto(contratto);
+				
+				
+
+				
+
+				listAnagraficaDto.add(anagraficDto);
+
+			}
+
+			return listAnagraficaDto;
+
+		} catch (Exception e) {
+			throw new RepositoryException(e);
+		}
+	}
+
+	@Transactional
+	@Override
+	public void deleteScattoContratti() throws RepositoryException {
+		try {
+			
+			String queryString = SqlStrings.DELETE_CONTRATTI_SCATTI_LIVELLO;
+
+			Query query = entityManager.createNativeQuery(queryString);
+			
+	        query.executeUpdate();
+	        
+		} catch (Exception e) {
+			throw new RepositoryException(e);
+		}
 	}
 
 }

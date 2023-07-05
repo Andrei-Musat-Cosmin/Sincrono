@@ -30,5 +30,15 @@ public interface SqlStrings {
 	public final String SQL_STORICO_CONTRATTI="select c.*,tc.descrizione,tl.descrizione,tl.ccnl,tl.minimi_ret_23,ta.descrizione,tcn.descrizione from contratto c  inner join storico_contratti s  on c.id=s.id_contratto  inner join tipo_contratto tc  on c.id_tipo_contratto=tc.id  inner join tipo_livelli_contrattuali tl  on c.id_tipo_livello=tl.id  inner join tipo_azienda ta  on c.id_tipo_azienda=ta.id  inner join tipo_contratto_nazionale tcn  on c.id_contratto_nazionale=tcn.id  where s.id_anagrafica={0} and c.id>0";
 	
 	public final String SQL_GET_PROFILO="select p.id from profili p inner join utenti u on u.id=p.id_utente where u.id=(select a.id_utente  from anagrafica a where a.id={0});";
+	
+	
+	public final String SQL_ANAGRAFICA_DTO_CONTRATTI="select a.id,a.nome,a.cognome,a.cf,c.data_assunzione,t.ccnl,t.descrizione,t.minimi_ret_23 from anagrafica a inner join storico_contratti s on a.id=s.id_anagrafica inner join contratto c on c.id=s.id_contratto inner join tipo_livelli_contrattuali t on c.id_tipo_livello=t.id where c.id in({0})";
+	
+	public final String CONTRATTI_SCATTI_LIVELLO="select c.id_contratto from contratti_scatti_livello c";
+	
+	public final String DELETE_CONTRATTI_SCATTI_LIVELLO="DELETE FROM contratti_scatti_livello c WHERE c.idcontratti_scatti_livello>0";
+
+
+
 
 }

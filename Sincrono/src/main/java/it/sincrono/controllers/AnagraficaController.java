@@ -324,4 +324,58 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
+	
+	@GetMapping("/anagrafica-list-contratti")
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> anagraficaListContratti() {
+		
+		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
+
+		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
+		try {
+			System.out.println("START invocation getAll() of controller layer");
+
+			List<AnagraficaDto> anagrafiche = anagraficaService.anagraficaListContratti();
+
+			anagraficaDtoListResponse.setList(anagrafiche);
+			anagraficaDtoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
+
+			System.out.println("END invocation getAll() of controller layer");
+
+		} catch (ServiceException e) {
+			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
+		}
+
+		return httpEntity;
+	}
+	
+	@DeleteMapping("/anagraficaDeleteScattoContratti")
+	public @ResponseBody HttpEntity<GenericResponse> deleteScattiContratto() {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+
+		try {
+			System.out.println("START invocation insert(anagrafica) of controller layer");
+
+			anagraficaService.deleteScattoContratti();
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+			System.out.println("END invocation insert(anagrafica) of controller layer");
+
+		} catch (ServiceException e) {
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+
+		return httpEntity;
+	}
+
+	
 }
