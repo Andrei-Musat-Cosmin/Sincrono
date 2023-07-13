@@ -133,11 +133,11 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					anagrafica.setCodiceFiscale((String) result[3]);
 
 				// SET DI UTENTE
-				Utente utente = new Utente();
+				/*Utente utente = new Utente();
 				if (result[4] != null)
 					utente.setId((Integer) result[4]);
 
-				anagrafica.setUtente(utente);
+				anagrafica.setUtente(utente);*/
 
 				if (result[5] != null)
 					anagrafica.setAziendaTipo((String) result[5]);
@@ -356,11 +356,11 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					anagrafica.setCodiceFiscale((String) result[3]);
 
 				// SET DI UTENTE
-				Utente utente = new Utente();
+				/*Utente utente = new Utente();
 				if (result[4] != null)
 					utente.setId((Integer) result[4]);
 
-				anagrafica.setUtente(utente);
+				anagrafica.setUtente(utente);*/
 
 				if (result[5] != null)
 					anagrafica.setAziendaTipo((String) result[5]);
