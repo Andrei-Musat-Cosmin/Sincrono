@@ -7,6 +7,7 @@ import it.sincrono.entities.Funzione;
 
 public interface FunzioneRepository extends JpaRepository<Funzione, Integer>,FunzioneCustomRepository {
 
+
 	
 
 }

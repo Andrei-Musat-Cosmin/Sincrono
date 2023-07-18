@@ -22,13 +22,26 @@ public class FunzioneServiceImpl extends BaseServiceImpl implements FunzioneServ
 		List<Funzione> tree;
 
 		try {
-			tree = funzioneRepository.funzioneTree();
+			tree = funzioneRepository.funzioneTree(id);
 		} catch (Exception e) {
 
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return tree;
+	}
+
+	@Override
+	public Integer getFunzioniDalRuolo(Integer id) throws ServiceException {
+
+		Integer risultato = null;
+		try {
+			risultato = funzioneRepository.getFunzioniDalRuolo(id);
+		} catch (Exception e) {
+
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+		return risultato;
 	}
 
 }

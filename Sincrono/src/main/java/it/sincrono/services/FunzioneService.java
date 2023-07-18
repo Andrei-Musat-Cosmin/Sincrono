@@ -8,7 +8,7 @@ import it.sincrono.services.exceptions.ServiceException;
 public interface FunzioneService {
 
 	public List<Funzione> funzioneTree(Integer id) throws ServiceException;
-	
-	
+
+	public Integer getFunzioniDalRuolo(Integer id) throws ServiceException;
 
 }

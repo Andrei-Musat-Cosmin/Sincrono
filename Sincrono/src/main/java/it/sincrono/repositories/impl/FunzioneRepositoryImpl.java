@@ -42,8 +42,6 @@ public class FunzioneRepositoryImpl extends BaseRepositoryImpl implements Funzio
 
 					item.setFunzione(id == null ? null : new Funzione(id));
 
-					
-
 					item.setFunzione(null);
 					item.setFunzioni(funzioneTree(item.getId()));
 				}
@@ -57,6 +55,28 @@ public class FunzioneRepositoryImpl extends BaseRepositoryImpl implements Funzio
 		}
 
 		return list;
+	}
+
+	@Override
+	public Integer getFunzioniDalRuolo(Integer id) throws RepositoryException {
+
+		Integer risultato = null;
+
+		try {
+			String queryString = SqlStrings.SQL_GET_FUNZIONE_RUOLO;
+
+			String subString = "AND c.id = " + id;
+
+			Query query = entityManager.createNativeQuery(queryString.replace("{0}", subString));
+
+			risultato = (Integer) query.getSingleResult();
+			System.out.println("RISULTATO: " + risultato);
+		} catch (Exception e) {
+			throw new RepositoryException(e);
+
+		}
+
+		return risultato;
 	}
 
 }

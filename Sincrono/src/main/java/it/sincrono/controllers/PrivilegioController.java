@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,7 +92,7 @@ public class PrivilegioController {
 	 */
 
 	// Tree funzioni che può effettuare utente in base al ruolo
-	@RequestMapping(value = "/privilegi/funzioni-ruolo/tree/{id}", method = RequestMethod.GET, produces = ControllerMaps.JSON)
+	@GetMapping("/funzioni-ruolo/tree/{id}")
 	public @ResponseBody HttpEntity<FunzioniListResponse> treeFunzioniRuolo(@PathVariable("id") Integer id) {
 
 		HttpEntity<FunzioniListResponse> httpEntity = null;
@@ -99,8 +100,8 @@ public class PrivilegioController {
 		FunzioniListResponse funzioneListResponse = new FunzioniListResponse();
 
 		try {
-
-			List<Funzione> funzioni = funzioneService.funzioneTree(id);
+			Integer idFunzione = funzioneService.getFunzioniDalRuolo(id);
+			List<Funzione> funzioni = funzioneService.funzioneTree(idFunzione);
 
 			funzioneListResponse.setList(funzioni);
 			funzioneListResponse.setEsito(new Esito());
