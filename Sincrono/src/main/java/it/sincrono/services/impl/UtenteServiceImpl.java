@@ -69,6 +69,7 @@ public class UtenteServiceImpl extends BaseServiceImpl implements UtenteService 
 
 		try {
 			Utente currentUtente = utenteRepository.findById(utente.getId()).get();
+			currentUtente.setUsername(utente.getUsername());
 			currentUtente.setPassword(BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt()));
 			currentUtente.setTokenPassword(null);
 			currentUtente.setAttivo(utente.getAttivo());
