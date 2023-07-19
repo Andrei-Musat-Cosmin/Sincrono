@@ -3,6 +3,7 @@ package it.sincrono.services.impl;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,9 @@ public class UtenteServiceImpl extends BaseServiceImpl implements UtenteService 
 
 		try {
 			Utente currentUtente = utenteRepository.findById(utente.getId()).get();
+			currentUtente.setPassword(BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt()));
+			currentUtente.setTokenPassword(null);
+			currentUtente.setAttivo(utente.getAttivo());
 
 			utenteRepository.saveAndFlush(currentUtente);
 

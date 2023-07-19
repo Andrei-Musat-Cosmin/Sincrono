@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Esito {
 
-	private Integer code = 0;
+	private Integer code = 200;
 	private String target = null;
 	private String[] args = null;
 
