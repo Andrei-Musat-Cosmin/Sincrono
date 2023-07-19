@@ -14,4 +14,6 @@ public interface AnagraficaCustomRepository extends BaseCustomRepository {
 	public AnagraficaDto getAnagraficaDto(Integer id) throws RepositoryException;
 	
 	public void deleteScattoContratti() throws RepositoryException;
+	
+	public AnagraficaDto getAnagraficaDtoByToken(String token) throws RepositoryException;
 }

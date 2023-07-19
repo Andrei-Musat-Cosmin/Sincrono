@@ -504,4 +504,21 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	}
 
+	@Override
+	public AnagraficaDto getAnagraficaDtoByToken(String token) throws ServiceException {
+		AnagraficaDto anagraficaDto = null;
+
+		try {
+			anagraficaDto = anagraficaRepository.getAnagraficaDtoByToken(token);
+		} catch (NoSuchElementException ne) {
+			System.out.println("Exception occurs {}, ID {}");
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return anagraficaDto;
+	}
 }
+

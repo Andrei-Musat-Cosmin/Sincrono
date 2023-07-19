@@ -40,5 +40,9 @@ public interface SqlStrings {
 	public final String CONTRATTI_SCATTI_LIVELLO = "select c.id_contratto from contratti_scatti_livello c";
 
 	public final String DELETE_CONTRATTI_SCATTI_LIVELLO = "DELETE FROM contratti_scatti_livello c WHERE c.idcontratti_scatti_livello>0";
+	
+	public final String SQL_GET_ANAGRAFICA_BY_TOKEN = "select a.* from anagrafica a inner join Utenti u on u.id=a.id_utente where u.token_password like '{0}'";
+
+	
 
 }

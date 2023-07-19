@@ -669,5 +669,85 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			throw new RepositoryException(e);
 		}
 	}
+	
+	@Override
+	public AnagraficaDto getAnagraficaDtoByToken(String token) throws RepositoryException {
+		
+		AnagraficaDto anagraficaDto = new AnagraficaDto();
+
+		try {
+			String queryString = SqlStrings.SQL_GET_ANAGRAFICA_BY_TOKEN;
+
+			queryString = queryString.replace("{0}", token);
+
+			Query query = entityManager.createNativeQuery(queryString);
+
+			Object[] result = (Object[]) query.getSingleResult();
+
+			if (result != null) {
+
+				// SET DI ANAGRAFICA
+				Anagrafica anagrafica = new Anagrafica();
+				if (result[0] != null)
+					anagrafica.setId((Integer) result[0]);
+				if (result[1] != null)
+					anagrafica.setNome((String) result[1]);
+				if (result[2] != null)
+					anagrafica.setCognome((String) result[2]);
+				if (result[3] != null)
+					anagrafica.setCodiceFiscale((String) result[3]);
+
+				// SET DI UTENTE
+				/*Utente utente = new Utente();
+				if (result[4] != null)
+					utente.setId((Integer) result[4]);
+
+				anagrafica.setUtente(utente);*/
+
+				if (result[5] != null)
+					anagrafica.setAziendaTipo((String) result[5]);
+				if (result[6] != null)
+					anagrafica.setComuneDiNascita((String) result[6]);
+				if (result[7] != null)
+					anagrafica.setDataDiNascita((Date) result[7]);
+				if (result[8] != null)
+					anagrafica.setResidenza((String) result[8]);
+				if (result[9] != null)
+					anagrafica.setDomicilio((String) result[9]);
+				if (result[10] != null)
+					anagrafica.setCellularePrivato((String) result[10]);
+				if (result[11] != null)
+					anagrafica.setCellulareAziendale((String) result[11]);
+				if (result[12] != null)
+					anagrafica.setMailPrivata((String) result[12]);
+				if (result[13] != null)
+					anagrafica.setMailAziendale((String) result[13]);
+				if (result[14] != null)
+					anagrafica.setMailPec((String) result[14]);
+				if (result[15] != null)
+					anagrafica.setAltriTitoli((String) result[15]);
+				if (result[16] != null)
+					anagrafica.setTitoliDiStudio((String) result[16]);
+				if (result[17] != null)
+					anagrafica.setConiugato((Boolean) result[17]);
+				if (result[18] != null)
+					anagrafica.setFigliACarico((Boolean) result[18]);
+				if (result[19] != null)
+					anagrafica.setAttivo((Boolean) result[19]);
+
+				anagraficaDto.setAnagrafica(anagrafica);
+
+				
+				
+				
+				
+			}
+		} catch (Exception e) {
+			throw new RepositoryException(e);
+		}
+
+		return anagraficaDto;
+	}
+
 
 }

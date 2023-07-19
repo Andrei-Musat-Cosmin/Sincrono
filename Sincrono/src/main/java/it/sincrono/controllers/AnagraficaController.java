@@ -376,6 +376,28 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
+	
+	@GetMapping("/dettaglio-anagrafica-token/{token}")
+	public @ResponseBody HttpEntity<AnagraficaDtoResponse> dettaglioAnagraficaDtoByToken(@PathVariable("token") String token) {
+		HttpEntity<AnagraficaDtoResponse> httpEntity = null;
+		AnagraficaDtoResponse anagraficaDtoResponse = new AnagraficaDtoResponse();
+		try {
+			System.out.println("START invocation dettaglioAnagraficaDto() of controller layer");
+			AnagraficaDto anagraficaDto = anagraficaService.getAnagraficaDtoByToken(token);
+			anagraficaDtoResponse.setAnagraficaDto(anagraficaDto);
+			anagraficaDtoResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<AnagraficaDtoResponse>(anagraficaDtoResponse);
+			System.out.println("END invocation dettaglioAnagraficaDto() of controller layer");
+
+		} catch (ServiceException e) {
+			anagraficaDtoResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoResponse>(anagraficaDtoResponse);
+		}
+		return httpEntity;
+	}
+	
+	
 
 	
 }

@@ -34,5 +34,7 @@ public interface AnagraficaService {
 	public void deleteScattoContratti() throws ServiceException;
 
 	//public void insertAnagraficaDtoRelations(AnagraficaDto anagraficaDto) throws ServiceException;
+	
+	public AnagraficaDto getAnagraficaDtoByToken(String token) throws ServiceException;
 
 }
