@@ -3,6 +3,7 @@ package it.sincrono.services.impl;
 import java.util.List;
 
 
+
 import java.util.NoSuchElementException;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -25,6 +26,7 @@ import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.EmailService;
+import it.sincrono.services.UtenteService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.ObjectCompare;
@@ -462,6 +464,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Contratto contratto=contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 			contratto.setAttivo(false);
 			contrattoRepository.saveAndFlush(contratto);
+			
+			Utente utente = utenteRepository.findById(anagrafica.getUtente().getId()).get();
+			utente.setAttivo(false);
+			utenteRepository.saveAndFlush(utente);
+			
 			
 
 		} catch (NoSuchElementException ne) {
