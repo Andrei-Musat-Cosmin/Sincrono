@@ -70,11 +70,10 @@ public class UtenteServiceImpl extends BaseServiceImpl implements UtenteService 
 
 		try {
 			Utente currentUtente = utenteRepository.findById(utente.getId()).get();
-			if (currentUtente.getPassword() == utente.getPassword())
+			if (BCrypt.hashpw(currentUtente.getPassword(), BCrypt.gensalt()) == utente.getPassword())
 				throw new ServiceException(ServiceMessages.PASSWORD_INSERITA_UGUALE_ALLA_VECCHIA);
 			currentUtente.setPassword(BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt()));
 			currentUtente.setTokenPassword(null);
-			currentUtente.setAttivo(utente.getAttivo());
 
 			utenteRepository.saveAndFlush(currentUtente);
 
