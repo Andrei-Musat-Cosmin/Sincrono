@@ -736,7 +736,24 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					anagrafica.setAttivo((Boolean) result[19]);
 
 				anagraficaDto.setAnagrafica(anagrafica);
+				
+				
+				Ruolo ruolo = new Ruolo();
+				
+				if(result[20]!=null) {
+					
+					ruolo.setId((Integer)result[20]);
+			
+				}
 
+				if(result[22]!=null) {
+					
+					ruolo.setNome((String)result[22]);
+			
+				}
+
+				
+				anagraficaDto.setRuolo(ruolo);
 				
 				
 				
