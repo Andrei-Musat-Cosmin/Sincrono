@@ -1,25 +1,47 @@
 package it.sincrono.requests;
 
-import it.sincrono.entities.Utente;
-
 public class UtenteRequest extends GenericRequest {
-	private Utente utente;
 
-	public UtenteRequest(Utente utente) {
+	Integer id;
+
+	String passwordVecchia;
+
+	String passwordNuova;
+
+	public UtenteRequest(Integer id, String passwordVecchia, String passwordNuova) {
 		super();
-		this.utente = utente;
+		this.id = id;
+		this.passwordVecchia = passwordVecchia;
+		this.passwordNuova = passwordNuova;
 	}
 
 	public UtenteRequest() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Utente getUtente() {
-		return utente;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setUtente(Utente utente) {
-		this.utente = utente;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getPasswordVecchia() {
+		return passwordVecchia;
+	}
+
+	public void setPasswordVecchia(String passwordVecchia) {
+		this.passwordVecchia = passwordVecchia;
+	}
+
+	public String getPasswordNuova() {
+		return passwordNuova;
+	}
+
+	public void setPasswordNuova(String passwordNuova) {
+		this.passwordNuova = passwordNuova;
 	}
 
 }

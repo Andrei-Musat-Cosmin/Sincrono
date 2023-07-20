@@ -59,7 +59,7 @@ public class UtenteController {
 		try {
 			System.out.println("START invocation updateUtene of controller layer");
 
-			utenteService.updateUtente(utenteRequest.getUtente());
+			utenteService.updateUtente(utenteRequest);
 
 			genericResponse.setEsito(new Esito());
 

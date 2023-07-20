@@ -12,6 +12,7 @@ import it.sincrono.entities.Utente;
 import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.requests.CambioPasswordRequest;
+import it.sincrono.requests.UtenteRequest;
 import it.sincrono.services.UtenteService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
@@ -62,19 +63,19 @@ public class UtenteServiceImpl extends BaseServiceImpl implements UtenteService 
 	}
 
 	@Override
-	public void updateUtente(Utente utente) throws ServiceException {
-		if (!utenteValidator.validate(utente, false)) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
-		}
+	public void updateUtente(UtenteRequest utenteRequest) throws ServiceException {
 
 		try {
-			Utente currentUtente = utenteRepository.findById(utente.getId()).get();
-			if (currentUtente.getPassword() == utente.getPassword())
+			Utente currentUtente = utenteRepository.findById(utenteRequest.getId()).get();
+
+			if (currentUtente.getPassword() == utenteRequest.getPasswordVecchia())
 				throw new ServiceException(ServiceMessages.PASSWORD_INSERITA_UGUALE_ALLA_VECCHIA);
-			currentUtente.setPassword(BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt()));
+
+			if (utenteRequest.getPasswordNuova() == null || utenteRequest.getPasswordNuova().equals(""))
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+
+			currentUtente.setPassword(BCrypt.hashpw(utenteRequest.getPasswordNuova(), BCrypt.gensalt()));
 			currentUtente.setTokenPassword(null);
-			currentUtente.setAttivo(utente.getAttivo());
 
 			utenteRepository.saveAndFlush(currentUtente);
 
