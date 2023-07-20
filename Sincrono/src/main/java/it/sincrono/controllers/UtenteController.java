@@ -75,7 +75,7 @@ public class UtenteController {
 		return httpEntity;
 	}
 
-	@PutMapping("/modifica-utente")
+	@PutMapping("/reset-password")
 	public @ResponseBody HttpEntity<GenericResponse> updateUtente(
 			@RequestBody CambioPasswordRequest cambioPasswordRequest) {
 
