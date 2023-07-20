@@ -41,7 +41,7 @@ public class CommessaController {
 
 			commessaDtoListResponse.setEsito(new Esito());
 
-			commessaDtoListResponse.setList(commessaService.view());
+			commessaDtoListResponse.setList(commessaService.dashboard());
 
 			httpEntity = new HttpEntity<CommessaDtoListResponse>(commessaDtoListResponse);
 		} catch (Exception e) {
@@ -51,108 +51,108 @@ public class CommessaController {
 		return httpEntity;
 	}
 
-	@GetMapping("/commessa-list")
-	public @ResponseBody HttpEntity<CommessaListResponse> fetchAllCommessa() {
-		HttpEntity<CommessaListResponse> httpEntity;
+//	@GetMapping("/commessa-list")
+//	public @ResponseBody HttpEntity<CommessaListResponse> fetchAllCommessa() {
+//		HttpEntity<CommessaListResponse> httpEntity;
+//
+//		CommessaListResponse commessaListResponse = new CommessaListResponse();
+//
+//		try {
+//			List<Commessa> commesse = commessaService.listCommessa();
+//
+//			commessaListResponse.setList(commesse);
+//			commessaListResponse.setEsito(new Esito());
+//
+//			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
+//
+//		} catch (Exception e) {
+//			commessaListResponse.setEsito(new Esito(404, e.getMessage(), null));
+//			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
+//		}
+//		return httpEntity;
+//
+//	}
 
-		CommessaListResponse commessaListResponse = new CommessaListResponse();
+//	@GetMapping("/commessa/{id}")
+//	public @ResponseBody HttpEntity<CommessaResponse> getCommessaById(@PathVariable Integer id) {
+//
+//		HttpEntity<CommessaResponse> httpEntity;
+//
+//		CommessaResponse commessaResponse = new CommessaResponse();
+//
+//		try {
+//			Commessa commessa = commessaService.getCommessaById(id);
+//
+//			commessaResponse.setCommessa(commessa);
+//			commessaResponse.setEsito(new Esito());
+//
+//			httpEntity = new HttpEntity<CommessaResponse>(commessaResponse);
+//
+//		} catch (Exception e) {
+//			commessaResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
+//			httpEntity = new HttpEntity<CommessaResponse>(commessaResponse);
+//		}
+//		return httpEntity;
+//	}
 
-		try {
-			List<Commessa> commesse = commessaService.listCommessa();
+//	@PostMapping("/commessa")
+//	public @ResponseBody HttpEntity<GenericResponse> saveCommessa(@RequestBody CommessaRequest commessaRequest) {
+//		HttpEntity<GenericResponse> httpEntity;
+//
+//		GenericResponse genericResponse = new GenericResponse();
+//
+//		try {
+//			commessaService.insert(commessaRequest.getCommessa());
+//			genericResponse.setEsito(new Esito());
+//
+//			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+//
+//		} catch (Exception e) {
+//			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+//			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+//		}
+//		return httpEntity;
+//	}
 
-			commessaListResponse.setList(commesse);
-			commessaListResponse.setEsito(new Esito());
+//	@PutMapping("/commessa")
+//	public @ResponseBody HttpEntity<GenericResponse> updateCommessa(@RequestBody CommessaRequest commessaRequest) {
+//		HttpEntity<GenericResponse> httpEntity;
+//
+//		GenericResponse genericResponse = new GenericResponse();
+//
+//		try {
+//			commessaService.update(commessaRequest.getCommessa());
+//			genericResponse.setEsito(new Esito());
+//
+//			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+//
+//		} catch (Exception e) {
+//			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+//			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+//		}
+//		return httpEntity;
+//	}
 
-			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
-
-		} catch (Exception e) {
-			commessaListResponse.setEsito(new Esito(404, e.getMessage(), null));
-			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
-		}
-		return httpEntity;
-
-	}
-
-	@GetMapping("/commessa/{id}")
-	public @ResponseBody HttpEntity<CommessaResponse> getCommessaById(@PathVariable Integer id) {
-
-		HttpEntity<CommessaResponse> httpEntity;
-
-		CommessaResponse commessaResponse = new CommessaResponse();
-
-		try {
-			Commessa commessa = commessaService.getCommessaById(id);
-
-			commessaResponse.setCommessa(commessa);
-			commessaResponse.setEsito(new Esito());
-
-			httpEntity = new HttpEntity<CommessaResponse>(commessaResponse);
-
-		} catch (Exception e) {
-			commessaResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
-			httpEntity = new HttpEntity<CommessaResponse>(commessaResponse);
-		}
-		return httpEntity;
-	}
-
-	@PostMapping("/commessa")
-	public @ResponseBody HttpEntity<GenericResponse> saveCommessa(@RequestBody CommessaRequest commessaRequest) {
-		HttpEntity<GenericResponse> httpEntity;
-
-		GenericResponse genericResponse = new GenericResponse();
-
-		try {
-			commessaService.insert(commessaRequest.getCommessa());
-			genericResponse.setEsito(new Esito());
-
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-
-		} catch (Exception e) {
-			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-		}
-		return httpEntity;
-	}
-
-	@PutMapping("/commessa")
-	public @ResponseBody HttpEntity<GenericResponse> updateCommessa(@RequestBody CommessaRequest commessaRequest) {
-		HttpEntity<GenericResponse> httpEntity;
-
-		GenericResponse genericResponse = new GenericResponse();
-
-		try {
-			commessaService.update(commessaRequest.getCommessa());
-			genericResponse.setEsito(new Esito());
-
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-
-		} catch (Exception e) {
-			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-		}
-		return httpEntity;
-	}
-
-	@DeleteMapping("/commessa/{id}")
-	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
-
-		HttpEntity<GenericResponse> httpEntity;
-
-		GenericResponse genericResponse = new GenericResponse();
-
-		try {
-
-			commessaService.delete(id);
-
-			genericResponse.setEsito(new Esito());
-
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-
-		} catch (ServiceException e) {
-			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] { String.valueOf(id) }));
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-		}
-
-		return httpEntity;
-	}
+//	@DeleteMapping("/commessa/{id}")
+//	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {
+//
+//		HttpEntity<GenericResponse> httpEntity;
+//
+//		GenericResponse genericResponse = new GenericResponse();
+//
+//		try {
+//
+//			commessaService.delete(id);
+//
+//			genericResponse.setEsito(new Esito());
+//
+//			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+//
+//		} catch (ServiceException e) {
+//			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] { String.valueOf(id) }));
+//			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+//		}
+//
+//		return httpEntity;
+//	}
 }

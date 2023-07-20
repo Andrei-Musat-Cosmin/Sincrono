@@ -20,61 +20,61 @@ public class ContrattoServiceImpl implements ContrattoService {
 	@Autowired
 	private ContrattoRepository contrattoRepository;
 
-	@Override
-	public List<Contratto> listContratto() throws ServiceException {
-		List<Contratto> contratti = contrattoRepository.findAll();
-		return contratti;
-	}
+//	@Override
+//	public List<Contratto> listContratto() throws ServiceException {
+//		List<Contratto> contratti = contrattoRepository.findAll();
+//		return contratti;
+//	}
+//
+//	@Override
+//	public Contratto getContrattoById(Integer id) {
+//		Contratto contratto = contrattoRepository.findById(id).get();
+//		if (!contratto.equals(null)) {
+//			return contratto;
+//		}
+//		return null;
+//	}
+//
+//	@Override
+//	public void insert(Contratto contratto) {
+//		contrattoRepository.saveAndFlush(contratto);
+//	}
 
-	@Override
-	public Contratto getContrattoById(Integer id) {
-		Contratto contratto = contrattoRepository.findById(id).get();
-		if (!contratto.equals(null)) {
-			return contratto;
-		}
-		return null;
-	}
-
-	@Override
-	public void insert(Contratto contratto) {
-		contrattoRepository.saveAndFlush(contratto);
-	}
-
-	@Override
-	public void update(Contratto contratto) throws ServiceException {
-
-		try {
-			Contratto currentContratto = contrattoRepository.findById(contratto.getId()).get();
-
-			currentContratto.setAttivo(false);
-			contrattoRepository.saveAndFlush(currentContratto);
-
-		} catch (NoSuchElementException ne) {
-			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch (Exception e) {
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-	}
-
-	@Override
-	public void delete(Integer id) throws ServiceException {
-
-		try {
-			Contratto contratto = contrattoRepository.findById(id).get();
-
-			contrattoRepository.delete(contratto);
-			contrattoRepository.flush();
-
-		} catch (NoSuchElementException ne) {
-			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch (Exception e) {
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-	}
+//	@Override
+//	public void update(Contratto contratto) throws ServiceException {
+//
+//		try {
+//			Contratto currentContratto = contrattoRepository.findById(contratto.getId()).get();
+//
+//			currentContratto.setAttivo(false);
+//			contrattoRepository.saveAndFlush(currentContratto);
+//
+//		} catch (NoSuchElementException ne) {
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (DataIntegrityViolationException de) {
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//	}
+//
+//	@Override
+//	public void delete(Integer id) throws ServiceException {
+//
+//		try {
+//			Contratto contratto = contrattoRepository.findById(id).get();
+//
+//			contrattoRepository.delete(contratto);
+//			contrattoRepository.flush();
+//
+//		} catch (NoSuchElementException ne) {
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (DataIntegrityViolationException de) {
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//	}
 
 	@Override
 	public List<OrganicoDto> organico() throws ServiceException {

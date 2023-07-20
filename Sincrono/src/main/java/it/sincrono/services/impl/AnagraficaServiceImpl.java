@@ -85,119 +85,119 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 
 
-	@Override
-	public List<Anagrafica> list() throws ServiceException {
-
-		List<Anagrafica> list = null;
-
-		try {
-			list = anagraficaRepository.findAll();
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-		return list;
-	}
-
-	@Override
-	public Anagrafica getById(Integer ID) throws ServiceException {
-		Anagrafica anagrafica = null;
-
-		try {
-			anagrafica = anagraficaRepository.findById(ID).get();
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs {}, ID {}");
-			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-		return anagrafica;
-	}
-
-	@Override
-	public void insert(Anagrafica anagrafica) throws ServiceException {
-
-		if (!anagraficaValidator.validate(anagrafica, true)) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
-		}
-
-		try {
-			anagraficaRepository.saveAndFlush(anagrafica);
-		} catch (DataIntegrityViolationException de) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-	}
-
-	@Override
-	public void update(Anagrafica anagrafica) throws ServiceException {
-		if (!anagraficaValidator.validate(anagrafica, false)) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
-		}
-
-		try {
-			Anagrafica Currentanagrafica = anagraficaRepository.findById(anagrafica.getId()).get();
-//			Currentanagrafica.setId(anagrafica.getId());
-			Currentanagrafica.setAltriTitoli(anagrafica.getAltriTitoli());
-			Currentanagrafica.setCellulareAziendale(anagrafica.getCellulareAziendale());
-			Currentanagrafica.setCellularePrivato(anagrafica.getCellularePrivato());
-			Currentanagrafica.setCodiceFiscale(anagrafica.getCodiceFiscale());
-			Currentanagrafica.setCognome(anagrafica.getCognome());
-			Currentanagrafica.setComuneDiNascita(anagrafica.getComuneDiNascita());
-			Currentanagrafica.setConiugato(anagrafica.getConiugato());
-			Currentanagrafica.setDataDiNascita(anagrafica.getDataDiNascita());
-			Currentanagrafica.setDomicilio(anagrafica.getDomicilio());
-			Currentanagrafica.setFigliACarico(anagrafica.getFigliACarico());
-			Currentanagrafica.setMailAziendale(anagrafica.getMailAziendale());
-			Currentanagrafica.setMailPec(anagrafica.getMailPec());
-			Currentanagrafica.setMailPrivata(anagrafica.getMailPrivata());
-			Currentanagrafica.setNome(anagrafica.getNome());
-			Currentanagrafica.setResidenza(anagrafica.getResidenza());
-			Currentanagrafica.setTitoliDiStudio(anagrafica.getTitoliDiStudio());
-
-			anagraficaRepository.saveAndFlush(Currentanagrafica);
-
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-	}
-
-	@Override
-	public void delete(Integer ID) throws ServiceException {
-		try {
-			Anagrafica anagrafica = anagraficaRepository.findById(ID).get();
-
-			anagraficaRepository.delete(anagrafica);
-			anagraficaRepository.flush();
-
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs {}, id {}");
-			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-	}
+//	@Override
+//	public List<Anagrafica> list() throws ServiceException {
+//
+//		List<Anagrafica> list = null;
+//
+//		try {
+//			list = anagraficaRepository.findAll();
+//		} catch (Exception e) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//		return list;
+//	}
+//
+//	@Override
+//	public Anagrafica getById(Integer ID) throws ServiceException {
+//		Anagrafica anagrafica = null;
+//
+//		try {
+//			anagrafica = anagraficaRepository.findById(ID).get();
+//		} catch (NoSuchElementException ne) {
+//			System.out.println("Exception occurs {}, ID {}");
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (Exception e) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//		return anagrafica;
+//	}
+//
+//	@Override
+//	public void insert(Anagrafica anagrafica) throws ServiceException {
+//
+//		if (!anagraficaValidator.validate(anagrafica, true)) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+//		}
+//
+//		try {
+//			anagraficaRepository.saveAndFlush(anagrafica);
+//		} catch (DataIntegrityViolationException de) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//	}
+//
+//	@Override
+//	public void update(Anagrafica anagrafica) throws ServiceException {
+//		if (!anagraficaValidator.validate(anagrafica, false)) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+//		}
+//
+//		try {
+//			Anagrafica Currentanagrafica = anagraficaRepository.findById(anagrafica.getId()).get();
+////			Currentanagrafica.setId(anagrafica.getId());
+//			Currentanagrafica.setAltriTitoli(anagrafica.getAltriTitoli());
+//			Currentanagrafica.setCellulareAziendale(anagrafica.getCellulareAziendale());
+//			Currentanagrafica.setCellularePrivato(anagrafica.getCellularePrivato());
+//			Currentanagrafica.setCodiceFiscale(anagrafica.getCodiceFiscale());
+//			Currentanagrafica.setCognome(anagrafica.getCognome());
+//			Currentanagrafica.setComuneDiNascita(anagrafica.getComuneDiNascita());
+//			Currentanagrafica.setConiugato(anagrafica.getConiugato());
+//			Currentanagrafica.setDataDiNascita(anagrafica.getDataDiNascita());
+//			Currentanagrafica.setDomicilio(anagrafica.getDomicilio());
+//			Currentanagrafica.setFigliACarico(anagrafica.getFigliACarico());
+//			Currentanagrafica.setMailAziendale(anagrafica.getMailAziendale());
+//			Currentanagrafica.setMailPec(anagrafica.getMailPec());
+//			Currentanagrafica.setMailPrivata(anagrafica.getMailPrivata());
+//			Currentanagrafica.setNome(anagrafica.getNome());
+//			Currentanagrafica.setResidenza(anagrafica.getResidenza());
+//			Currentanagrafica.setTitoliDiStudio(anagrafica.getTitoliDiStudio());
+//
+//			anagraficaRepository.saveAndFlush(Currentanagrafica);
+//
+//		} catch (NoSuchElementException ne) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (DataIntegrityViolationException de) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//	}
+//
+//	@Override
+//	public void delete(Integer ID) throws ServiceException {
+//		try {
+//			Anagrafica anagrafica = anagraficaRepository.findById(ID).get();
+//
+//			anagraficaRepository.delete(anagrafica);
+//			anagraficaRepository.flush();
+//
+//		} catch (NoSuchElementException ne) {
+//			System.out.println("Exception occurs {}, id {}");
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (DataIntegrityViolationException de) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//	}
 
 	@Override
 	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException {

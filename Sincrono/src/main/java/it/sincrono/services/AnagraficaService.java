@@ -9,17 +9,19 @@ import it.sincrono.services.exceptions.ServiceException;
 
 public interface AnagraficaService {
 
-	public List<Anagrafica> list() throws ServiceException;
+	//public List<Anagrafica> list() throws ServiceException;
 
-	public Anagrafica getById(Integer ID) throws ServiceException;
+	//public Anagrafica getById(Integer ID) throws ServiceException;
 	
+	//public void insert(Anagrafica anagrafica) throws ServiceException;
+
+	//public void update(Anagrafica anagrafica) throws ServiceException;
+
+	//public void delete(Integer ID) throws ServiceException;
+
+	//public void insertAnagraficaDtoRelations(AnagraficaDto anagraficaDto) throws ServiceException;
+
 	public List<AnagraficaDto> anagraficaListContratti() throws ServiceException;
-
-	public void insert(Anagrafica anagrafica) throws ServiceException;
-
-	public void update(Anagrafica anagrafica) throws ServiceException;
-
-	public void delete(Integer ID) throws ServiceException;
 
 	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException;
 
@@ -33,8 +35,6 @@ public interface AnagraficaService {
 	
 	public void deleteScattoContratti() throws ServiceException;
 
-	//public void insertAnagraficaDtoRelations(AnagraficaDto anagraficaDto) throws ServiceException;
-	
 	public AnagraficaDto getAnagraficaDtoByToken(String token) throws ServiceException;
 
 }

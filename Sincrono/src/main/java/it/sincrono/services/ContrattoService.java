@@ -8,15 +8,15 @@ import it.sincrono.services.exceptions.ServiceException;
 
 public interface ContrattoService {
 
-	public List<Contratto> listContratto() throws ServiceException;
+	//List<Contratto> listContratto() throws ServiceException;
 
-	public Contratto getContrattoById(Integer id) throws ServiceException;
+	//public Contratto getContrattoById(Integer id) throws ServiceException;
 
-	public void insert(Contratto contratto) throws ServiceException;
+	//public void insert(Contratto contratto) throws ServiceException;
 
-	public void update(Contratto contratto) throws ServiceException;
+	//public void update(Contratto contratto) throws ServiceException;
 
-	public void delete(Integer id) throws ServiceException;
+	//public void delete(Integer id) throws ServiceException;
 
 	public List<OrganicoDto> organico() throws ServiceException;
 }

@@ -29,37 +29,37 @@ public class UtenteServiceImpl extends BaseServiceImpl implements UtenteService 
 	@Autowired
 	private UtenteValidator utenteValidator;
 
-	@Override
-	public List<Utente> list() throws ServiceException {
-
-		List<Utente> list = null;
-
-		try {
-			list = utenteRepository.findAll();
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-		return list;
-	}
-
-	@Override
-	public Utente getById(Integer ID) throws ServiceException {
-		Utente utente = null;
-
-		try {
-			utente = utenteRepository.findById(ID).get();
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs {}, ID {}");
-			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-		return utente;
-	}
+//	@Override
+//	public List<Utente> list() throws ServiceException {
+//
+//		List<Utente> list = null;
+//
+//		try {
+//			list = utenteRepository.findAll();
+//		} catch (Exception e) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//		return list;
+//	}
+//
+//	@Override
+//	public Utente getById(Integer ID) throws ServiceException {
+//		Utente utente = null;
+//
+//		try {
+//			utente = utenteRepository.findById(ID).get();
+//		} catch (NoSuchElementException ne) {
+//			System.out.println("Exception occurs {}, ID {}");
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (Exception e) {
+//			System.out.println("Exception occurs {}");
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//		return utente;
+//	}
 
 	@Override
 	public void updateUtente(Utente utente) throws ServiceException {

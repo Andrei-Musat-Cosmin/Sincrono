@@ -21,44 +21,44 @@ public class CommessaServiceImpl implements CommessaService {
 	@Autowired
 	private CommessaRepository commessaRepository;
 
-	@Override
-	public List<Commessa> listCommessa() throws ServiceException {
-		List<Commessa> commessa = commessaRepository.findAll();
-		return commessa;
-	}
+//	@Override
+//	public List<Commessa> listCommessa() throws ServiceException {
+//		List<Commessa> commessa = commessaRepository.findAll();
+//		return commessa;
+//	}
+//
+//	@Override
+//	public Commessa getCommessaById(Integer id) throws ServiceException {
+//		Optional<Commessa> commessa = commessaRepository.findById(id);
+//		if (commessa.isPresent()) {
+//			return commessa.get();
+//		}
+//		return null;
+//	}
+//
+//	@Override
+//	public void insert(Commessa commessa) {
+//		commessaRepository.saveAndFlush(commessa);
+//	}
 
-	@Override
-	public Commessa getCommessaById(Integer id) throws ServiceException {
-		Optional<Commessa> commessa = commessaRepository.findById(id);
-		if (commessa.isPresent()) {
-			return commessa.get();
-		}
-		return null;
-	}
-
-	@Override
-	public void insert(Commessa commessa) {
-		commessaRepository.saveAndFlush(commessa);
-	}
-
-	@Override
-	public void update(Commessa commessa) throws ServiceException {
-		try {
-
-			Commessa currentCommessa = commessaRepository.findById(commessa.getId()).get();
-
-			currentCommessa.setId(commessa.getId());
-
-			commessaRepository.saveAndFlush(commessa);
-
-		} catch (NoSuchElementException ne) {
-			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-		} catch (Exception e) {
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-	}
+//	@Override
+//	public void update(Commessa commessa) throws ServiceException {
+//		try {
+//
+//			Commessa currentCommessa = commessaRepository.findById(commessa.getId()).get();
+//
+//			currentCommessa.setId(commessa.getId());
+//
+//			commessaRepository.saveAndFlush(commessa);
+//
+//		} catch (NoSuchElementException ne) {
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (DataIntegrityViolationException de) {
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//	}
 
 	public void delete(Integer id) throws ServiceException {
 
@@ -78,7 +78,7 @@ public class CommessaServiceImpl implements CommessaService {
 	}
 
 	@Override
-	public List<CommessaDto> view() throws ServiceException {
+	public List<CommessaDto> dashboard() throws ServiceException {
 		List<CommessaDto> dashboard;
 		try {
 			dashboard = commessaRepository.dashboard();
