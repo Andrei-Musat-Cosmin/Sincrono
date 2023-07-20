@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Utente;
+import it.sincrono.requests.CambioPasswordRequest;
 import it.sincrono.requests.UtenteRequest;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.UtenteListResponse;
@@ -59,6 +60,33 @@ public class UtenteController {
 			System.out.println("START invocation updateUtene of controller layer");
 
 			utenteService.updateUtente(utenteRequest.getUtente());
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+			System.out.println("END invocation insert(anagrafica) of controller layer");
+
+		} catch (ServiceException e) {
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+
+		return httpEntity;
+	}
+
+	@PutMapping("/modifica-utente")
+	public @ResponseBody HttpEntity<GenericResponse> updateUtente(
+			@RequestBody CambioPasswordRequest cambioPasswordRequest) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+
+		try {
+			System.out.println("START invocation updateUtene of controller layer");
+
+			utenteService.updateUtente(cambioPasswordRequest);
 
 			genericResponse.setEsito(new Esito());
 

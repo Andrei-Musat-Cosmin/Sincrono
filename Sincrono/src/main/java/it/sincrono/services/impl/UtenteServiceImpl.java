@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import it.sincrono.entities.Utente;
 import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.UtenteRepository;
+import it.sincrono.requests.CambioPasswordRequest;
 import it.sincrono.services.UtenteService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
@@ -69,10 +70,34 @@ public class UtenteServiceImpl extends BaseServiceImpl implements UtenteService 
 
 		try {
 			Utente currentUtente = utenteRepository.findById(utente.getId()).get();
-			currentUtente.setUsername(utente.getUsername());
+			if (currentUtente.getPassword() == utente.getPassword())
+				throw new ServiceException(ServiceMessages.PASSWORD_INSERITA_UGUALE_ALLA_VECCHIA);
 			currentUtente.setPassword(BCrypt.hashpw(utente.getPassword(), BCrypt.gensalt()));
 			currentUtente.setTokenPassword(null);
 			currentUtente.setAttivo(utente.getAttivo());
+
+			utenteRepository.saveAndFlush(currentUtente);
+
+		} catch (NoSuchElementException ne) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (DataIntegrityViolationException de) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+	}
+
+	@Override
+	public void updateUtente(CambioPasswordRequest cambioPasswordRequest) throws ServiceException {
+
+		try {
+			Utente currentUtente = utenteRepository.findByTokenPassword(cambioPasswordRequest.getToken()).get();
+			currentUtente.setPassword(BCrypt.hashpw(cambioPasswordRequest.getPassword(), BCrypt.gensalt()));
+			currentUtente.setTokenPassword(null);
 
 			utenteRepository.saveAndFlush(currentUtente);
 
