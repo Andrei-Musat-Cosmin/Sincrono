@@ -14,7 +14,8 @@ public interface SqlStrings {
 	public final String SQL_TREE_RUOLI = "SELECT a FROM Ruolo a WHERE 1 = 1 {0} ORDER BY a.nome";
 
 	// SQL DETTAGLIO ANAGRAFICA DTO
-	public final String SQL_DETTAGLIO_ANAGRAFICA_DTO = "SELECT *  FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = d.id_anagrafica INNER JOIN commessa e ON d.id_commessa = e.id INNER JOIN tipo_livelli_contrattuali f  ON f.id=c.id_tipo_livello  INNER JOIN tipo_contratto g  ON g.id=c.id_tipo_contratto  INNER JOIN tipo_contratto_nazionale h  ON h.id=c.id_contratto_nazionale  INNER JOIN tipo_azienda i  ON i.id=c.id_tipo_azienda  INNER JOIN utenti u  ON a.id_utente=u.id  INNER JOIN profili p  ON p.id_utente =u.id  INNER JOIN ruoli r  ON p.id_ruolo=r.id  WHERE a.id = {0} AND  c.id=(select max(c1.id)  from contratto c1  inner join storico_contratti s  on s.id_contratto=c1.id  where s.id_anagrafica=a.id)   AND e.id=(select max(c2.id) from commessa c2 inner join storico_commesse s1  on s1.id_commessa=c2.id  where s1.id_anagrafica=a.id)";
+	public final String SQL_DETTAGLIO_ANAGRAFICA_DTO = "SELECT a.*,r.*,c.*,f.*,g.*,h.*,i.*,e.id FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN storico_commesse d ON a.id = d.id_anagrafica INNER JOIN commessa e ON d.id_commessa = e.id INNER JOIN tipo_livelli_contrattuali f ON f.id=c.id_tipo_livello INNER JOIN tipo_contratto g ON g.id=c.id_tipo_contratto INNER JOIN tipo_contratto_nazionale h ON h.id=c.id_contratto_nazionale INNER JOIN tipo_azienda i ON i.id=c.id_tipo_azienda INNER JOIN utenti u ON a.id_utente=u.id INNER JOIN profili p ON p.id_utente =u.id INNER JOIN ruoli r ON p.id_ruolo=r.id WHERE a.id = 1 AND e.stato = true AND c.id=( 	select max(c1.id) from contratto c1     inner join storico_contratti s on s.id_contratto=c1.id     where s.id_anagrafica=a.id)";
+	public final String SQL_DETTAGLIO_COMMESSA = "SELECT * FROM commessa a WHERE a.id = {0}";
 
 	// Possibile aggiunta alle funzioni di anagrafica ( query da modificare)
 	// public final String SQL_RUOLO_PROFILO = "SELECT b.nome FROM profili a INNER
@@ -40,9 +41,7 @@ public interface SqlStrings {
 	public final String CONTRATTI_SCATTI_LIVELLO = "select c.id_contratto from contratti_scatti_livello c";
 
 	public final String DELETE_CONTRATTI_SCATTI_LIVELLO = "DELETE FROM contratti_scatti_livello c WHERE c.idcontratti_scatti_livello>0";
-	
-	public final String SQL_GET_ANAGRAFICA_BY_TOKEN = "select a.*,r.*,u.id from anagrafica a  inner join Utenti u  on u.id=a.id_utente  inner join profili p  on p.id_utente=u.id  inner join ruoli r  on p.id_ruolo=r.id  where u.token_password like '{0}'";
 
-	
+	public final String SQL_GET_ANAGRAFICA_BY_TOKEN = "select a.*,r.*,u.id from anagrafica a  inner join Utenti u  on u.id=a.id_utente  inner join profili p  on p.id_utente=u.id  inner join ruoli r  on p.id_ruolo=r.id  where u.token_password like '{0}'";
 
 }

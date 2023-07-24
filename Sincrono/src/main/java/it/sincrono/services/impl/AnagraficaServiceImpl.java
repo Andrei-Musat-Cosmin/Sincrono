@@ -1,7 +1,6 @@
 package it.sincrono.services.impl;
 
 import java.util.List;
-
 import java.util.NoSuchElementException;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -9,23 +8,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import it.sincrono.entities.Anagrafica;
+import it.sincrono.entities.Commessa;
+import it.sincrono.entities.Contratto;
+import it.sincrono.entities.Profilo;
+import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.entities.StoricoContratti;
 import it.sincrono.entities.Utente;
-import it.sincrono.entities.Commessa;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
 import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
+import it.sincrono.repositories.StoricoContrattiRepository;
+import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.EmailService;
-import it.sincrono.services.UtenteService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.ObjectCompare;
@@ -36,12 +37,6 @@ import it.sincrono.services.validator.CommessaValidatorList;
 import it.sincrono.services.validator.ContrattoValidator;
 import it.sincrono.services.validator.RuoloValidator;
 import jakarta.transaction.Transactional;
-import it.sincrono.repositories.StoricoContrattiRepository;
-import it.sincrono.repositories.UtenteRepository;
-import it.sincrono.entities.Commessa;
-import it.sincrono.entities.Contratto;
-import it.sincrono.entities.Profilo;
-import it.sincrono.entities.Ruolo;
 
 @Service
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
@@ -266,14 +261,14 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			}
 
-			if (anagraficaDto.getCommessa() != null) {
+			if (anagraficaDto.getCommesse() != null) {
 
-				if (!commessaValidatorList.validate(anagraficaDto.getCommessa(), true)) {
+				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), true)) {
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
 
-				for (Commessa commessa : anagraficaDto.getCommessa()) {
+				for (Commessa commessa : anagraficaDto.getCommesse()) {
 
 					commessa.setStato(true);
 					Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
@@ -358,7 +353,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
-			if (!commessaValidatorList.validate(anagraficaDto.getCommessa(), false)) {
+			if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), false)) {
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
@@ -390,7 +385,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			}
 
-			for (Commessa commessa : anagraficaDto.getCommessa()) {
+			for (Commessa commessa : anagraficaDto.getCommesse()) {
 
 				if (commessa.getId() != null) {
 
@@ -405,12 +400,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						commesseRepository.saveAndFlush(commessaDb);
 					}
 
-				}else {
-					
+				} else {
+
 					Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
-					storicoCommessaRepository.saveAndFlush(
-							new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
-					
+					storicoCommessaRepository
+							.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
+
 				}
 			}
 
@@ -458,14 +453,13 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Anagrafica anagrafica = anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get();
 			anagrafica.setAttivo(false);
 			anagraficaRepository.saveAndFlush(anagrafica);
-			
-			
-			for(Commessa commessa:anagraficaDto.getCommessa()) {
+
+			for (Commessa commessa : anagraficaDto.getCommesse()) {
 
 				Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
 				commessaDb.setStato(false);
 				commesseRepository.saveAndFlush(commessaDb);
-				
+
 			}
 
 			Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();

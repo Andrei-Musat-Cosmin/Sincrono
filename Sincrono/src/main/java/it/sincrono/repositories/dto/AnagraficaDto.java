@@ -55,12 +55,12 @@ public class AnagraficaDto {
 	}
 
 
-	public List<Commessa> getCommessa() {
+	public List<Commessa> getCommesse() {
 		return commesse;
 	}
 
 
-	public void setCommessa(List<Commessa> commesse) {
+	public void setCommesse(List<Commessa> commesse) {
 		this.commesse = commesse;
 	}
 
