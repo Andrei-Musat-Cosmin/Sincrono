@@ -15,17 +15,17 @@ public class AnagraficaDto {
 
 	private Contratto contratto;
 
-	private List<Commessa> commessa;
+	private List<Commessa> commesse;
 	
 	private Ruolo ruolo;
 	
 
 
-	public AnagraficaDto(Anagrafica anagrafica, Contratto contratto, List<Commessa> commessa, Ruolo ruolo) {
+	public AnagraficaDto(Anagrafica anagrafica, Contratto contratto, List<Commessa> commesse, Ruolo ruolo) {
 		super();
 		this.anagrafica = anagrafica;
 		this.contratto = contratto;
-		this.commessa = commessa;
+		this.commesse = commesse;
 		this.ruolo = ruolo;
 	}
 
@@ -56,12 +56,12 @@ public class AnagraficaDto {
 
 
 	public List<Commessa> getCommessa() {
-		return commessa;
+		return commesse;
 	}
 
 
-	public void setCommessa(List<Commessa> commessa) {
-		this.commessa = commessa;
+	public void setCommessa(List<Commessa> commesse) {
+		this.commesse = commesse;
 	}
 
 
