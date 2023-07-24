@@ -14,7 +14,7 @@ public interface CommessaService {
 
 	//public void insert(Commessa Commessa) throws ServiceException;
 
-	//public void update(Commessa Commessa) throws ServiceException;
+	public void update(Commessa Commessa) throws ServiceException;
 
 	//public void delete(Integer id) throws ServiceException;
 

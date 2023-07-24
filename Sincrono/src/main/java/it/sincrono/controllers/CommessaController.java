@@ -114,24 +114,24 @@ public class CommessaController {
 //		return httpEntity;
 //	}
 
-//	@PutMapping("/commessa")
-//	public @ResponseBody HttpEntity<GenericResponse> updateCommessa(@RequestBody CommessaRequest commessaRequest) {
-//		HttpEntity<GenericResponse> httpEntity;
-//
-//		GenericResponse genericResponse = new GenericResponse();
-//
-//		try {
-//			commessaService.update(commessaRequest.getCommessa());
-//			genericResponse.setEsito(new Esito());
-//
-//			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-//
-//		} catch (Exception e) {
-//			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
-//			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-//		}
-//		return httpEntity;
-//	}
+	@PutMapping("/commessa")
+	public @ResponseBody HttpEntity<GenericResponse> updateCommessa(@RequestBody CommessaRequest commessaRequest) {
+		HttpEntity<GenericResponse> httpEntity;
+
+		GenericResponse genericResponse = new GenericResponse();
+
+		try {
+			commessaService.update(commessaRequest.getCommessa());
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+		} catch (Exception e) {
+			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		return httpEntity;
+	}
 
 //	@DeleteMapping("/commessa/{id}")
 //	public @ResponseBody HttpEntity<GenericResponse> delete(@PathVariable("id") Integer id) {

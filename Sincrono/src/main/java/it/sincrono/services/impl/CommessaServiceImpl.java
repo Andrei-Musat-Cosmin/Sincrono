@@ -41,24 +41,27 @@ public class CommessaServiceImpl implements CommessaService {
 //		commessaRepository.saveAndFlush(commessa);
 //	}
 
-//	@Override
-//	public void update(Commessa commessa) throws ServiceException {
-//		try {
-//
-//			Commessa currentCommessa = commessaRepository.findById(commessa.getId()).get();
-//
-//			currentCommessa.setId(commessa.getId());
-//
-//			commessaRepository.saveAndFlush(commessa);
-//
-//		} catch (NoSuchElementException ne) {
-//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-//		} catch (DataIntegrityViolationException de) {
-//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-//		} catch (Exception e) {
-//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-//		}
-//	}
+	@Override
+	public void update(Commessa commessa) throws ServiceException {
+		
+		try {
+
+			Commessa currentCommessa = commessaRepository.findById(commessa.getId()).get();
+			
+			currentCommessa.setStato(false);
+
+			currentCommessa.setId(commessa.getId());
+
+			commessaRepository.saveAndFlush(commessa);
+
+		} catch (NoSuchElementException ne) {
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (DataIntegrityViolationException de) {
+			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+	}
 
 	public void delete(Integer id) throws ServiceException {
 
