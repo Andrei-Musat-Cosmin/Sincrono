@@ -36,7 +36,7 @@ public class Contratto {
 
 	@ManyToOne
 	@JoinColumn(name = "id_contratto_nazionale")
-	private ContrattoNazionale contrattoNazionale;
+	private Ccnl ccnl;
 
 	@Column(name = "attivo")
 	private Boolean attivo;
@@ -97,7 +97,7 @@ public class Contratto {
 
 //	@Column(name = "data_visita_medica")
 //	private Date dataVisitaMedica;
-	
+
 	@Column(name = "ticket")
 	private String ticket;
 
@@ -135,20 +135,20 @@ public class Contratto {
 	private String canaleReclutamento;
 
 	public Contratto(Integer id, TipoContratto tipoContratto, LivelloContratto livelloContratto,
-			TipoAzienda tipoAzienda, ContrattoNazionale contrattoNazionale, Boolean attivo, String sedeAssunzione,
-			String qualifica, Date dataAssunzione, Date dataInizioProva, Date dataFineProva, Date dataFineRapporto,
-			Integer mesiDurata, String livelloAttuale, String livelloFinale, Boolean dimissioni,
-			Boolean partTime, Boolean partTimeA, String retribuzioneMensileLorda, String superminimoMensile,
-			String ralAnnua, String superminimoRal, String diariaMese, String diariaGg, String ticket,
-			String valoreTicket, Boolean categoriaProtetta, String tutor, String pfi, String assicurazioneObbligatoria,
-			Date corsoSicurezza, String motivazioneFineRapporto, Boolean pc, String scattiAnzianita,
-			String tariffaPartitaIva, String canaleReclutamento) {
+			TipoAzienda tipoAzienda, Ccnl ccnl, Boolean attivo, String sedeAssunzione, String qualifica,
+			Date dataAssunzione, Date dataInizioProva, Date dataFineProva, Date dataFineRapporto, Integer mesiDurata,
+			String livelloAttuale, String livelloFinale, Boolean dimissioni, Boolean partTime, Boolean partTimeA,
+			String retribuzioneMensileLorda, String superminimoMensile, String ralAnnua, String superminimoRal,
+			String diariaMese, String diariaGg, String ticket, String valoreTicket, Boolean categoriaProtetta,
+			String tutor, String pfi, String assicurazioneObbligatoria, Date corsoSicurezza,
+			String motivazioneFineRapporto, Boolean pc, String scattiAnzianita, String tariffaPartitaIva,
+			String canaleReclutamento) {
 		super();
 		this.id = id;
 		this.tipoContratto = tipoContratto;
 		this.livelloContratto = livelloContratto;
 		this.tipoAzienda = tipoAzienda;
-		this.contrattoNazionale = contrattoNazionale;
+		this.ccnl = ccnl;
 		this.attivo = attivo;
 		this.sedeAssunzione = sedeAssunzione;
 		this.qualifica = qualifica;
@@ -187,20 +187,15 @@ public class Contratto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
-	
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assicurazioneObbligatoria, attivo, canaleReclutamento, categoriaProtetta,
-				contrattoNazionale, corsoSicurezza, dataAssunzione, dataFineProva, dataFineRapporto, dataInizioProva,
-				diariaGg, diariaMese, dimissioni, id, livelloAttuale, livelloContratto, livelloFinale, mesiDurata,
-				motivazioneFineRapporto, partTime, partTimeA, pc, pfi, qualifica, ralAnnua, retribuzioneMensileLorda,
-				scattiAnzianita, sedeAssunzione, superminimoMensile, superminimoRal, tariffaPartitaIva, ticket,
-				tipoAzienda, tipoContratto, tutor, valoreTicket);
+		return Objects.hash(assicurazioneObbligatoria, attivo, canaleReclutamento, categoriaProtetta, ccnl,
+				corsoSicurezza, dataAssunzione, dataFineProva, dataFineRapporto, dataInizioProva, diariaGg, diariaMese,
+				dimissioni, id, livelloAttuale, livelloContratto, livelloFinale, mesiDurata, motivazioneFineRapporto,
+				partTime, partTimeA, pc, pfi, qualifica, ralAnnua, retribuzioneMensileLorda, scattiAnzianita,
+				sedeAssunzione, superminimoMensile, superminimoRal, tariffaPartitaIva, ticket, tipoAzienda,
+				tipoContratto, tutor, valoreTicket);
 	}
 
 	@Override
@@ -213,16 +208,16 @@ public class Contratto {
 			return false;
 		Contratto other = (Contratto) obj;
 		return Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
-				&&  Objects.equals(canaleReclutamento, other.canaleReclutamento)
+				&& Objects.equals(canaleReclutamento, other.canaleReclutamento)
 				&& Objects.equals(categoriaProtetta, other.categoriaProtetta)
-				&& Objects.equals(contrattoNazionale.getId(), other.contrattoNazionale.getId())
+				&& Objects.equals(ccnl.getId(), other.ccnl.getId())
 				&& DateUtil.dateCompare(corsoSicurezza, other.corsoSicurezza)
 				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
 				&& DateUtil.dateCompare(dataFineProva, other.dataFineProva)
 				&& DateUtil.dateCompare(dataFineRapporto, other.dataFineRapporto)
-				&& DateUtil.dateCompare(dataInizioProva, other.dataInizioProva) && Objects.equals(diariaGg, other.diariaGg)
-				&& Objects.equals(diariaMese, other.diariaMese) && Objects.equals(dimissioni, other.dimissioni)
-				&&  Objects.equals(livelloAttuale, other.livelloAttuale)
+				&& DateUtil.dateCompare(dataInizioProva, other.dataInizioProva)
+				&& Objects.equals(diariaGg, other.diariaGg) && Objects.equals(diariaMese, other.diariaMese)
+				&& Objects.equals(dimissioni, other.dimissioni) && Objects.equals(livelloAttuale, other.livelloAttuale)
 				&& Objects.equals(livelloContratto.getId(), other.livelloContratto.getId())
 				&& Objects.equals(livelloFinale, other.livelloFinale) && Objects.equals(mesiDurata, other.mesiDurata)
 				&& Objects.equals(motivazioneFineRapporto, other.motivazioneFineRapporto)
@@ -235,7 +230,8 @@ public class Contratto {
 				&& Objects.equals(superminimoMensile, other.superminimoMensile)
 				&& Objects.equals(superminimoRal, other.superminimoRal)
 				&& Objects.equals(tariffaPartitaIva, other.tariffaPartitaIva) && Objects.equals(ticket, other.ticket)
-				&& Objects.equals(tipoAzienda.getId(), other.tipoAzienda.getId()) && Objects.equals(tipoContratto.getId(), other.tipoContratto.getId())
+				&& Objects.equals(tipoAzienda.getId(), other.tipoAzienda.getId())
+				&& Objects.equals(tipoContratto.getId(), other.tipoContratto.getId())
 				&& Objects.equals(tutor, other.tutor) && Objects.equals(valoreTicket, other.valoreTicket);
 	}
 
@@ -276,12 +272,12 @@ public class Contratto {
 		this.tipoAzienda = tipoAzienda;
 	}
 
-	public ContrattoNazionale getContrattoNazionale() {
-		return contrattoNazionale;
+	public Ccnl getCcnl() {
+		return ccnl;
 	}
 
-	public void setContrattoNazionale(ContrattoNazionale contrattoNazionale) {
-		this.contrattoNazionale = contrattoNazionale;
+	public void setCcnl(Ccnl ccnl) {
+		this.ccnl = ccnl;
 	}
 
 	public Boolean getAttivo() {
@@ -532,11 +528,11 @@ public class Contratto {
 		this.canaleReclutamento = canaleReclutamento;
 	}
 
-	public Contratto(TipoContratto tipoContratto, TipoAzienda tipoAzienda, ContrattoNazionale contrattoNazionale) {
+	public Contratto(TipoContratto tipoContratto, TipoAzienda tipoAzienda, Ccnl ccnl) {
 		super();
 		this.tipoContratto = tipoContratto;
 		this.tipoAzienda = tipoAzienda;
-		this.contrattoNazionale = contrattoNazionale;
+		this.ccnl = ccnl;
 	}
 
 }

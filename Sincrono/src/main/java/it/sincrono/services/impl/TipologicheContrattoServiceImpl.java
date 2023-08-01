@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.sincrono.entities.ContrattoNazionale;
+import it.sincrono.entities.Ccnl;
 import it.sincrono.entities.LivelloContratto;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoContratto;
@@ -46,10 +46,10 @@ public class TipologicheContrattoServiceImpl extends BaseServiceImpl implements 
 	}
 
 	@Override
-	public List<ContrattoNazionale> getContrattoNazionaleMap() throws ServiceException {
-		List<ContrattoNazionale> list = null;
+	public List<Ccnl> getCcnlMap() throws ServiceException {
+		List<Ccnl> list = null;
 		try {
-			list = tipologicheContrattoRepository.getContrattoNazionaleMap();
+			list = tipologicheContrattoRepository.getCcnlMap();
 		} catch (Exception e) {
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}

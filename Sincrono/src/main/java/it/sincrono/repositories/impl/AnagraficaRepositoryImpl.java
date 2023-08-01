@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.List;
 
 import it.sincrono.entities.Anagrafica;
+import it.sincrono.entities.Ccnl;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
-import it.sincrono.entities.ContrattoNazionale;
 import it.sincrono.entities.LivelloContratto;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.TipoAzienda;
@@ -174,7 +174,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					if (result[58] != null)
 						livelloContratto.setCcnl((String) result[58]);
 					if (result[59] != null)
-						livelloContratto.setDescrizione((String) result[59]);
+						livelloContratto.setLivello((String) result[59]);
 					if (result[60] != null)
 						livelloContratto.setMinimiRet23((String) result[60]);
 					contratto.setLivelloContratto(livelloContratto);
@@ -188,13 +188,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					contratto.setTipoContratto(tipoContratto);
 
 					/** SET DI CONTRATTO NAZIONALE **/
-					ContrattoNazionale contrattoNazionale = new ContrattoNazionale();
+					Ccnl ccnl = new Ccnl();
 
 					if (result[24] != null)
-						contrattoNazionale.setId((Integer) result[24]);
+						ccnl.setId((Integer) result[24]);
 					if (result[64] != null)
-						contrattoNazionale.setDescrizione((String) result[64]);
-					contratto.setContrattoNazionale(contrattoNazionale);
+						ccnl.setDescrizione((String) result[64]);
+					contratto.setCcnl(ccnl);
 
 					/** SET TIPO AZIENDA **/
 					TipoAzienda tipoAzienda = new TipoAzienda();
@@ -417,7 +417,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[62] != null)
 					livelloContratto.setCcnl((String) result[62]);
 				if (result[63] != null)
-					livelloContratto.setDescrizione((String) result[63]);
+					livelloContratto.setLivello((String) result[63]);
 				if (result[64] != null)
 					livelloContratto.setMinimiRet23((String) result[64]);
 				contratto.setLivelloContratto(livelloContratto);
@@ -431,14 +431,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				contratto.setTipoAzienda(tipoAzienda);
 
 				/** SET DI CONTRATTO NAZIONALE **/
-				ContrattoNazionale contrattoNazionale = new ContrattoNazionale();
+				Ccnl contrattoNazionale = new Ccnl();
 
 				if (result[28] != null)
 					contrattoNazionale.setId((Integer) result[28]);
 				if (result[66] != null)
 					contrattoNazionale.setDescrizione((String) result[66]);
-				contratto.setContrattoNazionale(contrattoNazionale);
-
+				contratto.setCcnl(contrattoNazionale);
 				if (result[29] != null)
 					contratto.setAttivo((Boolean) result[29]);
 				if (result[30] != null)
@@ -625,7 +624,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[5] != null)
 					livelloContratto.setCcnl((String) result[5]);
 				if (result[6] != null)
-					livelloContratto.setDescrizione((String) result[6]);
+					livelloContratto.setLivello((String) result[6]);
 				if (result[7] != null)
 					livelloContratto.setMinimiRet23((String) result[7]);
 

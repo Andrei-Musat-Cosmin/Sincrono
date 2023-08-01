@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.entities.ContrattoNazionale;
+import it.sincrono.entities.Ccnl;
 import it.sincrono.entities.LivelloContratto;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoContratto;
@@ -73,25 +73,25 @@ public class TipologicheContrattoController {
 		return httpEntity;
 	}
 
-	@GetMapping("/contratto-nazionale/map")
-	public @ResponseBody HttpEntity<TipologicheListResponse<ContrattoNazionale>> getContrattoNazionaleMap() {
+	@GetMapping("/tipo-ccnl/map")
+	public @ResponseBody HttpEntity<TipologicheListResponse<Ccnl>> getCcnlMap() {
 
-		HttpEntity<TipologicheListResponse<ContrattoNazionale>> httpEntity = null;
+		HttpEntity<TipologicheListResponse<Ccnl>> httpEntity = null;
 
-		TipologicheListResponse<ContrattoNazionale> contrattoNazionaleListResponse = new TipologicheListResponse<ContrattoNazionale>();
+		TipologicheListResponse<Ccnl> ccnlListResponse = new TipologicheListResponse<Ccnl>();
 
 		try {
 
-			List<ContrattoNazionale> list = tipologicheContrattoService.getContrattoNazionaleMap();
+			List<Ccnl> list = tipologicheContrattoService.getCcnlMap();
 
-			contrattoNazionaleListResponse.setList(list);
-			contrattoNazionaleListResponse.setEsito(new Esito());
+			ccnlListResponse.setList(list);
+			ccnlListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<TipologicheListResponse<ContrattoNazionale>>(contrattoNazionaleListResponse);
+			httpEntity = new HttpEntity<TipologicheListResponse<Ccnl>>(ccnlListResponse);
 
 		} catch (ServiceException e) {
-			contrattoNazionaleListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<TipologicheListResponse<ContrattoNazionale>>(contrattoNazionaleListResponse);
+			ccnlListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<TipologicheListResponse<Ccnl>>(ccnlListResponse);
 		}
 
 		return httpEntity;
