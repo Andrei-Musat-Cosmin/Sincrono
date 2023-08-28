@@ -43,7 +43,7 @@ public class CommessaRepositoryImpl extends BaseRepositoryImpl implements Commes
 				if (object[2] != null)
 					commessaDto.getContratto().getTipoAzienda().setDescrizione((String) object[2]);
 				if (object[3] != null)
-					commessaDto.getContratto().getCcnl().setDescrizione((String) object[3]);
+					commessaDto.getContratto().getTipoCcnl().setDescrizione((String) object[3]);
 				if (object[4] != null)
 					commessaDto.getCommessa()
 							.setDataInizio((new java.util.Date(((java.sql.Date) object[4]).getTime())));

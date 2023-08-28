@@ -35,8 +35,8 @@ public class Contratto {
 	private TipoAzienda tipoAzienda;
 
 	@ManyToOne
-	@JoinColumn(name = "id_contratto_nazionale")
-	private Ccnl ccnl;
+	@JoinColumn(name = "id_tipo_ccnl")
+	private Ccnl tipoCcnl;
 
 	@Column(name = "attivo")
 	private Boolean attivo;
@@ -148,7 +148,7 @@ public class Contratto {
 		this.tipoContratto = tipoContratto;
 		this.livelloContratto = livelloContratto;
 		this.tipoAzienda = tipoAzienda;
-		this.ccnl = ccnl;
+		this.tipoCcnl = ccnl;
 		this.attivo = attivo;
 		this.sedeAssunzione = sedeAssunzione;
 		this.qualifica = qualifica;
@@ -190,7 +190,7 @@ public class Contratto {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(assicurazioneObbligatoria, attivo, canaleReclutamento, categoriaProtetta, ccnl,
+		return Objects.hash(assicurazioneObbligatoria, attivo, canaleReclutamento, categoriaProtetta, tipoCcnl,
 				corsoSicurezza, dataAssunzione, dataFineProva, dataFineRapporto, dataInizioProva, diariaGg, diariaMese,
 				dimissioni, id, livelloAttuale, livelloContratto, livelloFinale, mesiDurata, motivazioneFineRapporto,
 				partTime, partTimeA, pc, pfi, qualifica, ralAnnua, retribuzioneMensileLorda, scattiAnzianita,
@@ -210,7 +210,7 @@ public class Contratto {
 		return Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
 				&& Objects.equals(canaleReclutamento, other.canaleReclutamento)
 				&& Objects.equals(categoriaProtetta, other.categoriaProtetta)
-				&& Objects.equals(ccnl.getId(), other.ccnl.getId())
+				&& Objects.equals(tipoCcnl.getId(), other.tipoCcnl.getId())
 				&& DateUtil.dateCompare(corsoSicurezza, other.corsoSicurezza)
 				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
 				&& DateUtil.dateCompare(dataFineProva, other.dataFineProva)
@@ -272,12 +272,12 @@ public class Contratto {
 		this.tipoAzienda = tipoAzienda;
 	}
 
-	public Ccnl getCcnl() {
-		return ccnl;
+	public Ccnl getTipoCcnl() {
+		return tipoCcnl;
 	}
 
-	public void setCcnl(Ccnl ccnl) {
-		this.ccnl = ccnl;
+	public void setTipoCcnl(Ccnl tipoCcnl) {
+		this.tipoCcnl = tipoCcnl;
 	}
 
 	public Boolean getAttivo() {
@@ -528,11 +528,11 @@ public class Contratto {
 		this.canaleReclutamento = canaleReclutamento;
 	}
 
-	public Contratto(TipoContratto tipoContratto, TipoAzienda tipoAzienda, Ccnl ccnl) {
+	public Contratto(TipoContratto tipoContratto, TipoAzienda tipoAzienda, Ccnl tipoCcnl) {
 		super();
 		this.tipoContratto = tipoContratto;
 		this.tipoAzienda = tipoAzienda;
-		this.ccnl = ccnl;
+		this.tipoCcnl = tipoCcnl;
 	}
 
 }

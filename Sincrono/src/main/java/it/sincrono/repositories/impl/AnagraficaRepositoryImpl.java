@@ -109,12 +109,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
 				Object[] result = (Object[]) it.next();
 				AnagraficaDto anagraficaDto = new AnagraficaDto();
-				if (result != null && result[0] != null && result[0] != lastResult) {
-
-					List<Commessa> temp = new ArrayList<Commessa>();
-					lastResult = (Integer) result[0];
-					anagraficaDto.setCommesse(temp);
-					listAnagraficaDto.add(anagraficaDto);
+				
+				listAnagraficaDto.add(anagraficaDto);
 
 					/** SET DI ANAGRAFICA **/
 					Anagrafica anagrafica = new Anagrafica();
@@ -167,7 +163,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					if (result[20] != null)
 						contratto.setId((Integer) result[20]);
 
-					/** SET DI TIPO LIVELLO **/
 					LivelloContratto livelloContratto = new LivelloContratto();
 					if (result[22] != null)
 						livelloContratto.setId((Integer) result[22]);
@@ -179,7 +174,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						livelloContratto.setMinimiRet23((String) result[60]);
 					contratto.setLivelloContratto(livelloContratto);
 
-					/** SET DI TIPO CONTRATTO **/
 					TipoContratto tipoContratto = new TipoContratto();
 					if (result[21] != null)
 						tipoContratto.setId((Integer) result[21]);
@@ -187,16 +181,16 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						tipoContratto.setDescrizione((String) result[62]);
 					contratto.setTipoContratto(tipoContratto);
 
-					/** SET DI CONTRATTO NAZIONALE **/
+				
 					Ccnl ccnl = new Ccnl();
 
 					if (result[24] != null)
 						ccnl.setId((Integer) result[24]);
 					if (result[64] != null)
 						ccnl.setDescrizione((String) result[64]);
-					contratto.setCcnl(ccnl);
+					contratto.setTipoCcnl(ccnl);
 
-					/** SET TIPO AZIENDA **/
+				
 					TipoAzienda tipoAzienda = new TipoAzienda();
 					if (result[23] != null)
 						tipoAzienda.setId((Integer) result[23]);
@@ -268,13 +262,17 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						contratto.setAssicurazioneObbligatoria((String) result[56]);
 					anagraficaDto.setContratto(contratto);
 
-				}
+				
 
 				queryString = SqlStrings.SQL_DETTAGLIO_COMMESSA;
-				if (result[67] != null) {
-					queryString = queryString.replace("{0}", String.valueOf(result[67]));
-					query = entityManager.createNativeQuery(queryString);
-					Object[] currentCommessa = (Object[]) query.getSingleResult();
+				
+				queryString = queryString.replace("{0}", String.valueOf(anagraficaDto.getAnagrafica().getId()));
+				query = null;
+				query = entityManager.createNativeQuery(queryString);
+				List<Object> listCommessa = query.getResultList();
+				anagraficaDto.setCommesse(new ArrayList<Commessa>());
+				for (Iterator<Object> iterator = listCommessa.iterator(); iterator.hasNext();) {
+					Object[] currentCommessa = (Object[]) iterator.next();
 
 					/** SET COMMESSA **/
 					Commessa commessa = new Commessa();
@@ -308,9 +306,15 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						if (currentCommessa[13] != null)
 							commessa.setAttesaLavori((String) currentCommessa[13]);
 
-						listAnagraficaDto.get(lastResult - 1).getCommesse().add(commessa);
+						
 					}
+					
+					anagraficaDto.getCommesse().add(commessa);
+					
 				}
+					
+					
+				listAnagraficaDto.add(anagraficaDto);
 
 			}
 
@@ -395,13 +399,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					ruolo.setDescrizione((String) result[23]);
 
 				anagraficaDto.setRuolo(ruolo);
-				/** SET DEL CONTRATTO **/
+				/*
 				Contratto contratto = new Contratto();
 
 				if (result[24] != null)
 					contratto.setId((Integer) result[24]);
 
-				/** SET DI TIPO CONTRATTO **/
+		
 				TipoContratto tipoContratto = new TipoContratto();
 				if (result[25] != null)
 					tipoContratto.setId((Integer) result[25]);
@@ -410,7 +414,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 				contratto.setTipoContratto(tipoContratto);
 
-				/** SET DI TIPO LIVELLO **/
 				LivelloContratto livelloContratto = new LivelloContratto();
 				if (result[26] != null)
 					livelloContratto.setId((Integer) result[26]);
@@ -422,7 +425,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					livelloContratto.setMinimiRet23((String) result[64]);
 				contratto.setLivelloContratto(livelloContratto);
 
-				/** SET TIPO AZIENDA **/
 				TipoAzienda tipoAzienda = new TipoAzienda();
 				if (result[27] != null)
 					tipoAzienda.setId((Integer) result[27]);
@@ -430,7 +432,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					tipoAzienda.setDescrizione((String) result[68]);
 				contratto.setTipoAzienda(tipoAzienda);
 
-				/** SET DI CONTRATTO NAZIONALE **/
+		
 				Ccnl contrattoNazionale = new Ccnl();
 
 				if (result[28] != null)
@@ -493,9 +495,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[55] != null)
 					contratto.setPc((Boolean) result[55]);
 
-				/**
-				 * if (result[56] != null) contratto.setDataVisitaMedica((Boolean) result[56]);
-				 **/
+			
 
 				if (result[57] != null)
 					contratto.setScattiAnzianita((String) result[57]);
@@ -506,17 +506,19 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[60] != null)
 					contratto.setAssicurazioneObbligatoria((String) result[60]);
 
-				anagraficaDto.setContratto(contratto);
+				anagraficaDto.setContratto(contratto);*/
 
-				List<Commessa> listaCommesse = new ArrayList<>();
-				for (Object[] idCommessa : lista) {
+			
 
 					queryString = SqlStrings.SQL_DETTAGLIO_COMMESSA;
 
-					queryString = queryString.replace("{0}", String.valueOf(idCommessa[71]));
+					queryString = queryString.replace("{0}", String.valueOf(anagraficaDto.getAnagrafica().getId()));
 					query = null;
 					query = entityManager.createNativeQuery(queryString);
-					Object[] currentCommessa = (Object[]) query.getSingleResult();
+					List<Object> list = query.getResultList();
+					anagraficaDto.setCommesse(new ArrayList<Commessa>());
+					for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+						Object[] currentCommessa = (Object[]) it.next();
 
 					/** SET COMMESSA **/
 					Commessa commessa = new Commessa();
@@ -550,11 +552,18 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						if (currentCommessa[13] != null)
 							commessa.setAttesaLavori((String) currentCommessa[13]);
 
-						listaCommesse.add(commessa);
+						
 					}
+					
+					
+					anagraficaDto.getCommesse().add(commessa);
+					
+					
+					
 				}
+					
 				/** SET LISTA COMMESSE **/
-				anagraficaDto.setCommesse(listaCommesse);
+				
 			}
 		} catch (
 

@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "ccnl")
+@Table(name = "tipo_ccnl")
 public class Ccnl {
 
 	@Id

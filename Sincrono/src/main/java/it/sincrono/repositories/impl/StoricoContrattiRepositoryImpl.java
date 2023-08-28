@@ -61,7 +61,7 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 
 				if (result[42] != null)
 					ccnl.setDescrizione((String) result[42]);
-				contratto.setCcnl(ccnl);
+				contratto.setTipoCcnl(ccnl);
 
 				if (result[6] != null)
 					contratto.setQualifica((String) result[6]);
