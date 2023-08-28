@@ -226,6 +226,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	@Override
+	@Transactional(rollbackOn  = ServiceException.class)
 	public void insertAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
 
 		try {
@@ -341,8 +342,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	 * }
 	 */
 
-	@Transactional
+	
 	@Override
+	@Transactional(rollbackOn  = ServiceException.class)
 	public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
 
 		// TransactionStatus status = null;
@@ -446,6 +448,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	@Override
+	@Transactional(rollbackOn  = ServiceException.class)
 	public void deleteAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
 
 		try {
