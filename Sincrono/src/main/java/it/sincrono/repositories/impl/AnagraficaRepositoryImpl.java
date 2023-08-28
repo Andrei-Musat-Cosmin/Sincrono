@@ -399,7 +399,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					ruolo.setDescrizione((String) result[23]);
 
 				anagraficaDto.setRuolo(ruolo);
-				/*
+				
 				Contratto contratto = new Contratto();
 
 				if (result[24] != null)
@@ -439,7 +439,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					contrattoNazionale.setId((Integer) result[28]);
 				if (result[66] != null)
 					contrattoNazionale.setDescrizione((String) result[66]);
-				contratto.setCcnl(contrattoNazionale);
+				contratto.setTipoCcnl(contrattoNazionale);
 				if (result[29] != null)
 					contratto.setAttivo((Boolean) result[29]);
 				if (result[30] != null)
@@ -506,13 +506,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[60] != null)
 					contratto.setAssicurazioneObbligatoria((String) result[60]);
 
-				anagraficaDto.setContratto(contratto);*/
+				anagraficaDto.setContratto(contratto);
 
 			
 
 					queryString = SqlStrings.SQL_DETTAGLIO_COMMESSA;
 
-					queryString = queryString.replace("{0}", String.valueOf(anagraficaDto.getAnagrafica().getId()));
+					queryString = queryString.replace("{0}", String.valueOf(id));
 					query = null;
 					query = entityManager.createNativeQuery(queryString);
 					List<Object> list = query.getResultList();

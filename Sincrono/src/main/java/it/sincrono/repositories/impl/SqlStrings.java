@@ -15,8 +15,7 @@ public interface SqlStrings {
 
 	// SQL DETTAGLIO ANAGRAFICA DTO
 	public final String SQL_DETTAGLIO_ANAGRAFICA_DTO = "SELECT a.*,r.*,c.*,f.*,g.*,h.*,i.* FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN tipo_livelli_contrattuali f ON f.id=c.id_tipo_livello INNER JOIN tipo_contratto g ON g.id=c.id_tipo_contratto INNER JOIN tipo_ccnl h ON h.id=c.id_tipo_ccnl INNER JOIN tipo_azienda i ON i.id=c.id_tipo_azienda INNER JOIN utenti u ON a.id_utente=u.id INNER JOIN profili p ON p.id_utente =u.id INNER JOIN ruoli r ON p.id_ruolo=r.id WHERE a.id = 1 AND c.id=( 	select max(c1.id) from contratto c1     inner join storico_contratti s on s.id_contratto=c1.id     where s.id_anagrafica=a.id)";
-	public final String SQL_DETTAGLIO_COMMESSA = "select * from commessa c inner join storico_commesse sc on sc.id_commessa=c.id where sc.id_anagrafica={0}";
-
+	public final String SQL_DETTAGLIO_COMMESSA = "select c.* from commessa c inner join storico_commesse sc on sc.id_commessa=c.id where sc.id_anagrafica={0} and c.id!=0 and c.stato=true";
 	// Possibile aggiunta alle funzioni di anagrafica ( query da modificare)
 	// public final String SQL_RUOLO_PROFILO = "SELECT b.nome FROM profili a INNER
 	// JOIN ruoli b ON a.id_ruolo = b.id INNER JOIN utenti c ON a.id_utente = c.id
