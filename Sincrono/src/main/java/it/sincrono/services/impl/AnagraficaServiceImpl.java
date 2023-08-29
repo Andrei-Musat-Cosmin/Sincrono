@@ -77,7 +77,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private PlatformTransactionManager transactionManager;
 
 	@Autowired
-	CommessaValidatorList commessaValidatorList;
+	private CommessaValidatorList commessaValidatorList;
 
 //	@Override
 //	public List<Anagrafica> list() throws ServiceException {
