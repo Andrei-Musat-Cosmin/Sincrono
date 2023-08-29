@@ -290,10 +290,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
 
-//			emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null,"CREAZIONE UTENZA","username:"+
-//					anagraficaDto.getAnagrafica().getUtente().getUsername()+"\n"+
-//					"password:"+passwordUtente);
-//			
+			emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null,"CREAZIONE UTENZA","username:"+
+					anagraficaDto.getAnagrafica().getUtente().getUsername()+"\n"+
+					"password:"+passwordUtente);
+			
 			System.out.println("Password" + passwordUtente);
 
 		} catch (DataIntegrityViolationException de) {
