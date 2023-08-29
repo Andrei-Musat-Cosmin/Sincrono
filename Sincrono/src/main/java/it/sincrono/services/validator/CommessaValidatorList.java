@@ -13,17 +13,34 @@ public class CommessaValidatorList {
 	@Autowired
 	CommessaValidatorUpdate commessaValidatorUpdate;
 	
+	@Autowired
+	CommessaValidator commessaValidator;
 	
-	public Boolean validate(List<Commessa> commesse) {
+	
+	public Boolean validate(List<Commessa> commesse,boolean checkValidator,boolean isNew) {
 		
 		Boolean check=true;
 		
 		for(Commessa commessa: commesse) {
 			
-			if(!commessaValidatorUpdate.validate(commessa)) {
+			if(checkValidator) {
 				
+				if(!commessaValidatorUpdate.validate(commessa)) {
+					
+					
+					check=false;
+					
+				}
 				
-				check=false;
+			}else {
+				
+				if(!commessaValidator.validate(commessa,isNew)) {
+					
+					
+					check=false;
+					
+				}
+				
 				
 			}
 			
