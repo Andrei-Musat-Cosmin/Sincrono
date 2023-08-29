@@ -11,16 +11,16 @@ import it.sincrono.entities.Commessa;
 public class CommessaValidatorList {
 	
 	@Autowired
-	CommessaValidator commessaValidator;
+	CommessaValidatorUpdate commessaValidatorUpdate;
 	
 	
-	public Boolean validate(List<Commessa> commesse,Boolean isNew) {
+	public Boolean validate(List<Commessa> commesse) {
 		
 		Boolean check=true;
 		
 		for(Commessa commessa: commesse) {
 			
-			if(!commessaValidator.validate(commessa, isNew)) {
+			if(!commessaValidatorUpdate.validate(commessa)) {
 				
 				
 				check=false;

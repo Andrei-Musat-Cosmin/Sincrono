@@ -355,7 +355,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
-			if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), false)) {
+			if (!commessaValidatorList.validate(anagraficaDto.getCommesse())) {
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
