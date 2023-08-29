@@ -15,10 +15,8 @@ public class AnagraficaValidator {
 
 			if (isNew) {
 
-			
 				if (anagrafica.getId() == null) {
 			 
-
 					if (anagrafica.getNome() == null || anagrafica.getNome().equals("") || anagrafica.getCognome() == null
 							|| anagrafica.getCognome().equals("") || anagrafica.getCodiceFiscale() == null
 							|| anagrafica.getCodiceFiscale().equals("")) {
@@ -31,12 +29,7 @@ public class AnagraficaValidator {
 				}
 			} else {
 			 
-			  
 				if (anagrafica.getId() != null) {
-			  
-			 
-			  
-			  
 			  
 					if (anagrafica.getNome() == null || anagrafica.getNome().equals("") ||
 							anagrafica.getCognome() == null ||anagrafica.getCognome().equals("") ||
@@ -50,10 +43,7 @@ public class AnagraficaValidator {
 					result=false;
 				}
 		  }
-			 
-
 	}
-
 		return result;
 	}
 
