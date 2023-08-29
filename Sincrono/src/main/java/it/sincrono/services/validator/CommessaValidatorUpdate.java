@@ -1,7 +1,11 @@
 package it.sincrono.services.validator;
 
+import org.springframework.stereotype.Component;
+
 import it.sincrono.entities.Commessa;
 
+
+@Component
 public class CommessaValidatorUpdate {
 	
 	public Boolean validate(Commessa commessa) {
