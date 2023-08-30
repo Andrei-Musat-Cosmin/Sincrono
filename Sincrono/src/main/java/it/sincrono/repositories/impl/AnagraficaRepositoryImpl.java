@@ -110,7 +110,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				Object[] result = (Object[]) it.next();
 				AnagraficaDto anagraficaDto = new AnagraficaDto();
 				
-				listAnagraficaDto.add(anagraficaDto);
 
 					/** SET DI ANAGRAFICA **/
 					Anagrafica anagrafica = new Anagrafica();
