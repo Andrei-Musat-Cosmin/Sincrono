@@ -29,8 +29,7 @@ public class UtenteValidator {
 
 				if (utente.getId() != null) {
 
-					if (utente.getUsername() == null || utente.getUsername().equals("") || utente.getPassword() == null
-							|| utente.getPassword().equals("") ) {
+					if (utente.getPassword() == null || utente.getPassword().equals("")) {
 						result = false;
 					}
 				} else {

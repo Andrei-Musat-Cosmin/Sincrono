@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.requests.CambioPasswordRequest;
-import it.sincrono.requests.UtenteRequest;
+import it.sincrono.requests.ModificaPasswordRequest;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.services.UtenteService;
 import it.sincrono.services.exceptions.ServiceException;
@@ -23,7 +23,8 @@ public class UtenteController {
 	private UtenteService utenteService;
 
 	@PutMapping("/modifica-utente")
-	public @ResponseBody HttpEntity<GenericResponse> updateUtente(@RequestBody UtenteRequest utenteRequest) {
+	public @ResponseBody HttpEntity<GenericResponse> updateUtente(
+			@RequestBody ModificaPasswordRequest modificaUtenteRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
 
@@ -32,7 +33,7 @@ public class UtenteController {
 		try {
 			System.out.println("START invocation modificaUtente");
 
-			utenteService.updateUtente(utenteRequest.getUtente());
+			utenteService.updateUtente(modificaUtenteRequest);
 
 			genericResponse.setEsito(new Esito());
 
