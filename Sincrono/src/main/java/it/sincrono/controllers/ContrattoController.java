@@ -31,7 +31,7 @@ public class ContrattoController {
 	@Autowired
 	private ContrattoService contrattoService;
 
-	@PostMapping("/organico")
+	@GetMapping("/organico")
 	public @ResponseBody HttpEntity<OrganicoDtoListResponse> organico() {
 		HttpEntity<OrganicoDtoListResponse> httpEntity;
 

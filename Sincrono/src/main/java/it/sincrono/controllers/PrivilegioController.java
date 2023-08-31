@@ -28,7 +28,7 @@ public class PrivilegioController {
 	private PrivilegioService privilegioService;
 
 	// Tree funzioni che può effettuare utente in base al ruolo
-	@GetMapping("/funzioni-ruolo/tree/{id}")
+	@GetMapping("/funzioni-ruolo-tree/{id}")
 	public @ResponseBody HttpEntity<FunzioniListResponse> treeFunzioniRuolo(@PathVariable("id") Integer id) {
 
 		HttpEntity<FunzioniListResponse> httpEntity = null;

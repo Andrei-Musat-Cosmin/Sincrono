@@ -178,7 +178,7 @@ public class RuoloController {
 //		return httpEntity;
 //	}
 //
-	@GetMapping("/ruoli/map")
+	@GetMapping("/ruoli-map")
 	public @ResponseBody HttpEntity<RuoloListResponse> map() {
 
 		HttpEntity<RuoloListResponse> httpEntity = null;

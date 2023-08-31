@@ -17,7 +17,8 @@ public class ContrattoValidator {
 
 				if (contratto.getId() == null) {
 					if (contratto.getTipoContratto().getId() == null || contratto.getLivelloContratto().getId() == null
-							|| contratto.getTipoAzienda().getId() == null || contratto.getTipoCcnl().getId() == null) {
+							|| contratto.getTipoAzienda().getId() == null || contratto.getTipoCcnl().getId() == null
+							|| contratto.getDataAssunzione() == null) {
 						result = false;
 					}
 				} else {
@@ -26,7 +27,8 @@ public class ContrattoValidator {
 				}
 			} else if (contratto.getId() != null) {
 				if (contratto.getTipoContratto().getId() == null || contratto.getLivelloContratto().getId() == null
-						|| contratto.getTipoAzienda().getId() == null || contratto.getTipoCcnl().getId() == null) {
+						|| contratto.getTipoAzienda().getId() == null || contratto.getTipoCcnl().getId() == null
+						|| contratto.getDataAssunzione() == null) {
 					result = false;
 				}
 			} else {

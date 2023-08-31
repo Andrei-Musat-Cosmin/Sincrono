@@ -22,7 +22,7 @@ public class StoricoCommesseController {
 	@Autowired
 	private StoricoCommesseService storicoCommesseService;
 
-	@GetMapping("/storico-commesse-anagrafica/{id}")
+	@GetMapping("/storico-commesse/{id}")
 	public @ResponseBody HttpEntity<CommessaListResponse> getStoricoCommesseByAnagrafica(@PathVariable Integer id) {
 
 		HttpEntity<CommessaListResponse> httpEntity;

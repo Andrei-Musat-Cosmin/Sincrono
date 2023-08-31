@@ -33,7 +33,6 @@ public class Ruolo {
 	private String descrizione;
 
 	@OneToMany(mappedBy = "ruolo")
-
 	Set<Profilo> profilo;
 
 	private transient List<Ruolo> ruoli;
@@ -52,8 +51,6 @@ public class Ruolo {
 		this.descrizione = descrizione;
 		this.ruoli = ruoli;
 	}
-	
-	
 
 	public Ruolo(Integer id) {
 		super();

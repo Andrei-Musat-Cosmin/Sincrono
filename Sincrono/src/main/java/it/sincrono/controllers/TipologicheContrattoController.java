@@ -25,7 +25,7 @@ public class TipologicheContrattoController {
 	@Autowired
 	private TipologicheContrattoService tipologicheContrattoService;
 
-	@GetMapping("/tipo-azienda/map")
+	@GetMapping("/tipo-azienda-map")
 	public @ResponseBody HttpEntity<TipologicheListResponse<TipoAzienda>> getAziendeMap() {
 
 		HttpEntity<TipologicheListResponse<TipoAzienda>> httpEntity = null;
@@ -49,7 +49,7 @@ public class TipologicheContrattoController {
 		return httpEntity;
 	}
 
-	@GetMapping("/tipo-contratto/map")
+	@GetMapping("/tipo-contratto-map")
 	public @ResponseBody HttpEntity<TipologicheListResponse<TipoContratto>> getTipoContrattoMap() {
 
 		HttpEntity<TipologicheListResponse<TipoContratto>> httpEntity = null;
@@ -73,7 +73,7 @@ public class TipologicheContrattoController {
 		return httpEntity;
 	}
 
-	@GetMapping("/tipo-ccnl/map")
+	@GetMapping("/tipo-ccnl-map")
 	public @ResponseBody HttpEntity<TipologicheListResponse<Ccnl>> getCcnlMap() {
 
 		HttpEntity<TipologicheListResponse<Ccnl>> httpEntity = null;
@@ -97,7 +97,7 @@ public class TipologicheContrattoController {
 		return httpEntity;
 	}
 
-	@GetMapping("/tipo-livelli-contrattuali/map")
+	@GetMapping("/tipo-livelli-contrattuali-map")
 	public @ResponseBody HttpEntity<TipologicheListResponse<LivelloContratto>> getTipoLivelloContrattoMap() {
 
 		HttpEntity<TipologicheListResponse<LivelloContratto>> httpEntity = null;

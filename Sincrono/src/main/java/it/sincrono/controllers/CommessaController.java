@@ -31,7 +31,7 @@ public class CommessaController {
 	@Autowired
 	private CommessaService commessaService;
 
-	@PostMapping("/dashboard")
+	@GetMapping("/dashboard")
 	public @ResponseBody HttpEntity<CommessaDtoListResponse> dashboard() {
 		HttpEntity<CommessaDtoListResponse> httpEntity;
 
