@@ -3,15 +3,15 @@ package it.sincrono.repositories.impl;
 public interface SqlStrings {
 
 	// SQL ANAGRAFICA
-	public final String SQL_LIST_ANAGRAFICA = "SELECT a.*,c.*,f.*,g.*,h.*,i.* FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN tipo_livelli_contrattuali f ON f.id=c.id_tipo_livello INNER JOIN tipo_contratto g ON g.id=c.id_tipo_contratto INNER JOIN tipo_ccnl h ON h.id=c.id_tipo_ccnl INNER JOIN tipo_azienda i ON i.id=c.id_tipo_azienda WHERE a.attivo = true AND c.id=(select max(c1.id) from contratto c1 inner join storico_contratti s on s.id_contratto=c1.id where s.id_anagrafica=a.id)";
-	
-	public final String SQL_ID_ANAGRAFICA = "select a.id from anagrafica a";
 
+	public final String SQL_LIST_ANAGRAFICA = "SELECT a.*, c.*, d.*, e.*, f.*, g.*, h.* FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN tipo_livelli_contrattuali d ON d.id=c.id_tipo_livello INNER JOIN tipo_contratto e ON e.id=c.id_tipo_contratto INNER JOIN tipo_ccnl f ON f.id=c.id_tipo_ccnl INNER JOIN tipo_azienda g ON g.id=c.id_tipo_azienda INNER JOIN tipo_canale_reclutamento h ON h.id=c.id_tipo_canale_reclutamento WHERE a.attivo = true AND c.id=(select max(c1.id) from contratto c1 inner join storico_contratti s on s.id_contratto=c1.id where s.id_anagrafica=a.id)";
+
+	public final String SQL_ID_ANAGRAFICA = "select a.id from anagrafica a";
 
 	// SQL CONTRATTI
 	public final String SQL_ORGANICO = "SELECT b.descrizione AS azienda, COUNT(a.id) AS numeroDipendenti, (SELECT COUNT(a1.id_tipo_contratto) FROM contratto a1 WHERE a1.id_tipo_contratto=1 AND a1.id_tipo_azienda = b.id AND a1.attivo = 1) AS indeterminati, (SELECT COUNT(a2.id_tipo_contratto) FROM contratto a2 WHERE a2.id_tipo_contratto=2 AND a2.id_tipo_azienda = b.id AND a2.attivo = 1) AS determinati, (SELECT COUNT(a3.id_tipo_contratto) FROM contratto a3 WHERE a3.id_tipo_contratto=3 AND a3.id_tipo_azienda = b.id AND a3.attivo = 1) AS apprendistato, (SELECT count(a4.id_tipo_contratto) FROM contratto a4 WHERE a4.id_tipo_contratto=4 AND a4.id_tipo_azienda = b.id AND a4.attivo = 1) AS consulenza, (SELECT count(a5.id_tipo_contratto) FROM contratto a5 WHERE a5.id_tipo_contratto=5 AND a5.id_tipo_azienda = b.id AND a5.attivo = 1) AS stage, (SELECT count(a6.id_tipo_contratto) FROM contratto a6 WHERE a6.id_tipo_contratto=6 AND a6.id_tipo_azienda = b.id AND a6.attivo = 1) AS partitaiva, (SELECT (indeterminati + determinati)/10) AS potenziale_stage, (SELECT potenziale_stage - stage) AS slot_stage, (SELECT indeterminati*0.66) AS potenziale_apprendistato, (SELECT potenziale_apprendistato-apprendistato) AS slot_apprendistato FROM contratto a INNER JOIN tipo_azienda b ON a.id_tipo_azienda = b.id WHERE a.attivo = 1 GROUP BY a.id_tipo_azienda";
-	
-	public final String SQL_DETTAGLIO_CONTRATTI="select c.* from contratto c inner join storico_contratti sc on sc.id_contratto=c.id where sc.id_anagrafica=1 and c.id!=0 and c.attivo=true";
+
+	public final String SQL_DETTAGLIO_CONTRATTI = "select c.* from contratto c inner join storico_contratti sc on sc.id_contratto=c.id where sc.id_anagrafica=1 and c.id!=0 and c.attivo=true";
 
 	// SQL COMMESSE
 	public final String SQL_DASHBOARD = "SELECT a.nominativo as Nominativo, f.descrizione as Tipo_Contratto, g.descrizione as Tipo_Azienda, h.descrizione as CCNL, a.data_inizio as Data_Inizio, a.data_fine as Data_Fine, e.mesi_durata as Mesi,e.livello_attuale as LivelloAttuale, e.livello_finale as LivelloFinale, e.data_assunzione as DataAssunzione FROM commessa a INNER JOIN storico_commesse b ON a.id = b.id_commessa INNER JOIN anagrafica c ON b.id_anagrafica = c.id INNER JOIN storico_contratti d ON c.id = d.id_anagrafica INNER JOIN contratto e ON d.id_contratto = e.id INNER JOIN tipo_contratto f ON e.id_tipo_contratto = f.id INNER JOIN tipo_azienda g ON e.id_tipo_azienda = g.id INNER JOIN tipo_ccnl h ON e.id_tipo_ccnl = h.id WHERE a.stato = 1 AND c.attivo = 1 AND e.attivo = 1";
@@ -19,7 +19,6 @@ public interface SqlStrings {
 
 	// SQL RUOLI-UTENTI-PROFILI
 	public final String SQL_TREE_RUOLI = "SELECT a FROM Ruolo a WHERE 1 = 1 {0} ORDER BY a.nome";
-	
 
 	// SQL DETTAGLIO ANAGRAFICA DTO
 	public final String SQL_DETTAGLIO_ANAGRAFICA_DTO = "SELECT a.*,r.*,c.*,f.*,g.*,h.*,i.*,u.id FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN tipo_livelli_contrattuali f ON f.id=c.id_tipo_livello INNER JOIN tipo_contratto g ON g.id=c.id_tipo_contratto INNER JOIN tipo_ccnl h ON h.id=c.id_tipo_ccnl INNER JOIN tipo_azienda i ON i.id=c.id_tipo_azienda INNER JOIN utenti u ON a.id_utente=u.id INNER JOIN profili p ON p.id_utente =u.id INNER JOIN ruoli r ON p.id_ruolo=r.id WHERE a.id = {0} AND c.id=( 	select max(c1.id) from contratto c1     inner join storico_contratti s on s.id_contratto=c1.id     where s.id_anagrafica=a.id)";

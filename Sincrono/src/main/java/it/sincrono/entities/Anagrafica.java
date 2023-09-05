@@ -24,17 +24,14 @@ public class Anagrafica {
 	@JoinColumn(name = "id_utente")
 	private Utente utente;
 
-	@Column(name = "attivo")
-	private Boolean attivo;
-
-	@Column(name = "azienda_tipo")
-	private String aziendaTipo;
-
-	@Column(name = "cognome")
-	private String cognome;
+	@Column(name = "nome_azienda")
+	private TipoAzienda tipoAzienda;
 
 	@Column(name = "nome")
 	private String nome;
+
+	@Column(name = "cognome")
+	private String cognome;
 
 	@Column(name = "cf")
 	private String codiceFiscale;
@@ -78,7 +75,10 @@ public class Anagrafica {
 	@Column(name = "figli_a_carico")
 	private Boolean figliACarico;
 
-	public Anagrafica(Integer id, Utente utente, Boolean attivo, String aziendaTipo, String cognome, String nome,
+	@Column(name = "attivo")
+	private Boolean attivo;
+
+	public Anagrafica(Integer id, Utente utente, Boolean attivo, TipoAzienda tipoAzienda, String cognome, String nome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
 			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico) {
@@ -86,7 +86,7 @@ public class Anagrafica {
 		this.id = id;
 		this.utente = utente;
 		this.attivo = attivo;
-		this.aziendaTipo = aziendaTipo;
+		this.tipoAzienda = tipoAzienda;
 		this.cognome = cognome;
 		this.nome = nome;
 		this.codiceFiscale = codiceFiscale;
@@ -109,8 +109,6 @@ public class Anagrafica {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 
 	public Anagrafica(Integer id) {
 		super();
@@ -133,12 +131,12 @@ public class Anagrafica {
 		this.utente = utente;
 	}
 
-	public String getAziendaTipo() {
-		return aziendaTipo;
+	public TipoAzienda getTipoAzienda() {
+		return tipoAzienda;
 	}
 
-	public void setAziendaTipo(String aziendaTipo) {
-		this.aziendaTipo = aziendaTipo;
+	public void setTipoAzienda(TipoAzienda tipoAzienda) {
+		this.tipoAzienda = tipoAzienda;
 	}
 
 	public String getCognome() {

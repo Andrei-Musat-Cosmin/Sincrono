@@ -1,15 +1,11 @@
 package it.sincrono.entities;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "tipo_ccnl")
-public class Ccnl {
+public class TipoCanaleReclutamento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +15,13 @@ public class Ccnl {
 	@Column(name = "descrizione")
 	private String descrizione;
 
-	public Ccnl(Integer id, String descrizione) {
+	public TipoCanaleReclutamento(Integer id, String descrizione) {
 		super();
 		this.id = id;
 		this.descrizione = descrizione;
 	}
 
-	public Ccnl() {
+	public TipoCanaleReclutamento() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

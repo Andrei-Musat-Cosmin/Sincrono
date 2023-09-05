@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.entities.Ccnl;
-import it.sincrono.entities.LivelloContratto;
+import it.sincrono.entities.TipoCcnl;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoContratto;
 import it.sincrono.responses.TipologicheListResponse;
@@ -74,48 +74,48 @@ public class TipologicheContrattoController {
 	}
 
 	@GetMapping("/tipo-ccnl-map")
-	public @ResponseBody HttpEntity<TipologicheListResponse<Ccnl>> getCcnlMap() {
+	public @ResponseBody HttpEntity<TipologicheListResponse<TipoCcnl>> getCcnlMap() {
 
-		HttpEntity<TipologicheListResponse<Ccnl>> httpEntity = null;
+		HttpEntity<TipologicheListResponse<TipoCcnl>> httpEntity = null;
 
-		TipologicheListResponse<Ccnl> ccnlListResponse = new TipologicheListResponse<Ccnl>();
+		TipologicheListResponse<TipoCcnl> ccnlListResponse = new TipologicheListResponse<TipoCcnl>();
 
 		try {
 
-			List<Ccnl> list = tipologicheContrattoService.getCcnlMap();
+			List<TipoCcnl> list = tipologicheContrattoService.getCcnlMap();
 
 			ccnlListResponse.setList(list);
 			ccnlListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<TipologicheListResponse<Ccnl>>(ccnlListResponse);
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCcnl>>(ccnlListResponse);
 
 		} catch (ServiceException e) {
 			ccnlListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<TipologicheListResponse<Ccnl>>(ccnlListResponse);
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCcnl>>(ccnlListResponse);
 		}
 
 		return httpEntity;
 	}
 
 	@GetMapping("/tipo-livelli-contrattuali-map")
-	public @ResponseBody HttpEntity<TipologicheListResponse<LivelloContratto>> getTipoLivelloContrattoMap() {
+	public @ResponseBody HttpEntity<TipologicheListResponse<TipoLivelloContratto>> getTipoLivelloContrattoMap() {
 
-		HttpEntity<TipologicheListResponse<LivelloContratto>> httpEntity = null;
+		HttpEntity<TipologicheListResponse<TipoLivelloContratto>> httpEntity = null;
 
-		TipologicheListResponse<LivelloContratto> livelloContrattoListResponse = new TipologicheListResponse<LivelloContratto>();
+		TipologicheListResponse<TipoLivelloContratto> livelloContrattoListResponse = new TipologicheListResponse<TipoLivelloContratto>();
 
 		try {
 
-			List<LivelloContratto> list = tipologicheContrattoService.getTipoLivelliContrattualiMap();
+			List<TipoLivelloContratto> list = tipologicheContrattoService.getTipoLivelliContrattualiMap();
 
 			livelloContrattoListResponse.setList(list);
 			livelloContrattoListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<TipologicheListResponse<LivelloContratto>>(livelloContrattoListResponse);
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
 
 		} catch (ServiceException e) {
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<TipologicheListResponse<LivelloContratto>>(livelloContrattoListResponse);
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
 		}
 
 		return httpEntity;

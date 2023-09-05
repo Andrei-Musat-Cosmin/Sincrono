@@ -194,6 +194,21 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //	}
 
 	@Override
+	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
+		
+		List<AnagraficaDto> list = null;
+
+		try {
+			list = anagraficaRepository.filterListAnagraficaDto();
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
+
+	@Override
 	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException {
 
 		List<AnagraficaDto> list = null;
@@ -226,7 +241,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	@Override
-	@Transactional(rollbackOn  = ServiceException.class)
+	@Transactional(rollbackOn = ServiceException.class)
 	public void insertAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
 
 		try {
@@ -264,7 +279,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			if (anagraficaDto.getCommesse() != null) {
 
-				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(),false, true)) {
+				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)) {
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
@@ -293,7 +308,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //			emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null,"CREAZIONE UTENZA","username:"+
 //					anagraficaDto.getAnagrafica().getUtente().getUsername()+"\n"+
 //					"password:"+passwordUtente);
-			
+
 			System.out.println("Password" + passwordUtente);
 
 		} catch (DataIntegrityViolationException de) {
@@ -342,9 +357,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	 * }
 	 */
 
-	
 	@Override
-	@Transactional(rollbackOn  = ServiceException.class)
+	@Transactional(rollbackOn = ServiceException.class)
 	public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
 
 		// TransactionStatus status = null;
@@ -355,7 +369,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
-			if (!commessaValidatorList.validate(anagraficaDto.getCommesse(),true,false)) {
+			if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), true, false)) {
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
 			}
@@ -448,7 +462,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	@Override
-	@Transactional(rollbackOn  = ServiceException.class)
+	@Transactional(rollbackOn = ServiceException.class)
 	public void deleteAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
 
 		try {
@@ -458,25 +472,23 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			anagraficaRepository.saveAndFlush(anagrafica);
 
 			for (Commessa commessa : anagraficaDto.getCommesse()) {
-				
-				if(commessa.getId()!=0) {
-	
+
+				if (commessa.getId() != 0) {
+
 					Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
 					commessaDb.setStato(false);
 					commesseRepository.saveAndFlush(commessaDb);
 
 				}
-				
+
 			}
-			
-			if(anagraficaDto.getContratto().getId()!=0) {
-				
-			
-	
+
+			if (anagraficaDto.getContratto().getId() != 0) {
+
 				Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 				contratto.setAttivo(false);
 				contrattoRepository.saveAndFlush(contratto);
-				
+
 			}
 
 			Utente utente = utenteRepository.findById(anagrafica.getUtente().getId()).get();
@@ -538,4 +550,5 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		return anagraficaDto;
 	}
+
 }

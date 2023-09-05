@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tipo_livelli_contrattuali")
-public class LivelloContratto {
+public class TipoLivelloContratto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class LivelloContratto {
 	@Column(name = "minimi_ret_23")
 	private String minimiRet23;
 
-	public LivelloContratto(Integer id, String ccnl, String livello, String minimiRet23) {
+	public TipoLivelloContratto(Integer id, String ccnl, String livello, String minimiRet23) {
 		super();
 		this.id = id;
 		this.ccnl = ccnl;
@@ -33,7 +33,7 @@ public class LivelloContratto {
 		this.minimiRet23 = minimiRet23;
 	}
 
-	public LivelloContratto() {
+	public TipoLivelloContratto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

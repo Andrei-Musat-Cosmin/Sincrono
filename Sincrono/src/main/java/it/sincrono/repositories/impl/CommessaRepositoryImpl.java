@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import it.sincrono.entities.Ccnl;
+import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.TipoAzienda;
@@ -34,7 +34,7 @@ public class CommessaRepositoryImpl extends BaseRepositoryImpl implements Commes
 
 				CommessaDto commessaDto = new CommessaDto();
 				commessaDto.setCommessa(new Commessa());
-				commessaDto.setContratto(new Contratto(new TipoContratto(), new TipoAzienda(), new Ccnl()));
+				commessaDto.setContratto(new Contratto(new TipoContratto(), new TipoAzienda(), new TipoCcnl()));
 
 				if (object[0] != null)
 					commessaDto.getCommessa().setNominativo((String) object[0]);

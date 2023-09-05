@@ -7,13 +7,16 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 
 public interface AnagraficaCustomRepository extends BaseCustomRepository {
 
+	List<AnagraficaDto> filterListAnagraficaDto(AnagraficaDto anagraficaDto) throws RepositoryException;
+
 	public List<AnagraficaDto> listAnagraficaDto() throws RepositoryException;
-	
-	public List<AnagraficaDto> listAnagraficaDtoContratti()  throws RepositoryException;
+
+	public List<AnagraficaDto> listAnagraficaDtoContratti() throws RepositoryException;
 
 	public AnagraficaDto getAnagraficaDto(Integer id) throws RepositoryException;
-	
+
 	public void deleteScattoContratti() throws RepositoryException;
-	
+
 	public AnagraficaDto getAnagraficaDtoByToken(String token) throws RepositoryException;
+
 }

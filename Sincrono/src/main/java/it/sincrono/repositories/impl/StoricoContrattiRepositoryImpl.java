@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import it.sincrono.entities.Ccnl;
+import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.Contratto;
-import it.sincrono.entities.LivelloContratto;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoContratto;
 import it.sincrono.repositories.StoricoContrattiCustomRepository;
@@ -43,7 +43,7 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 
 				contratto.setTipoContratto(tipoContratto);
 
-				LivelloContratto livelloContratto = new LivelloContratto();
+				TipoLivelloContratto livelloContratto = new TipoLivelloContratto();
 				if (result[39] != null)
 					livelloContratto.setCcnl((String) result[39]);
 				if (result[38] != null)
@@ -57,7 +57,7 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 					tipoAzienda.setDescrizione((String) result[41]);
 				contratto.setTipoAzienda(tipoAzienda);
 
-				Ccnl ccnl = new Ccnl();
+				TipoCcnl ccnl = new TipoCcnl();
 
 				if (result[42] != null)
 					ccnl.setDescrizione((String) result[42]);

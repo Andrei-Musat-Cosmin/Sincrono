@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,17 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.entities.Anagrafica;
-import it.sincrono.entities.Utente;
 import it.sincrono.repositories.dto.AnagraficaDto;
-import it.sincrono.requests.AnagraficaRequest;
 import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.responses.AnagraficaDtoListResponse;
 import it.sincrono.responses.AnagraficaDtoResponse;
-import it.sincrono.responses.AnagraficaListResponse;
-import it.sincrono.responses.AnagraficaResponse;
 import it.sincrono.responses.GenericResponse;
-import it.sincrono.responses.UtenteListResponse;
 import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.UtenteService;
 import it.sincrono.services.exceptions.ServiceException;
@@ -172,6 +165,33 @@ public class AnagraficaController {
 //		return httpEntity;
 //	}
 
+	@PostMapping("/filter")
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> filterListAnagraficaDto(
+			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+
+		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
+
+		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
+		try {
+			System.out.println("START invocation of filterListAnagraficaDto");
+
+			List<AnagraficaDto> anagrafiche = anagraficaService.filterListAnagraficaDto(anagraficaRequestDto);
+
+			anagraficaDtoListResponse.setList(anagrafiche);
+			anagraficaDtoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
+
+			System.out.println("END invocation of filterListAnagraficaDto");
+
+		} catch (ServiceException e) {
+			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
+		}
+
+		return httpEntity;
+	}
+
 	@GetMapping("/list")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> listAnagraficaDto() {
 
@@ -271,36 +291,39 @@ public class AnagraficaController {
 		return httpEntity;
 	}
 
-	/*@PostMapping("/aggiungi-contratto-commessa")
-	public @ResponseBody HttpEntity<GenericResponse> insertAnagraficaDtoRelations(
-			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+	/*
+	 * @PostMapping("/aggiungi-contratto-commessa") public @ResponseBody
+	 * HttpEntity<GenericResponse> insertAnagraficaDtoRelations(
+	 * 
+	 * @RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+	 * 
+	 * HttpEntity<GenericResponse> httpEntity = null;
+	 * 
+	 * GenericResponse genericResponse = new GenericResponse();
+	 * 
+	 * try {
+	 * System.out.println("START invocation insert(anagrafica) of controller layer"
+	 * );
+	 * 
+	 * anagraficaService.insertAnagraficaDtoRelations(anagraficaRequestDto.
+	 * getAnagraficaDto());
+	 * 
+	 * genericResponse.setEsito(new Esito());
+	 * 
+	 * httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+	 * 
+	 * System.out.println("END invocation insert(anagrafica) of controller layer");
+	 * 
+	 * } catch (ServiceException e) { genericResponse.setEsito(new
+	 * Esito(e.getCode(), e.getMessage(), null)); httpEntity = new
+	 * HttpEntity<GenericResponse>(genericResponse); }
+	 * 
+	 * return httpEntity; }
+	 */
 
-		HttpEntity<GenericResponse> httpEntity = null;
-
-		GenericResponse genericResponse = new GenericResponse();
-
-		try {
-			System.out.println("START invocation insert(anagrafica) of controller layer");
-
-			anagraficaService.insertAnagraficaDtoRelations(anagraficaRequestDto.getAnagraficaDto());
-
-			genericResponse.setEsito(new Esito());
-
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-
-			System.out.println("END invocation insert(anagrafica) of controller layer");
-
-		} catch (ServiceException e) {
-			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-		}
-
-		return httpEntity;
-	}*/
-	
 	@PutMapping("/delete")
 	public @ResponseBody HttpEntity<GenericResponse> deleteAnagraficaDto(
-				@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
 
@@ -324,7 +347,7 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-	
+
 //	@GetMapping("/anagrafica-list-contratti")
 //	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> anagraficaListContratti() {
 //		
@@ -350,7 +373,7 @@ public class AnagraficaController {
 //
 //		return httpEntity;
 //	}
-	
+
 //	@DeleteMapping("/anagraficaDeleteScattoContratti")
 //	public @ResponseBody HttpEntity<GenericResponse> deleteScattiContratto() {
 //
@@ -376,9 +399,10 @@ public class AnagraficaController {
 //
 //		return httpEntity;
 //	}
-	
+
 	@GetMapping("/dettaglio-token/{token}")
-	public @ResponseBody HttpEntity<AnagraficaDtoResponse> dettaglioAnagraficaDtoByToken(@PathVariable("token") String token) {
+	public @ResponseBody HttpEntity<AnagraficaDtoResponse> dettaglioAnagraficaDtoByToken(
+			@PathVariable("token") String token) {
 		HttpEntity<AnagraficaDtoResponse> httpEntity = null;
 		AnagraficaDtoResponse anagraficaDtoResponse = new AnagraficaDtoResponse();
 		try {
@@ -396,8 +420,5 @@ public class AnagraficaController {
 		}
 		return httpEntity;
 	}
-	
-	
 
-	
 }

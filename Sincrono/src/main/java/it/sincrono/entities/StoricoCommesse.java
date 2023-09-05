@@ -25,6 +25,20 @@ public class StoricoCommesse {
 	@JoinColumn(name = "id_commessa")
 	private Commessa commessa;
 
+	@Column(name = "utente_aggiornamento")
+	private String utenteAggiornamento;
+
+	@Column(name = "data_aggiornamento")
+	private String dataAggiornamento;
+
+	public StoricoCommesse(Integer id, Anagrafica anagrafica, Commessa commessa, String utenteAggiornamento) {
+		super();
+		this.id = id;
+		this.anagrafica = anagrafica;
+		this.commessa = commessa;
+		this.utenteAggiornamento = utenteAggiornamento;
+	}
+
 	public StoricoCommesse(Integer id, Anagrafica anagrafica, Commessa commessa) {
 		super();
 		this.id = id;
@@ -32,22 +46,20 @@ public class StoricoCommesse {
 		this.commessa = commessa;
 	}
 
-	public StoricoCommesse() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-
 	public StoricoCommesse(Anagrafica anagrafica, Commessa commessa) {
 		super();
 		this.anagrafica = anagrafica;
 		this.commessa = commessa;
 	}
-	
-	public StoricoCommesse( Commessa commessa) {
+
+	public StoricoCommesse(Commessa commessa) {
 		super();
 		this.commessa = commessa;
+	}
+
+	public StoricoCommesse() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
@@ -72,6 +84,22 @@ public class StoricoCommesse {
 
 	public void setCommessa(Commessa commessa) {
 		this.commessa = commessa;
+	}
+
+	public String getUtenteAggiornamento() {
+		return utenteAggiornamento;
+	}
+
+	public void setUtenteAggiornamento(String utenteAggiornamento) {
+		this.utenteAggiornamento = utenteAggiornamento;
+	}
+
+	public String getDataAggiornamento() {
+		return dataAggiornamento;
+	}
+
+	public void setDataAggiornamento(String dataAggiornamento) {
+		this.dataAggiornamento = dataAggiornamento;
 	}
 
 }
