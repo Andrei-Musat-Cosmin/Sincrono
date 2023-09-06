@@ -26,7 +26,7 @@ public class Anagrafica {
 	private Utente utente;
 
 	@ManyToOne
-	@JoinColumn(name = "nome_azienda")
+	@JoinColumn(name = "id_tipo_azienda")
 	private TipoAzienda tipoAzienda;
 
 	@Column(name = "nome")

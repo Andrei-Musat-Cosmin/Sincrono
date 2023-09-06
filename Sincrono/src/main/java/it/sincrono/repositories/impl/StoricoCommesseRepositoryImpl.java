@@ -50,7 +50,7 @@ public class StoricoCommesseRepositoryImpl extends BaseRepositoryImpl implements
 			if (result[9] != null)
 				commessa.setAttivo((Boolean) result[9]);
 			if (result[10] != null)
-				commessa.setAttesaLavori((String) result[10]);
+				commessa.setAttesaLavori((Boolean) result[10]);
 
 			storicoCommesseList.add(commessa);
 

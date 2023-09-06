@@ -54,11 +54,11 @@ public class Commessa {
 	private Boolean attivo;
 
 	@Column(name = "attesaLavori")
-	private String attesaLavori;
+	private Boolean attesaLavori;
 
 	public Commessa(Integer id, String aziendaCliente, String clienteFinale, String titoloPosizione, Boolean distacco,
 			Date distaccoData, String distaccoAzienda, Date dataInizio, Date dataFine, String tariffaGiornaliera,
-			String aziendaDiFatturazioneInterna, Boolean attivo, String attesaLavori) {
+			String aziendaDiFatturazioneInterna, Boolean attivo, Boolean attesaLavori) {
 		super();
 		this.id = id;
 		this.aziendaCliente = aziendaCliente;
@@ -193,11 +193,11 @@ public class Commessa {
 		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
 	}
 
-	public String getAttesaLavori() {
+	public Boolean getAttesaLavori() {
 		return attesaLavori;
 	}
 
-	public void setAttesaLavori(String attesaLavori) {
+	public void setAttesaLavori(Boolean attesaLavori) {
 		this.attesaLavori = attesaLavori;
 	}
 

@@ -12,7 +12,6 @@ import java.util.List;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
-import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoCanaleReclutamento;
 import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
@@ -139,7 +138,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					if (result[11] != null)
 						commessa.setAziendaDiFatturazioneInterna((String) result[11]);
 					if (result[13] != null)
-						commessa.setAttesaLavori((String) result[13]);
+						commessa.setAttesaLavori((Boolean) result[13]);
 
 				}
 
@@ -222,7 +221,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 						if (currentCommessa[10] != null)
 							commessa.setAziendaDiFatturazioneInterna((String) currentCommessa[10]);
 						if (currentCommessa[12] != null)
-							commessa.setAttesaLavori((String) currentCommessa[12]);
+							commessa.setAttesaLavori((Boolean) currentCommessa[12]);
 
 						anagraficaDto.getCommesse().add(commessa);
 
@@ -500,7 +499,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					if (result[11] != null)
 						commessa.setAziendaDiFatturazioneInterna((String) result[11]);
 					if (result[13] != null)
-						commessa.setAttesaLavori((String) result[13]);
+						commessa.setAttesaLavori((Boolean) result[13]);
 
 				}
 				if (checkScaduta(commessa)) {

@@ -1,6 +1,7 @@
 package it.sincrono.repositories.impl;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -43,7 +44,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 				if (anagraficaDto.getAnagrafica().getNome() != null && anagraficaDto.getAnagrafica().getNome() != "") {
 
-					subString = " AND a.nome LIKE '" + anagraficaDto.getAnagrafica().getNome() + "'";
+					subString += " AND a.nome LIKE '" + anagraficaDto.getAnagrafica().getNome() + "'";
 				}
 				if (anagraficaDto.getAnagrafica().getCognome() != null
 						&& anagraficaDto.getAnagrafica().getCognome() != "") {
@@ -53,7 +54,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (anagraficaDto.getAnagrafica().getTipoAzienda() != null
 						&& anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != "") {
 
-					subString = " AND a.nome_azienda LIKE '"
+					subString += " AND g.descrizione LIKE '"
 							+ anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() + "'";
 				}
 			}
@@ -64,8 +65,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					subString += " AND c.ral_annua LIKE '" + anagraficaDto.getContratto().getRalAnnua() + "'";
 				}
 				if (anagraficaDto.getContratto().getDataAssunzione() != null) {
-					subString += " AND c.data_assunzione LIKE '" + anagraficaDto.getContratto().getDataAssunzione()
-							+ "'";
+					SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+					subString += " AND c.data_assunzione LIKE '"
+							+ outputFormat.format(anagraficaDto.getContratto().getDataAssunzione()) + "'";
 				}
 				if (anagraficaDto.getContratto().getDataFineRapporto() != null) {
 					subString += " AND c.data_fine_rapporto LIKE '" + anagraficaDto.getContratto().getDataFineRapporto()
@@ -74,7 +76,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (anagraficaDto.getContratto().getTipoLivelloContratto() != null
 						&& anagraficaDto.getContratto().getTipoLivelloContratto().getLivello() != null
 						&& anagraficaDto.getContratto().getTipoLivelloContratto().getLivello() != "") {
-					subString += " AND d.descrizione LIKE '"
+					subString += " AND d.ccnl LIKE '"
 							+ anagraficaDto.getContratto().getTipoLivelloContratto().getLivello() + "'";
 				}
 				if (anagraficaDto.getContratto().getTipoContratto() != null
@@ -101,8 +103,14 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					subString += " AND h.descrizione LIKE '"
 							+ anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() + "'";
 				}
+				if (anagraficaDto.getContratto().getTipoCausaFineRapporto() != null
+						&& anagraficaDto.getContratto().getTipoCausaFineRapporto().getDescrizione() != null
+						&& anagraficaDto.getContratto().getTipoCausaFineRapporto().getDescrizione() != "") {
+					subString += " AND i.descrizione LIKE '"
+							+ anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() + "'";
+				}
 			}
-			queryString = queryString.replace("{0}", subString);
+			queryString += subString;
 
 			Query query = entityManager.createNativeQuery(queryString);
 
@@ -441,18 +449,18 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					anagrafica.setCodiceFiscale((String) result[3]);
 
 				// SET DI UTENTE
-				/*
-				 * Utente utente = new Utente(); if (result[4] != null) utente.setId((Integer)
-				 * result[4]);
-				 * 
-				 * anagrafica.setUtente(utente);
-				 */
+
+				Utente utente = new Utente();
+				if (result[4] != null)
+					utente.setId((Integer) result[4]);
+
+				anagrafica.setUtente(utente);
 
 				TipoAzienda tipoAzienda = new TipoAzienda();
 				if (result[5] != null)
 					tipoAzienda.setId((Integer) result[5]);
-				if (result[68] != null)
-					tipoAzienda.setDescrizione((String) result[68]);
+				if (result[26] != null)
+					tipoAzienda.setDescrizione((String) result[26]);
 				anagrafica.setTipoAzienda(tipoAzienda);
 				if (result[6] != null)
 					anagrafica.setComuneDiNascita((String) result[6]);
@@ -488,20 +496,14 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				Ruolo ruolo = new Ruolo();
 
 				if (result[20] != null) {
-
 					ruolo.setId((Integer) result[20]);
-
 				}
 
 				if (result[22] != null) {
-
 					ruolo.setNome((String) result[22]);
-
 				}
 
 				anagraficaDto.setRuolo(ruolo);
-
-				Utente utente = new Utente();
 
 				if (result[24] != null) {
 
@@ -539,8 +541,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			if (result[4] != null)
 				anagrafica.setUtente(new Utente((Integer) result[4]));
 			TipoAzienda tipoAzienda = new TipoAzienda();
-			if (result[5] != null)
-				tipoAzienda.setId((Integer) result[5]);
+			if (result[70] != null)
+				tipoAzienda.setId((Integer) result[70]);
 			if (result[71] != null)
 				tipoAzienda.setDescrizione((String) result[71]);
 			anagrafica.setTipoAzienda(tipoAzienda);
@@ -584,8 +586,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			TipoContratto tipoContratto = new TipoContratto();
 			if (result[21] != null)
 				tipoContratto.setId((Integer) result[21]);
-			if (result[69] != null)
-				tipoContratto.setDescrizione((String) result[69]);
+			if (result[67] != null)
+				tipoContratto.setDescrizione((String) result[67]);
 			contratto.setTipoContratto(tipoContratto);
 
 			TipoLivelloContratto livelloContratto = new TipoLivelloContratto();
@@ -596,7 +598,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			if (result[64] != null)
 				livelloContratto.setLivello((String) result[64]);
 			if (result[65] != null)
-				livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[49]).toString())));
+				livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[65]).toString())));
 			contratto.setTipoLivelloContratto(livelloContratto);
 			/*
 			 * SI UTILIZZA LA STESSA AZIENDA DELL'ANAGRAFICA
@@ -606,20 +608,20 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			TipoCcnl ccnl = new TipoCcnl();
 			if (result[24] != null)
 				ccnl.setId((Integer) result[24]);
-			if (result[67] != null)
-				ccnl.setDescrizione((String) result[67]);
+			if (result[69] != null)
+				ccnl.setDescrizione((String) result[69]);
 			contratto.setTipoCcnl(ccnl);
 
 			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
-			if (result[25] != null)
-				tipoCanaleReclutamento.setId((Integer) result[25]);
+			if (result[72] != null)
+				tipoCanaleReclutamento.setId((Integer) result[72]);
 			if (result[73] != null)
 				tipoCanaleReclutamento.setDescrizione((String) result[73]);
 			contratto.setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 			TipoCausaFineRapporto tipoCausaFineRapporto = new TipoCausaFineRapporto();
-			if (result[26] != null)
-				tipoCausaFineRapporto.setId((Integer) result[26]);
+			if (result[74] != null)
+				tipoCausaFineRapporto.setId((Integer) result[74]);
 			if (result[75] != null)
 				tipoCausaFineRapporto.setDescrizione((String) result[75]);
 			contratto.setTipoCausaFineRapporto(tipoCausaFineRapporto);
@@ -695,19 +697,23 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			 */
 
 			String subString = "";
+			if (anagraficaDto != null) {
+				if (anagraficaDto.getCommesse() != null) {
 
-			if (anagraficaDto.getCommesse().get(0) != null) {
-				Commessa commessa = anagraficaDto.getCommesse().get(1);
-				if (commessa.getAziendaCliente() != null && commessa.getAziendaCliente() != "") {
-					subString += " AND c.azienda_cliente LIKE '" + commessa.getAziendaCliente() + "'";
-				}
-				if (commessa.getAttesaLavori() != null) {
-					subString += " AND c.azienda LIKE '" + commessa.getAttesaLavori() + "'";
-				}
+					if (anagraficaDto.getCommesse().get(0) != null) {
+						Commessa commessa = anagraficaDto.getCommesse().get(0);
+						if (commessa.getAziendaCliente() != null && commessa.getAziendaCliente() != "") {
+							subString += " AND c.azienda_cliente LIKE '" + commessa.getAziendaCliente() + "'";
+						}
+						if (commessa.getAttesaLavori() != null) {
+							subString += " AND c.attesa_lavori LIKE '" + commessa.getAttesaLavori() + "'";
+						}
 
+					}
+				}
 			}
-			currentAnagraficaDto
-					.setCommesse(getCommesseForAnagrafica(subString, anagraficaDto.getAnagrafica().getId()));
+			List<Commessa> commesse = getCommesseForAnagrafica(subString, (Integer) result[0]);
+			currentAnagraficaDto.setCommesse(commesse);
 
 			listAnagraficaDto.add(currentAnagraficaDto);
 
@@ -752,7 +758,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (currentCommessa[11] != null)
 					commessa.setAttivo((Boolean) currentCommessa[11]);
 				if (currentCommessa[12] != null)
-					commessa.setAttesaLavori((String) currentCommessa[12]);
+					commessa.setAttesaLavori((Boolean) currentCommessa[12]);
 
 			}
 
