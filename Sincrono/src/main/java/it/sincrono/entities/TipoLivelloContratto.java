@@ -23,9 +23,9 @@ public class TipoLivelloContratto {
 	private String livello;
 
 	@Column(name = "minimi_ret_23")
-	private String minimiRet23;
+	private Double minimiRet23;
 
-	public TipoLivelloContratto(Integer id, String ccnl, String livello, String minimiRet23) {
+	public TipoLivelloContratto(Integer id, String ccnl, String livello, Double minimiRet23) {
 		super();
 		this.id = id;
 		this.ccnl = ccnl;
@@ -62,11 +62,11 @@ public class TipoLivelloContratto {
 		this.livello = livello;
 	}
 
-	public String getMinimiRet23() {
+	public Double getMinimiRet23() {
 		return minimiRet23;
 	}
 
-	public void setMinimiRet23(String minimiRet23) {
+	public void setMinimiRet23(Double minimiRet23) {
 		this.minimiRet23 = minimiRet23;
 	}
 

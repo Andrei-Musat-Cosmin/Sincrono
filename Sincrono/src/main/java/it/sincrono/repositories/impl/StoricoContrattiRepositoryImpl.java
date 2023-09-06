@@ -50,7 +50,7 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 				if (result[38] != null)
 					livelloContratto.setLivello((String) result[38]);
 				if (result[40] != null)
-					livelloContratto.setMinimiRet23((String) result[40]);
+					livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[49]).toString())));
 				contratto.setTipoLivelloContratto(livelloContratto);
 
 				TipoAzienda tipoAzienda = new TipoAzienda();

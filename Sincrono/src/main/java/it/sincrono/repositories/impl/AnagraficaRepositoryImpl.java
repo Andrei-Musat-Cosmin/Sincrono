@@ -231,7 +231,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[63] != null)
 					livelloContratto.setLivello((String) result[63]);
 				if (result[64] != null)
-					livelloContratto.setMinimiRet23((String) result[64]);
+					livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[49]).toString())));
 				contratto.setTipoLivelloContratto(livelloContratto);
 
 				contratto.setTipoAzienda(tipoAzienda);
@@ -380,7 +380,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[6] != null)
 					livelloContratto.setLivello((String) result[6]);
 				if (result[7] != null)
-					livelloContratto.setMinimiRet23((String) result[7]);
+					livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[49]).toString())));
 
 				contratto.setTipoLivelloContratto(livelloContratto);
 
@@ -541,8 +541,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			TipoAzienda tipoAzienda = new TipoAzienda();
 			if (result[5] != null)
 				tipoAzienda.setId((Integer) result[5]);
-			if (result[68] != null)
-				tipoAzienda.setDescrizione((String) result[68]);
+			if (result[71] != null)
+				tipoAzienda.setDescrizione((String) result[71]);
 			anagrafica.setTipoAzienda(tipoAzienda);
 			if (result[6] != null)
 				anagrafica.setComuneDiNascita((String) result[6]);
@@ -584,19 +584,19 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			TipoContratto tipoContratto = new TipoContratto();
 			if (result[21] != null)
 				tipoContratto.setId((Integer) result[21]);
-			if (result[64] != null)
-				tipoContratto.setDescrizione((String) result[64]);
+			if (result[69] != null)
+				tipoContratto.setDescrizione((String) result[69]);
 			contratto.setTipoContratto(tipoContratto);
 
 			TipoLivelloContratto livelloContratto = new TipoLivelloContratto();
 			if (result[22] != null)
 				livelloContratto.setId((Integer) result[22]);
-			if (result[60] != null)
-				livelloContratto.setCcnl((String) result[60]);
-			if (result[61] != null)
-				livelloContratto.setLivello((String) result[61]);
-			if (result[62] != null)
-				livelloContratto.setMinimiRet23((String) result[62]);
+			if (result[63] != null)
+				livelloContratto.setCcnl((String) result[63]);
+			if (result[64] != null)
+				livelloContratto.setLivello((String) result[64]);
+			if (result[65] != null)
+				livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[49]).toString())));
 			contratto.setTipoLivelloContratto(livelloContratto);
 			/*
 			 * SI UTILIZZA LA STESSA AZIENDA DELL'ANAGRAFICA
@@ -606,22 +606,22 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			TipoCcnl ccnl = new TipoCcnl();
 			if (result[24] != null)
 				ccnl.setId((Integer) result[24]);
-			if (result[66] != null)
-				ccnl.setDescrizione((String) result[66]);
+			if (result[67] != null)
+				ccnl.setDescrizione((String) result[67]);
 			contratto.setTipoCcnl(ccnl);
 
 			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
 			if (result[25] != null)
 				tipoCanaleReclutamento.setId((Integer) result[25]);
-			if (result[70] != null)
-				tipoCanaleReclutamento.setDescrizione((String) result[70]);
+			if (result[73] != null)
+				tipoCanaleReclutamento.setDescrizione((String) result[73]);
 			contratto.setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 			TipoCausaFineRapporto tipoCausaFineRapporto = new TipoCausaFineRapporto();
 			if (result[26] != null)
 				tipoCausaFineRapporto.setId((Integer) result[26]);
-			if (result[72] != null)
-				tipoCausaFineRapporto.setDescrizione((String) result[72]);
+			if (result[75] != null)
+				tipoCausaFineRapporto.setDescrizione((String) result[75]);
 			contratto.setTipoCausaFineRapporto(tipoCausaFineRapporto);
 
 			if (result[27] != null)
