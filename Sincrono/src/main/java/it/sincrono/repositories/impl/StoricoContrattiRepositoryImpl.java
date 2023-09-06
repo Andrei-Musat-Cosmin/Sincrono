@@ -1,15 +1,16 @@
 package it.sincrono.repositories.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.Contratto;
-import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.repositories.StoricoContrattiCustomRepository;
 import it.sincrono.repositories.exceptions.RepositoryException;
 import jakarta.persistence.Query;
@@ -50,7 +51,7 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 					livelloContratto.setLivello((String) result[38]);
 				if (result[40] != null)
 					livelloContratto.setMinimiRet23((String) result[40]);
-				contratto.setLivelloContratto(livelloContratto);
+				contratto.setTipoLivelloContratto(livelloContratto);
 
 				TipoAzienda tipoAzienda = new TipoAzienda();
 				if (result[41] != null)
@@ -86,7 +87,7 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 				if (result[16] != null)
 					contratto.setPartTime((Boolean) result[16]);
 				if (result[17] != null)
-					contratto.setPartTimeA((Boolean) result[17]);
+					contratto.setPercentualePartTime((Integer) result[17]);
 				if (result[18] != null)
 					contratto.setRetribuzioneMensileLorda((String) result[18]);
 				if (result[19] != null)
@@ -96,13 +97,13 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 				if (result[21] != null)
 					contratto.setSuperminimoRal((String) result[21]);
 				if (result[22] != null)
-					contratto.setDiariaMese((String) result[22]);
+					contratto.setDiariaMensile((String) result[22]);
 				if (result[23] != null)
-					contratto.setDiariaGg((String) result[23]);
+					contratto.setDiariaGiornaliera((String) result[23]);
 				if (result[24] != null)
-					contratto.setTicket((String) result[24]);
+					contratto.setTicket((Boolean) result[24]);
 				if (result[25] != null)
-					contratto.setValoreTicket((String) result[25]);
+					contratto.setValoreTicket((Double.valueOf(((BigDecimal) result[25]).toString())));
 				if (result[26] != null)
 					contratto.setCategoriaProtetta((Boolean) result[26]);
 				if (result[27] != null)
@@ -110,20 +111,17 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 				if (result[28] != null)
 					contratto.setPfi((String) result[28]);
 				if (result[29] != null)
-					contratto.setCorsoSicurezza((Date) result[29]);
-				if (result[30] != null)
-					contratto.setMotivazioneFineRapporto((String) result[30]);
+					contratto.setCorsoSicurezza((Boolean) result[29]);
+				if (result[29] != null)
+					contratto.setDataCorsoSicurezza((Date) result[29]);
 				if (result[31] != null)
 					contratto.setPc((Boolean) result[31]);
-
 				if (result[33] != null)
-					contratto.setScattiAnzianita((String) result[33]);
+					contratto.setScattiAnzianita((Integer) result[33]);
 				if (result[34] != null)
 					contratto.setTariffaPartitaIva((String) result[34]);
-				if (result[35] != null)
-					contratto.setCanaleReclutamento((String) result[35]);
 				if (result[36] != null)
-					contratto.setAssicurazioneObbligatoria((String) result[36]);
+					contratto.setAssicurazioneObbligatoria((Boolean) result[36]);
 
 				listStoricoContratti.add(contratto);
 

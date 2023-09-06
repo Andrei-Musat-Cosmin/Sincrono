@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -24,7 +25,8 @@ public class Anagrafica {
 	@JoinColumn(name = "id_utente")
 	private Utente utente;
 
-	@Column(name = "nome_azienda")
+	@ManyToOne
+	@JoinColumn(name = "nome_azienda")
 	private TipoAzienda tipoAzienda;
 
 	@Column(name = "nome")

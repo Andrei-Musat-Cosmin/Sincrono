@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import it.sincrono.entities.TipoCcnl;
-import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.repositories.exceptions.RepositoryException;
 
 public interface TipologicheContrattoRepository
@@ -20,10 +20,10 @@ public interface TipologicheContrattoRepository
 	@Query(value = "SELECT a FROM TipoContratto a  ORDER BY a.id")
 	public List<TipoContratto> getTipoContrattoMap() throws RepositoryException;
 
-	@Query(value = "SELECT a FROM Ccnl a ORDER BY a.id")
+	@Query(value = "SELECT a FROM TipoCcnl a ORDER BY a.id")
 	public List<TipoCcnl> getCcnlMap() throws RepositoryException;
 
-	@Query(value = "SELECT a FROM LivelloContratto a ORDER BY a.id")
+	@Query(value = "SELECT a FROM TipoLivelloContratto a ORDER BY a.id")
 	public List<TipoLivelloContratto> getTipoLivelliContrattualiMap() throws RepositoryException;
 
 	@Query(value = "SELECT a FROM TipoContratto a ORDER BY a.id")
