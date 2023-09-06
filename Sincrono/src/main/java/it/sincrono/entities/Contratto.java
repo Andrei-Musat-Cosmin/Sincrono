@@ -22,7 +22,7 @@ public class Contratto {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "id_tipo_motivazione_fine_rapporto")
+	@JoinColumn(name = "id_tipo_causa_fine_rapporto")
 	private TipoCausaFineRapporto tipoCausaFineRapporto;
 
 	@ManyToOne
@@ -82,25 +82,25 @@ public class Contratto {
 	private Boolean partTime;
 
 	@Column(name = "percentuale_part_time")
-	private Integer percentualePartTime;
+	private Double percentualePartTime;
 
 	@Column(name = "retribuzione_mensile_lorda")
-	private String retribuzioneMensileLorda;
+	private Double retribuzioneMensileLorda;
 
 	@Column(name = "superminimo_mensile")
-	private String superminimoMensile;
+	private Double superminimoMensile;
 
 	@Column(name = "ral_annua")
-	private String ralAnnua;
+	private Double ralAnnua;
 
 	@Column(name = "superminimo_ral")
-	private String superminimoRal;
+	private Double superminimoRal;
 
-	@Column(name = "diaria_mese")
-	private String diariaMensile;
+	@Column(name = "diaria_mensile")
+	private Double diariaMensile;
 
-	@Column(name = "diaria_gg")
-	private String diariaGiornaliera;
+	@Column(name = "diaria_giornaliera")
+	private Double diariaGiornaliera;
 
 	@Column(name = "ticket")
 	private Boolean ticket;
@@ -133,31 +133,34 @@ public class Contratto {
 	private Date dataVisitaMedica;
 
 	@Column(name = "scatti_anzianita")
-	private Integer scattiAnzianita;
+	private Double scattiAnzianita;
 
 	@Column(name = "tariffa_partita_iva")
-	private String tariffaPartitaIva;
+	private Double tariffaPartitaIva;
 
 	@Column(name = "assicurazione_obbligatoria")
 	private Boolean assicurazioneObbligatoria;
 
 	@Column(name = "retribuzione_netta_giornaliera")
-	private Integer retribuzioneNettaGiornaliera;
+	private Double retribuzioneNettaGiornaliera;
 
 	@Column(name = "retribuzione_netta_mensile")
-	private Integer retribuzioneNettaMensile;
+	private Double retribuzioneNettaMensile;
+
+	@Column(name = "numero_mensilita")
+	private Integer numeroMensilita;
 
 	public Contratto(Integer id, TipoCausaFineRapporto tipoCausaFineRapporto,
 			TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
 			TipoLivelloContratto tipoLivelloContratto, TipoAzienda tipoAzienda, TipoCcnl tipoCcnl, Boolean attivo,
 			String qualifica, String sedeAssunzione, Date dataAssunzione, Date dataInizioProva, Date dataFineProva,
 			Date dataFineRapporto, Integer mesiDurata, String livelloAttuale, String livelloFinale, Boolean dimissioni,
-			Boolean partTime, Integer percentualePartTime, String retribuzioneMensileLorda, String superminimoMensile,
-			String ralAnnua, String superminimoRal, String diariaMensile, String diariaGiornaliera, Boolean ticket,
+			Boolean partTime, Double percentualePartTime, Double retribuzioneMensileLorda, Double superminimoMensile,
+			Double ralAnnua, Double superminimoRal, Double diariaMensile, Double diariaGiornaliera, Boolean ticket,
 			Double valoreTicket, Boolean categoriaProtetta, String tutor, String pfi, Boolean corsoSicurezza,
-			Date dataCorsoSicurezza, Boolean pc, Boolean visitaMedica, Date dataVisitaMedica, Integer scattiAnzianita,
-			String tariffaPartitaIva, Boolean assicurazioneObbligatoria, Integer retribuzioneNettaGiornaliera,
-			Integer retribuzioneNettaMensile) {
+			Date dataCorsoSicurezza, Boolean pc, Boolean visitaMedica, Date dataVisitaMedica, Double scattiAnzianita,
+			Double tariffaPartitaIva, Boolean assicurazioneObbligatoria, Double retribuzioneNettaGiornaliera,
+			Double retribuzioneNettaMensile, Integer numeroMensilita) {
 		super();
 		this.id = id;
 		this.tipoCausaFineRapporto = tipoCausaFineRapporto;
@@ -200,6 +203,7 @@ public class Contratto {
 		this.assicurazioneObbligatoria = assicurazioneObbligatoria;
 		this.retribuzioneNettaGiornaliera = retribuzioneNettaGiornaliera;
 		this.retribuzioneNettaMensile = retribuzioneNettaMensile;
+		this.numeroMensilita = numeroMensilita;
 	}
 
 	public Contratto(TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
@@ -259,7 +263,8 @@ public class Contratto {
 				&& Objects.equals(tipoCcnl, other.tipoCcnl) && Objects.equals(tipoContratto, other.tipoContratto)
 				&& Objects.equals(tipoLivelloContratto, other.tipoLivelloContratto)
 				&& Objects.equals(tutor, other.tutor) && Objects.equals(valoreTicket, other.valoreTicket)
-				&& Objects.equals(visitaMedica, other.visitaMedica);
+				&& Objects.equals(visitaMedica, other.visitaMedica)
+				&& Objects.equals(numeroMensilita, other.numeroMensilita);
 	}
 
 	public Integer getId() {
@@ -414,59 +419,59 @@ public class Contratto {
 		this.partTime = partTime;
 	}
 
-	public Integer getPercentualePartTime() {
+	public Double getPercentualePartTime() {
 		return percentualePartTime;
 	}
 
-	public void setPercentualePartTime(Integer percentualePartTime) {
+	public void setPercentualePartTime(Double percentualePartTime) {
 		this.percentualePartTime = percentualePartTime;
 	}
 
-	public String getRetribuzioneMensileLorda() {
+	public Double getRetribuzioneMensileLorda() {
 		return retribuzioneMensileLorda;
 	}
 
-	public void setRetribuzioneMensileLorda(String retribuzioneMensileLorda) {
+	public void setRetribuzioneMensileLorda(Double retribuzioneMensileLorda) {
 		this.retribuzioneMensileLorda = retribuzioneMensileLorda;
 	}
 
-	public String getSuperminimoMensile() {
+	public Double getSuperminimoMensile() {
 		return superminimoMensile;
 	}
 
-	public void setSuperminimoMensile(String superminimoMensile) {
+	public void setSuperminimoMensile(Double superminimoMensile) {
 		this.superminimoMensile = superminimoMensile;
 	}
 
-	public String getRalAnnua() {
+	public Double getRalAnnua() {
 		return ralAnnua;
 	}
 
-	public void setRalAnnua(String ralAnnua) {
+	public void setRalAnnua(Double ralAnnua) {
 		this.ralAnnua = ralAnnua;
 	}
 
-	public String getSuperminimoRal() {
+	public Double getSuperminimoRal() {
 		return superminimoRal;
 	}
 
-	public void setSuperminimoRal(String superminimoRal) {
+	public void setSuperminimoRal(Double superminimoRal) {
 		this.superminimoRal = superminimoRal;
 	}
 
-	public String getDiariaMensile() {
+	public Double getDiariaMensile() {
 		return diariaMensile;
 	}
 
-	public void setDiariaMensile(String diariaMensile) {
+	public void setDiariaMensile(Double diariaMensile) {
 		this.diariaMensile = diariaMensile;
 	}
 
-	public String getDiariaGiornaliera() {
+	public Double getDiariaGiornaliera() {
 		return diariaGiornaliera;
 	}
 
-	public void setDiariaGiornaliera(String diariaGiornaliera) {
+	public void setDiariaGiornaliera(Double diariaGiornaliera) {
 		this.diariaGiornaliera = diariaGiornaliera;
 	}
 
@@ -550,19 +555,19 @@ public class Contratto {
 		this.dataVisitaMedica = dataVisitaMedica;
 	}
 
-	public Integer getScattiAnzianita() {
+	public Double getScattiAnzianita() {
 		return scattiAnzianita;
 	}
 
-	public void setScattiAnzianita(Integer scattiAnzianita) {
+	public void setScattiAnzianita(Double scattiAnzianita) {
 		this.scattiAnzianita = scattiAnzianita;
 	}
 
-	public String getTariffaPartitaIva() {
+	public Double getTariffaPartitaIva() {
 		return tariffaPartitaIva;
 	}
 
-	public void setTariffaPartitaIva(String tariffaPartitaIva) {
+	public void setTariffaPartitaIva(Double tariffaPartitaIva) {
 		this.tariffaPartitaIva = tariffaPartitaIva;
 	}
 
@@ -574,20 +579,28 @@ public class Contratto {
 		this.assicurazioneObbligatoria = assicurazioneObbligatoria;
 	}
 
-	public Integer getRetribuzioneNettaGiornaliera() {
+	public Double getRetribuzioneNettaGiornaliera() {
 		return retribuzioneNettaGiornaliera;
 	}
 
-	public void setRetribuzioneNettaGiornaliera(Integer retribuzioneNettaGiornaliera) {
+	public void setRetribuzioneNettaGiornaliera(Double retribuzioneNettaGiornaliera) {
 		this.retribuzioneNettaGiornaliera = retribuzioneNettaGiornaliera;
 	}
 
-	public Integer getRetribuzioneNettaMensile() {
+	public Double getRetribuzioneNettaMensile() {
 		return retribuzioneNettaMensile;
 	}
 
-	public void setRetribuzioneNettaMensile(Integer retribuzioneNettaMensile) {
+	public void setRetribuzioneNettaMensile(Double retribuzioneNettaMensile) {
 		this.retribuzioneNettaMensile = retribuzioneNettaMensile;
+	}
+
+	public Integer getNumeroMensilita() {
+		return numeroMensilita;
+	}
+
+	public void setNumeroMensilita(Integer numeroMensilita) {
+		this.numeroMensilita = numeroMensilita;
 	}
 
 }
