@@ -9,7 +9,7 @@ import it.sincrono.entities.Anagrafica;
 
 public interface AnagraficaRepository extends JpaRepository<Anagrafica, Integer>, AnagraficaCustomRepository {
 
-	@Query("SELECT a FROM Anagrafica a WHERE a.attivo = 1")
-	List<Anagrafica> getAllActive();
+//	@Query("SELECT a FROM Anagrafica a WHERE a.attivo = 1")
+//	List<Anagrafica> getAllActive();
 
 }
