@@ -329,6 +329,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result[65] != null)
 					livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[65]).toString())));
 				contratto.setTipoLivelloContratto(livelloContratto);
+			
 
 				TipoCcnl ccnl = new TipoCcnl();
 				if (result[24] != null)
