@@ -16,6 +16,8 @@ public interface DashboardService {
 	public List<AnagraficaDto> getContrattiInscadenza() throws ServiceException;
 	
 	public List<AnagraficaDto> listCommesse(AnagraficaDto anagraficaDto) throws ServiceException;
+	
+	public List<AnagraficaDto> listAllCommesse() throws ServiceException;
 
 
 	

@@ -47,11 +47,9 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 	@Autowired
 	private DashboardRepository dashboardRepository;
 
-	
-
 	@Override
 	public List<AnagraficaDto> getCommesseInscadenza() throws ServiceException {
-		
+
 		List<AnagraficaDto> list = null;
 
 		try {
@@ -63,8 +61,6 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 
 		return list;
 	}
-
-
 
 	@Override
 	public List<AnagraficaDto> getContrattiInscadenza() throws ServiceException {
@@ -80,8 +76,6 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		return list;
 	}
 
-
-
 	@Override
 	public List<AnagraficaDto> listCommesse(AnagraficaDto anagraficaDto) throws ServiceException {
 		List<AnagraficaDto> list = null;
@@ -96,8 +90,17 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		return list;
 	}
 
+	@Override
+	public List<AnagraficaDto> listAllCommesse() throws ServiceException {
+		List<AnagraficaDto> list = null;
 
+		try {
+			list = dashboardRepository.listAllCommesse();
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
 
-
-
+		return list;
+	}
 }

@@ -12,6 +12,10 @@ public interface DashboardCustomRepository extends BaseCustomRepository {
 	public List<AnagraficaDto> listContrattiInScadenza() throws RepositoryException;
 	
 	public List<AnagraficaDto> listCommesse(AnagraficaDto anagraficaDto) throws RepositoryException;
+	
+	public List<AnagraficaDto> listAllCommesse() throws RepositoryException;
+	
+	
 
 
 	
