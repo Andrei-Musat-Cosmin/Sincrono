@@ -459,8 +459,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				TipoAzienda tipoAzienda = new TipoAzienda();
 				if (result[5] != null)
 					tipoAzienda.setId((Integer) result[5]);
-				if (result[26] != null)
-					tipoAzienda.setDescrizione((String) result[26]);
+				if (result[25] != null)
+					tipoAzienda.setDescrizione((String) result[25]);
 				anagrafica.setTipoAzienda(tipoAzienda);
 				if (result[6] != null)
 					anagrafica.setComuneDiNascita((String) result[6]);
@@ -504,14 +504,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				}
 
 				anagraficaDto.setRuolo(ruolo);
-
-				if (result[24] != null) {
-
-					utente.setId((Integer) result[24]);
-
-				}
-
-				anagraficaDto.getAnagrafica().setUtente(utente);
 
 			}
 		} catch (Exception e) {
