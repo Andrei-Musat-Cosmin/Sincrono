@@ -2,7 +2,6 @@ package it.sincrono.services.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -43,12 +42,12 @@ public class CommessaServiceImpl implements CommessaService {
 
 	@Override
 	public void update(Commessa commessa) throws ServiceException {
-		
+
 		try {
 
 			Commessa currentCommessa = commessaRepository.findById(commessa.getId()).get();
-			
-			currentCommessa.setStato(false);
+
+			currentCommessa.setAttivo(false);
 
 			currentCommessa.setId(commessa.getId());
 

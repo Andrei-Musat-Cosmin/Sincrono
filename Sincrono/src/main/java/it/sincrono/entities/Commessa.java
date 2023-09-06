@@ -30,7 +30,13 @@ public class Commessa {
 	private String titoloPosizione;
 
 	@Column(name = "distacco")
-	private String distacco;
+	private Boolean distacco;
+
+	@Column(name = "distacco_azienda")
+	private String distaccoAzienda;
+
+	@Column(name = "distacco_data")
+	private Date distaccoData;
 
 	@Column(name = "data_inizio")
 	private Date dataInizio;
@@ -50,15 +56,17 @@ public class Commessa {
 	@Column(name = "attesaLavori")
 	private String attesaLavori;
 
-	public Commessa(Integer id, String aziendaCliente, String clienteFinale, String titoloPosizione, String distacco,
-			Date dataInizio, Date dataFine, String tariffaGiornaliera, String aziendaDiFatturazioneInterna,
-			Boolean attivo, String attesaLavori) {
+	public Commessa(Integer id, String aziendaCliente, String clienteFinale, String titoloPosizione, Boolean distacco,
+			Date distaccoData, String distaccoAzienda, Date dataInizio, Date dataFine, String tariffaGiornaliera,
+			String aziendaDiFatturazioneInterna, Boolean attivo, String attesaLavori) {
 		super();
 		this.id = id;
 		this.aziendaCliente = aziendaCliente;
 		this.clienteFinale = clienteFinale;
 		this.titoloPosizione = titoloPosizione;
 		this.distacco = distacco;
+		this.distaccoAzienda = distaccoAzienda;
+		this.distaccoData = distaccoData;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
 		this.tariffaGiornaliera = tariffaGiornaliera;
@@ -129,12 +137,28 @@ public class Commessa {
 		this.titoloPosizione = titoloPosizione;
 	}
 
-	public String getDistacco() {
+	public Boolean getDistacco() {
 		return distacco;
 	}
 
-	public void setDistacco(String distacco) {
+	public void setDistacco(Boolean distacco) {
 		this.distacco = distacco;
+	}
+
+	public String getDistaccoAzienda() {
+		return distaccoAzienda;
+	}
+
+	public void setDistaccoAzienda(String distaccoAzienda) {
+		this.distaccoAzienda = distaccoAzienda;
+	}
+
+	public Date getDistaccoData() {
+		return distaccoData;
+	}
+
+	public void setDistaccoData(Date distaccoData) {
+		this.distaccoData = distaccoData;
 	}
 
 	public Date getDataInizio() {
@@ -175,6 +199,14 @@ public class Commessa {
 
 	public void setAttesaLavori(String attesaLavori) {
 		this.attesaLavori = attesaLavori;
+	}
+
+	public Boolean getAttivo() {
+		return attivo;
+	}
+
+	public void setAttivo(Boolean attivo) {
+		this.attivo = attivo;
 	}
 
 }

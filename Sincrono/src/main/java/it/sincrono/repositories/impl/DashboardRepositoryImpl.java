@@ -1,7 +1,6 @@
 package it.sincrono.repositories.impl;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,13 +9,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import it.sincrono.entities.Anagrafica;
-import it.sincrono.entities.Ccnl;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
-import it.sincrono.entities.LivelloContratto;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
-import it.sincrono.entities.Utente;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.repositories.DashboardCustomRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.exceptions.RepositoryException;
@@ -45,11 +43,11 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 						}
 
-						if (anagraficaDto.getAnagrafica().getAziendaTipo() != null
-								&& anagraficaDto.getAnagrafica().getAziendaTipo() != "") {
+						if (anagraficaDto.getAnagrafica().getTipoAzienda() != null
+								&& anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != "") {
 
-							subString += "AND a.azienda_tipo LIKE '" + anagraficaDto.getAnagrafica().getAziendaTipo()
-									+ "'";
+							subString += "AND a.azienda_tipo LIKE '"
+									+ anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() + "'";
 
 						}
 
@@ -69,10 +67,11 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 					}
 
-					if (anagraficaDto.getCommesse().get(0).getCliente() != null
-							&& anagraficaDto.getCommesse().get(0).getCliente() != "") {
+					if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null
+							&& anagraficaDto.getCommesse().get(0).getAziendaCliente() != "") {
 
-						subString += "AND d.cliente LIKE '" + anagraficaDto.getCommesse().get(0).getCliente() + "'";
+						subString += "AND d.cliente LIKE '" + anagraficaDto.getCommesse().get(0).getAziendaCliente()
+								+ "'";
 
 					}
 
@@ -305,7 +304,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result[20] != null)
 					contratto.setId((Integer) result[20]);
 
-				LivelloContratto livelloContratto = new LivelloContratto();
+				TipoLivelloContratto livelloContratto = new TipoLivelloContratto();
 				if (result[22] != null)
 					livelloContratto.setId((Integer) result[22]);
 				if (result[58] != null)
@@ -314,7 +313,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					livelloContratto.setLivello((String) result[59]);
 				if (result[60] != null)
 					livelloContratto.setMinimiRet23((String) result[60]);
-				contratto.setLivelloContratto(livelloContratto);
+				contratto.setTipoLivelloContratto(livelloContratto);
 
 				TipoContratto tipoContratto = new TipoContratto();
 				if (result[21] != null)
@@ -323,7 +322,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					tipoContratto.setDescrizione((String) result[62]);
 				contratto.setTipoContratto(tipoContratto);
 
-				Ccnl ccnl = new Ccnl();
+				TipoCcnl ccnl = new TipoCcnl();
 
 				if (result[24] != null)
 					ccnl.setId((Integer) result[24]);

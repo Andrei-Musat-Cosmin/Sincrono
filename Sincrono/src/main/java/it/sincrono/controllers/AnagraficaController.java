@@ -175,7 +175,8 @@ public class AnagraficaController {
 		try {
 			System.out.println("START invocation of filterListAnagraficaDto");
 
-			List<AnagraficaDto> anagrafiche = anagraficaService.filterListAnagraficaDto(anagraficaRequestDto);
+			List<AnagraficaDto> anagrafiche = anagraficaService
+					.filterListAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
 
 			anagraficaDtoListResponse.setList(anagrafiche);
 			anagraficaDtoListResponse.setEsito(new Esito());

@@ -195,11 +195,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	@Override
 	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
-		
+
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.filterListAnagraficaDto();
+			list = anagraficaRepository.filterListAnagraficaDto(anagraficaDto);
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -208,6 +208,31 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		return list;
 	}
 
+	/*
+	 * 
+		List<AnagraficaDto> list = new ArrayList<>();
+		try {
+			List<Anagrafica> listaAnagrafiche = anagraficaRepository.getAllActive();
+			for (Anagrafica currentAnagrafica : listaAnagrafiche) {
+
+				List<Commessa> listaCommesse= new ArrayList<>();
+				AnagraficaDto currentAnagraficaDto = new AnagraficaDto();
+				currentAnagraficaDto.setAnagrafica(currentAnagrafica);
+				currentAnagraficaDto.setContratto(contrattoRepository.getById(currentAnagrafica.getId()));
+				
+				for() {
+					
+					listaCommesse.add(commessaRepository.getById());
+				}
+				list.add(anagraficaDto);
+			}
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	 */
 	@Override
 	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException {
 
@@ -286,7 +311,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 				for (Commessa commessa : anagraficaDto.getCommesse()) {
 
-					commessa.setStato(true);
+					commessa.setAttivo(true);
 					Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
 					storicoCommessaRepository
 							.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
@@ -408,11 +433,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
 					if (!objectCompare.Compare(commessa, commessaDb)) {
 						commessa.setId(null);
-						commessa.setStato(true);
+						commessa.setAttivo(true);
 						Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
 						storicoCommessaRepository.saveAndFlush(
 								new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
-						commessaDb.setStato(false);
+						commessaDb.setAttivo(false);
 						commesseRepository.saveAndFlush(commessaDb);
 					}
 
@@ -476,7 +501,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				if (commessa.getId() != 0) {
 
 					Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
-					commessaDb.setStato(false);
+					commessaDb.setAttivo(false);
 					commesseRepository.saveAndFlush(commessaDb);
 
 				}

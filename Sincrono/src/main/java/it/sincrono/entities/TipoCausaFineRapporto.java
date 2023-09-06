@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-public class TipoMotivazioneFineRapporto {
+public class TipoCausaFineRapporto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,13 +15,13 @@ public class TipoMotivazioneFineRapporto {
 	@Column(name = "descrizione")
 	private String descrizione;
 
-	public TipoMotivazioneFineRapporto(Integer id, String descrizione) {
+	public TipoCausaFineRapporto(Integer id, String descrizione) {
 		super();
 		this.id = id;
 		this.descrizione = descrizione;
 	}
 
-	public TipoMotivazioneFineRapporto() {
+	public TipoCausaFineRapporto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

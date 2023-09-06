@@ -1,5 +1,7 @@
 package it.sincrono.services.validator;
+
 import org.springframework.stereotype.Component;
+
 import it.sincrono.entities.Commessa;
 
 @Component
@@ -13,48 +15,40 @@ public class CommessaValidator {
 
 			if (isNew) {
 
-			
-			 if (commessa.getId() == null) {
-			 
+				if (commessa.getId() == null) {
 
-			if (commessa.getCliente()==null && commessa.getCliente().equals("") ||
-				commessa.getNominativo()==null && commessa.getNominativo().equals("") ||
-				commessa.getDataInizio()==null && commessa.getDataFine()==null) {
-				result = false;
-			}
+					if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
+							|| commessa.getDataInizio() == null && commessa.getDataFine() == null) {
+						result = false;
+					}
 
-			
-			}else {
-				
-				result=false;
-			}
-			 
+				} else {
+
+					result = false;
+				}
+
 			} else {
-			  
-			  
-				  if (commessa.getId() != null) {
-				  
-					  if (commessa.getCliente()==null && commessa.getCliente().equals("") ||
-						  commessa.getNominativo()==null && commessa.getNominativo().equals("") ||
-						  commessa.getDataInizio()==null && commessa.getDataFine()==null) {
-								result = false;
-							}
-				  }else {
-					  
-					  
-					  result=false;
-				  }
 
-			  }
-			
+				if (commessa.getId() != null) {
 
-		}else {
-			
-			result=false;
+					if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
+							|| commessa.getDataInizio() == null && commessa.getDataFine() == null) {
+						result = false;
+					}
+				} else {
+
+					result = false;
+				}
+
+			}
+
+		} else {
+
+			result = false;
 		}
-		
+
 		return result;
-		
+
 	}
-	
+
 }
