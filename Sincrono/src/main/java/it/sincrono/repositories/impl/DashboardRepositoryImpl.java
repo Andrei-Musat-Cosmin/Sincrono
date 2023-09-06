@@ -46,12 +46,16 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 						}
 
-						if (anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != null
+						if (anagraficaDto.getAnagrafica().getTipoAzienda() != null) {
 
-								&& anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != "") {
+							if (anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != null
 
-							subString += "AND a.azienda_tipo LIKE '"
-									+ anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() + "'";
+									&& anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != "") {
+
+								subString += "AND a.azienda_tipo LIKE '"
+										+ anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() + "'";
+
+							}
 
 						}
 
@@ -195,30 +199,30 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					Commessa commessa = new Commessa();
 					if (currentCommessa != null) {
 
+						if (currentCommessa[0] != null)
+							commessa.setId((Integer) currentCommessa[0]);
 						if (currentCommessa[1] != null)
-							commessa.setId((Integer) currentCommessa[1]);
+							commessa.setAziendaCliente((String) currentCommessa[1]);
 						if (currentCommessa[2] != null)
-							commessa.setAziendaCliente((String) currentCommessa[2]);
+							commessa.setClienteFinale((String) currentCommessa[2]);
 						if (currentCommessa[3] != null)
-							commessa.setClienteFinale((String) currentCommessa[3]);
+							commessa.setTitoloPosizione((String) currentCommessa[3]);
 						if (currentCommessa[4] != null)
-							commessa.setTitoloPosizione((String) currentCommessa[4]);
+							commessa.setDistacco((Boolean) currentCommessa[4]);
 						if (currentCommessa[5] != null)
-							commessa.setDistacco((Boolean) currentCommessa[5]);
+							commessa.setDistaccoAzienda((String) currentCommessa[5]);
 						if (currentCommessa[6] != null)
-							commessa.setDistaccoAzienda((String) currentCommessa[6]);
+							commessa.setDistaccoData((Date) currentCommessa[6]);
 						if (currentCommessa[7] != null)
-							commessa.setDistaccoData((Date) currentCommessa[7]);
+							commessa.setDataInizio((Date) currentCommessa[7]);
 						if (currentCommessa[8] != null)
-							commessa.setDataInizio((Date) currentCommessa[8]);
+							commessa.setDataFine((Date) currentCommessa[8]);
 						if (currentCommessa[9] != null)
-							commessa.setDataFine((Date) currentCommessa[9]);
+							commessa.setTariffaGiornaliera((String) currentCommessa[9]);
 						if (currentCommessa[10] != null)
-							commessa.setTariffaGiornaliera((String) currentCommessa[10]);
-						if (currentCommessa[11] != null)
-							commessa.setAziendaDiFatturazioneInterna((String) currentCommessa[11]);
-						if (currentCommessa[13] != null)
-							commessa.setAttesaLavori((String) currentCommessa[13]);
+							commessa.setAziendaDiFatturazioneInterna((String) currentCommessa[10]);
+						if (currentCommessa[12] != null)
+							commessa.setAttesaLavori((String) currentCommessa[12]);
 
 						anagraficaDto.getCommesse().add(commessa);
 
@@ -287,24 +291,22 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 		try {
 
 			String queryString = SqlStrings.SQL_LIST_ANAGRAFICA;
-			String subString = "";
 
 			Query query = entityManager.createNativeQuery(queryString);
 
 			List<Object> list = query.getResultList();
 
 			List<AnagraficaDto> listAnagraficaDto = new ArrayList<AnagraficaDto>();
-			Integer lastResult = null;
 			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
 				Object[] result = (Object[]) it.next();
 				AnagraficaDto anagraficaDto = new AnagraficaDto();
 
 				Anagrafica anagrafica = new Anagrafica();
 
-				anagrafica.setId((Integer) result[0]);
-				if (result[1] != null)
+				if (result[0] != null)
+					anagrafica.setId((Integer) result[0]);
 
-					anagraficaDto.setAnagrafica(anagrafica);
+				anagraficaDto.setAnagrafica(anagrafica);
 
 				Contratto contratto = new Contratto();
 
@@ -314,39 +316,40 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				TipoContratto tipoContratto = new TipoContratto();
 				if (result[21] != null)
 					tipoContratto.setId((Integer) result[21]);
-				if (result[64] != null)
-					tipoContratto.setDescrizione((String) result[64]);
+				if (result[67] != null)
+					tipoContratto.setDescrizione((String) result[67]);
 				contratto.setTipoContratto(tipoContratto);
 
 				TipoLivelloContratto livelloContratto = new TipoLivelloContratto();
 				if (result[22] != null)
 					livelloContratto.setId((Integer) result[22]);
-				if (result[60] != null)
-					livelloContratto.setCcnl((String) result[60]);
-				if (result[61] != null)
-					livelloContratto.setLivello((String) result[61]);
-				if (result[62] != null)
-					livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[49]).toString())));
+				if (result[63] != null)
+					livelloContratto.setCcnl((String) result[63]);
+				if (result[64] != null)
+					livelloContratto.setLivello((String) result[64]);
+				if (result[65] != null)
+					livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[65]).toString())));
+				contratto.setTipoLivelloContratto(livelloContratto);
 
 				TipoCcnl ccnl = new TipoCcnl();
 				if (result[24] != null)
 					ccnl.setId((Integer) result[24]);
-				if (result[66] != null)
-					ccnl.setDescrizione((String) result[66]);
+				if (result[69] != null)
+					ccnl.setDescrizione((String) result[69]);
 				contratto.setTipoCcnl(ccnl);
 
 				TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
-				if (result[25] != null)
-					tipoCanaleReclutamento.setId((Integer) result[25]);
-				if (result[70] != null)
-					tipoCanaleReclutamento.setDescrizione((String) result[70]);
+				if (result[72] != null)
+					tipoCanaleReclutamento.setId((Integer) result[72]);
+				if (result[73] != null)
+					tipoCanaleReclutamento.setDescrizione((String) result[73]);
 				contratto.setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 				TipoCausaFineRapporto tipoCausaFineRapporto = new TipoCausaFineRapporto();
-				if (result[26] != null)
-					tipoCausaFineRapporto.setId((Integer) result[26]);
-				if (result[72] != null)
-					tipoCausaFineRapporto.setDescrizione((String) result[72]);
+				if (result[74] != null)
+					tipoCausaFineRapporto.setId((Integer) result[74]);
+				if (result[75] != null)
+					tipoCausaFineRapporto.setDescrizione((String) result[75]);
 				contratto.setTipoCausaFineRapporto(tipoCausaFineRapporto);
 
 				if (result[27] != null)
@@ -414,6 +417,8 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result[58] != null)
 					contratto.setAssicurazioneObbligatoria((Boolean) result[58]);
 
+				anagraficaDto.setContratto(contratto);
+
 				listAnagraficaDto.add(anagraficaDto);
 
 			}
@@ -443,7 +448,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 					&&
 
-					dataSommata.isBefore(dataSommata)) {
+					dataSommata.isBefore(LocalDate.now())) {
 
 				listInScadenza.add(anagraficaDto);
 

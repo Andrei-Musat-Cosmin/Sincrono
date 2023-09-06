@@ -16,7 +16,7 @@ public interface SqlStrings {
 	// SQL COMMESSE
 	public final String SQL_DASHBOARD = "SELECT a.nominativo as Nominativo, f.descrizione as Tipo_Contratto, g.descrizione as Tipo_Azienda, h.descrizione as CCNL, a.data_inizio as Data_Inizio, a.data_fine as Data_Fine, e.mesi_durata as Mesi,e.livello_attuale as LivelloAttuale, e.livello_finale as LivelloFinale, e.data_assunzione as DataAssunzione FROM commessa a INNER JOIN storico_commesse b ON a.id = b.id_commessa INNER JOIN anagrafica c ON b.id_anagrafica = c.id INNER JOIN storico_contratti d ON c.id = d.id_anagrafica INNER JOIN contratto e ON d.id_contratto = e.id INNER JOIN tipo_contratto f ON e.id_tipo_contratto = f.id INNER JOIN tipo_azienda g ON e.id_tipo_azienda = g.id INNER JOIN tipo_ccnl h ON e.id_tipo_ccnl = h.id WHERE a.stato = 1 AND c.attivo = 1 AND e.attivo = 1";
 	public final String SQL_LIST_COMMESSE = "select distinct a.id,d.* from commessa d inner join storico_commesse sc on d.id=sc.id_commessa inner join anagrafica a on sc.id_anagrafica=a.id inner join storico_contratti scc on sc.id_anagrafica=a.id inner join contratto c on c.id=scc.id_contratto where  d.attivo=true AND 1 {0}";
-	public final String SQL_LIST_ALL_COMMESSE = "select c.* from commessa c where id!=0";
+	public final String SQL_LIST_ALL_COMMESSE = "select distinct a.id,d.* from commessa d inner join storico_commesse sc on d.id=sc.id_commessa inner join anagrafica a on sc.id_anagrafica=a.id inner join storico_contratti scc on sc.id_anagrafica=a.id inner join contratto c on c.id=scc.id_contratto where  d.attivo=true ";
 
 	// SQL RUOLI-UTENTI-PROFILI
 	public final String SQL_TREE_RUOLI = "SELECT a FROM Ruolo a WHERE 1 = 1 {0} ORDER BY a.nome";

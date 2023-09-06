@@ -38,7 +38,6 @@ public class DashboardController {
 	@Autowired
 	private DashboardService dashboardService;
 
-
 	@GetMapping("/listCommesse")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getCommesseInscadenza() {
 
@@ -64,7 +63,6 @@ public class DashboardController {
 
 		return httpEntity;
 	}
-	
 
 	@GetMapping("/listContratti")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getContrattiInscadenza() {
@@ -102,6 +100,32 @@ public class DashboardController {
 			System.out.println("START invocation of listAnagraficaDto");
 
 			List<AnagraficaDto> anagrafiche = dashboardService.listCommesse(anagraficaRequestDto.getAnagraficaDto());
+
+			anagraficaDtoListResponse.setList(anagrafiche);
+			anagraficaDtoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
+
+			System.out.println("END invocation of listAnagraficaDto");
+
+		} catch (ServiceException e) {
+			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
+		}
+
+		return httpEntity;
+	}
+
+	@GetMapping("/listAllCommesse")
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> listAllCommesse() {
+
+		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
+
+		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
+		try {
+			System.out.println("START invocation of listAnagraficaDto");
+
+			List<AnagraficaDto> anagrafiche = dashboardService.listAllCommesse();
 
 			anagraficaDtoListResponse.setList(anagrafiche);
 			anagraficaDtoListResponse.setEsito(new Esito());
