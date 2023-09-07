@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "contratto")
@@ -150,6 +151,7 @@ public class Contratto {
 	@Column(name = "diaria_annua")
 	private Double diariaAnnua;
 	
+	@Transient
 	private transient Double RalPartTime;
 
 	public Contratto(Integer id, TipoCausaFineRapporto tipoCausaFineRapporto,
