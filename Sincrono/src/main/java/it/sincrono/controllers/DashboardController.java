@@ -38,7 +38,7 @@ public class DashboardController {
 	@Autowired
 	private DashboardService dashboardService;
 
-	@GetMapping("/listCommesse")
+	@GetMapping("/list-commesse")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getCommesseInscadenza() {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
@@ -64,7 +64,7 @@ public class DashboardController {
 		return httpEntity;
 	}
 
-	@GetMapping("/listContratti")
+	@GetMapping("/list-contratti")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getContrattiInscadenza() {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
@@ -90,7 +90,7 @@ public class DashboardController {
 		return httpEntity;
 	}
 
-	@PostMapping("/listFilter")
+	@PostMapping("/list-filter")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> listCommesse(@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
@@ -116,7 +116,7 @@ public class DashboardController {
 		return httpEntity;
 	}
 
-	@GetMapping("/listAllCommesse")
+	@GetMapping("/list-all-commesse")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> listAllCommesse() {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
