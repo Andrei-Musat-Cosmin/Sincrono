@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import it.sincrono.entities.TipoCcnl;
-import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoCanaleReclutamento;
+import it.sincrono.entities.TipoCausaFineRapporto;
+import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.repositories.TipologicheContrattoRepository;
 import it.sincrono.services.TipologicheContrattoService;
 import it.sincrono.services.costants.ServiceMessages;
@@ -62,6 +64,30 @@ public class TipologicheContrattoServiceImpl extends BaseServiceImpl implements 
 		List<TipoLivelloContratto> list = null;
 		try {
 			list = tipologicheContrattoRepository.getTipoLivelliContrattualiMap();
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<TipoCanaleReclutamento> getTipoCanaleReclutamentoMap() throws ServiceException {
+		List<TipoCanaleReclutamento> list = null;
+		try {
+			list = tipologicheContrattoRepository.getTipoCanaleReclutamento();
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<TipoCausaFineRapporto> getTipoCausaFineRapporto() throws ServiceException {
+		List<TipoCausaFineRapporto> list = null;
+		try {
+			list = tipologicheContrattoRepository.getTipoCausaFineRapporto();
 		} catch (Exception e) {
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}

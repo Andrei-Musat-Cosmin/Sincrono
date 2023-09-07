@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.entities.TipoCcnl;
-import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoCanaleReclutamento;
+import it.sincrono.entities.TipoCausaFineRapporto;
+import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.responses.TipologicheListResponse;
 import it.sincrono.services.TipologicheContrattoService;
 import it.sincrono.services.exceptions.ServiceException;
@@ -116,6 +118,54 @@ public class TipologicheContrattoController {
 		} catch (ServiceException e) {
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
+		}
+
+		return httpEntity;
+	}
+
+	@GetMapping("/tipo-causa-fine-rapporto-map")
+	public @ResponseBody HttpEntity<TipologicheListResponse<TipoCausaFineRapporto>> getTipoCausaFineRapportoMap() {
+
+		HttpEntity<TipologicheListResponse<TipoCausaFineRapporto>> httpEntity = null;
+
+		TipologicheListResponse<TipoCausaFineRapporto> livelloContrattoListResponse = new TipologicheListResponse<TipoCausaFineRapporto>();
+
+		try {
+
+			List<TipoCausaFineRapporto> list = tipologicheContrattoService.getTipoCausaFineRapporto();
+
+			livelloContrattoListResponse.setList(list);
+			livelloContrattoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineRapporto>>(livelloContrattoListResponse);
+
+		} catch (ServiceException e) {
+			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineRapporto>>(livelloContrattoListResponse);
+		}
+
+		return httpEntity;
+	}
+
+	@GetMapping("/tipo-canale-reclutamento-map")
+	public @ResponseBody HttpEntity<TipologicheListResponse<TipoCanaleReclutamento>> getTipoCanaleReclutamentoMap() {
+
+		HttpEntity<TipologicheListResponse<TipoCanaleReclutamento>> httpEntity = null;
+
+		TipologicheListResponse<TipoCanaleReclutamento> livelloContrattoListResponse = new TipologicheListResponse<TipoCanaleReclutamento>();
+
+		try {
+
+			List<TipoCanaleReclutamento> list = tipologicheContrattoService.getTipoCanaleReclutamentoMap();
+
+			livelloContrattoListResponse.setList(list);
+			livelloContrattoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCanaleReclutamento>>(livelloContrattoListResponse);
+
+		} catch (ServiceException e) {
+			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCanaleReclutamento>>(livelloContrattoListResponse);
 		}
 
 		return httpEntity;

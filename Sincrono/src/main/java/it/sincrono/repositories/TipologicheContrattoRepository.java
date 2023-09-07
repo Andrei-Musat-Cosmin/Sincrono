@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoCanaleReclutamento;
+import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
 import it.sincrono.entities.TipoLivelloContratto;
@@ -28,5 +30,11 @@ public interface TipologicheContrattoRepository
 
 	@Query(value = "SELECT a FROM TipoContratto a ORDER BY a.id")
 	public List<TipoContratto> getTipoContratto() throws RepositoryException;
+
+	@Query(value = "SELECT a FROM TipoCanaleReclutamento a ORDER BY a.id")
+	public List<TipoCanaleReclutamento> getTipoCanaleReclutamento() throws RepositoryException;
+
+	@Query(value = "SELECT a FROM TipoCausaFineRapporto a ORDER BY a.id")
+	public List<TipoCausaFineRapporto> getTipoCausaFineRapporto() throws RepositoryException;
 
 }
