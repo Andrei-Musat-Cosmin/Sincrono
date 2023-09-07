@@ -87,19 +87,19 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 				if (result[16] != null)
 					contratto.setPartTime((Boolean) result[16]);
 				if (result[17] != null)
-					contratto.setPercentualePartTime((Integer) result[17]);
+					contratto.setPercentualePartTime((Double) result[17]);
 				if (result[18] != null)
-					contratto.setRetribuzioneMensileLorda((String) result[18]);
+					contratto.setRetribuzioneMensileLorda((Double) result[18]);
 				if (result[19] != null)
-					contratto.setSuperminimoMensile((String) result[19]);
+					contratto.setSuperminimoMensile((Double) result[19]);
 				if (result[20] != null)
-					contratto.setRalAnnua((String) result[20]);
+					contratto.setRalAnnua((Double) result[20]);
 				if (result[21] != null)
-					contratto.setSuperminimoRal((String) result[21]);
+					contratto.setSuperminimoRal((Double) result[21]);
 				if (result[22] != null)
-					contratto.setDiariaMensile((String) result[22]);
+					contratto.setDiariaMensile((Double) result[22]);
 				if (result[23] != null)
-					contratto.setDiariaGiornaliera((String) result[23]);
+					contratto.setDiariaGiornaliera((Double) result[23]);
 				if (result[24] != null)
 					contratto.setTicket((Boolean) result[24]);
 				if (result[25] != null)
@@ -117,9 +117,9 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 				if (result[31] != null)
 					contratto.setPc((Boolean) result[31]);
 				if (result[33] != null)
-					contratto.setScattiAnzianita((Integer) result[33]);
+					contratto.setScattiAnzianita((Double) result[33]);
 				if (result[34] != null)
-					contratto.setTariffaPartitaIva((String) result[34]);
+					contratto.setTariffaPartitaIva((Double) result[34]);
 				if (result[36] != null)
 					contratto.setAssicurazioneObbligatoria((Boolean) result[36]);
 

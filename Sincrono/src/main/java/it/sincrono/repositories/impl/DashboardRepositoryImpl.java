@@ -380,19 +380,19 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result[38] != null)
 					contratto.setPartTime((Boolean) result[38]);
 				if (result[39] != null)
-					contratto.setPercentualePartTime((Integer) result[39]);
+					contratto.setPercentualePartTime((Double) result[39]);
 				if (result[40] != null)
-					contratto.setRetribuzioneMensileLorda((String) result[40]);
+					contratto.setRetribuzioneMensileLorda((Double) result[40]);
 				if (result[41] != null)
-					contratto.setSuperminimoMensile((String) result[41]);
+					contratto.setSuperminimoMensile((Double) result[41]);
 				if (result[42] != null)
-					contratto.setRalAnnua((String) result[42]);
+					contratto.setRalAnnua((Double) result[42]);
 				if (result[43] != null)
-					contratto.setSuperminimoRal((String) result[43]);
+					contratto.setSuperminimoRal((Double) result[43]);
 				if (result[44] != null)
-					contratto.setDiariaMensile((String) result[44]);
+					contratto.setDiariaMensile((Double) result[44]);
 				if (result[45] != null)
-					contratto.setDiariaGiornaliera((String) result[45]);
+					contratto.setDiariaGiornaliera((Double) result[45]);
 				if (result[46] != null)
 					contratto.setTicket((Boolean) result[46]);
 				if (result[47] != null)
@@ -414,9 +414,9 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result[55] != null)
 					contratto.setDataVisitaMedica((Date) result[55]);
 				if (result[56] != null)
-					contratto.setScattiAnzianita((Integer) result[56]);
+					contratto.setScattiAnzianita((Double) result[56]);
 				if (result[57] != null)
-					contratto.setTariffaPartitaIva((String) result[57]);
+					contratto.setTariffaPartitaIva((Double) result[57]);
 				if (result[58] != null)
 					contratto.setAssicurazioneObbligatoria((Boolean) result[58]);
 
