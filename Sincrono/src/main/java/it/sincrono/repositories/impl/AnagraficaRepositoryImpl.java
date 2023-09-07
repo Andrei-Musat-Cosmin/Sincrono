@@ -533,10 +533,10 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			if (result[4] != null)
 				anagrafica.setUtente(new Utente((Integer) result[4]));
 			TipoAzienda tipoAzienda = new TipoAzienda();
-			if (result[70] != null)
-				tipoAzienda.setId((Integer) result[70]);
 			if (result[71] != null)
-				tipoAzienda.setDescrizione((String) result[71]);
+				tipoAzienda.setId((Integer) result[71]);
+			if (result[72] != null)
+				tipoAzienda.setDescrizione((String) result[72]);
 			anagrafica.setTipoAzienda(tipoAzienda);
 			if (result[6] != null)
 				anagrafica.setComuneDiNascita((String) result[6]);
@@ -602,20 +602,22 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				ccnl.setId((Integer) result[24]);
 			if (result[69] != null)
 				ccnl.setDescrizione((String) result[69]);
+			if (result[70] != null)
+				ccnl.setDescrizione((String) result[70]);
 			contratto.setTipoCcnl(ccnl);
 
 			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
-			if (result[72] != null)
-				tipoCanaleReclutamento.setId((Integer) result[72]);
 			if (result[73] != null)
-				tipoCanaleReclutamento.setDescrizione((String) result[73]);
+				tipoCanaleReclutamento.setId((Integer) result[73]);
+			if (result[74] != null)
+				tipoCanaleReclutamento.setDescrizione((String) result[74]);
 			contratto.setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 			TipoCausaFineRapporto tipoCausaFineRapporto = new TipoCausaFineRapporto();
-			if (result[74] != null)
-				tipoCausaFineRapporto.setId((Integer) result[74]);
 			if (result[75] != null)
-				tipoCausaFineRapporto.setDescrizione((String) result[75]);
+				tipoCausaFineRapporto.setId((Integer) result[75]);
+			if (result[76] != null)
+				tipoCausaFineRapporto.setDescrizione((String) result[76]);
 			contratto.setTipoCausaFineRapporto(tipoCausaFineRapporto);
 
 			if (result[27] != null)
@@ -688,7 +690,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				contratto.setRetribuzioneNettaGiornaliera((Double.valueOf(((BigDecimal) result[60]).toString())));
 			currentAnagraficaDto.setContratto(contratto);
 			if (result[60] != null)
-				contratto.setNumeroMensilita((Integer) result[60]);
+				contratto.setDiariaAnnua((Double.valueOf(((BigDecimal) result[60]).toString())));
 			currentAnagraficaDto.setContratto(contratto);
 
 			/*

@@ -19,10 +19,15 @@ public class TipoCcnl {
 	@Column(name = "descrizione")
 	private String descrizione;
 
-	public TipoCcnl(Integer id, String descrizione) {
+	@Column(name = "numero_mensilita")
+	private Integer numeroMensilita;
+
+	public TipoCcnl(Integer id, String descrizione, Integer numeroMensilita) {
 		super();
 		this.id = id;
 		this.descrizione = descrizione;
+		this.numeroMensilita = numeroMensilita;
+
 	}
 
 	public TipoCcnl() {
@@ -44,6 +49,14 @@ public class TipoCcnl {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+
+	public Integer getNumeroMensilita() {
+		return numeroMensilita;
+	}
+
+	public void setNumeroMensilita(Integer numeroMensilita) {
+		this.numeroMensilita = numeroMensilita;
 	}
 
 }
