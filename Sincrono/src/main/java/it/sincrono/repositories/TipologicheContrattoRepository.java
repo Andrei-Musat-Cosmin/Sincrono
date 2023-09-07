@@ -36,5 +36,8 @@ public interface TipologicheContrattoRepository
 
 	@Query(value = "SELECT a FROM TipoCausaFineRapporto a ORDER BY a.id")
 	public List<TipoCausaFineRapporto> getTipoCausaFineRapporto() throws RepositoryException;
+	
+	@Query(value = "SELECT a FROM TipoCcnl a WHERE a.id=?1")
+	public TipoCcnl getCcnlMapById(Integer id) throws RepositoryException;
 
 }

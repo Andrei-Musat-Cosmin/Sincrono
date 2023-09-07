@@ -79,6 +79,8 @@ public class Anagrafica {
 
 	@Column(name = "attivo")
 	private Boolean attivo;
+	
+
 
 	public Anagrafica(Integer id, Utente utente, Boolean attivo, TipoAzienda tipoAzienda, String cognome, String nome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,

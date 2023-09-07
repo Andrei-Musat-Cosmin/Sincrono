@@ -1,6 +1,7 @@
 package it.sincrono.services.impl;
 
 import java.util.List;
+
 import java.util.NoSuchElementException;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -16,6 +17,7 @@ import it.sincrono.entities.Profilo;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.entities.StoricoContratti;
+import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
@@ -23,8 +25,10 @@ import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.repositories.StoricoContrattiRepository;
+import it.sincrono.repositories.TipologicheContrattoRepository;
 import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
+import it.sincrono.repositories.exceptions.RepositoryException;
 import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
@@ -55,6 +59,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private UtenteRepository utenteRepository;
 	@Autowired
 	private ProfiloRepository profiloRepository;
+	@Autowired
+	private TipologicheContrattoRepository TipologicheContrattoRepository;
+
 	@Autowired
 	private EmailService emailService;
 
@@ -210,28 +217,23 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	/*
 	 * 
-		List<AnagraficaDto> list = new ArrayList<>();
-		try {
-			List<Anagrafica> listaAnagrafiche = anagraficaRepository.getAllActive();
-			for (Anagrafica currentAnagrafica : listaAnagrafiche) {
-
-				List<Commessa> listaCommesse= new ArrayList<>();
-				AnagraficaDto currentAnagraficaDto = new AnagraficaDto();
-				currentAnagraficaDto.setAnagrafica(currentAnagrafica);
-				currentAnagraficaDto.setContratto(contrattoRepository.getById(currentAnagrafica.getId()));
-				
-				for() {
-					
-					listaCommesse.add(commessaRepository.getById());
-				}
-				list.add(anagraficaDto);
-			}
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-		return list;
+	 * List<AnagraficaDto> list = new ArrayList<>(); try { List<Anagrafica>
+	 * listaAnagrafiche = anagraficaRepository.getAllActive(); for (Anagrafica
+	 * currentAnagrafica : listaAnagrafiche) {
+	 * 
+	 * List<Commessa> listaCommesse= new ArrayList<>(); AnagraficaDto
+	 * currentAnagraficaDto = new AnagraficaDto();
+	 * currentAnagraficaDto.setAnagrafica(currentAnagrafica);
+	 * currentAnagraficaDto.setContratto(contrattoRepository.getById(
+	 * currentAnagrafica.getId()));
+	 * 
+	 * for() {
+	 * 
+	 * listaCommesse.add(commessaRepository.getById()); } list.add(anagraficaDto); }
+	 * } catch (Exception e) { System.out.println("Exception occurs {}"); throw new
+	 * ServiceException(ServiceMessages.ERRORE_GENERICO); }
+	 * 
+	 * return list;
 	 */
 	@Override
 	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException {
@@ -574,6 +576,32 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		}
 
 		return anagraficaDto;
+	}
+
+	private void CalcoloTipoCcnl(AnagraficaDto anagraficaDto) throws Exception {
+		Contratto contratto = anagraficaDto.getContratto();
+
+		if ((contratto.getRetribuzioneMensileLorda() != null && contratto.getRalAnnua() == null)
+				|| (contratto.getRetribuzioneMensileLorda() == null && contratto.getRalAnnua() != null)) {
+
+			TipoCcnl tipoCcnl = TipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
+
+			if (contratto.getRetribuzioneMensileLorda() != null) {
+				contratto.setRalAnnua(contratto.getRetribuzioneMensileLorda() * tipoCcnl.getNumeroMensilita());
+			} else {
+				contratto.setRetribuzioneMensileLorda(contratto.getRalAnnua() / tipoCcnl.getNumeroMensilita());
+			}
+		}
+
+		if (contratto.getDiariaGiornaliera() != null) {
+			contratto.setDiariaAnnua(contratto.getDiariaGiornaliera() * 20 * 12);
+		} else if (contratto.getDiariaMensile() != null) {
+			contratto.setDiariaAnnua(contratto.getDiariaMensile() * 12);
+		}
+
+		if (contratto.getPercentualePartTime() != null) {
+			contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
+		}
 	}
 
 }

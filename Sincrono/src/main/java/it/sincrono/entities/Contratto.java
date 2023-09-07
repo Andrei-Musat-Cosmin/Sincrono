@@ -149,6 +149,8 @@ public class Contratto {
 
 	@Column(name = "diaria_annua")
 	private Double diariaAnnua;
+	
+	private transient Double RalPartTime;
 
 	public Contratto(Integer id, TipoCausaFineRapporto tipoCausaFineRapporto,
 			TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
@@ -600,6 +602,20 @@ public class Contratto {
 
 	public void setDiariaAnnua(Double diariaAnnua) {
 		this.diariaAnnua = diariaAnnua;
+	}
+	
+	public Double getRalPartTime() {
+		
+		return this.RalPartTime;
+		
+	}
+	
+	public void setRalPartTime(Double ralPartTime) {
+		
+		this.RalPartTime=ralPartTime;
+		
+		
+		
 	}
 
 }
