@@ -152,7 +152,7 @@ public class Contratto {
 	private Double diariaAnnua;
 	
 	@Transient
-	private transient Double RalPartTime;
+	private  Double RalPartTime;
 
 	public Contratto(Integer id, TipoCausaFineRapporto tipoCausaFineRapporto,
 			TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
