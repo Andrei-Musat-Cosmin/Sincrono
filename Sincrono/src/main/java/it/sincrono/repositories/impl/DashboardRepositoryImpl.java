@@ -47,12 +47,10 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 						if (anagraficaDto.getAnagrafica().getTipoAzienda() != null) {
 
-							if (anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != null
+							if (anagraficaDto.getAnagrafica().getTipoAzienda().getId() != null) {
 
-									&& anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != "") {
-
-								subString += "AND a.azienda_tipo LIKE '"
-										+ anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() + "'";
+								subString += "AND a.id_tipo_azienda LIKE '"
+										+ anagraficaDto.getAnagrafica().getTipoAzienda().getId() + "'";
 
 							}
 
@@ -77,8 +75,8 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null
 							&& anagraficaDto.getCommesse().get(0).getAziendaCliente() != "") {
 
-						subString += "AND d.cliente LIKE '" + anagraficaDto.getCommesse().get(0).getAziendaCliente()
-								+ "'";
+						subString += "AND d.azienda_cliente LIKE '"
+								+ anagraficaDto.getCommesse().get(0).getAziendaCliente() + "'";
 
 					}
 
@@ -107,11 +105,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
 				Object[] result = (Object[]) it.next();
 
-				AnagraficaDto anagraficaDtoApp = new AnagraficaDto();
-
-				anagraficaDtoApp.setAnagrafica(new Anagrafica());
-
-				anagraficaDtoApp.getAnagrafica().setId((Integer) result[0]);
+				
 
 				Commessa commessa = new Commessa();
 				if (result != null) {
@@ -142,11 +136,21 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 				}
 
-				anagraficaDtoApp.setCommesse(new ArrayList<Commessa>());
+				if (checkScaduta(commessa)) {
+					
+					AnagraficaDto anagraficaDtoApp = new AnagraficaDto();
 
-				anagraficaDtoApp.getCommesse().add(commessa);
+					anagraficaDtoApp.setAnagrafica(new Anagrafica());
 
-				listAnagraficaDto.add(anagraficaDtoApp);
+					anagraficaDtoApp.getAnagrafica().setId((Integer) result[0]);
+
+					anagraficaDtoApp.setCommesse(new ArrayList<Commessa>());
+
+					anagraficaDtoApp.getCommesse().add(commessa);
+
+					listAnagraficaDto.add(anagraficaDtoApp);
+
+				}
 
 			}
 
@@ -329,7 +333,6 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result[65] != null)
 					livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[65]).toString())));
 				contratto.setTipoLivelloContratto(livelloContratto);
-			
 
 				TipoCcnl ccnl = new TipoCcnl();
 				if (result[24] != null)
