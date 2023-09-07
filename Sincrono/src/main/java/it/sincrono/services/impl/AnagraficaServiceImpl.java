@@ -334,7 +334,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //					anagraficaDto.getAnagrafica().getUtente().getUsername()+"\n"+
 //					"password:"+passwordUtente);
 
-			System.out.println("Password" + passwordUtente);
+			System.out.println("Password " + passwordUtente);
 
 		} catch (DataIntegrityViolationException de) {
 			System.out.println("Exception occurs {}");
