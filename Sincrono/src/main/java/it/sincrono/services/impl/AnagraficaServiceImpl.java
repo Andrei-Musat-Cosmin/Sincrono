@@ -579,6 +579,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	private void CalcoloTipoCcnl(AnagraficaDto anagraficaDto) throws Exception {
+		
+		
 		Contratto contratto = anagraficaDto.getContratto();
 
 		if ((contratto.getRetribuzioneMensileLorda() != null && contratto.getRalAnnua() == null)
