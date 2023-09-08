@@ -261,11 +261,11 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 				LocalDate localDateFine = convertorDate(commessa.getDataFine());
 
-				if (localDateFine.isAfter(LocalDate.now().minus(40, ChronoUnit.DAYS))
-
-						&&
-
-						localDateFine.isBefore(LocalDate.now())) {
+				if (localDateFine.isAfter(LocalDate.now()) 
+						
+						&& 
+						
+					localDateFine.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
 
 					listCommesse.add(commessa);
 
@@ -460,11 +460,11 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 			LocalDate dataSommata = dataAssunzione.plusMonths(anagraficaDto.getContratto().getMesiDurata());
 
-			if (dataSommata.isAfter(LocalDate.now().minus(40, ChronoUnit.DAYS))
-
-					&&
-
-					dataSommata.isBefore(LocalDate.now())) {
+			if (dataSommata.isAfter(LocalDate.now()) 
+					
+					&& 
+					
+				dataSommata.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
 
 				listInScadenza.add(anagraficaDto);
 

@@ -1,6 +1,7 @@
 package it.sincrono.entities;
 
 import java.util.Date;
+
 import java.util.Objects;
 
 import jakarta.persistence.Column;
