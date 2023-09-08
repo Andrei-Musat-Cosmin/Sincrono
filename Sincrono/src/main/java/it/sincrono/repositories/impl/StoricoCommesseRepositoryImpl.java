@@ -29,28 +29,28 @@ public class StoricoCommesseRepositoryImpl extends BaseRepositoryImpl implements
 
 			Commessa commessa = new Commessa();
 
-			if (result[0] != null)
-				commessa.setClienteFinale((String) result[0]);
-			if (result[1] != null)
-				commessa.setTitoloPosizione((String) result[1]);
-			if (result[2] != null)
-				commessa.setDistacco((Boolean) result[2]);
+			if (result[2]!= null)
+				commessa.setClienteFinale((String) result[2]);
 			if (result[3] != null)
-				commessa.setDistaccoAzienda((String) result[3]);
+				commessa.setTitoloPosizione((String) result[3]);
 			if (result[4] != null)
-				commessa.setDistaccoData((Date) result[4]);
+				commessa.setDistacco((Boolean) result[4]);
 			if (result[5] != null)
-				commessa.setDataInizio((Date) result[5]);
+				commessa.setDistaccoAzienda((String) result[5]);
 			if (result[6] != null)
-				commessa.setDataFine((Date) result[6]);
+				commessa.setDistaccoData((Date) result[6]);
 			if (result[7] != null)
-				commessa.setTariffaGiornaliera((String) result[7]);
+				commessa.setDataInizio((Date) result[7]);
 			if (result[8] != null)
-				commessa.setAziendaDiFatturazioneInterna((String) result[8]);
+				commessa.setDataFine((Date) result[8]);
 			if (result[9] != null)
-				commessa.setAttivo((Boolean) result[9]);
+				commessa.setTariffaGiornaliera((String) result[9]);
 			if (result[10] != null)
-				commessa.setAttesaLavori((Boolean) result[10]);
+				commessa.setAziendaDiFatturazioneInterna((String) result[10]);
+			if (result[11] != null)
+				commessa.setAttivo((Boolean) result[11]);
+			if (result[12] != null)
+				commessa.setAttesaLavori((Boolean) result[12]);
 
 			storicoCommesseList.add(commessa);
 
