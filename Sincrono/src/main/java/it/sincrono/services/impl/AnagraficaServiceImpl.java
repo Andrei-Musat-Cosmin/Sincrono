@@ -590,6 +590,42 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		return anagraficaDto;
 	}
+	
+	@Override
+	@Transactional(rollbackOn = ServiceException.class)
+	public void retainAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
+
+		try {
+
+			Anagrafica anagrafica = anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get();
+			anagrafica.setAttivo(true);
+			anagraficaRepository.saveAndFlush(anagrafica);
+
+
+			if (anagraficaDto.getContratto().getId() != 0) {
+
+				Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
+				contratto.setAttivo(true);
+				contrattoRepository.saveAndFlush(contratto);
+
+			}
+
+			Utente utente = utenteRepository.findById(anagrafica.getUtente().getId()).get();
+			utente.setAttivo(true);
+			utenteRepository.saveAndFlush(utente);
+
+		} catch (NoSuchElementException ne) {
+			System.out.println("Exception occurs {}, id {}");
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+		} catch (DataIntegrityViolationException de) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (Exception e) {
+			System.out.println("Exception occurs {}");
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+	}
 
 	private void CalcoloTipoCcnl(AnagraficaDto anagraficaDto) throws Exception {
 		
