@@ -8,16 +8,20 @@ import it.sincrono.services.exceptions.ServiceException;
 
 public interface CommessaService {
 
-	//public List<Commessa> listCommessa() throws ServiceException;
+	// public List<Commessa> listCommessa() throws ServiceException;
 
-	//public Commessa getCommessaById(Integer id) throws ServiceException;
+	// public Commessa getCommessaById(Integer id) throws ServiceException;
 
-	//public void insert(Commessa Commessa) throws ServiceException;
+	// public void insert(Commessa Commessa) throws ServiceException;
 
 	public void update(Commessa Commessa) throws ServiceException;
 
-	//public void delete(Integer id) throws ServiceException;
+	// public void delete(Integer id) throws ServiceException;
 
 	public List<CommessaDto> dashboard() throws ServiceException;
+
+	public void storicizzaCommessa(Integer id) throws ServiceException;
+
+	public void retainCommessa(Integer id) throws ServiceException;
 
 }
