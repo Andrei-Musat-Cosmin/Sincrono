@@ -348,6 +348,33 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
+	
+	@PutMapping("/retain")
+	public @ResponseBody HttpEntity<GenericResponse> retainAnagraficaDto(
+			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+
+		try {
+			System.out.println("START invocation deleteAnagraficaDto");
+
+			anagraficaService.retainAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+			System.out.println("END invocation deleteAnagraficaDto");
+
+		} catch (ServiceException e) {
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+
+		return httpEntity;
+	}
 
 //	@GetMapping("/anagrafica-list-contratti")
 //	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> anagraficaListContratti() {
