@@ -326,6 +326,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
+				CalcoloTipoCcnl(anagraficaDto);
 				anagraficaDto.getContratto().setAttivo(true);
 				Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
 				storicoContrattiRepository
@@ -441,7 +442,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 							Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
 							storicoCommessaRepository.saveAndFlush(
 									new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
-							commessaDb.setAttivo(false);
+							if(commessaDb.getId()!=0)commessaDb.setAttivo(false);
 							commesseRepository.saveAndFlush(commessaDb);
 						}
 			
@@ -456,13 +457,14 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			
 				Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 				if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
+					CalcoloTipoCcnl(anagraficaDto);
 					anagraficaDto.getContratto().setId(null);
 					anagraficaDto.getContratto().setAttivo(true);
 					Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
 					contrattoRepository.saveAndFlush(anagraficaDto.getContratto());
 					storicoContrattiRepository
 							.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
-					contratto.setAttivo(false);
+					if(contratto.getId()!=0)contratto.setAttivo(false);
 					contrattoRepository.saveAndFlush(contratto);
 				}
 				
