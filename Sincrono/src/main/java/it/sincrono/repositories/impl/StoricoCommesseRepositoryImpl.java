@@ -29,7 +29,8 @@ public class StoricoCommesseRepositoryImpl extends BaseRepositoryImpl implements
 
 			Commessa commessa = new Commessa();
 			
-			
+			if (result[0]!= null)
+				commessa.setId((Integer) result[0]);
 			if (result[1]!= null)
 				commessa.setAziendaCliente((String) result[1]);
 			if (result[2]!= null)
