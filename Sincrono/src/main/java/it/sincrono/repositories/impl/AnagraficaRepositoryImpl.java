@@ -451,7 +451,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		if (result[69] != null)
 			ccnl.setDescrizione((String) result[69]);
 		if (result[70] != null)
-			ccnl.setDescrizione((String) result[70]);
+			ccnl.setNumeroMensilita((Integer) result[70]);
 		contratto.setTipoCcnl(ccnl);
 
 		TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
