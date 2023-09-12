@@ -316,7 +316,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					tipoAzienda.setId((Integer) result[5]);
 				if (result[25] != null)
 					tipoAzienda.setDescrizione((String) result[25]);
+
 				anagrafica.setTipoAzienda(tipoAzienda);
+
 				if (result[6] != null)
 					anagrafica.setComuneDiNascita((String) result[6]);
 				if (result[7] != null)
@@ -345,17 +347,18 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					anagrafica.setFigliACarico((Boolean) result[18]);
 				if (result[19] != null)
 					anagrafica.setAttivo((Boolean) result[19]);
-
+				if (result[20] != null)
+					anagrafica.setAttesaLavori((Boolean) result[20]);
 				anagraficaDto.setAnagrafica(anagrafica);
 
 				Ruolo ruolo = new Ruolo();
 
-				if (result[20] != null) {
-					ruolo.setId((Integer) result[20]);
+				if (result[21] != null) {
+					ruolo.setId((Integer) result[12]);
 				}
 
-				if (result[22] != null) {
-					ruolo.setNome((String) result[22]);
+				if (result[23] != null) {
+					ruolo.setNome((String) result[23]);
 				}
 
 				anagraficaDto.setRuolo(ruolo);
@@ -386,10 +389,10 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		if (result[4] != null)
 			anagrafica.setUtente(new Utente((Integer) result[4]));
 		TipoAzienda tipoAzienda = new TipoAzienda();
-		if (result[70] != null)
-			tipoAzienda.setId((Integer) result[70]);
 		if (result[71] != null)
-			tipoAzienda.setDescrizione((String) result[71]);
+			tipoAzienda.setId((Integer) result[71]);
+		if (result[72] != null)
+			tipoAzienda.setDescrizione((String) result[72]);
 		anagrafica.setTipoAzienda(tipoAzienda);
 		if (result[6] != null)
 			anagrafica.setComuneDiNascita((String) result[6]);
@@ -419,31 +422,32 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			anagrafica.setFigliACarico((Boolean) result[18]);
 		if (result[19] != null)
 			anagrafica.setAttivo((Boolean) result[19]);
-
+		if (result[20] != null)
+			anagrafica.setAttesaLavori((Boolean) result[20]);
 		currentAnagraficaDto.setAnagrafica(anagrafica);
 
 		/** SET DI CONTRATTO **/
 		Contratto contratto = new Contratto();
 
-		if (result[20] != null)
+		if (result[21] != null)
 			contratto.setId((Integer) result[20]);
 
 		TipoContratto tipoContratto = new TipoContratto();
-		if (result[65] != null)
-			tipoContratto.setId((Integer) result[21]);
 		if (result[66] != null)
-			tipoContratto.setDescrizione((String) result[66]);
+			tipoContratto.setId((Integer) result[66]);
+		if (result[67] != null)
+			tipoContratto.setDescrizione((String) result[67]);
 		contratto.setTipoContratto(tipoContratto);
 
 		TipoLivelloContratto livelloContratto = new TipoLivelloContratto();
-		if (result[61] != null)
-			livelloContratto.setId((Integer) result[22]);
 		if (result[62] != null)
-			livelloContratto.setCcnl((String) result[62]);
+			livelloContratto.setId((Integer) result[62]);
 		if (result[63] != null)
-			livelloContratto.setLivello((String) result[63]);
+			livelloContratto.setCcnl((String) result[63]);
 		if (result[64] != null)
-			livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[64]).toString())));
+			livelloContratto.setLivello((String) result[64]);
+		if (result[65] != null)
+			livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[65]).toString())));
 		contratto.setTipoLivelloContratto(livelloContratto);
 		/*
 		 * SI UTILIZZA LA STESSA AZIENDA DELL'ANAGRAFICA
@@ -451,96 +455,96 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		contratto.setTipoAzienda(tipoAzienda);
 
 		TipoCcnl ccnl = new TipoCcnl();
-		if (result[67] != null)
-			ccnl.setId((Integer) result[24]);
 		if (result[68] != null)
-			ccnl.setDescrizione((String) result[68]);
+			ccnl.setId((Integer) result[68]);
 		if (result[69] != null)
-			ccnl.setNumeroMensilita((Integer) result[69]);
+			ccnl.setDescrizione((String) result[69]);
+		if (result[70] != null)
+			ccnl.setNumeroMensilita((Integer) result[70]);
 		contratto.setTipoCcnl(ccnl);
 
 		TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
+		if (result[71] != null)
+			tipoCanaleReclutamento.setId((Integer) result[71]);
 		if (result[72] != null)
-			tipoCanaleReclutamento.setId((Integer) result[72]);
-		if (result[73] != null)
-			tipoCanaleReclutamento.setDescrizione((String) result[73]);
+			tipoCanaleReclutamento.setDescrizione((String) result[72]);
 		contratto.setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 		TipoCausaFineRapporto tipoCausaFineRapporto = new TipoCausaFineRapporto();
+		if (result[73] != null)
+			tipoCausaFineRapporto.setId((Integer) result[73]);
 		if (result[74] != null)
-			tipoCausaFineRapporto.setId((Integer) result[74]);
-		if (result[75] != null)
-			tipoCausaFineRapporto.setDescrizione((String) result[75]);
+			tipoCausaFineRapporto.setDescrizione((String) result[74]);
 		contratto.setTipoCausaFineRapporto(tipoCausaFineRapporto);
 
-		if (result[27] != null)
-			contratto.setAttivo((Boolean) result[27]);
 		if (result[28] != null)
-			contratto.setQualifica((String) result[28]);
+			contratto.setAttivo((Boolean) result[28]);
 		if (result[29] != null)
-			contratto.setSedeAssunzione((String) result[29]);
+			contratto.setQualifica((String) result[29]);
 		if (result[30] != null)
-			contratto.setDataAssunzione((Date) result[30]);
+			contratto.setSedeAssunzione((String) result[30]);
 		if (result[31] != null)
-			contratto.setDataInizioProva((Date) result[31]);
+			contratto.setDataAssunzione((Date) result[31]);
 		if (result[32] != null)
-			contratto.setDataFineProva((Date) result[32]);
+			contratto.setDataInizioProva((Date) result[32]);
 		if (result[33] != null)
-			contratto.setDataFineRapporto((Date) result[33]);
+			contratto.setDataFineProva((Date) result[33]);
 		if (result[34] != null)
-			contratto.setMesiDurata((Integer) result[34]);
+			contratto.setDataFineRapporto((Date) result[34]);
 		if (result[35] != null)
-			contratto.setLivelloAttuale((String) result[35]);
+			contratto.setMesiDurata((Integer) result[35]);
 		if (result[36] != null)
-			contratto.setLivelloFinale((String) result[36]);
+			contratto.setLivelloAttuale((String) result[36]);
 		if (result[37] != null)
-			contratto.setPartTime((Boolean) result[37]);
+			contratto.setLivelloFinale((String) result[37]);
 		if (result[38] != null)
-			contratto.setPercentualePartTime((Double.valueOf(((BigDecimal) result[38]).toString())));
+			contratto.setPartTime((Boolean) result[38]);
 		if (result[39] != null)
-			contratto.setRetribuzioneMensileLorda((Double.valueOf(((BigDecimal) result[39]).toString())));
+			contratto.setPercentualePartTime((Double.valueOf(((BigDecimal) result[39]).toString())));
 		if (result[40] != null)
-			contratto.setSuperminimoMensile((Double.valueOf(((BigDecimal) result[40]).toString())));
+			contratto.setRetribuzioneMensileLorda((Double.valueOf(((BigDecimal) result[40]).toString())));
 		if (result[41] != null)
-			contratto.setRalAnnua((Double.valueOf(((BigDecimal) result[41]).toString())));
+			contratto.setSuperminimoMensile((Double.valueOf(((BigDecimal) result[41]).toString())));
 		if (result[42] != null)
-			contratto.setSuperminimoRal((Double.valueOf(((BigDecimal) result[42]).toString())));
+			contratto.setRalAnnua((Double.valueOf(((BigDecimal) result[42]).toString())));
 		if (result[43] != null)
-			contratto.setDiariaMensile((Double.valueOf(((BigDecimal) result[43]).toString())));
+			contratto.setSuperminimoRal((Double.valueOf(((BigDecimal) result[43]).toString())));
 		if (result[44] != null)
-			contratto.setDiariaGiornaliera((Double.valueOf(((BigDecimal) result[44]).toString())));
+			contratto.setDiariaMensile((Double.valueOf(((BigDecimal) result[44]).toString())));
 		if (result[45] != null)
-			contratto.setTicket((Boolean) result[45]);
+			contratto.setDiariaGiornaliera((Double.valueOf(((BigDecimal) result[45]).toString())));
 		if (result[46] != null)
-			contratto.setValoreTicket((Double.valueOf(((BigDecimal) result[46]).toString())));
+			contratto.setTicket((Boolean) result[46]);
 		if (result[47] != null)
-			contratto.setCategoriaProtetta((Boolean) result[47]);
+			contratto.setValoreTicket((Double.valueOf(((BigDecimal) result[47]).toString())));
 		if (result[48] != null)
-			contratto.setTutor((String) result[48]);
+			contratto.setCategoriaProtetta((Boolean) result[48]);
 		if (result[49] != null)
-			contratto.setPfi((Boolean) result[49]);
+			contratto.setTutor((String) result[49]);
 		if (result[50] != null)
-			contratto.setCorsoSicurezza((Boolean) result[50]);
+			contratto.setPfi((Boolean) result[50]);
 		if (result[51] != null)
-			contratto.setDataCorsoSicurezza((Date) result[51]);
+			contratto.setCorsoSicurezza((Boolean) result[51]);
 		if (result[52] != null)
-			contratto.setPc((Boolean) result[52]);
+			contratto.setDataCorsoSicurezza((Date) result[52]);
 		if (result[53] != null)
-			contratto.setVisitaMedica((Boolean) result[53]);
+			contratto.setPc((Boolean) result[53]);
 		if (result[54] != null)
-			contratto.setDataVisitaMedica((Date) result[54]);
+			contratto.setVisitaMedica((Boolean) result[54]);
 		if (result[55] != null)
-			contratto.setScattiAnzianita((Double.valueOf(((BigDecimal) result[55]).toString())));
+			contratto.setDataVisitaMedica((Date) result[55]);
 		if (result[56] != null)
-			contratto.setTariffaPartitaIva((Double.valueOf(((BigDecimal) result[56]).toString())));
+			contratto.setScattiAnzianita((Double.valueOf(((BigDecimal) result[56]).toString())));
 		if (result[57] != null)
-			contratto.setAssicurazioneObbligatoria((Boolean) result[57]);
+			contratto.setTariffaPartitaIva((Double.valueOf(((BigDecimal) result[57]).toString())));
 		if (result[58] != null)
-			contratto.setRetribuzioneNettaMensile((Double.valueOf(((BigDecimal) result[58]).toString())));
+			contratto.setAssicurazioneObbligatoria((Boolean) result[58]);
 		if (result[59] != null)
-			contratto.setRetribuzioneNettaGiornaliera((Double.valueOf(((BigDecimal) result[59]).toString())));
+			contratto.setRetribuzioneNettaMensile((Double.valueOf(((BigDecimal) result[59]).toString())));
 		if (result[60] != null)
-			contratto.setDiariaAnnua((Double.valueOf(((BigDecimal) result[60]).toString())));
+			contratto.setRetribuzioneNettaGiornaliera((Double.valueOf(((BigDecimal) result[60]).toString())));
+		if (result[61] != null)
+			contratto.setDiariaAnnua((Double.valueOf(((BigDecimal) result[61]).toString())));
 		currentAnagraficaDto.setContratto(contratto);
 
 		/*
