@@ -35,7 +35,7 @@ public class Anagrafica {
 	@Column(name = "cognome")
 	private String cognome;
 
-	@Column(name = "cf")
+	@Column(name = "codice_fiscale")
 	private String codiceFiscale;
 
 	@Column(name = "comune_di_nascita")
@@ -79,13 +79,15 @@ public class Anagrafica {
 
 	@Column(name = "attivo")
 	private Boolean attivo;
-	
 
+	@Column(name = "attesa_lavori")
+	private Boolean attesaLavori;
 
 	public Anagrafica(Integer id, Utente utente, Boolean attivo, TipoAzienda tipoAzienda, String cognome, String nome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
-			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico) {
+			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico,
+			Boolean attesaLavori) {
 		super();
 		this.id = id;
 		this.utente = utente;
@@ -107,6 +109,7 @@ public class Anagrafica {
 		this.altriTitoli = altriTitoli;
 		this.coniugato = coniugato;
 		this.figliACarico = figliACarico;
+		this.attesaLavori = attesaLavori;
 	}
 
 	public Anagrafica() {
@@ -279,4 +282,13 @@ public class Anagrafica {
 		this.attivo = attivo;
 	}
 
+	public Boolean getAttesaLavori() {
+		return attesaLavori;
+	}
+
+	public void setAttesaLavori(Boolean attesaLavori) {
+		this.attesaLavori = attesaLavori;
+	}
+
+	
 }

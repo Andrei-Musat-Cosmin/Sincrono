@@ -1,7 +1,6 @@
 package it.sincrono.entities;
 
 import java.util.Date;
-
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -77,9 +76,6 @@ public class Contratto {
 	@Column(name = "livello_finale")
 	private String livelloFinale;
 
-	@Column(name = "dimissioni")
-	private Boolean dimissioni;
-
 	@Column(name = "part_time")
 	private Boolean partTime;
 
@@ -117,7 +113,7 @@ public class Contratto {
 	private String tutor;
 
 	@Column(name = "pfi")
-	private String pfi;
+	private Boolean pfi;
 
 	@Column(name = "corso_sicurezza")
 	private Boolean corsoSicurezza;
@@ -151,21 +147,21 @@ public class Contratto {
 
 	@Column(name = "diaria_annua")
 	private Double diariaAnnua;
-	
+
 	@Transient
-	private  Double RalPartTime;
+	private Double RalPartTime;
 
 	public Contratto(Integer id, TipoCausaFineRapporto tipoCausaFineRapporto,
 			TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
 			TipoLivelloContratto tipoLivelloContratto, TipoAzienda tipoAzienda, TipoCcnl tipoCcnl, Boolean attivo,
 			String qualifica, String sedeAssunzione, Date dataAssunzione, Date dataInizioProva, Date dataFineProva,
-			Date dataFineRapporto, Integer mesiDurata, String livelloAttuale, String livelloFinale, Boolean dimissioni,
-			Boolean partTime, Double percentualePartTime, Double retribuzioneMensileLorda, Double superminimoMensile,
-			Double ralAnnua, Double superminimoRal, Double diariaMensile, Double diariaGiornaliera, Boolean ticket,
-			Double valoreTicket, Boolean categoriaProtetta, String tutor, String pfi, Boolean corsoSicurezza,
-			Date dataCorsoSicurezza, Boolean pc, Boolean visitaMedica, Date dataVisitaMedica, Double scattiAnzianita,
-			Double tariffaPartitaIva, Boolean assicurazioneObbligatoria, Double retribuzioneNettaGiornaliera,
-			Double retribuzioneNettaMensile, Double diariaAnnua) {
+			Date dataFineRapporto, Integer mesiDurata, String livelloAttuale, String livelloFinale, Boolean partTime,
+			Double percentualePartTime, Double retribuzioneMensileLorda, Double superminimoMensile, Double ralAnnua,
+			Double superminimoRal, Double diariaMensile, Double diariaGiornaliera, Boolean ticket, Double valoreTicket,
+			Boolean categoriaProtetta, String tutor, Boolean pfi, Boolean corsoSicurezza, Date dataCorsoSicurezza,
+			Boolean pc, Boolean visitaMedica, Date dataVisitaMedica, Double scattiAnzianita, Double tariffaPartitaIva,
+			Boolean assicurazioneObbligatoria, Double retribuzioneNettaGiornaliera, Double retribuzioneNettaMensile,
+			Double diariaAnnua) {
 		super();
 		this.id = id;
 		this.tipoCausaFineRapporto = tipoCausaFineRapporto;
@@ -184,7 +180,6 @@ public class Contratto {
 		this.mesiDurata = mesiDurata;
 		this.livelloAttuale = livelloAttuale;
 		this.livelloFinale = livelloFinale;
-		this.dimissioni = dimissioni;
 		this.partTime = partTime;
 		this.percentualePartTime = percentualePartTime;
 		this.retribuzioneMensileLorda = retribuzioneMensileLorda;
@@ -248,8 +243,8 @@ public class Contratto {
 				&& Objects.equals(dataInizioProva, other.dataInizioProva)
 				&& Objects.equals(dataVisitaMedica, other.dataVisitaMedica)
 				&& Objects.equals(diariaGiornaliera, other.diariaGiornaliera)
-				&& Objects.equals(diariaMensile, other.diariaMensile) && Objects.equals(dimissioni, other.dimissioni)
-				&& Objects.equals(id, other.id) && Objects.equals(livelloAttuale, other.livelloAttuale)
+				&& Objects.equals(diariaMensile, other.diariaMensile) && Objects.equals(id, other.id)
+				&& Objects.equals(livelloAttuale, other.livelloAttuale)
 				&& Objects.equals(livelloFinale, other.livelloFinale) && Objects.equals(mesiDurata, other.mesiDurata)
 				&& Objects.equals(partTime, other.partTime) && Objects.equals(pc, other.pc)
 				&& Objects.equals(percentualePartTime, other.percentualePartTime) && Objects.equals(pfi, other.pfi)
@@ -407,14 +402,6 @@ public class Contratto {
 		this.livelloFinale = livelloFinale;
 	}
 
-	public Boolean getDimissioni() {
-		return dimissioni;
-	}
-
-	public void setDimissioni(Boolean dimissioni) {
-		this.dimissioni = dimissioni;
-	}
-
 	public Boolean getPartTime() {
 		return partTime;
 	}
@@ -511,11 +498,11 @@ public class Contratto {
 		this.tutor = tutor;
 	}
 
-	public String getPfi() {
+	public Boolean getPfi() {
 		return pfi;
 	}
 
-	public void setPfi(String pfi) {
+	public void setPfi(Boolean pfi) {
 		this.pfi = pfi;
 	}
 
@@ -606,19 +593,17 @@ public class Contratto {
 	public void setDiariaAnnua(Double diariaAnnua) {
 		this.diariaAnnua = diariaAnnua;
 	}
-	
+
 	public Double getRalPartTime() {
-		
+
 		return this.RalPartTime;
-		
+
 	}
-	
+
 	public void setRalPartTime(Double ralPartTime) {
-		
-		this.RalPartTime=ralPartTime;
-		
-		
-		
+
+		this.RalPartTime = ralPartTime;
+
 	}
 
 }

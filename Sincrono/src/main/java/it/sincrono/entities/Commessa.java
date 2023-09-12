@@ -53,12 +53,10 @@ public class Commessa {
 	@Column(name = "attivo")
 	private Boolean attivo;
 
-	@Column(name = "attesaLavori")
-	private Boolean attesaLavori;
 
 	public Commessa(Integer id, String aziendaCliente, String clienteFinale, String titoloPosizione, Boolean distacco,
 			Date distaccoData, String distaccoAzienda, Date dataInizio, Date dataFine, String tariffaGiornaliera,
-			String aziendaDiFatturazioneInterna, Boolean attivo, Boolean attesaLavori) {
+			String aziendaDiFatturazioneInterna, Boolean attivo) {
 		super();
 		this.id = id;
 		this.aziendaCliente = aziendaCliente;
@@ -72,7 +70,6 @@ public class Commessa {
 		this.tariffaGiornaliera = tariffaGiornaliera;
 		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
 		this.attivo = attivo;
-		this.attesaLavori = attesaLavori;
 
 	}
 
@@ -90,8 +87,7 @@ public class Commessa {
 		if (getClass() != obj.getClass())
 			return false;
 		Commessa other = (Commessa) obj;
-		return Objects.equals(attesaLavori, other.attesaLavori)
-				&& Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
+		return Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
 				&& Objects.equals(clienteFinale, other.clienteFinale)
 				&& DateUtil.dateCompare((Date) dataFine, (Date) other.dataFine)
 				&& DateUtil.dateCompare((Date) dataInizio, (Date) other.dataInizio)
@@ -191,14 +187,6 @@ public class Commessa {
 
 	public void setAziendaDiFatturazioneInterna(String aziendaDiFatturazioneInterna) {
 		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
-	}
-
-	public Boolean getAttesaLavori() {
-		return attesaLavori;
-	}
-
-	public void setAttesaLavori(Boolean attesaLavori) {
-		this.attesaLavori = attesaLavori;
 	}
 
 	public Boolean getAttivo() {

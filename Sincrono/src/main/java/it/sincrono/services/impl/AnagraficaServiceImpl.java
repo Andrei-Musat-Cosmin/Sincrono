@@ -277,7 +277,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				throw new ServiceException();
 			}
 
-			String passwordUtente = new TokenGenerator().nextToken();
+			//String passwordUtente = new TokenGenerator().nextToken();
+			String passwordUtente = "123456";
 			Utente utente = new Utente(anagraficaDto.getAnagrafica().getMailAziendale(), true,
 					BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
 			anagraficaDto.getAnagrafica().setUtente(utente);
@@ -472,7 +473,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				
 			}else {
 				
-				anagraficaDto.getContratto().setDimissioni(true);
+				//anagraficaDto.getContratto().setDimissioni(true);
 				deleteAnagraficaDto(anagraficaDto);
 				
 			}

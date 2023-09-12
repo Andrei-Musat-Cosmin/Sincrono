@@ -53,8 +53,6 @@ public class StoricoCommesseRepositoryImpl extends BaseRepositoryImpl implements
 				commessa.setAziendaDiFatturazioneInterna((String) result[10]);
 			if (result[11] != null)
 				commessa.setAttivo((Boolean) result[11]);
-			if (result[12] != null)
-				commessa.setAttesaLavori((Boolean) result[12]);
 
 			storicoCommesseList.add(commessa);
 
