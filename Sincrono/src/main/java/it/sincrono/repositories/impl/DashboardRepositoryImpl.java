@@ -111,28 +111,28 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 				Commessa commessa = new Commessa();
 				if (result != null) {
-					if (result[1] != null)
-						commessa.setId((Integer) result[1]);
-					if (result[2] != null)
-						commessa.setAziendaCliente((String) result[2]);
-					if (result[3] != null)
-						commessa.setClienteFinale((String) result[3]);
 					if (result[4] != null)
-						commessa.setTitoloPosizione((String) result[4]);
+						commessa.setId((Integer) result[4]);
 					if (result[5] != null)
-						commessa.setDistacco((Boolean) result[5]);
+						commessa.setAziendaCliente((String) result[5]);
 					if (result[6] != null)
-						commessa.setDistaccoAzienda((String) result[6]);
+						commessa.setClienteFinale((String) result[6]);
 					if (result[7] != null)
-						commessa.setDistaccoData((Date) result[7]);
+						commessa.setTitoloPosizione((String) result[7]);
 					if (result[8] != null)
-						commessa.setDataInizio((Date) result[8]);
+						commessa.setDistacco((Boolean) result[8]);
 					if (result[9] != null)
-						commessa.setDataFine((Date) result[9]);
+						commessa.setDistaccoAzienda((String) result[9]);
 					if (result[10] != null)
-						commessa.setTariffaGiornaliera((String) result[10]);
+						commessa.setDistaccoData((Date) result[10]);
 					if (result[11] != null)
-						commessa.setAziendaDiFatturazioneInterna((String) result[11]);
+						commessa.setDataInizio((Date) result[11]);
+					if (result[12] != null)
+						commessa.setDataFine((Date) result[12]);
+					if (result[13] != null)
+						commessa.setTariffaGiornaliera((String) result[13]);
+					if (result[14] != null)
+						commessa.setAziendaDiFatturazioneInterna((String) result[14]);
 
 				}
 
@@ -143,6 +143,9 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					anagraficaDtoApp.setAnagrafica(new Anagrafica());
 
 					anagraficaDtoApp.getAnagrafica().setId((Integer) result[0]);
+					anagraficaDtoApp.getAnagrafica().setNome((String) result[1]);
+					anagraficaDtoApp.getAnagrafica().setCognome((String) result[2]);
+					anagraficaDtoApp.getAnagrafica().setCodiceFiscale((String) result[3]);
 
 					anagraficaDtoApp.setCommesse(new ArrayList<Commessa>());
 
@@ -175,7 +178,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 			List<AnagraficaDto> listAnagraficaDto = new ArrayList<AnagraficaDto>();
 			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
-				Object result = (Object) it.next();
+				Object[] result = (Object[]) it.next();
 
 				AnagraficaDto anagraficaDto = new AnagraficaDto();
 
@@ -183,7 +186,10 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 				if (result != null) {
 
-					anagrafica.setId((Integer) result);
+					anagrafica.setId((Integer) result[0]);
+					anagrafica.setNome((String) result[1]);
+					anagrafica.setCognome((String) result[2]);
+					anagrafica.setCodiceFiscale((String) result[3]);
 
 				}
 
@@ -532,28 +538,28 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 				Commessa commessa = new Commessa();
 				if (result != null) {
-					if (result[1] != null)
-						commessa.setId((Integer) result[1]);
-					if (result[2] != null)
-						commessa.setAziendaCliente((String) result[2]);
-					if (result[3] != null)
-						commessa.setClienteFinale((String) result[3]);
 					if (result[4] != null)
-						commessa.setTitoloPosizione((String) result[4]);
+						commessa.setId((Integer) result[4]);
 					if (result[5] != null)
-						commessa.setDistacco((Boolean) result[5]);
+						commessa.setAziendaCliente((String) result[5]);
 					if (result[6] != null)
-						commessa.setDistaccoAzienda((String) result[6]);
+						commessa.setClienteFinale((String) result[6]);
 					if (result[7] != null)
-						commessa.setDistaccoData((Date) result[7]);
+						commessa.setTitoloPosizione((String) result[7]);
 					if (result[8] != null)
-						commessa.setDataInizio((Date) result[8]);
+						commessa.setDistacco((Boolean) result[8]);
 					if (result[9] != null)
-						commessa.setDataFine((Date) result[9]);
+						commessa.setDistaccoAzienda((String) result[9]);
 					if (result[10] != null)
-						commessa.setTariffaGiornaliera((String) result[10]);
+						commessa.setDistaccoData((Date) result[10]);
 					if (result[11] != null)
-						commessa.setAziendaDiFatturazioneInterna((String) result[11]);
+						commessa.setDataInizio((Date) result[11]);
+					if (result[12] != null)
+						commessa.setDataFine((Date) result[12]);
+					if (result[13] != null)
+						commessa.setTariffaGiornaliera((String) result[13]);
+					if (result[14] != null)
+						commessa.setAziendaDiFatturazioneInterna((String) result[14]);
 
 				}
 				if (checkScaduta(commessa)) {
@@ -563,6 +569,9 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					anagraficaDtoApp.setAnagrafica(new Anagrafica());
 
 					anagraficaDtoApp.getAnagrafica().setId((Integer) result[0]);
+					anagraficaDtoApp.getAnagrafica().setNome((String) result[1]);
+					anagraficaDtoApp.getAnagrafica().setCognome((String) result[2]);
+					anagraficaDtoApp.getAnagrafica().setCodiceFiscale((String) result[3]);
 
 					anagraficaDtoApp.setCommesse(new ArrayList<Commessa>());
 
