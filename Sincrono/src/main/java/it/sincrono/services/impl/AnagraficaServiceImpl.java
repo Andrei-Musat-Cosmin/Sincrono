@@ -277,7 +277,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				throw new ServiceException();
 			}
 
-			//String passwordUtente = new TokenGenerator().nextToken();
+			// String passwordUtente = new TokenGenerator().nextToken();
 			String passwordUtente = "123456";
 			Utente utente = new Utente(anagraficaDto.getAnagrafica().getMailAziendale(), true,
 					BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
@@ -410,32 +410,31 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			// status = transactionManager.getTransaction(new
 			// DefaultTransactionDefinition());
-			if(anagraficaDto.getContratto().getTipoCausaFineRapporto()==null) {
+			if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null) {
 
 				anagraficaDto.getAnagrafica().setAttivo(true);
-				anagraficaDto.getAnagrafica()
-						.setUtente(anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get().getUtente());
+				anagraficaDto.getAnagrafica().setUtente(
+						anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get().getUtente());
 				anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica());
 				Integer idAnagrafica = anagraficaDto.getAnagrafica().getId();
-			
+
 				if (anagraficaDto.getRuolo() != null) {
-			
+
 					if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
 						System.out.println("Exception occurs {}");
 						throw new ServiceException();
 					}
-			
+
 					Integer idProfilo = profiloRepository.getidProfilo(idAnagrafica);
-					profiloRepository.saveAndFlush(
-							new Profilo(idProfilo, anagraficaDto.getRuolo(), anagraficaDto.getAnagrafica().getUtente()));
-			
+					profiloRepository.saveAndFlush(new Profilo(idProfilo, anagraficaDto.getRuolo(),
+							anagraficaDto.getAnagrafica().getUtente()));
+
 				}
-			
+
 				for (Commessa commessa : anagraficaDto.getCommesse()) {
-					
-			
+
 					if (commessa.getId() != null) {
-			
+
 						Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
 						if (!objectCompare.Compare(commessa, commessaDb)) {
 							commessa.setId(null);
@@ -443,19 +442,20 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 							Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
 							storicoCommessaRepository.saveAndFlush(
 									new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
-							if(commessaDb.getId()!=0)commessaDb.setAttivo(false);
+							if (commessaDb.getId() != 0)
+								commessaDb.setAttivo(false);
 							commesseRepository.saveAndFlush(commessaDb);
 						}
-			
+
 					} else {
-			
+
 						Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
-						storicoCommessaRepository
-								.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
-			
+						storicoCommessaRepository.saveAndFlush(
+								new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
+
 					}
 				}
-			
+
 				Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 				if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
 					CalcoloTipoCcnl(anagraficaDto);
@@ -463,19 +463,18 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					anagraficaDto.getContratto().setAttivo(true);
 					Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
 					contrattoRepository.saveAndFlush(anagraficaDto.getContratto());
-					storicoContrattiRepository
-							.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
-					if(contratto.getId()!=0)contratto.setAttivo(false);
+					storicoContrattiRepository.saveAndFlush(
+							new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
+					if (contratto.getId() != 0)
+						contratto.setAttivo(false);
 					contrattoRepository.saveAndFlush(contratto);
 				}
-				
-				
-				
-			}else {
-				
-				//anagraficaDto.getContratto().setDimissioni(true);
+
+			} else {
+
+				// anagraficaDto.getContratto().setDimissioni(true);
 				deleteAnagraficaDto(anagraficaDto);
-				
+
 			}
 
 			// transactionManager.commit(status);
@@ -591,7 +590,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		return anagraficaDto;
 	}
-	
+
 	@Override
 	@Transactional(rollbackOn = ServiceException.class)
 	public void retainAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
@@ -601,7 +600,6 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Anagrafica anagrafica = anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get();
 			anagrafica.setAttivo(true);
 			anagraficaRepository.saveAndFlush(anagrafica);
-
 
 			if (anagraficaDto.getContratto().getId() != 0) {
 
@@ -629,8 +627,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	private void CalcoloTipoCcnl(AnagraficaDto anagraficaDto) throws Exception {
-		
-		
+
 		Contratto contratto = anagraficaDto.getContratto();
 
 		if ((contratto.getRetribuzioneMensileLorda() != null && contratto.getRalAnnua() == null)
@@ -639,9 +636,21 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			TipoCcnl tipoCcnl = TipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
 
 			if (contratto.getRetribuzioneMensileLorda() != null) {
-				contratto.setRalAnnua(contratto.getRetribuzioneMensileLorda() * tipoCcnl.getNumeroMensilita());
+
+				Double superMinimoMensile = contratto.getSuperminimoMensile() == null ? 
+						0: contratto.getSuperminimoMensile();
+				
+				Double scattiAnzianita = contratto.getScattiAnzianita() == null ?
+						0 : contratto.getScattiAnzianita();
+
+				contratto.setRalAnnua((contratto.getRetribuzioneMensileLorda() + superMinimoMensile + scattiAnzianita)
+						* tipoCcnl.getNumeroMensilita());
 			} else {
-				contratto.setRetribuzioneMensileLorda(contratto.getRalAnnua() / tipoCcnl.getNumeroMensilita());
+				
+				Double superMinimoRal = contratto.getSuperminimoRal() == null ? 
+						0: contratto.getSuperminimoRal();
+				
+				contratto.setRetribuzioneMensileLorda((contratto.getRalAnnua()+superMinimoRal) / tipoCcnl.getNumeroMensilita());
 			}
 		}
 
