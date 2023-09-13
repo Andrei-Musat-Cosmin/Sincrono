@@ -401,87 +401,90 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			// status = transactionManager.getTransaction(new
 			// DefaultTransactionDefinition());
-			if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null) {
+			if (anagraficaDto.getContratto() != null) {
+				if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null) {
 
-				anagraficaDto.getAnagrafica().setAttivo(true);
-				anagraficaDto.getAnagrafica().setUtente(
-						anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get().getUtente());
-				anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica());
-				Integer idAnagrafica = anagraficaDto.getAnagrafica().getId();
-
-				if (anagraficaDto.getRuolo() != null) {
-
-					if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
-						System.out.println("Exception occurs {}");
-						throw new ServiceException();
-					}
-
-					Integer idProfilo = profiloRepository.getidProfilo(idAnagrafica);
-					profiloRepository.saveAndFlush(new Profilo(idProfilo, anagraficaDto.getRuolo(),
-							anagraficaDto.getAnagrafica().getUtente()));
+					deleteAnagraficaDto(anagraficaDto);
+					
+					return;
 
 				}
 
-				if (anagraficaDto.getCommesse() != null) {
+			}
 
-					if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), true, false)) {
-						System.out.println("Exception occurs {}");
-						throw new ServiceException();
-					}
+			anagraficaDto.getAnagrafica().setAttivo(true);
+			anagraficaDto.getAnagrafica()
+					.setUtente(anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get().getUtente());
+			anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica());
+			Integer idAnagrafica = anagraficaDto.getAnagrafica().getId();
 
-					for (Commessa commessa : anagraficaDto.getCommesse()) {
+			if (anagraficaDto.getRuolo() != null) {
 
-						if (commessa.getId() != null) {
+				if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
+					System.out.println("Exception occurs {}");
+					throw new ServiceException();
+				}
 
-							Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
-							if (!objectCompare.Compare(commessa, commessaDb)) {
-								commessa.setId(null);
-								commessa.setAttivo(true);
-								Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
-								storicoCommessaRepository.saveAndFlush(
-										new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
-								if (commessaDb.getId() != 0)
-									commessaDb.setAttivo(false);
-								commesseRepository.saveAndFlush(commessaDb);
-							}
+				Integer idProfilo = profiloRepository.getidProfilo(idAnagrafica);
+				profiloRepository.saveAndFlush(
+						new Profilo(idProfilo, anagraficaDto.getRuolo(), anagraficaDto.getAnagrafica().getUtente()));
 
-						} else {
+			}
 
+			if (anagraficaDto.getCommesse() != null && anagraficaDto.getCommesse().size() == 0) {
+
+				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), true, false)) {
+					System.out.println("Exception occurs {}");
+					throw new ServiceException();
+				}
+
+				for (Commessa commessa : anagraficaDto.getCommesse()) {
+
+					if (commessa.getId() != null) {
+
+						Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
+						if (!objectCompare.Compare(commessa, commessaDb)) {
+							commessa.setId(null);
+							commessa.setAttivo(true);
 							Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
 							storicoCommessaRepository.saveAndFlush(
 									new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
-
+							if (commessaDb.getId() != 0)
+								commessaDb.setAttivo(false);
+							commesseRepository.saveAndFlush(commessaDb);
 						}
-					}
 
+					} else {
+
+						Integer idCommessa = commesseRepository.saveAndFlush(commessa).getId();
+						storicoCommessaRepository.saveAndFlush(
+								new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(idCommessa)));
+
+					}
 				}
 
-				if (anagraficaDto.getContratto() != null) {
+			}
 
-					if (!contrattoValidator.validate(anagraficaDto.getContratto(), false)) {
-						System.out.println("Exception occurs {}");
-						throw new ServiceException();
-					}
+			if (anagraficaDto.getContratto() != null) {
 
-					Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
-					if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
-						CalcoloTipoCcnl(anagraficaDto);
-						anagraficaDto.getContratto().setId(null);
-						anagraficaDto.getContratto().setAttivo(true);
-						Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
-						contrattoRepository.saveAndFlush(anagraficaDto.getContratto());
-						storicoContrattiRepository.saveAndFlush(
-								new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
-						if (contratto.getId() != 0)
-							contratto.setAttivo(false);
-						contrattoRepository.saveAndFlush(contratto);
-					}
-
+				if (!contrattoValidator.validate(anagraficaDto.getContratto(), false)) {
+					System.out.println("Exception occurs {}");
+					throw new ServiceException();
 				}
 
-			} else {
-
-				deleteAnagraficaDto(anagraficaDto);
+				Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
+				if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
+					CalcoloTipoCcnl(anagraficaDto);
+					anagraficaDto.getContratto().setId(null);
+					anagraficaDto.getContratto().setAttivo(true);
+					Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
+					contrattoRepository.saveAndFlush(anagraficaDto.getContratto());
+					storicoContrattiRepository.saveAndFlush(
+							new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
+					if (contratto.getId() != 0)
+						contratto.setAttivo(false);
+					contrattoRepository.saveAndFlush(contratto);
+				}
 
 			}
 
