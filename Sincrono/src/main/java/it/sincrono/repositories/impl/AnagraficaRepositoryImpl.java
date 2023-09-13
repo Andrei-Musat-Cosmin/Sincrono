@@ -100,12 +100,12 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					subString += " AND f.descrizione LIKE '"
 							+ anagraficaDto.getContratto().getTipoCcnl().getDescrizione() + "'";
 				}
-				if (anagraficaDto.getContratto().getTipoAzienda() != null
-						&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != null
-						&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != "") {
-					subString += " AND g.descrizione LIKE '"
-							+ anagraficaDto.getContratto().getTipoAzienda().getDescrizione() + "'";
-				}
+//				if (anagraficaDto.getContratto().getTipoAzienda() != null
+//						&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != null
+//						&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != "") {
+//					subString += " AND g.descrizione LIKE '"
+//							+ anagraficaDto.getContratto().getTipoAzienda().getDescrizione() + "'";
+//				}
 				if (anagraficaDto.getContratto().getTipoCanaleReclutamento() != null
 						&& anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() != null
 						&& anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() != "") {
@@ -119,6 +119,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 							+ anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() + "'";
 				}
 			}
+
 			queryString += subString;
 
 			Query query = entityManager.createNativeQuery(queryString);
@@ -130,6 +131,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				}
 			}
 		}
+		if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null)
+			listAnagraficaDto = CheckForFilterCommessa(listAnagraficaDto,
+					anagraficaDto.getCommesse().get(0).getAziendaCliente());
 		return listAnagraficaDto;
 	}
 
@@ -633,4 +637,38 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		}
 		return listaCommesse;
 	}
+
+	private List<AnagraficaDto> CheckForFilterCommessa(List<AnagraficaDto> listAnagraficaDto, String aziendaCliente) {
+
+		Integer currentId = 0;
+		boolean flag;
+		List<Integer> rimuoviAnagraficaDto = new ArrayList<>();
+		List<AnagraficaDto> risultato = new ArrayList<>();
+		for (AnagraficaDto currentAnagraficaDto : listAnagraficaDto) {
+
+			flag = false;
+
+			for (Commessa commessa : currentAnagraficaDto.getCommesse()) {
+				if (commessa.getAziendaCliente().toLowerCase().equals(aziendaCliente.toLowerCase())) {
+					flag = true;
+					break;
+				}
+			}
+			if (!flag) {
+				rimuoviAnagraficaDto.add(currentId);
+			}
+			currentId++;
+
+		}
+		if (!rimuoviAnagraficaDto.isEmpty()) {
+			for (int i = 0; i < listAnagraficaDto.size(); i++) {
+				if (!rimuoviAnagraficaDto.contains((Integer) i))
+					risultato.add(listAnagraficaDto.get(i));
+			}
+
+		}
+		return risultato;
+
+	}
+
 }
