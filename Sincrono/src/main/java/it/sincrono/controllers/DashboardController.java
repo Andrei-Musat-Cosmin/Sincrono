@@ -99,7 +99,7 @@ public class DashboardController {
 		try {
 			System.out.println("START invocation of listAnagraficaDto");
 
-			List<AnagraficaDto> anagrafiche = dashboardService.listCommesse(anagraficaRequestDto.getAnagraficaDto());
+			List<AnagraficaDto> anagrafiche = dashboardService.listCommesse(anagraficaRequestDto);
 
 			anagraficaDtoListResponse.setList(anagrafiche);
 			anagraficaDtoListResponse.setEsito(new Esito());

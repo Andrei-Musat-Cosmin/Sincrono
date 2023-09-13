@@ -22,17 +22,20 @@ import it.sincrono.entities.Utente;
 import it.sincrono.repositories.DashboardCustomRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.exceptions.RepositoryException;
+import it.sincrono.requests.AnagraficaRequestDto;
 import jakarta.persistence.Query;
 
 public class DashboardRepositoryImpl extends BaseRepositoryImpl implements DashboardCustomRepository {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AnagraficaDto> listCommesse(AnagraficaDto anagraficaDto) throws RepositoryException {
+	public List<AnagraficaDto> listCommesse(AnagraficaRequestDto anagraficaRequestDto) throws RepositoryException {
 		try {
 
 			String queryString = SqlStrings.SQL_LIST_COMMESSE;
 			String subString = "";
+			
+			AnagraficaDto anagraficaDto=anagraficaRequestDto.getAnagraficaDto();
 
 			if (anagraficaDto != null) {
 
@@ -66,25 +69,49 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 			if (anagraficaDto.getCommesse() != null) {
 
-				if (anagraficaDto.getCommesse().get(0) != null) {
 
-					if (anagraficaDto.getCommesse().get(0).getDataFine() != null) {
+					if (anagraficaRequestDto.getAnnoDataFine() != null) {
 
-						subString += "AND  d.data_fine LIKE '" + anagraficaDto.getCommesse().get(0).getDataFine() + "'";
+						subString += "AND YEAR(d.data_fine)='"
+								+ anagraficaRequestDto.getAnnoDataFine() + "'";
+
+					}
+					
+					if (anagraficaRequestDto.getMeseDataFine() != null) {
+
+						subString += "AND MONTH(d.data_fine)='"
+								+ anagraficaRequestDto.getMeseDataFine() + "'";
+
+					}
+					
+					if (anagraficaRequestDto.getAnnoDataInizio() != null) {
+						subString += "AND YEAR(d.data_inizio)='"
+								+ anagraficaRequestDto.getAnnoDataInizio() + "'";
+
+					}
+					
+					if (anagraficaRequestDto.getMeseDataInizio() != null) {
+
+						subString += "AND MONTH(d.data_inizio)='"
+								+ anagraficaRequestDto.getMeseDataInizio() + "'";
 
 					}
 
-					if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null
-							&& anagraficaDto.getCommesse().get(0).getAziendaCliente() != "") {
+				
+				if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null
+						&& anagraficaDto.getCommesse().get(0).getAziendaCliente() != "") {
 
-						subString += "AND d.azienda_cliente LIKE '"
-								+ anagraficaDto.getCommesse().get(0).getAziendaCliente() + "'";
-
-					}
+					subString += "AND d.azienda_cliente LIKE '"
+							+ anagraficaDto.getCommesse().get(0).getAziendaCliente() + "'";
 
 				}
+				
 
 			}
+			
+
+
+		
 
 			if (anagraficaDto.getContratto() != null) {
 

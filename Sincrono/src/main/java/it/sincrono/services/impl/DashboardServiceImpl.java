@@ -27,6 +27,7 @@ import it.sincrono.repositories.StoricoContrattiRepository;
 import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.exceptions.RepositoryException;
+import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.DashboardService;
 import it.sincrono.services.EmailService;
@@ -77,11 +78,11 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 	}
 
 	@Override
-	public List<AnagraficaDto> listCommesse(AnagraficaDto anagraficaDto) throws ServiceException {
+	public List<AnagraficaDto> listCommesse(AnagraficaRequestDto anagraficaRequestDto) throws ServiceException {
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = dashboardRepository.listCommesse(anagraficaDto);
+			list = dashboardRepository.listCommesse(anagraficaRequestDto);
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
