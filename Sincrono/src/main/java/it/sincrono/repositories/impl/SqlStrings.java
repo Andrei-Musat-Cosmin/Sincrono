@@ -4,7 +4,7 @@ public interface SqlStrings {
 
 	// SQL ANAGRAFICA
 
-	public final String SQL_LIST_ANAGRAFICA = "SELECT a.*, c.*, d.*, e.*, f.*, g.*, h.*, i.* FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN tipo_livelli_contrattuali d ON d.id=c.id_tipo_livello INNER JOIN tipo_contratto e ON e.id=c.id_tipo_contratto INNER JOIN tipo_ccnl f ON f.id=c.id_tipo_ccnl INNER JOIN tipo_azienda g ON g.id=c.id_tipo_azienda INNER JOIN tipo_canale_reclutamento h ON h.id=c.id_tipo_canale_reclutamento LEFT OUTER JOIN tipo_causa_fine_rapporto i ON i.id=c.id_tipo_causa_fine_rapporto WHERE c.id=(SELECT max(c1.id) FROM contratto c1 INNER JOIN storico_contratti s ON s.id_contratto=c1.id WHERE s.id_anagrafica=a.id)";
+	public final String SQL_LIST_ANAGRAFICA = "SELECT a.*, c.*, d.*, e.*, f.*, g.*, h.*, i.* FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN tipo_livelli_contrattuali d ON d.id=c.id_tipo_livello INNER JOIN tipo_contratto e ON e.id=c.id_tipo_contratto INNER JOIN tipo_ccnl f ON f.id=c.id_tipo_ccnl INNER JOIN tipo_azienda g ON g.id=a.id_tipo_azienda INNER JOIN tipo_canale_reclutamento h ON h.id=c.id_tipo_canale_reclutamento LEFT OUTER JOIN tipo_causa_fine_rapporto i ON i.id=c.id_tipo_causa_fine_rapporto WHERE c.id=(SELECT max(c1.id) FROM contratto c1 INNER JOIN storico_contratti s ON s.id_contratto=c1.id WHERE s.id_anagrafica=a.id)";
 
 	public final String SQL_ID_ANAGRAFICA = "SELECT a.id,a.nome,a.cognome,a.cf FROM anagrafica a";
 

@@ -7,6 +7,11 @@ import it.sincrono.repositories.dto.CommessaDto;
 import it.sincrono.services.exceptions.ServiceException;
 
 public interface CommessaService {
+	public void update(Commessa Commessa) throws ServiceException;
+
+	public List<CommessaDto> dashboard() throws ServiceException;
+
+	public void retainCommessa(Integer id) throws ServiceException;
 
 	// public List<Commessa> listCommessa() throws ServiceException;
 
@@ -14,14 +19,5 @@ public interface CommessaService {
 
 	// public void insert(Commessa Commessa) throws ServiceException;
 
-	public void update(Commessa Commessa) throws ServiceException;
-
 	// public void delete(Integer id) throws ServiceException;
-
-	public List<CommessaDto> dashboard() throws ServiceException;
-
-	public void storicizzaCommessa(Integer id) throws ServiceException;
-
-	public void retainCommessa(Integer id) throws ServiceException;
-
 }

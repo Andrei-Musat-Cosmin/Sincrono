@@ -92,22 +92,6 @@ public class CommessaServiceImpl implements CommessaService {
 	}
 
 	@Override
-	public void storicizzaCommessa(Integer id) throws ServiceException {
-
-		try {
-			Commessa commessa = commessaRepository.getById(id);
-			commessa.setAttivo(false);
-			// commessa.setAttesaLavori(false);
-			commessaRepository.saveAndFlush(commessa);
-
-		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-	}
-
-	@Override
 	public void retainCommessa(Integer id) throws ServiceException {
 
 		try {

@@ -63,32 +63,6 @@ public class CommessaController {
 		return httpEntity;
 	}
 
-	@PutMapping("/storicizza-commessa")
-	public @ResponseBody HttpEntity<GenericResponse> storicizzaCommessa(
-			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
-
-		HttpEntity<GenericResponse> httpEntity = null;
-
-		GenericResponse genericResponse = new GenericResponse();
-		try {
-			System.out.println("START invocation of storicizza-commessa");
-
-			commessaService.storicizzaCommessa(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getId());
-
-			genericResponse.setEsito(new Esito());
-
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-
-			System.out.println("END invocation of storicizza-commessa");
-
-		} catch (ServiceException e) {
-			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-		}
-
-		return httpEntity;
-	}
-
 	@PutMapping("/retain-commessa")
 	public @ResponseBody HttpEntity<GenericResponse> retainCommessa(
 			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {

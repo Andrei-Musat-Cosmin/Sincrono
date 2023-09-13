@@ -34,8 +34,8 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 			String queryString = SqlStrings.SQL_LIST_COMMESSE;
 			String subString = "";
-			
-			AnagraficaDto anagraficaDto=anagraficaRequestDto.getAnagraficaDto();
+
+			AnagraficaDto anagraficaDto = anagraficaRequestDto.getAnagraficaDto();
 
 			if (anagraficaDto != null) {
 
@@ -69,49 +69,38 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 			if (anagraficaDto.getCommesse() != null) {
 
+				if (anagraficaRequestDto.getAnnoDataFine() != null) {
 
-					if (anagraficaRequestDto.getAnnoDataFine() != null) {
+					subString += "AND YEAR(d.data_fine)='" + anagraficaRequestDto.getAnnoDataFine() + "'";
 
-						subString += "AND YEAR(d.data_fine)='"
-								+ anagraficaRequestDto.getAnnoDataFine() + "'";
+				}
 
-					}
-					
-					if (anagraficaRequestDto.getMeseDataFine() != null) {
+				if (anagraficaRequestDto.getMeseDataFine() != null) {
 
-						subString += "AND MONTH(d.data_fine)='"
-								+ anagraficaRequestDto.getMeseDataFine() + "'";
+					subString += "AND MONTH(d.data_fine)='" + anagraficaRequestDto.getMeseDataFine() + "'";
 
-					}
-					
-					if (anagraficaRequestDto.getAnnoDataInizio() != null) {
-						subString += "AND YEAR(d.data_inizio)='"
-								+ anagraficaRequestDto.getAnnoDataInizio() + "'";
+				}
 
-					}
-					
-					if (anagraficaRequestDto.getMeseDataInizio() != null) {
+				if (anagraficaRequestDto.getAnnoDataInizio() != null) {
+					subString += "AND YEAR(d.data_inizio)='" + anagraficaRequestDto.getAnnoDataInizio() + "'";
 
-						subString += "AND MONTH(d.data_inizio)='"
-								+ anagraficaRequestDto.getMeseDataInizio() + "'";
+				}
 
-					}
+				if (anagraficaRequestDto.getMeseDataInizio() != null) {
 
-				
+					subString += "AND MONTH(d.data_inizio)='" + anagraficaRequestDto.getMeseDataInizio() + "'";
+
+				}
+
 				if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null
 						&& anagraficaDto.getCommesse().get(0).getAziendaCliente() != "") {
 
-					subString += "AND d.azienda_cliente LIKE '"
-							+ anagraficaDto.getCommesse().get(0).getAziendaCliente() + "'";
+					subString += "AND d.azienda_cliente LIKE '" + anagraficaDto.getCommesse().get(0).getAziendaCliente()
+							+ "'";
 
 				}
-				
 
 			}
-			
-
-
-		
 
 			if (anagraficaDto.getContratto() != null) {
 
@@ -133,8 +122,6 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 			List<AnagraficaDto> listAnagraficaDto = new ArrayList<AnagraficaDto>();
 			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
 				Object[] result = (Object[]) it.next();
-
-				
 
 				Commessa commessa = new Commessa();
 				if (result != null) {
@@ -164,7 +151,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				}
 
 				if (checkScaduta(commessa)) {
-					
+
 					AnagraficaDto anagraficaDtoApp = new AnagraficaDto();
 
 					anagraficaDtoApp.setAnagrafica(new Anagrafica());
@@ -292,11 +279,11 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 				LocalDate localDateFine = convertorDate(commessa.getDataFine());
 
-				if (localDateFine.isAfter(LocalDate.now()) 
-						
-						&& 
-						
-					localDateFine.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
+				if (localDateFine.isAfter(LocalDate.now())
+
+						&&
+
+						localDateFine.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
 
 					listCommesse.add(commessa);
 
@@ -503,7 +490,6 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result[60] != null)
 					contratto.setDiariaAnnua((Double.valueOf(((BigDecimal) result[60]).toString())));
 				anagraficaDto.setContratto(contratto);
-				
 
 				anagraficaDto.setContratto(contratto);
 
@@ -532,11 +518,11 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 			LocalDate dataSommata = dataAssunzione.plusMonths(anagraficaDto.getContratto().getMesiDurata());
 
-			if (dataSommata.isAfter(LocalDate.now()) 
-					
-					&& 
-					
-				dataSommata.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
+			if (dataSommata.isAfter(LocalDate.now())
+
+					&&
+
+					dataSommata.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
 
 				listInScadenza.add(anagraficaDto);
 
