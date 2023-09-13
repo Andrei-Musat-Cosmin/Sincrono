@@ -316,11 +316,11 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				anagrafica.setUtente(utente);
 
 				TipoAzienda tipoAzienda = new TipoAzienda();
-				if (result[5] != null) {
-					if ((Integer) result[24] != 0) {
-						tipoAzienda.setId((Integer) result[24]);
-						if (result[25] != null)
-							tipoAzienda.setDescrizione((String) result[25]);
+				if (result[25] != null) {
+					if ((Integer) result[25] != 0) {
+						tipoAzienda.setId((Integer) result[25]);
+						if (result[26] != null)
+							tipoAzienda.setDescrizione((String) result[26]);
 					}
 				}
 				anagrafica.setTipoAzienda(tipoAzienda);
@@ -360,7 +360,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				Ruolo ruolo = new Ruolo();
 
 				if (result[21] != null) {
-					ruolo.setId((Integer) result[12]);
+					ruolo.setId((Integer) result[21]);
 				}
 
 				if (result[23] != null) {
