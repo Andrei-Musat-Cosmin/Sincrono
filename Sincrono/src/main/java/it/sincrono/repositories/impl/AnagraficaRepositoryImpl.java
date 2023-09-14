@@ -144,9 +144,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		try {
 
 			String queryString = SqlStrings.SQL_LIST_ANAGRAFICA;
-			String subString = "";
+			String subString = " AND a.attivo = 1";
 			List<AnagraficaDto> lista = new ArrayList<>();
-			Query query = entityManager.createNativeQuery(queryString);
+			Query query = entityManager.createNativeQuery(queryString + subString);
 			List<Object> list = query.getResultList();
 			for (Iterator<Object> it = list.iterator(); it.hasNext();) {
 				Object[] result = (Object[]) it.next();
