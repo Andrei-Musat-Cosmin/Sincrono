@@ -1,7 +1,6 @@
 package it.sincrono.services.impl;
 
 import java.util.List;
-
 import java.util.NoSuchElementException;
 
 import org.mindrot.jbcrypt.BCrypt;
@@ -28,13 +27,12 @@ import it.sincrono.repositories.StoricoContrattiRepository;
 import it.sincrono.repositories.TipologicheContrattoRepository;
 import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
-import it.sincrono.repositories.exceptions.RepositoryException;
+import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.ObjectCompare;
-import it.sincrono.services.utils.TokenGenerator;
 import it.sincrono.services.validator.AnagraficaValidator;
 import it.sincrono.services.validator.CommessaValidator;
 import it.sincrono.services.validator.CommessaValidatorList;
@@ -201,12 +199,13 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //	}
 
 	@Override
-	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException {
+	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaRequestDto anagraficaRequestDto)
+			throws ServiceException {
 
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.filterListAnagraficaDto(anagraficaDto);
+			list = anagraficaRepository.filterListAnagraficaDto(anagraficaRequestDto);
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -405,7 +404,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null) {
 
 					deleteAnagraficaDto(anagraficaDto);
-					
+
 					return;
 
 				}

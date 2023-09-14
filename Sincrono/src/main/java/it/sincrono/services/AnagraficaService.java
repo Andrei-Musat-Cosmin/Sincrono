@@ -3,6 +3,7 @@ package it.sincrono.services;
 import java.util.List;
 
 import it.sincrono.repositories.dto.AnagraficaDto;
+import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.services.exceptions.ServiceException;
 
 public interface AnagraficaService {
@@ -22,7 +23,8 @@ public interface AnagraficaService {
 
 	public List<AnagraficaDto> anagraficaListContratti() throws ServiceException;
 
-	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
+	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaRequestDto anagraficaRequestDto)
+			throws ServiceException;
 
 	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException;
 
@@ -37,7 +39,7 @@ public interface AnagraficaService {
 	public void deleteScattoContratti() throws ServiceException;
 
 	public AnagraficaDto getAnagraficaDtoByToken(String token) throws ServiceException;
-	
+
 	public void retainAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
 
 }

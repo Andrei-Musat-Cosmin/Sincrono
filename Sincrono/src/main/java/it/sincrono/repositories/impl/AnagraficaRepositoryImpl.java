@@ -21,6 +21,7 @@ import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaCustomRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.exceptions.RepositoryException;
+import it.sincrono.requests.AnagraficaRequestDto;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
@@ -28,7 +29,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaDto anagraficaDto) throws RepositoryException {
+	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaRequestDto anagraficaRequestDto)
+			throws RepositoryException {
 
 		String queryString = SqlStrings.SQL_LIST_ANAGRAFICA;
 		String subString = "";
@@ -38,85 +40,102 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		 * AGGIUNTA PARAMETRI DI CONTROLLO ALLA QUERY
 		 */
 
-		if (anagraficaDto != null) {
+		if (anagraficaRequestDto != null) {
 
-			if (anagraficaDto.getAnagrafica() != null) {
+			if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica() != null) {
 
-				if (anagraficaDto.getAnagrafica().getNome() != null && anagraficaDto.getAnagrafica().getNome() != "") {
+				if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getNome() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getNome() != "") {
 
-					subString += " AND a.nome LIKE '" + anagraficaDto.getAnagrafica().getNome() + "'";
+					subString += " AND a.nome LIKE '"
+							+ anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getNome() + "%'";
 				}
-				if (anagraficaDto.getAnagrafica().getCognome() != null
-						&& anagraficaDto.getAnagrafica().getCognome() != "") {
-					subString += " AND a.cognome LIKE '" + anagraficaDto.getAnagrafica().getCognome() + "'";
+				if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getCognome() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getCognome() != "") {
+					subString += " AND a.cognome LIKE '"
+							+ anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getCognome() + "%'";
 				}
+				if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getAttivo() != null) {
 
-				if (anagraficaDto.getAnagrafica().getAttivo() != null) {
-
-					subString += " AND a.attivo LIKE '" + anagraficaDto.getAnagrafica().getAttivo() + "'";
+					subString += " AND a.attivo = "
+							+ anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getAttivo();
 				}
-				if (anagraficaDto.getAnagrafica().getAttesaLavori() != null) {
+				if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getAttesaLavori() != null) {
 
-					subString += " AND a.attesa_lavori LIKE '" + anagraficaDto.getAnagrafica().getAttesaLavori() + "'";
+					subString += " AND a.attesa_lavori = "
+							+ anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getAttesaLavori();
 				}
-
-				if (anagraficaDto.getAnagrafica().getTipoAzienda() != null
-						&& anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() != "") {
+				if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoAzienda() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoAzienda()
+								.getDescrizione() != "") {
 
 					subString += " AND g.descrizione LIKE '"
-							+ anagraficaDto.getAnagrafica().getTipoAzienda().getDescrizione() + "'";
-				}
-			}
-			if (anagraficaDto.getContratto() != null) {
-
-				if (anagraficaDto.getContratto().getRalAnnua() != null
-						&& anagraficaDto.getContratto().getRalAnnua().toString() != "") {
-					subString += " AND c.ral_annua LIKE '" + anagraficaDto.getContratto().getRalAnnua() + "'";
-				}
-				if (anagraficaDto.getContratto().getDataAssunzione() != null) {
-					SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
-					subString += " AND c.data_assunzione LIKE '"
-							+ outputFormat.format(anagraficaDto.getContratto().getDataAssunzione()) + "'";
-				}
-				if (anagraficaDto.getContratto().getDataFineRapporto() != null) {
-					subString += " AND c.data_fine_rapporto LIKE '" + anagraficaDto.getContratto().getDataFineRapporto()
+							+ anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoAzienda().getDescrizione()
 							+ "'";
 				}
-				if (anagraficaDto.getContratto().getTipoLivelloContratto() != null
-						&& anagraficaDto.getContratto().getTipoLivelloContratto().getLivello() != null
-						&& anagraficaDto.getContratto().getTipoLivelloContratto().getLivello() != "") {
-					subString += " AND d.ccnl LIKE '"
-							+ anagraficaDto.getContratto().getTipoLivelloContratto().getLivello() + "'";
+			}
+			if (anagraficaRequestDto.getAnagraficaDto().getContratto() != null) {
+
+				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getRalAnnua() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getRalAnnua().toString() != "") {
+					subString += " AND c.ral_annua LIKE '"
+							+ anagraficaRequestDto.getAnagraficaDto().getContratto().getRalAnnua() + "%'";
 				}
-				if (anagraficaDto.getContratto().getTipoContratto() != null
-						&& anagraficaDto.getContratto().getTipoContratto().getDescrizione() != null
-						&& anagraficaDto.getContratto().getTipoContratto().getDescrizione() != "") {
+				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getDataAssunzione() != null) {
+					SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd");
+					subString += " AND c.data_assunzione LIKE '" + outputFormat
+							.format(anagraficaRequestDto.getAnagraficaDto().getContratto().getDataAssunzione()) + "'";
+				}
+				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getDataFineRapporto() != null) {
+					subString += " AND c.data_fine_rapporto LIKE '"
+							+ anagraficaRequestDto.getAnagraficaDto().getContratto().getDataFineRapporto() + "'";
+				}
+				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoLivelloContratto() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoLivelloContratto()
+								.getLivello() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoLivelloContratto()
+								.getLivello() != "") {
+					subString += " AND d.ccnl LIKE '" + anagraficaRequestDto.getAnagraficaDto().getContratto()
+							.getTipoLivelloContratto().getLivello() + "'";
+				}
+				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoContratto() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoContratto()
+								.getDescrizione() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoContratto()
+								.getDescrizione() != "") {
 					subString += " AND e.descrizione LIKE '"
-							+ anagraficaDto.getContratto().getTipoContratto().getDescrizione() + "'";
+							+ anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoContratto().getDescrizione()
+							+ "'";
 				}
-				if (anagraficaDto.getContratto().getTipoCcnl() != null
-						&& anagraficaDto.getContratto().getTipoCcnl().getDescrizione() != null
-						&& anagraficaDto.getContratto().getTipoCcnl().getDescrizione() != "") {
+				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCcnl() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCcnl().getDescrizione() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCcnl()
+								.getDescrizione() != "") {
 					subString += " AND f.descrizione LIKE '"
-							+ anagraficaDto.getContratto().getTipoCcnl().getDescrizione() + "'";
+							+ anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCcnl().getDescrizione()
+							+ "'";
 				}
-//				if (anagraficaDto.getContratto().getTipoAzienda() != null
-//						&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != null
-//						&& anagraficaDto.getContratto().getTipoAzienda().getDescrizione() != "") {
+//				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoAzienda() != null
+//						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoAzienda().getDescrizione() != null
+//						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoAzienda().getDescrizione() != "") {
 //					subString += " AND g.descrizione LIKE '"
-//							+ anagraficaDto.getContratto().getTipoAzienda().getDescrizione() + "'";
+//							+ anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoAzienda().getDescrizione() + "'";
 //				}
-				if (anagraficaDto.getContratto().getTipoCanaleReclutamento() != null
-						&& anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() != null
-						&& anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() != "") {
-					subString += " AND h.descrizione LIKE '"
-							+ anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() + "'";
+				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCanaleReclutamento() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCanaleReclutamento()
+								.getDescrizione() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCanaleReclutamento()
+								.getDescrizione() != "") {
+					subString += " AND h.descrizione LIKE '" + anagraficaRequestDto.getAnagraficaDto().getContratto()
+							.getTipoCanaleReclutamento().getDescrizione() + "'";
 				}
-				if (anagraficaDto.getContratto().getTipoCausaFineRapporto() != null
-						&& anagraficaDto.getContratto().getTipoCausaFineRapporto().getDescrizione() != null
-						&& anagraficaDto.getContratto().getTipoCausaFineRapporto().getDescrizione() != "") {
-					subString += " AND i.descrizione LIKE '"
-							+ anagraficaDto.getContratto().getTipoCanaleReclutamento().getDescrizione() + "'";
+				if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCausaFineRapporto() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCausaFineRapporto()
+								.getDescrizione() != null
+						&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCausaFineRapporto()
+								.getDescrizione() != "") {
+					subString += " AND i.descrizione LIKE '" + anagraficaRequestDto.getAnagraficaDto().getContratto()
+							.getTipoCanaleReclutamento().getDescrizione() + "'";
 				}
 			}
 
@@ -127,13 +146,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			if (list != null) {
 				for (Iterator<Object> it = list.iterator(); it.hasNext();) {
 					Object[] result = (Object[]) it.next();
-					listAnagraficaDto.add(parsingAnagrafica(result, anagraficaDto));
+					listAnagraficaDto.add(parsingAnagrafica(result, anagraficaRequestDto.getAnagraficaDto()));
 				}
 			}
 		}
-		if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null)
+		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null)
 			listAnagraficaDto = CheckForFilterCommessa(listAnagraficaDto,
-					anagraficaDto.getCommesse().get(0).getAziendaCliente());
+					anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente());
 		return listAnagraficaDto;
 	}
 

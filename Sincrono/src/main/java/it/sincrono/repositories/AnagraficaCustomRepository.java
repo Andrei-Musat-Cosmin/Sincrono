@@ -4,10 +4,11 @@ import java.util.List;
 
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.exceptions.RepositoryException;
+import it.sincrono.requests.AnagraficaRequestDto;
 
 public interface AnagraficaCustomRepository extends BaseCustomRepository {
 
-	List<AnagraficaDto> filterListAnagraficaDto(AnagraficaDto anagraficaDto) throws RepositoryException;
+	List<AnagraficaDto> filterListAnagraficaDto(AnagraficaRequestDto anagraficaRequestDto) throws RepositoryException;
 
 	public List<AnagraficaDto> listAnagraficaDto() throws RepositoryException;
 
