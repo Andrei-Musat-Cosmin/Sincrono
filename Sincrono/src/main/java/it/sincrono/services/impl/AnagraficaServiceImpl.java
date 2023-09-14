@@ -470,7 +470,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			if (anagraficaDto.getContratto() != null) {
 
-				if (!contrattoValidator.validate(anagraficaDto.getContratto(), false)) {
+				if (!contrattoValidator.validate(anagraficaDto.getContratto(), true)) {
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
