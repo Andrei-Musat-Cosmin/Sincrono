@@ -405,7 +405,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			// status = transactionManager.getTransaction(new
 			// DefaultTransactionDefinition());
 			if (anagraficaDto.getContratto() != null) {
-				if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null) {
+				if (anagraficaDto.getContratto().getTipoCausaFineRapporto() != null) {
 
 					deleteAnagraficaDto(anagraficaDto);
 
