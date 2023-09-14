@@ -1,5 +1,7 @@
 package it.sincrono.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,6 +35,19 @@ public class TipoCcnl {
 	public TipoCcnl() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TipoCcnl other = (TipoCcnl) obj;
+		return Objects.equals(descrizione, other.descrizione) && Objects.equals(id, other.id)
+				&& Objects.equals(numeroMensilita, other.numeroMensilita);
 	}
 
 	public Integer getId() {

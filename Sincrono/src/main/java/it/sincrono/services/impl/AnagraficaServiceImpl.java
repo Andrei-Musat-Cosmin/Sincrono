@@ -327,6 +327,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					throw new ServiceException();
 				}
 				CalcoloTipoCcnl(anagraficaDto);
+				anagraficaDto.getContratto()
+						.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
+								? anagraficaDto.getAnagrafica().getTipoAzienda()
+								: null);
 				anagraficaDto.getContratto().setAttivo(true);
 				Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
 				storicoContrattiRepository
@@ -472,6 +476,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				}
 
 				Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
+				anagraficaDto.getContratto()
+						.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
+								? anagraficaDto.getAnagrafica().getTipoAzienda()
+								: null);
 				if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
 					CalcoloTipoCcnl(anagraficaDto);
 					anagraficaDto.getContratto().setId(null);

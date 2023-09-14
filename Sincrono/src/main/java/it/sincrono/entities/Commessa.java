@@ -78,6 +78,7 @@ public class Commessa {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,11 +88,12 @@ public class Commessa {
 		if (getClass() != obj.getClass())
 			return false;
 		Commessa other = (Commessa) obj;
-		return Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
-				&& Objects.equals(clienteFinale, other.clienteFinale)
-				&& DateUtil.dateCompare((Date) dataFine, (Date) other.dataFine)
-				&& DateUtil.dateCompare((Date) dataInizio, (Date) other.dataInizio)
-				&& Objects.equals(distacco, other.distacco)
+		return Objects.equals(attivo, other.attivo) && Objects.equals(aziendaCliente, other.aziendaCliente)
+				&& Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
+				&& Objects.equals(clienteFinale, other.clienteFinale) && DateUtil.dateCompare(dataFine, other.dataFine)
+				&& DateUtil.dateCompare(dataInizio, other.dataInizio) && Objects.equals(distacco, other.distacco)
+				&& Objects.equals(distaccoAzienda, other.distaccoAzienda)
+				&& DateUtil.dateCompare(distaccoData, other.distaccoData) && Objects.equals(id, other.id)
 				&& Objects.equals(tariffaGiornaliera, other.tariffaGiornaliera)
 				&& Objects.equals(titoloPosizione, other.titoloPosizione);
 	}

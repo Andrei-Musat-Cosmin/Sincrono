@@ -1,5 +1,7 @@
 package it.sincrono.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +38,20 @@ public class TipoLivelloContratto {
 	public TipoLivelloContratto() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TipoLivelloContratto other = (TipoLivelloContratto) obj;
+		return Objects.equals(ccnl, other.ccnl) && Objects.equals(id, other.id)
+				&& Objects.equals(livello, other.livello) && Objects.equals(minimiRet23, other.minimiRet23);
 	}
 
 	public Integer getId() {

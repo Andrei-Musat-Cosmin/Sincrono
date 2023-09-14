@@ -3,6 +3,7 @@ package it.sincrono.entities;
 import java.util.Date;
 import java.util.Objects;
 
+import it.sincrono.services.utils.DateUtil;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -224,6 +225,7 @@ public class Contratto {
 		// TODO Auto-generated constructor stub
 	}
 
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -233,15 +235,17 @@ public class Contratto {
 		if (getClass() != obj.getClass())
 			return false;
 		Contratto other = (Contratto) obj;
-		return Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
+		return Objects.equals(RalPartTime, other.RalPartTime)
+				&& Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
 				&& Objects.equals(attivo, other.attivo) && Objects.equals(categoriaProtetta, other.categoriaProtetta)
 				&& Objects.equals(corsoSicurezza, other.corsoSicurezza)
-				&& Objects.equals(dataAssunzione, other.dataAssunzione)
-				&& Objects.equals(dataCorsoSicurezza, other.dataCorsoSicurezza)
-				&& Objects.equals(dataFineProva, other.dataFineProva)
-				&& Objects.equals(dataFineRapporto, other.dataFineRapporto)
-				&& Objects.equals(dataInizioProva, other.dataInizioProva)
-				&& Objects.equals(dataVisitaMedica, other.dataVisitaMedica)
+				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
+				&& DateUtil.dateCompare(dataCorsoSicurezza, other.dataCorsoSicurezza)
+				&& DateUtil.dateCompare(dataFineProva, other.dataFineProva)
+				&& DateUtil.dateCompare(dataFineRapporto, other.dataFineRapporto)
+				&& DateUtil.dateCompare(dataInizioProva, other.dataInizioProva)
+				&& DateUtil.dateCompare(dataVisitaMedica, other.dataVisitaMedica)
+				&& Objects.equals(diariaAnnua, other.diariaAnnua)
 				&& Objects.equals(diariaGiornaliera, other.diariaGiornaliera)
 				&& Objects.equals(diariaMensile, other.diariaMensile) && Objects.equals(id, other.id)
 				&& Objects.equals(livelloAttuale, other.livelloAttuale)
@@ -257,13 +261,14 @@ public class Contratto {
 				&& Objects.equals(superminimoMensile, other.superminimoMensile)
 				&& Objects.equals(superminimoRal, other.superminimoRal)
 				&& Objects.equals(tariffaPartitaIva, other.tariffaPartitaIva) && Objects.equals(ticket, other.ticket)
-				&& Objects.equals(tipoAzienda, other.tipoAzienda)
-				&& Objects.equals(tipoCanaleReclutamento, other.tipoCanaleReclutamento)
-				&& Objects.equals(tipoCausaFineRapporto, other.tipoCausaFineRapporto)
-				&& Objects.equals(tipoCcnl, other.tipoCcnl) && Objects.equals(tipoContratto, other.tipoContratto)
-				&& Objects.equals(tipoLivelloContratto, other.tipoLivelloContratto)
+				&& other.getTipoAzienda().equals(tipoAzienda)
+				&& other.getTipoCanaleReclutamento().equals(tipoCanaleReclutamento)
+				&& other.getTipoCausaFineRapporto().equals(tipoCausaFineRapporto)
+				&& other.getTipoCcnl().equals(tipoCcnl)
+				&& other.getTipoContratto().equals(tipoContratto)
+				&& other.getTipoLivelloContratto().equals(tipoLivelloContratto)
 				&& Objects.equals(tutor, other.tutor) && Objects.equals(valoreTicket, other.valoreTicket)
-				&& Objects.equals(visitaMedica, other.visitaMedica) && Objects.equals(diariaAnnua, other.diariaAnnua);
+				&& Objects.equals(visitaMedica, other.visitaMedica);
 	}
 
 	public Integer getId() {
@@ -605,5 +610,7 @@ public class Contratto {
 		this.RalPartTime = ralPartTime;
 
 	}
+	
+	
 
 }
