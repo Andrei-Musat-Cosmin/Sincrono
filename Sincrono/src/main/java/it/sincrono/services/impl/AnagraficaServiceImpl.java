@@ -1,5 +1,7 @@
 package it.sincrono.services.impl;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -33,6 +35,7 @@ import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.ObjectCompare;
+import it.sincrono.services.utils.TokenGenerator;
 import it.sincrono.services.validator.AnagraficaValidator;
 import it.sincrono.services.validator.CommessaValidator;
 import it.sincrono.services.validator.CommessaValidatorList;
@@ -276,8 +279,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				throw new ServiceException();
 			}
 
-			// String passwordUtente = new TokenGenerator().nextToken();
-			String passwordUtente = "123456";
+			String passwordUtente = new TokenGenerator().nextToken();
+
 			Utente utente = new Utente(anagraficaDto.getAnagrafica().getMailAziendale(), true,
 					BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
 			anagraficaDto.getAnagrafica().setUtente(utente);
@@ -397,21 +400,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		try {
 
-			
-
 			// status = transactionManager.getTransaction(new
 			// DefaultTransactionDefinition());
-			if (anagraficaDto.getContratto() != null) {
-				if (anagraficaDto.getContratto().getTipoCausaFineRapporto() != null) {
 
-					deleteAnagraficaDto(anagraficaDto);
-
-					return;
-
-				}
-
-			}
-			
 			if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), false)) {
 				System.out.println("Exception occurs {}");
 				throw new ServiceException();
@@ -482,10 +473,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 					Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 					if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
+						
+						CalcoloDataFineRapporto(anagraficaDto,true);
 						anagraficaDto.getContratto()
-						.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
-								? anagraficaDto.getAnagrafica().getTipoAzienda()
-								: null);
+								.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
+										? anagraficaDto.getAnagrafica().getTipoAzienda()
+										: null);
 						CalcoloTipoCcnl(anagraficaDto);
 						anagraficaDto.getContratto().setId(null);
 						anagraficaDto.getContratto().setAttivo(true);
@@ -497,13 +490,23 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						contrattoRepository.saveAndFlush(contratto);
 					}
 
+					if (anagraficaDto.getContratto().getTipoCausaFineRapporto() != null) {
+						
+						CalcoloDataFineRapporto(anagraficaDto,false);
+
+						deleteAnagraficaDto(anagraficaDto);
+
+						return;
+
+					}
+
 				} else {
 					
-					
+					CalcoloDataFineRapporto(anagraficaDto,true);
 					anagraficaDto.getContratto()
-					.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
-							? anagraficaDto.getAnagrafica().getTipoAzienda()
-							: null);
+							.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
+									? anagraficaDto.getAnagrafica().getTipoAzienda()
+									: null);
 					CalcoloTipoCcnl(anagraficaDto);
 					anagraficaDto.getContratto().setAttivo(true);
 					Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
@@ -699,6 +702,33 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		if (contratto.getPercentualePartTime() != null) {
 			contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
 		}
+	}
+
+	private void CalcoloDataFineRapporto(AnagraficaDto anagraficaDto, boolean check) throws Exception {
+
+		Calendar calendar = Calendar.getInstance();
+
+		if (check) {
+
+			if (anagraficaDto.getContratto().getDataAssunzione() != null
+					&& anagraficaDto.getContratto().getMesiDurata() != null
+					&& anagraficaDto.getContratto().getDataFineRapporto() == null) {
+
+				calendar.setTime(anagraficaDto.getContratto().getDataAssunzione());
+				calendar.add(Calendar.MONTH, anagraficaDto.getContratto().getMesiDurata());
+				anagraficaDto.getContratto().setDataFineRapporto(calendar.getTime());
+
+			}
+
+		} else {
+
+			if (anagraficaDto.getContratto().getDataFineRapporto() == null) {
+
+				anagraficaDto.getContratto().setDataFineRapporto(calendar.getTime());
+
+			}
+		}
+
 	}
 
 }
