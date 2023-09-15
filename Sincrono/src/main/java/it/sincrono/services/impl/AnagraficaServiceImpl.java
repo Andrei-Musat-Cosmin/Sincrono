@@ -307,7 +307,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			}
 
-			if (anagraficaDto.getCommesse() != null) {
+			if (anagraficaDto.getCommesse() != null && anagraficaDto.getCommesse().size() != 0) {
 
 				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)) {
 					System.out.println("Exception occurs {}");
