@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import it.sincrono.services.utils.DateUtil;
+import it.sincrono.services.utils.TipologicheCompare;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -235,6 +236,7 @@ public class Contratto {
 		if (getClass() != obj.getClass())
 			return false;
 		Contratto other = (Contratto) obj;
+		Boolean checkAzienda;
 		return Objects.equals(RalPartTime, other.RalPartTime)
 				&& Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
 				&& Objects.equals(attivo, other.attivo) && Objects.equals(categoriaProtetta, other.categoriaProtetta)
@@ -261,12 +263,7 @@ public class Contratto {
 				&& Objects.equals(superminimoMensile, other.superminimoMensile)
 				&& Objects.equals(superminimoRal, other.superminimoRal)
 				&& Objects.equals(tariffaPartitaIva, other.tariffaPartitaIva) && Objects.equals(ticket, other.ticket)
-				&& other.getTipoAzienda().equals(tipoAzienda)
-				&& other.getTipoCanaleReclutamento().equals(tipoCanaleReclutamento)
-				&& other.getTipoCausaFineRapporto().equals(tipoCausaFineRapporto)
-				&& other.getTipoCcnl().equals(tipoCcnl)
-				&& other.getTipoContratto().equals(tipoContratto)
-				&& other.getTipoLivelloContratto().equals(tipoLivelloContratto)
+				&& TipologicheCompare.tipologicheCompare(this,other)
 				&& Objects.equals(tutor, other.tutor) && Objects.equals(valoreTicket, other.valoreTicket)
 				&& Objects.equals(visitaMedica, other.visitaMedica);
 	}

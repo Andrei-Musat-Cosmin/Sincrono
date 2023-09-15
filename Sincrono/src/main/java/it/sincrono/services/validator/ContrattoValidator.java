@@ -16,7 +16,8 @@ public class ContrattoValidator {
 			if (isNew) {
 
 				if (contratto.getId() == null) {
-					if (contratto.getTipoContratto().getId() == null || contratto.getTipoLivelloContratto().getId() == null
+					if (contratto.getTipoContratto().getId() == null
+							|| contratto.getTipoLivelloContratto().getId() == null
 							|| contratto.getTipoAzienda().getId() == null || contratto.getTipoCcnl().getId() == null
 							|| contratto.getDataAssunzione() == null) {
 						result = false;
@@ -42,6 +43,26 @@ public class ContrattoValidator {
 		}
 
 		return result;
+	}
+
+	public Boolean validateUpdate(Contratto contratto) {
+
+		boolean result = true;
+
+		if (contratto != null) {
+
+			if (contratto.getTipoContratto().getId() == null || contratto.getTipoLivelloContratto().getId() == null
+					|| contratto.getTipoAzienda().getId() == null || contratto.getTipoCcnl().getId() == null
+					|| contratto.getDataAssunzione() == null) {
+				result = false;
+
+			}
+			
+		}
+
+			return result;
+		
+
 	}
 
 }

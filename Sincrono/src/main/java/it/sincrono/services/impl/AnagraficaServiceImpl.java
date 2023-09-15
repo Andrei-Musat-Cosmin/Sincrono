@@ -473,7 +473,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			if (anagraficaDto.getContratto() != null) {
 
-				if (!contrattoValidator.validate(anagraficaDto.getContratto(), true)) {
+				if (!contrattoValidator.validateUpdate(anagraficaDto.getContratto())) {
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
@@ -481,11 +481,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				if (anagraficaDto.getContratto().getId() != null) {
 
 					Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
-					anagraficaDto.getContratto()
-							.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
-									? anagraficaDto.getAnagrafica().getTipoAzienda()
-									: null);
 					if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
+						anagraficaDto.getContratto()
+						.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
+								? anagraficaDto.getAnagrafica().getTipoAzienda()
+								: null);
 						CalcoloTipoCcnl(anagraficaDto);
 						anagraficaDto.getContratto().setId(null);
 						anagraficaDto.getContratto().setAttivo(true);
@@ -498,7 +498,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					}
 
 				} else {
-
+					
+					
+					anagraficaDto.getContratto()
+					.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
+							? anagraficaDto.getAnagrafica().getTipoAzienda()
+							: null);
 					CalcoloTipoCcnl(anagraficaDto);
 					anagraficaDto.getContratto().setAttivo(true);
 					Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
