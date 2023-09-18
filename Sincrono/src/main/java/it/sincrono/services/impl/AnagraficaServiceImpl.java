@@ -702,6 +702,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		if (contratto.getPercentualePartTime() != null) {
 			contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
 		}
+		
+		anagraficaDto.setContratto(contratto);
 	}
 
 	private void CalcoloDataFineRapporto(AnagraficaDto anagraficaDto, boolean check) throws Exception {
