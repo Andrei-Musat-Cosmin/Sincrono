@@ -329,6 +329,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					System.out.println("Exception occurs {}");
 					throw new ServiceException();
 				}
+				CalcoloDataFineRapporto(anagraficaDto,true);
 				CalcoloTipoCcnl(anagraficaDto);
 				anagraficaDto.getContratto()
 						.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
