@@ -551,17 +551,21 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Anagrafica anagrafica = anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get();
 			anagrafica.setAttivo(false);
 			anagraficaRepository.saveAndFlush(anagrafica);
+			
+			if(anagraficaDto.getCommesse()!=null) {
 
-			for (Commessa commessa : anagraficaDto.getCommesse()) {
-
-				if (commessa.getId() != 0) {
-
-					Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
-					commessaDb.setAttivo(false);
-					commesseRepository.saveAndFlush(commessaDb);
-
+				for (Commessa commessa : anagraficaDto.getCommesse()) {
+	
+					if (commessa.getId() != 0) {
+	
+						Commessa commessaDb = commesseRepository.findById(commessa.getId()).get();
+						commessaDb.setAttivo(false);
+						commesseRepository.saveAndFlush(commessaDb);
+	
+					}
+	
 				}
-
+				
 			}
 
 			if (anagraficaDto.getContratto().getId() != 0) {
