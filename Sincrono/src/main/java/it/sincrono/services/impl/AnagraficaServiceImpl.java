@@ -258,6 +258,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		try {
 			anagraficaDto = anagraficaRepository.getAnagraficaDto(id);
+			calcoloRalPartTime(anagraficaDto);
 		} catch (NoSuchElementException ne) {
 			System.out.println("Exception occurs {}, ID {}");
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
@@ -705,7 +706,17 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			contratto.setDiariaAnnua(contratto.getDiariaMensile() * 12);
 		}
 
-		if (contratto.getPercentualePartTime() != null) {
+		
+		anagraficaDto.setContratto(contratto);
+	}
+	
+	
+	
+	private void calcoloRalPartTime(AnagraficaDto anagraficaDto) throws Exception {
+
+		Contratto contratto = anagraficaDto.getContratto();
+		
+		if (contratto.getPercentualePartTime() != null && contratto.getRalAnnua()!= null) {
 			contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
 		}
 		
