@@ -552,7 +552,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			anagrafica.setAttivo(false);
 			anagraficaRepository.saveAndFlush(anagrafica);
 			
-			if(anagraficaDto.getCommesse()!=null) {
+			if(anagraficaDto.getCommesse()!=null && anagraficaDto.getCommesse().size()!=0) {
 
 				for (Commessa commessa : anagraficaDto.getCommesse()) {
 	
@@ -568,7 +568,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				
 			}
 
-			if (anagraficaDto.getContratto().getId() != 0) {
+			if (anagraficaDto.getContratto().getId() != 0 && anagraficaDto.getContratto()!=null) {
 
 				Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 				contratto.setAttivo(false);
