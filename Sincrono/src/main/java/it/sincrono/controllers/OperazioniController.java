@@ -16,40 +16,39 @@ import it.sincrono.responses.OperazioniListResponse;
 import it.sincrono.services.OperazioniService;
 import it.sincrono.services.exceptions.ServiceException;
 
-
 @RestController
 @CrossOrigin
 public class OperazioniController {
-	
+
 	@Autowired
 	private OperazioniService operazioniService;
 
 	@GetMapping("/operazioni/{id}")
-	public @ResponseBody HttpEntity<OperazioniListResponse> get(@PathVariable("id") Integer ID) {
+	public @ResponseBody HttpEntity<OperazioniListResponse> getOperazioniById(@PathVariable("id") Integer ID) {
 
 		HttpEntity<OperazioniListResponse> httpEntity = null;
 
-	
 		OperazioniListResponse operazioniListResponse = new OperazioniListResponse();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getOperazioniById");
 
 			List<Operazione> list = operazioniService.getOperazioniByFunzioni(ID);
-			
-			
+
 			operazioniListResponse.setList(list);
-			
+
 			operazioniListResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<OperazioniListResponse>(operazioniListResponse);
 
 		} catch (ServiceException e) {
-			operazioniListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] { String.valueOf(ID) }));
+			operazioniListResponse
+					.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] { String.valueOf(ID) }));
 			httpEntity = new HttpEntity<OperazioniListResponse>(operazioniListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getOperazioniById\n");
 
 		return httpEntity;
 	}
-
 
 }

@@ -54,10 +54,13 @@ public class CommessaServiceImpl implements CommessaService {
 			commessaRepository.saveAndFlush(currentCommessa);
 
 		} catch (NoSuchElementException ne) {
+			System.out.println("Exception occurs { RECORD_NON_TROVATO }\n");
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (DataIntegrityViolationException de) {
+			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }\n");
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
+			System.out.println("Exception occurs { ERRORE_GENERICO }\n");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
@@ -71,10 +74,13 @@ public class CommessaServiceImpl implements CommessaService {
 			commessaRepository.flush();
 
 		} catch (NoSuchElementException ne) {
+			System.out.println("Exception occurs { RECORD_NON_TROVATO }\n");
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (DataIntegrityViolationException de) {
+			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }\n");
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
+			System.out.println("Exception occurs { ERRORE_GENERICO }\n");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
@@ -85,7 +91,7 @@ public class CommessaServiceImpl implements CommessaService {
 		try {
 			dashboard = commessaRepository.dashboard();
 		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
+			System.out.println("Exception occurs { ERRORE_GENERICO }\n");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 		return dashboard;
@@ -101,7 +107,7 @@ public class CommessaServiceImpl implements CommessaService {
 			commessaRepository.saveAndFlush(commessa);
 
 		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
+			System.out.println("Exception occurs { ERRORE_GENERICO }\n");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 

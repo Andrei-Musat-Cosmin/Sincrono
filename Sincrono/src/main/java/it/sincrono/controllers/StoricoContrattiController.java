@@ -27,6 +27,7 @@ public class StoricoContrattiController {
 		ContrattoListResponse contrattoListResponse = new ContrattoListResponse();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getStoricoContratti");
 
 			contrattoListResponse.setList(storicoContrattiService.getStoricoContratti(id));
 			contrattoListResponse.setEsito(new Esito());
@@ -34,12 +35,14 @@ public class StoricoContrattiController {
 			httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
 
 		} catch (Exception e) {
-			contrattoListResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+			contrattoListResponse.setEsito(new Esito(501, e.getMessage(), null));
 			httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getStoricoContratti\n");
+
 		return httpEntity;
 	}
-	
+
 //	@GetMapping("/storico-contratti/{id}")
 //	public @ResponseBody HttpEntity<StoricoContrattiResponse> getStoricoContrattiById(@PathVariable Integer id) {
 //

@@ -36,6 +36,8 @@ public class PrivilegioController {
 		FunzioniListResponse funzioneListResponse = new FunzioniListResponse();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo treeFunzioniRuolo");
+
 			Integer idFunzione = funzioneService.getFunzioniDalRuolo(id);
 			List<Funzione> funzioni = funzioneService.funzioneTree(idFunzione);
 
@@ -48,6 +50,7 @@ public class PrivilegioController {
 			funzioneListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<FunzioniListResponse>(funzioneListResponse);
 		}
+		System.out.println("Fine chiamata al metodo treeFunzioniRuolo\n");
 
 		return httpEntity;
 	}

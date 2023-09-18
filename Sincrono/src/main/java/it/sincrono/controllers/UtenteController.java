@@ -31,7 +31,7 @@ public class UtenteController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			System.out.println("START invocation modificaUtente");
+			System.out.println("\nInizio chiamata al metodo updateUtente");
 
 			utenteService.updateUtente(modificaUtenteRequest);
 
@@ -39,18 +39,17 @@ public class UtenteController {
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
-			System.out.println("END invocation modificaUtente");
-
 		} catch (ServiceException e) {
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
+		System.out.println("Fine chiamata al metodo updateUtente\n");
 
 		return httpEntity;
 	}
 
 	@PutMapping("/reset-password")
-	public @ResponseBody HttpEntity<GenericResponse> updateUtente(
+	public @ResponseBody HttpEntity<GenericResponse> cambiaPasswordUtente(
 			@RequestBody CambioPasswordRequest cambioPasswordRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
@@ -58,7 +57,7 @@ public class UtenteController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			System.out.println("START invocation resetPassword");
+			System.out.println("\nInizio chiamata al metodo cambiaPasswordUtente");
 
 			utenteService.updateUtente(cambioPasswordRequest);
 
@@ -66,7 +65,7 @@ public class UtenteController {
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
-			System.out.println("END invocation resetPassword");
+			System.out.println("Fine chiamata al metodo cambiaPasswordUtente\n");
 
 		} catch (ServiceException e) {
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));

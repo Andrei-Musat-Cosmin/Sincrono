@@ -186,6 +186,7 @@ public class RuoloController {
 		RuoloListResponse ruoloListResponse = new RuoloListResponse();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo map");
 
 			List<Ruolo> ruoli = ruoloService.map();
 
@@ -198,6 +199,7 @@ public class RuoloController {
 			ruoloListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<RuoloListResponse>(ruoloListResponse);
 		}
+		System.out.println("Fine chiamata al metodo map\n");
 
 		return httpEntity;
 	}

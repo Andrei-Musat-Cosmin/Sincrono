@@ -25,6 +25,11 @@ public class ServiceException extends Exception {
 		this.code = serviceMessages.getCode();
 	}
 
+	public ServiceException(ServiceMessages serviceMessages, String dettaglio) {
+		super(serviceMessages.name() + dettaglio);
+		this.code = serviceMessages.getCode();
+	}
+
 	/**
 	 * @param message
 	 * @param cause

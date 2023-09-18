@@ -578,9 +578,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					if (commessa.getAziendaCliente() != null && commessa.getAziendaCliente() != "") {
 						subString += " AND c.azienda_cliente LIKE '" + commessa.getAziendaCliente() + "'";
 					}
-//					if (commessa.getAttesaLavori() != null) {
-//						subString += " AND c.attesa_lavori LIKE '" + commessa.getAttesaLavori() + "'";
-//					}
 
 				}
 			}

@@ -26,6 +26,8 @@ public class EmailController {
 		HttpEntity<GenericResponse> httpEntity;
 		GenericResponse genericResponse = new GenericResponse();
 		try {
+			System.out.println("\nInizio chiamata al metodo sendMail");
+
 			emailService.sendMail(emailRequest.getFile(), emailRequest.getTo(), emailRequest.getCc(),
 					emailRequest.getSubject(), emailRequest.getBody());
 			genericResponse.setEsito(new Esito());
@@ -35,6 +37,8 @@ public class EmailController {
 			genericResponse.setEsito(new Esito(500, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
+		System.out.println("Fine chiamata al metodo sendMail\n");
+
 		return httpEntity;
 	}
 

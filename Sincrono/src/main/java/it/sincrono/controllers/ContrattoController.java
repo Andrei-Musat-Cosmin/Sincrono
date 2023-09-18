@@ -1,28 +1,15 @@
 package it.sincrono.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.entities.Contratto;
-import it.sincrono.requests.ContrattoRequest;
-import it.sincrono.responses.ContrattoListResponse;
-import it.sincrono.responses.ContrattoResponse;
-import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.OrganicoDtoListResponse;
 import it.sincrono.services.ContrattoService;
-import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
 @CrossOrigin
@@ -38,14 +25,16 @@ public class ContrattoController {
 		OrganicoDtoListResponse organicoDtoListResponse = new OrganicoDtoListResponse();
 
 		try {
-
+			System.out.println("\nInizio chiamata al metodo organico");
 			organicoDtoListResponse.setEsito(new Esito());
 			organicoDtoListResponse.setList(contrattoService.organico());
 			httpEntity = new HttpEntity<OrganicoDtoListResponse>(organicoDtoListResponse);
 		} catch (Exception e) {
-			organicoDtoListResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
+			organicoDtoListResponse.setEsito(new Esito(501, e.getMessage(), null));
 			httpEntity = new HttpEntity<OrganicoDtoListResponse>(organicoDtoListResponse);
 		}
+		System.out.println("Fine chiamata al metodo organico\n");
+
 		return httpEntity;
 	}
 

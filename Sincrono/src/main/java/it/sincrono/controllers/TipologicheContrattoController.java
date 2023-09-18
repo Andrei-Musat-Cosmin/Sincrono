@@ -35,6 +35,7 @@ public class TipologicheContrattoController {
 		TipologicheListResponse<TipoAzienda> aziendeListResponse = new TipologicheListResponse<TipoAzienda>();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getAziendeMap");
 
 			List<TipoAzienda> list = tipologicheContrattoService.getAziendeMap();
 
@@ -47,6 +48,7 @@ public class TipologicheContrattoController {
 			aziendeListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoAzienda>>(aziendeListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getAziendeMap\n");
 
 		return httpEntity;
 	}
@@ -59,6 +61,7 @@ public class TipologicheContrattoController {
 		TipologicheListResponse<TipoContratto> tipoCotnrattoListResponse = new TipologicheListResponse<TipoContratto>();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getTipoContrattoMap");
 
 			List<TipoContratto> list = tipologicheContrattoService.getTipoContrattoMap();
 
@@ -71,6 +74,7 @@ public class TipologicheContrattoController {
 			tipoCotnrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoContratto>>(tipoCotnrattoListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getTipoContrattoMap\n");
 
 		return httpEntity;
 	}
@@ -83,6 +87,7 @@ public class TipologicheContrattoController {
 		TipologicheListResponse<TipoCcnl> ccnlListResponse = new TipologicheListResponse<TipoCcnl>();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getCcnlMap");
 
 			List<TipoCcnl> list = tipologicheContrattoService.getCcnlMap();
 
@@ -95,6 +100,7 @@ public class TipologicheContrattoController {
 			ccnlListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoCcnl>>(ccnlListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getCcnlMap\n");
 
 		return httpEntity;
 	}
@@ -107,6 +113,7 @@ public class TipologicheContrattoController {
 		TipologicheListResponse<TipoLivelloContratto> livelloContrattoListResponse = new TipologicheListResponse<TipoLivelloContratto>();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getTipoLivelloContrattoMap");
 
 			List<TipoLivelloContratto> list = tipologicheContrattoService.getTipoLivelliContrattualiMap();
 
@@ -119,6 +126,7 @@ public class TipologicheContrattoController {
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getTipoLivelloContrattoMap\n");
 
 		return httpEntity;
 	}
@@ -131,6 +139,7 @@ public class TipologicheContrattoController {
 		TipologicheListResponse<TipoCausaFineRapporto> livelloContrattoListResponse = new TipologicheListResponse<TipoCausaFineRapporto>();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getTipoCausaFineRapportoMap");
 
 			List<TipoCausaFineRapporto> list = tipologicheContrattoService.getTipoCausaFineRapporto();
 
@@ -143,6 +152,7 @@ public class TipologicheContrattoController {
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineRapporto>>(livelloContrattoListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getTipoCausaFineRapportoMap\n");
 
 		return httpEntity;
 	}
@@ -155,6 +165,7 @@ public class TipologicheContrattoController {
 		TipologicheListResponse<TipoCanaleReclutamento> livelloContrattoListResponse = new TipologicheListResponse<TipoCanaleReclutamento>();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getTipoCanaleReclutamentoMap");
 
 			List<TipoCanaleReclutamento> list = tipologicheContrattoService.getTipoCanaleReclutamentoMap();
 
@@ -167,6 +178,7 @@ public class TipologicheContrattoController {
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoCanaleReclutamento>>(livelloContrattoListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getTipoCanaleReclutamentoMap\n");
 
 		return httpEntity;
 	}

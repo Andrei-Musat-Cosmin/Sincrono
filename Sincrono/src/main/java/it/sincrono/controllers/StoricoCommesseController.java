@@ -30,6 +30,8 @@ public class StoricoCommesseController {
 		CommessaListResponse commessaListResponse = new CommessaListResponse();
 
 		try {
+			System.out.println("\nInizio chiamata al metodo getStoricoCommesseByAnagrafica");
+
 			List<Commessa> storicoCommesse = storicoCommesseService.getStoricoCommesseByAnagrafica(id);
 
 			commessaListResponse.setList(storicoCommesse);
@@ -38,9 +40,11 @@ public class StoricoCommesseController {
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 
 		} catch (Exception e) {
-			commessaListResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
+			commessaListResponse.setEsito(new Esito(501, e.getMessage(), null));
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 		}
+		System.out.println("Fine chiamata al metodo getStoricoCommesseByAnagrafica\n");
+
 		return httpEntity;
 	}
 
