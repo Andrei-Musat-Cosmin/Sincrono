@@ -475,7 +475,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 					if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
 						
-						CalcoloDataFineRapporto(anagraficaDto,true);
+						if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null)
+							CalcoloDataFineRapporto(anagraficaDto,true);
 						anagraficaDto.getContratto()
 								.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
 										? anagraficaDto.getAnagrafica().getTipoAzienda()
