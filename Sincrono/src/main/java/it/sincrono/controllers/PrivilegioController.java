@@ -29,14 +29,14 @@ public class PrivilegioController {
 
 	// Tree funzioni che può effettuare utente in base al ruolo
 	@GetMapping("/funzioni-ruolo-tree/{id}")
-	public @ResponseBody HttpEntity<FunzioniListResponse> treeFunzioniRuolo(@PathVariable("id") Integer id) {
+	public @ResponseBody HttpEntity<FunzioniListResponse> funzioniRuoloTree(@PathVariable("id") Integer id) {
 
 		HttpEntity<FunzioniListResponse> httpEntity = null;
 
 		FunzioniListResponse funzioneListResponse = new FunzioniListResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo treeFunzioniRuolo");
+			System.out.println("\nInizio chiamata al metodo funzioniRuoloTree");
 
 			Integer idFunzione = funzioneService.getFunzioniDalRuolo(id);
 			List<Funzione> funzioni = funzioneService.funzioneTree(idFunzione);
@@ -50,7 +50,7 @@ public class PrivilegioController {
 			funzioneListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<FunzioniListResponse>(funzioneListResponse);
 		}
-		System.out.println("Fine chiamata al metodo treeFunzioniRuolo\n");
+		System.out.println("Fine chiamata al metodo funzioniRuoloTree\n");
 
 		return httpEntity;
 	}

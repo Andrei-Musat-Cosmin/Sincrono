@@ -25,7 +25,7 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public String sendMail(MultipartFile[] file, String to, String[] cc, String subject, String body) {
 		try {
-			if (to != null && to != "") {
+			if (to == null || to == "") {
 				System.out.println("Exception occurs { ERRORE_VALIDAZIONE: destinatario dell'email non valido }");
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 			}
@@ -54,11 +54,8 @@ public class EmailServiceImpl implements EmailService {
 				}
 
 			}
-
 			javaMailSender.send(mimeMessage);
-
 			return "mail sent";
-
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
