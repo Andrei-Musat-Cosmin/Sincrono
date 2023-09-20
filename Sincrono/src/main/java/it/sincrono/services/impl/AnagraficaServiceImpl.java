@@ -341,9 +341,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
 
-			emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null, "CREAZIONE UTENZA",
+			/*emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null, "CREAZIONE UTENZA",
 					"username: " + anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
-							+ passwordUtente);
+							+ passwordUtente);*/
 
 			System.out.println("Password " + passwordUtente);
 
