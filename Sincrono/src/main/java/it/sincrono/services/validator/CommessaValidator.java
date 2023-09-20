@@ -18,9 +18,8 @@ public class CommessaValidator {
 				if (commessa.getId() == null) {
 
 					if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
-							|| commessa.getDataInizio() == null && commessa.getDataFine() == null) {
+							|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
 						result = false;
-					}
 
 				} else {
 
@@ -32,9 +31,9 @@ public class CommessaValidator {
 				if (commessa.getId() != null) {
 
 					if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
-							|| commessa.getDataInizio() == null && commessa.getDataFine() == null) {
+							|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
 						result = false;
-					}
+
 				} else {
 
 					result = false;

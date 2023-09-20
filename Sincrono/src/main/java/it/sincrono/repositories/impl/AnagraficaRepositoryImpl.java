@@ -554,9 +554,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[58] != null)
 					contratto.setAssicurazioneObbligatoria((Boolean) result[58]);
 				if (result[59] != null)
-					contratto.setRetribuzioneNettaMensile((Double.valueOf(((BigDecimal) result[59]).toString())));
+					contratto.setRetribuzioneNettaGiornaliera((Double.valueOf(((BigDecimal) result[59]).toString())));
 				if (result[60] != null)
-					contratto.setRetribuzioneNettaGiornaliera((Double.valueOf(((BigDecimal) result[60]).toString())));
+					contratto.setRetribuzioneNettaMensile((Double.valueOf(((BigDecimal) result[60]).toString())));
 				if (result[61] != null)
 					contratto.setDiariaAnnua((Double.valueOf(((BigDecimal) result[61]).toString())));
 

@@ -27,7 +27,6 @@ public class CommessaValidatorList {
 				
 				if(!commessaValidatorUpdate.validate(commessa)) {
 					
-					
 					check=false;
 					
 				}
@@ -35,7 +34,6 @@ public class CommessaValidatorList {
 			}else {
 				
 				if(!commessaValidator.validate(commessa,isNew)) {
-					
 					
 					check=false;
 					
