@@ -212,54 +212,28 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				}
 
 			}
-
-			String queryString = SqlStrings.SQL_ANAGRAFICA_DTO_CONTRATTI;
-
-			queryString = queryString.replace("{0}", idContratti);
-
-			Query query = entityManager.createNativeQuery(queryString);
-
-			List<Object> listFilter = query.getResultList();
-
-			List<AnagraficaDto> listAnagraficaDto = new ArrayList<AnagraficaDto>();
-
-			for (Iterator<Object> it = listFilter.iterator(); it.hasNext();) {
-				Object[] result = (Object[]) it.next();
-
-				AnagraficaDto anagraficDto = new AnagraficaDto();
-
-				Anagrafica anagrafica = new Anagrafica();
-				if (result[0] != null)
-					anagrafica.setId((Integer) result[0]);
-				if (result[1] != null)
-					anagrafica.setNome((String) result[1]);
-				if (result[2] != null)
-					anagrafica.setCognome((String) result[2]);
-				if (result[3] != null)
-					anagrafica.setCodiceFiscale((String) result[3]);
-
-				anagraficDto.setAnagrafica(anagrafica);
-
-				Contratto contratto = new Contratto();
-
-				if (result[4] != null)
-					contratto.setDataAssunzione((Date) result[4]);
-
-				TipoLivelloContratto livelloContratto = new TipoLivelloContratto();
-
-				if (result[5] != null)
-					livelloContratto.setCcnl((String) result[5]);
-				if (result[6] != null)
-					livelloContratto.setLivello((String) result[6]);
-				if (result[7] != null)
-					livelloContratto.setMinimiRet23((Double.valueOf(((BigDecimal) result[49]).toString())));
-
-				contratto.setTipoLivelloContratto(livelloContratto);
-
-				anagraficDto.setContratto(contratto);
-
-				listAnagraficaDto.add(anagraficDto);
-
+			
+			List<AnagraficaDto> listAnagraficaDto = new ArrayList<>();
+			
+			if(idContratti!=null && !idContratti.isEmpty()) {
+	
+				String queryString = SqlStrings.SQL_ANAGRAFICA_DTO_CONTRATTI;
+	
+				queryString = queryString.replace("{0}",idContratti );
+				
+				System.out.println("daje"+ idContratti!=null && !idContratti.isEmpty() ?idContratti:"");
+				
+				Query query = entityManager.createNativeQuery(queryString);
+				
+				List<Object> list = query.getResultList();
+				
+				for (Iterator<Object> it = list.iterator(); it.hasNext();) {
+					
+					Object[] result = (Object[]) it.next();
+					
+					listAnagraficaDto.add(parsingAnagrafica(result, null));
+				}
+				
 			}
 
 			return listAnagraficaDto;
