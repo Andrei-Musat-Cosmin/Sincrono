@@ -236,9 +236,8 @@ public class Contratto {
 		if (getClass() != obj.getClass())
 			return false;
 		Contratto other = (Contratto) obj;
-		Boolean checkAzienda;
-		return Objects.equals(RalPartTime, other.RalPartTime)
-				&& Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
+		return 
+				 Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
 				&& Objects.equals(attivo, other.attivo) && Objects.equals(categoriaProtetta, other.categoriaProtetta)
 				&& Objects.equals(corsoSicurezza, other.corsoSicurezza)
 				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
