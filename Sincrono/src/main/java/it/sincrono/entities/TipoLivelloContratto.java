@@ -50,8 +50,7 @@ public class TipoLivelloContratto {
 		if (getClass() != obj.getClass())
 			return false;
 		TipoLivelloContratto other = (TipoLivelloContratto) obj;
-		return Objects.equals(ccnl, other.ccnl) && Objects.equals(id, other.id)
-				&& Objects.equals(livello, other.livello) && Objects.equals(minimiRet23, other.minimiRet23);
+		return  Objects.equals(id, other.id);
 	}
 
 	public Integer getId() {

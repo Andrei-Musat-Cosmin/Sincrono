@@ -238,7 +238,7 @@ public class Contratto {
 		Contratto other = (Contratto) obj;
 		return 
 				 Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
-				&& Objects.equals(attivo, other.attivo) && Objects.equals(categoriaProtetta, other.categoriaProtetta)
+				 && Objects.equals(categoriaProtetta, other.categoriaProtetta)
 				&& Objects.equals(corsoSicurezza, other.corsoSicurezza)
 				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
 				&& DateUtil.dateCompare(dataCorsoSicurezza, other.dataCorsoSicurezza)

@@ -43,11 +43,11 @@ public interface SqlStrings {
 
 	public final String SQL_GET_PROFILO = "select p.id from profili p inner join utenti u on u.id=p.id_utente where u.id=(select a.id_utente  from anagrafica a where a.id={0});";
 
-	public final String SQL_ANAGRAFICA_DTO_CONTRATTI = "select a.id,a.nome,a.cognome,a.cf,c.data_assunzione,t.ccnl,t.livello,t.minimi_ret_23 from anagrafica a inner join storico_contratti s on a.id=s.id_anagrafica inner join contratto c on c.id=s.id_contratto inner join tipo_livelli_contrattuali t on c.id_tipo_livello=t.id where c.id in({0})";
+	public final String SQL_ANAGRAFICA_DTO_CONTRATTI = "SELECT a.*, c.*, d.*, e.*, f.*, g.*, h.*, i.* FROM anagrafica a INNER JOIN storico_contratti b ON a.id = b.id_anagrafica INNER JOIN contratto c ON b.id_contratto = c.id INNER JOIN tipo_livelli_contrattuali d ON d.id=c.id_tipo_livello INNER JOIN tipo_contratto e ON e.id=c.id_tipo_contratto INNER JOIN tipo_ccnl f ON f.id=c.id_tipo_ccnl INNER JOIN tipo_azienda g ON g.id=a.id_tipo_azienda INNER JOIN tipo_canale_reclutamento h ON h.id=c.id_tipo_canale_reclutamento LEFT OUTER JOIN tipo_causa_fine_rapporto i ON i.id=c.id_tipo_causa_fine_rapporto WHERE c.id IN ({0})";
 
 	public final String CONTRATTI_SCATTI_LIVELLO = "select c.id_contratto from contratti_scatti_livello c";
 
-	public final String DELETE_CONTRATTI_SCATTI_LIVELLO = "DELETE FROM contratti_scatti_livello c WHERE c.idcontratti_scatti_livello>0";
+	public final String DELETE_CONTRATTI_SCATTI_LIVELLO = "DELETE FROM contratti_scatti_livello c WHERE c.id_contratto>0";
 
 	public final String SQL_GET_ANAGRAFICA_BY_TOKEN = "SELECT a.*, d.*, e.*, b.id FROM anagrafica a INNER JOIN utenti b ON b.id=a.id_utente INNER JOIN profili c ON c.id_utente=b.id INNER JOIN ruoli d on c.id_ruolo=d.id LEFT OUTER JOIN tipo_azienda e ON e.id = a.id_tipo_azienda WHERE b.token_password LIKE '{0}'";
 

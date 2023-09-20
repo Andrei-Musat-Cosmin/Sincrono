@@ -41,7 +41,7 @@ public class TipoCanaleReclutamento {
 		if (getClass() != obj.getClass())
 			return false;
 		TipoCanaleReclutamento other = (TipoCanaleReclutamento) obj;
-		return Objects.equals(descrizione, other.descrizione) && Objects.equals(id, other.id);
+		return  Objects.equals(id, other.id);
 	}
 
 	public Integer getId() {

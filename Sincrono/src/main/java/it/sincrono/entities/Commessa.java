@@ -88,7 +88,7 @@ public class Commessa {
 		if (getClass() != obj.getClass())
 			return false;
 		Commessa other = (Commessa) obj;
-		return Objects.equals(attivo, other.attivo) && Objects.equals(aziendaCliente, other.aziendaCliente)
+		return  Objects.equals(aziendaCliente, other.aziendaCliente)
 				&& Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
 				&& Objects.equals(clienteFinale, other.clienteFinale) && DateUtil.dateCompare(dataFine, other.dataFine)
 				&& DateUtil.dateCompare(dataInizio, other.dataInizio) && Objects.equals(distacco, other.distacco)
