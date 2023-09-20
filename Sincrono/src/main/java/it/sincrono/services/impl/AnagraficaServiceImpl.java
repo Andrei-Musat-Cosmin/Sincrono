@@ -668,27 +668,33 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		Contratto contratto = anagraficaDto.getContratto();
 
-		if ((contratto.getRetribuzioneMensileLorda() != null && contratto.getRalAnnua() == null)
-				|| (contratto.getRetribuzioneMensileLorda() == null && contratto.getRalAnnua() != null)) {
+		if (contratto.getTipoContratto().getId() != 1) {
 
-			TipoCcnl tipoCcnl = TipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
+			if ((contratto.getRetribuzioneMensileLorda() != null && contratto.getRalAnnua() == null)
+					|| (contratto.getRetribuzioneMensileLorda() == null && contratto.getRalAnnua() != null)) {
 
-			if (contratto.getRetribuzioneMensileLorda() != null) {
+				TipoCcnl tipoCcnl = TipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
 
-				Double superMinimoMensile = contratto.getSuperminimoMensile() == null ? 0
-						: contratto.getSuperminimoMensile();
+				if (contratto.getRetribuzioneMensileLorda() != null) {
 
-				Double scattiAnzianita = contratto.getScattiAnzianita() == null ? 0 : contratto.getScattiAnzianita();
+					Double superMinimoMensile = contratto.getSuperminimoMensile() == null ? 0
+							: contratto.getSuperminimoMensile();
 
-				contratto.setRalAnnua((contratto.getRetribuzioneMensileLorda() + superMinimoMensile + scattiAnzianita)
-						* tipoCcnl.getNumeroMensilita());
-			} else {
+					Double scattiAnzianita = contratto.getScattiAnzianita() == null ? 0
+							: contratto.getScattiAnzianita();
 
-				Double superMinimoRal = contratto.getSuperminimoRal() == null ? 0 : contratto.getSuperminimoRal();
+					contratto.setRalAnnua(
+							(contratto.getRetribuzioneMensileLorda() + superMinimoMensile + scattiAnzianita)
+									* tipoCcnl.getNumeroMensilita());
+				} else {
 
-				contratto.setRetribuzioneMensileLorda(
-						(contratto.getRalAnnua() + superMinimoRal) / tipoCcnl.getNumeroMensilita());
+					Double superMinimoRal = contratto.getSuperminimoRal() == null ? 0 : contratto.getSuperminimoRal();
+
+					contratto.setRetribuzioneMensileLorda(
+							(contratto.getRalAnnua() + superMinimoRal) / tipoCcnl.getNumeroMensilita());
+				}
 			}
+
 		}
 
 		if (contratto.getDiariaGiornaliera() != null) {
