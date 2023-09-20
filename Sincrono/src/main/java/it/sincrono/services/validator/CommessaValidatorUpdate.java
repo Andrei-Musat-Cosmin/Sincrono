@@ -11,10 +11,9 @@ public class CommessaValidatorUpdate {
 
 		boolean result = true;
 
-		if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("") ||
-				commessa.getDataInizio() == null && commessa.getDataFine() == null) {
+		if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
+				|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
 			result = false;
-		}
 
 		return result;
 
