@@ -23,7 +23,7 @@ public class ContrattoValidator {
 
 					result = false;
 				}
-			} else if (contratto.getTipoContratto() != null) {
+			} else if (contratto.getId() != null) {
 
 				result = checkForIntegrita(contratto, result);
 
@@ -45,9 +45,10 @@ public class ContrattoValidator {
 		boolean result = true;
 
 		if (contratto != null) {
-			if (contratto.getTipoContratto() != null) {
-				checkForIntegrita(contratto, result);
-			}
+
+			checkForIntegrita(contratto, result);
+		} else {
+			result = false;
 		}
 
 		return result;
@@ -56,8 +57,8 @@ public class ContrattoValidator {
 
 	Boolean checkForIntegrita(Contratto contratto, Boolean result) {
 		if (contratto.getTipoContratto() != null) {
-			switch (contratto.getTipoContratto().getDescrizione()) {
-			case "Stage":
+			switch (contratto.getTipoContratto().getId()) {
+			case 1:
 				if (contratto.getLivelloAttuale() != null || contratto.getLivelloFinale() != null
 						|| contratto.getRalAnnua() != null || contratto.getSuperminimoRal() != null
 						|| contratto.getDiariaMensile() != null || contratto.getDiariaGiornaliera() != null
@@ -65,7 +66,7 @@ public class ContrattoValidator {
 						|| contratto.getTicket() != null || contratto.getValoreTicket() != null)
 					result = false;
 				break;
-			case "P.Iva":
+			case 2:
 				if (contratto.getMesiDurata() != null || contratto.getDataFineRapporto() != null
 						|| contratto.getLivelloAttuale() != null || contratto.getLivelloFinale() != null
 						|| contratto.getSuperminimoMensile() != null || contratto.getRalAnnua() != null
@@ -73,19 +74,19 @@ public class ContrattoValidator {
 						|| contratto.getPfi() != null)
 					result = false;
 				break;
-			case "Determinato":
+			case 3:
 				if (contratto.getTariffaPartitaIva() != null || contratto.getTutor() != null
 						|| contratto.getPfi() != null)
 					result = false;
 
 				break;
-			case "Indeterminato":
+			case 4:
 				if (contratto.getMesiDurata() != null || contratto.getDataFineRapporto() != null
 						|| contratto.getTariffaPartitaIva() != null || contratto.getTutor() != null
 						|| contratto.getPfi() != null)
 					result = false;
 				break;
-			case "Apprendistato":
+			case 5:
 				if (contratto.getTariffaPartitaIva() != null)
 					result = false;
 				break;
