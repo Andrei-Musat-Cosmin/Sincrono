@@ -70,7 +70,6 @@ public class FunzioneRepositoryImpl extends BaseRepositoryImpl implements Funzio
 			Query query = entityManager.createNativeQuery(queryString.replace("{0}", subString));
 
 			risultato = (Integer) query.getSingleResult();
-			System.out.println("RISULTATO: " + risultato);
 		} catch (Exception e) {
 			throw new RepositoryException(e);
 
