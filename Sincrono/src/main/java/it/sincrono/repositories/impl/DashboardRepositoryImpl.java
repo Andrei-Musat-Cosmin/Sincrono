@@ -46,7 +46,13 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 						if (anagraficaDto.getAnagrafica().getCognome() != null
 								&& anagraficaDto.getAnagrafica().getCognome() != "") {
 
-							subString += "AND a.cognome LIKE '" + anagraficaDto.getAnagrafica().getCognome() + "'";
+							subString += " AND a.cognome LIKE '" + anagraficaDto.getAnagrafica().getCognome() + "%'";
+
+						}
+						if (anagraficaDto.getAnagrafica().getNome() != null
+								&& anagraficaDto.getAnagrafica().getNome() != "") {
+
+							subString += " AND a.nome LIKE '" + anagraficaDto.getAnagrafica().getNome() + "%'";
 
 						}
 
@@ -54,7 +60,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 							if (anagraficaDto.getAnagrafica().getTipoAzienda().getId() != null) {
 
-								subString += "AND a.id_tipo_azienda LIKE '"
+								subString += " AND a.id_tipo_azienda LIKE '"
 										+ anagraficaDto.getAnagrafica().getTipoAzienda().getId() + "'";
 
 							}
@@ -65,55 +71,53 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 				}
 
-			}
+				if (anagraficaDto.getCommesse() != null) {
 
-			if (anagraficaDto.getCommesse() != null) {
+					if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null
+							&& anagraficaDto.getCommesse().get(0).getAziendaCliente() != "") {
 
-				if (anagraficaRequestDto.getAnnoDataFine() != null) {
+						subString += " AND d.azienda_cliente LIKE '"
+								+ anagraficaDto.getCommesse().get(0).getAziendaCliente() + "%'";
 
-					subString += "AND YEAR(d.data_fine)='" + anagraficaRequestDto.getAnnoDataFine() + "'";
+					}
 
 				}
+			}
+
+			if (anagraficaRequestDto.getAnnoDataFine() != null) {
+
+				subString += " AND YEAR(d.data_fine) LIKE '" + anagraficaRequestDto.getAnnoDataFine() + "%'";
 
 				if (anagraficaRequestDto.getMeseDataFine() != null) {
 
-					subString += "AND MONTH(d.data_fine)='" + anagraficaRequestDto.getMeseDataFine() + "'";
+					subString += " AND MONTH(d.data_fine) LIKE'" + anagraficaRequestDto.getMeseDataFine() + "%'";
 
 				}
+			}
 
-				if (anagraficaRequestDto.getAnnoDataInizio() != null) {
-					subString += "AND YEAR(d.data_inizio)='" + anagraficaRequestDto.getAnnoDataInizio() + "'";
-
-				}
-
+			if (anagraficaRequestDto.getAnnoDataInizio() != null) {
+				subString += " AND YEAR(d.data_inizio) LIKE '" + anagraficaRequestDto.getAnnoDataInizio() + "%'";
 				if (anagraficaRequestDto.getMeseDataInizio() != null) {
 
-					subString += "AND MONTH(d.data_inizio)='" + anagraficaRequestDto.getMeseDataInizio() + "'";
+					subString += " AND MONTH(d.data_inizio) LIKE'" + anagraficaRequestDto.getMeseDataInizio() + "%'";
 
 				}
-
-				if (anagraficaDto.getCommesse().get(0).getAziendaCliente() != null
-						&& anagraficaDto.getCommesse().get(0).getAziendaCliente() != "") {
-
-					subString += "AND d.azienda_cliente LIKE '" + anagraficaDto.getCommesse().get(0).getAziendaCliente()
-							+ "'";
-
-				}
-
 			}
 
-			if (anagraficaDto.getContratto() != null) {
+			if (anagraficaRequestDto.getAnnoFineContratto() != null) {
 
-				if (anagraficaDto.getContratto().getDataFineRapporto() != null) {
+				subString += " AND YEAR(c.data_fine_rapporto) LIKE'" + anagraficaRequestDto.getAnnoFineContratto()
+						+ "%'";
 
-					subString += "AND c.data_fine_contratto LIKE '" + anagraficaDto.getContratto().getDataFineRapporto()
-							+ "'";
+				if (anagraficaRequestDto.getMeseFineContratto() != null) {
+
+					subString += " AND MONTH(c.data_fine_rapporto) LIKE'" + anagraficaRequestDto.getMeseFineContratto()
+							+ "%'";
 
 				}
-
 			}
 
-			queryString = queryString.replace("{0}", subString);
+			queryString += subString;
 
 			Query query = entityManager.createNativeQuery(queryString);
 
@@ -493,7 +497,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					contratto.setRetribuzioneNettaGiornaliera((Double.valueOf(((BigDecimal) result[60]).toString())));
 				if (result[61] != null)
 					contratto.setDiariaAnnua((Double.valueOf(((BigDecimal) result[61]).toString())));
-				
+
 				anagraficaDto.setContratto(contratto);
 
 				listAnagraficaDto.add(anagraficaDto);
@@ -509,7 +513,6 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 		}
 
 	}
-	
 
 	private List<AnagraficaDto> checkContrattiInScadenza(List<AnagraficaDto> list) {
 
@@ -544,7 +547,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 	public List<AnagraficaDto> listAllCommesse() throws RepositoryException {
 		try {
 
-			String queryString = SqlStrings.SQL_LIST_ALL_COMMESSE;
+			String queryString = SqlStrings.SQL_LIST_COMMESSE;
 
 			Query query = entityManager.createNativeQuery(queryString);
 
