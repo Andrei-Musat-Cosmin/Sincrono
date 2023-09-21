@@ -106,12 +106,12 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 			if (anagraficaRequestDto.getAnnoFineContratto() != null) {
 
-				subString += " AND MONTH(d.data_fine_rapporto) LIKE'" + anagraficaRequestDto.getAnnoFineContratto()
+				subString += " AND YEAR(c.data_fine_rapporto) LIKE'" + anagraficaRequestDto.getAnnoFineContratto()
 						+ "%'";
 
 				if (anagraficaRequestDto.getMeseFineContratto() != null) {
 
-					subString += " AND YEAR(d.data_fine_rapporto) LIKE'" + anagraficaRequestDto.getMeseFineContratto()
+					subString += " AND MONTH(c.data_fine_rapporto) LIKE'" + anagraficaRequestDto.getMeseFineContratto()
 							+ "%'";
 
 				}
