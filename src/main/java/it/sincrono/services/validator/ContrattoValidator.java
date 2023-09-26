@@ -63,7 +63,8 @@ public class ContrattoValidator {
 						|| contratto.getRalAnnua() != null || contratto.getSuperminimoRal() != null
 						|| contratto.getDiariaMensile() != null || contratto.getDiariaGiornaliera() != null
 						|| contratto.getScattiAnzianita() != null || contratto.getTariffaPartitaIva() != null
-						|| contratto.getTicket() != null || contratto.getValoreTicket() != null)
+						|| contratto.getTicket() != null || contratto.getValoreTicket() != null
+						|| contratto.getRetribuzioneMensileLorda()!=null || contratto.getSuperminimoMensile()!=null)
 					result = false;
 				break;
 			case 2:
