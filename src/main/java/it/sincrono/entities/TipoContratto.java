@@ -60,4 +60,9 @@ public class TipoContratto {
 		this.descrizione = descrizione;
 	}
 
+	@Override
+	public String toString() {
+		return "TipoContratto [id=" + id + ", descrizione=" + descrizione + "]";
+	}
+
 }

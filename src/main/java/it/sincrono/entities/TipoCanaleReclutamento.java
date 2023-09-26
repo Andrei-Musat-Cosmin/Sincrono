@@ -60,4 +60,9 @@ public class TipoCanaleReclutamento {
 		this.descrizione = descrizione;
 	}
 
+	@Override
+	public String toString() {
+		return "TipoCanaleReclutamento [id=" + id + ", descrizione=" + descrizione + "]";
+	}
+
 }

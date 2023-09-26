@@ -290,5 +290,15 @@ public class Anagrafica {
 		this.attesaLavori = attesaLavori;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Anagrafica [id=" + id + ", utente=" + utente + ", tipoAzienda=" + tipoAzienda + ", nome=" + nome
+				+ ", cognome=" + cognome + ", codiceFiscale=" + codiceFiscale + ", comuneDiNascita=" + comuneDiNascita
+				+ ", dataDiNascita=" + dataDiNascita + ", residenza=" + residenza + ", domicilio=" + domicilio
+				+ ", cellularePrivato=" + cellularePrivato + ", cellulareAziendale=" + cellulareAziendale
+				+ ", mailPrivata=" + mailPrivata + ", mailAziendale=" + mailAziendale + ", mailPec=" + mailPec
+				+ ", titoliDiStudio=" + titoliDiStudio + ", altriTitoli=" + altriTitoli + ", coniugato=" + coniugato
+				+ ", figliACarico=" + figliACarico + ", attivo=" + attivo + ", attesaLavori=" + attesaLavori + "]";
+	}
+
 }

@@ -76,4 +76,12 @@ public class AnagraficaRequestDto extends GenericRequest {
 		this.meseFineContratto = meseFineContratto;
 	}
 
+	@Override
+	public String toString() {
+		return "AnagraficaRequestDto [anagraficaDto=" + anagraficaDto.toString() + ", annoDataFine=" + annoDataFine
+				+ ", meseDataFine=" + meseDataFine + ", annoDataInizio=" + annoDataInizio + ", meseDataInizio="
+				+ meseDataInizio + ", annoFineContratto=" + annoFineContratto + ", meseFineContratto="
+				+ meseFineContratto + "]";
+	}
+
 }

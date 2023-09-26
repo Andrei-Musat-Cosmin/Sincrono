@@ -61,4 +61,9 @@ public class TipoAzienda {
 		this.descrizione = descrizione;
 	}
 
+	@Override
+	public String toString() {
+		return "TipoAzienda [id=" + id + ", descrizione=" + descrizione + "]";
+	}
+
 }
