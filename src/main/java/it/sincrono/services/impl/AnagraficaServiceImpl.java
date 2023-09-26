@@ -259,6 +259,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		try {
 			anagraficaDto = anagraficaRepository.getAnagraficaDto(id);
 			calcoloRalPartTime(anagraficaDto);
+			calcoloTipoLivello(anagraficaDto);
 		} catch (NoSuchElementException ne) {
 			System.out.println("Exception occurs { RECORD_NON_TROVATO }");
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
