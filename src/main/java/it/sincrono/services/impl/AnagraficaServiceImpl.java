@@ -330,11 +330,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					System.out.println("Exception occurs {ERRORE VALIDAZIONE per i dati di contratto}");
 					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di contratto");
 				}
-				
+
 				CalcoloDataFineRapporto(anagraficaDto, true);
 				CalcoloTipoCcnl(anagraficaDto);
 				calcoloTipoLivello(anagraficaDto);
-				
+
 				anagraficaDto.getContratto()
 						.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
 								? anagraficaDto.getAnagrafica().getTipoAzienda()
@@ -345,9 +345,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
 
-			/*emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null, "CREAZIONE UTENZA",
-					"username: " + anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
-							+ passwordUtente);*/
+			/*
+			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),
+			 * null, "CREAZIONE UTENZA", "username: " +
+			 * anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
+			 * + passwordUtente);
+			 */
 
 			System.out.println("Password " + passwordUtente);
 
@@ -477,9 +480,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
 
 						if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null) {
-							
+
 							CalcoloDataFineRapporto(anagraficaDto, true);
-							
+
 						}
 						anagraficaDto.getContratto()
 								.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
@@ -678,29 +681,17 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		if (contratto.getTipoContratto().getId() != 1) {
 
-			if ((contratto.getRetribuzioneMensileLorda() != null && contratto.getRalAnnua() == null)
-					|| (contratto.getRetribuzioneMensileLorda() == null && contratto.getRalAnnua() != null)) {
+			TipoCcnl tipoCcnl = tipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
 
-				TipoCcnl tipoCcnl = tipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
+			if (contratto.getRetribuzioneMensileLorda() != null) {
 
-				if (contratto.getRetribuzioneMensileLorda() != null) {
+				Double superMinimoMensile = contratto.getSuperminimoMensile() == null ? 0
+						: contratto.getSuperminimoMensile();
 
-					Double superMinimoMensile = contratto.getSuperminimoMensile() == null ? 0
-							: contratto.getSuperminimoMensile();
+				Double scattiAnzianita = contratto.getScattiAnzianita() == null ? 0 : contratto.getScattiAnzianita();
 
-					Double scattiAnzianita = contratto.getScattiAnzianita() == null ? 0
-							: contratto.getScattiAnzianita();
-
-					contratto.setRalAnnua(
-							(contratto.getRetribuzioneMensileLorda() + superMinimoMensile + scattiAnzianita)
-									* tipoCcnl.getNumeroMensilita());
-				} else {
-
-					Double superMinimoRal = contratto.getSuperminimoRal() == null ? 0 : contratto.getSuperminimoRal();
-
-					contratto.setRetribuzioneMensileLorda(
-							(contratto.getRalAnnua() + superMinimoRal) / tipoCcnl.getNumeroMensilita());
-				}
+				contratto.setRalAnnua((contratto.getRetribuzioneMensileLorda() + superMinimoMensile + scattiAnzianita)
+						* tipoCcnl.getNumeroMensilita());
 			}
 
 		}
@@ -751,15 +742,14 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		}
 
 	}
-	
+
 	private void calcoloTipoLivello(AnagraficaDto anagraficaDto) throws Exception {
 
 		List<TipoLivelloContratto> listLivelli = tipologicheContrattoRepository.getTipoLivelliContrattualiMap();
-		
+
 		anagraficaDto.getContratto().setLivelloAttuale(listLivelli.stream()
-                .filter(livello -> livello.getId()==anagraficaDto.getContratto().getTipoLivelloContratto().getId())
-                .toList().get(0).getLivello());
-                
+				.filter(livello -> livello.getId() == anagraficaDto.getContratto().getTipoLivelloContratto().getId())
+				.toList().get(0).getLivello());
 	}
 
 }
