@@ -18,6 +18,7 @@ import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.entities.StoricoContratti;
 import it.sincrono.entities.TipoCcnl;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
@@ -60,7 +61,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private ProfiloRepository profiloRepository;
 	@Autowired
-	private TipologicheContrattoRepository TipologicheContrattoRepository;
+	private TipologicheContrattoRepository tipologicheContrattoRepository;
 
 	@Autowired
 	private EmailService emailService;
@@ -329,8 +330,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					System.out.println("Exception occurs {ERRORE VALIDAZIONE per i dati di contratto}");
 					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di contratto");
 				}
+				
 				CalcoloDataFineRapporto(anagraficaDto, true);
 				CalcoloTipoCcnl(anagraficaDto);
+				calcoloTipoLivello(anagraficaDto);
+				
 				anagraficaDto.getContratto()
 						.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
 								? anagraficaDto.getAnagrafica().getTipoAzienda()
@@ -472,13 +476,17 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 					if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
 
-						if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null)
+						if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null) {
+							
 							CalcoloDataFineRapporto(anagraficaDto, true);
+							
+						}
 						anagraficaDto.getContratto()
 								.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
 										? anagraficaDto.getAnagrafica().getTipoAzienda()
 										: null);
 						CalcoloTipoCcnl(anagraficaDto);
+						calcoloTipoLivello(anagraficaDto);
 						anagraficaDto.getContratto().setId(null);
 						anagraficaDto.getContratto().setAttivo(true);
 						Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
@@ -673,7 +681,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if ((contratto.getRetribuzioneMensileLorda() != null && contratto.getRalAnnua() == null)
 					|| (contratto.getRetribuzioneMensileLorda() == null && contratto.getRalAnnua() != null)) {
 
-				TipoCcnl tipoCcnl = TipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
+				TipoCcnl tipoCcnl = tipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
 
 				if (contratto.getRetribuzioneMensileLorda() != null) {
 
@@ -742,6 +750,16 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			}
 		}
 
+	}
+	
+	private void calcoloTipoLivello(AnagraficaDto anagraficaDto) throws Exception {
+
+		List<TipoLivelloContratto> listLivelli = tipologicheContrattoRepository.getTipoLivelliContrattualiMap();
+		
+		anagraficaDto.getContratto().setLivelloAttuale(listLivelli.stream()
+                .filter(livello -> livello.getId()==anagraficaDto.getContratto().getTipoLivelloContratto().getId())
+                .toList().get(0).getLivello());
+                
 	}
 
 }
