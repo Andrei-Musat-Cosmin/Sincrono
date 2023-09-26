@@ -74,4 +74,9 @@ public class TipoCcnl {
 		this.numeroMensilita = numeroMensilita;
 	}
 
+	@Override
+	public String toString() {
+		return "TipoCcnl [id=" + id + ", descrizione=" + descrizione + ", numeroMensilita=" + numeroMensilita + "]";
+	}
+
 }

@@ -199,4 +199,13 @@ public class Commessa {
 		this.attivo = attivo;
 	}
 
+	@Override
+	public String toString() {
+		return "Commessa [id=" + id + ", aziendaCliente=" + aziendaCliente + ", clienteFinale=" + clienteFinale
+				+ ", titoloPosizione=" + titoloPosizione + ", distacco=" + distacco + ", distaccoAzienda="
+				+ distaccoAzienda + ", distaccoData=" + distaccoData + ", dataInizio=" + dataInizio + ", dataFine="
+				+ dataFine + ", tariffaGiornaliera=" + tariffaGiornaliera + ", aziendaDiFatturazioneInterna="
+				+ aziendaDiFatturazioneInterna + ", attivo=" + attivo + "]";
+	}
+
 }

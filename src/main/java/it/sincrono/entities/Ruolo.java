@@ -102,4 +102,10 @@ public class Ruolo {
 		this.ruoli = ruoli;
 	}
 
+	@Override
+	public String toString() {
+		return "Ruolo [id=" + id + ", ruolo=" + ruolo + ", nome=" + nome + ", descrizione=" + descrizione + ", profilo="
+				+ profilo + "]";
+	}
+
 }

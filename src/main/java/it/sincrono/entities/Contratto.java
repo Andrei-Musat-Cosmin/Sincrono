@@ -226,7 +226,6 @@ public class Contratto {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -236,9 +235,8 @@ public class Contratto {
 		if (getClass() != obj.getClass())
 			return false;
 		Contratto other = (Contratto) obj;
-		return 
-				 Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
-				 && Objects.equals(categoriaProtetta, other.categoriaProtetta)
+		return Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
+				&& Objects.equals(categoriaProtetta, other.categoriaProtetta)
 				&& Objects.equals(corsoSicurezza, other.corsoSicurezza)
 				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
 				&& DateUtil.dateCompare(dataCorsoSicurezza, other.dataCorsoSicurezza)
@@ -262,9 +260,8 @@ public class Contratto {
 				&& Objects.equals(superminimoMensile, other.superminimoMensile)
 				&& Objects.equals(superminimoRal, other.superminimoRal)
 				&& Objects.equals(tariffaPartitaIva, other.tariffaPartitaIva) && Objects.equals(ticket, other.ticket)
-				&& TipologicheCompare.tipologicheCompare(this,other)
-				&& Objects.equals(tutor, other.tutor) && Objects.equals(valoreTicket, other.valoreTicket)
-				&& Objects.equals(visitaMedica, other.visitaMedica);
+				&& TipologicheCompare.tipologicheCompare(this, other) && Objects.equals(tutor, other.tutor)
+				&& Objects.equals(valoreTicket, other.valoreTicket) && Objects.equals(visitaMedica, other.visitaMedica);
 	}
 
 	public Integer getId() {
@@ -606,7 +603,29 @@ public class Contratto {
 		this.RalPartTime = ralPartTime;
 
 	}
-	
-	
+
+	@Override
+	public String toString() {
+
+		return "Contratto [id=" + id + ", tipoCausaFineRapporto=" + tipoCausaFineRapporto.toString()
+				+ ", tipoCanaleReclutamento=" + tipoCanaleReclutamento.toString() + ", tipoContratto="
+				+ tipoContratto.toString() + ", tipoLivelloContratto=" + tipoLivelloContratto.toString()
+				+ ", tipoAzienda=" + tipoAzienda.toString() + ", tipoCcnl=" + tipoCcnl.toString() + ", attivo=" + attivo
+				+ ", qualifica=" + qualifica + ", sedeAssunzione=" + sedeAssunzione + ", dataAssunzione="
+				+ dataAssunzione + ", dataInizioProva=" + dataInizioProva + ", dataFineProva=" + dataFineProva
+				+ ", dataFineRapporto=" + dataFineRapporto + ", mesiDurata=" + mesiDurata + ", livelloAttuale="
+				+ livelloAttuale + ", livelloFinale=" + livelloFinale + ", partTime=" + partTime
+				+ ", percentualePartTime=" + percentualePartTime + ", retribuzioneMensileLorda="
+				+ retribuzioneMensileLorda + ", superminimoMensile=" + superminimoMensile + ", ralAnnua=" + ralAnnua
+				+ ", superminimoRal=" + superminimoRal + ", diariaMensile=" + diariaMensile + ", diariaGiornaliera="
+				+ diariaGiornaliera + ", ticket=" + ticket + ", valoreTicket=" + valoreTicket + ", categoriaProtetta="
+				+ categoriaProtetta + ", tutor=" + tutor + ", pfi=" + pfi + ", corsoSicurezza=" + corsoSicurezza
+				+ ", dataCorsoSicurezza=" + dataCorsoSicurezza + ", pc=" + pc + ", visitaMedica=" + visitaMedica
+				+ ", dataVisitaMedica=" + dataVisitaMedica + ", scattiAnzianita=" + scattiAnzianita
+				+ ", tariffaPartitaIva=" + tariffaPartitaIva + ", assicurazioneObbligatoria="
+				+ assicurazioneObbligatoria + ", retribuzioneNettaGiornaliera=" + retribuzioneNettaGiornaliera
+				+ ", retribuzioneNettaMensile=" + retribuzioneNettaMensile + ", diariaAnnua=" + diariaAnnua
+				+ ", RalPartTime=" + RalPartTime + "]";
+	}
 
 }

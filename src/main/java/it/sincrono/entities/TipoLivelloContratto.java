@@ -85,4 +85,10 @@ public class TipoLivelloContratto {
 		this.minimiRet23 = minimiRet23;
 	}
 
+	@Override
+	public String toString() {
+		return "TipoLivelloContratto [id=" + id + ", ccnl=" + ccnl + ", livello=" + livello + ", minimiRet23="
+				+ minimiRet23 + "]";
+	}
+
 }

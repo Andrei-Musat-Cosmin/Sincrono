@@ -3,13 +3,17 @@ package it.sincrono.services.impl;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import it.sincrono.component.Mapper;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
@@ -45,7 +49,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
-
+	private static final Logger logger = LogManager.getLogger(AnagraficaServiceImpl.class);
 	@Autowired
 	private AnagraficaRepository anagraficaRepository;
 	@Autowired
@@ -87,6 +91,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private CommessaValidatorList commessaValidatorList;
 
+	@Autowired
+	private Mapper mapper;
 //	@Override
 //	public List<Anagrafica> list() throws ServiceException {
 //
@@ -208,7 +214,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.filterListAnagraficaDto(anagraficaRequestDto);
+			list = listAnagraficaDto().stream()
+					.filter(anagraficaDto -> mapper.toFilter(anagraficaDto, anagraficaRequestDto))
+					.collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -243,7 +251,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.listAnagraficaDto();
+			list = anagraficaRepository.findAll().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);

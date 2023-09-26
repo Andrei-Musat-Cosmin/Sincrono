@@ -60,4 +60,9 @@ public class TipoCausaFineRapporto {
 		this.descrizione = descrizione;
 	}
 
+	@Override
+	public String toString() {
+		return "TipoCausaFineRapporto [id=" + id + ", descrizione=" + descrizione + "]";
+	}
+
 }
