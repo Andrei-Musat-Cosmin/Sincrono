@@ -83,18 +83,30 @@ public class Anagrafica {
 	@Column(name = "attesa_lavori")
 	private Boolean attesaLavori;
 
-	public Anagrafica(Integer id, Utente utente, Boolean attivo, TipoAzienda tipoAzienda, String cognome, String nome,
+	@Column(name = "cittadinaza")
+	private String cittadinanza;
+
+	@Column(name = "stato_di_nascita")
+	private String statoDiNascita;
+
+	@Column(name = "provincia_di_nascita")
+	private String provinciaDiNascita;
+
+	@Column(name = "categoria_protetta")
+	private Boolean categoriaProtetta;
+
+	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, String nome, String cognome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
 			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico,
-			Boolean attesaLavori) {
+			Boolean attivo, Boolean attesaLavori, String cittadinanza, String statoDiNascita, String provinciaDiNascita,
+			Boolean categoriaProtetta) {
 		super();
 		this.id = id;
 		this.utente = utente;
-		this.attivo = attivo;
 		this.tipoAzienda = tipoAzienda;
-		this.cognome = cognome;
 		this.nome = nome;
+		this.cognome = cognome;
 		this.codiceFiscale = codiceFiscale;
 		this.comuneDiNascita = comuneDiNascita;
 		this.dataDiNascita = dataDiNascita;
@@ -109,7 +121,12 @@ public class Anagrafica {
 		this.altriTitoli = altriTitoli;
 		this.coniugato = coniugato;
 		this.figliACarico = figliACarico;
+		this.attivo = attivo;
 		this.attesaLavori = attesaLavori;
+		this.cittadinanza = cittadinanza;
+		this.statoDiNascita = statoDiNascita;
+		this.provinciaDiNascita = provinciaDiNascita;
+		this.categoriaProtetta = categoriaProtetta;
 	}
 
 	public Anagrafica() {
@@ -290,15 +307,36 @@ public class Anagrafica {
 		this.attesaLavori = attesaLavori;
 	}
 
-	@Override
-	public String toString() {
-		return "Anagrafica [id=" + id + ", utente=" + utente + ", tipoAzienda=" + tipoAzienda + ", nome=" + nome
-				+ ", cognome=" + cognome + ", codiceFiscale=" + codiceFiscale + ", comuneDiNascita=" + comuneDiNascita
-				+ ", dataDiNascita=" + dataDiNascita + ", residenza=" + residenza + ", domicilio=" + domicilio
-				+ ", cellularePrivato=" + cellularePrivato + ", cellulareAziendale=" + cellulareAziendale
-				+ ", mailPrivata=" + mailPrivata + ", mailAziendale=" + mailAziendale + ", mailPec=" + mailPec
-				+ ", titoliDiStudio=" + titoliDiStudio + ", altriTitoli=" + altriTitoli + ", coniugato=" + coniugato
-				+ ", figliACarico=" + figliACarico + ", attivo=" + attivo + ", attesaLavori=" + attesaLavori + "]";
+	public String getCittadinanza() {
+		return cittadinanza;
+	}
+
+	public void setCittadinanza(String cittadinanza) {
+		this.cittadinanza = cittadinanza;
+	}
+
+	public String getStatoDiNascita() {
+		return statoDiNascita;
+	}
+
+	public void setStatoDiNascita(String statoDiNascita) {
+		this.statoDiNascita = statoDiNascita;
+	}
+
+	public String getProvinciaDiNascita() {
+		return provinciaDiNascita;
+	}
+
+	public void setProvinciaDiNascita(String provinciaDiNascita) {
+		this.provinciaDiNascita = provinciaDiNascita;
+	}
+
+	public Boolean getCategoriaProtetta() {
+		return categoriaProtetta;
+	}
+
+	public void setCategoriaProtetta(Boolean categoriaProtetta) {
+		this.categoriaProtetta = categoriaProtetta;
 	}
 
 }

@@ -108,9 +108,6 @@ public class Contratto {
 	@Column(name = "valore_ticket")
 	private Double valoreTicket;
 
-	@Column(name = "categoria_protetta")
-	private Boolean categoriaProtetta;
-
 	@Column(name = "tutor")
 	private String tutor;
 
@@ -160,8 +157,8 @@ public class Contratto {
 			Date dataFineRapporto, Integer mesiDurata, String livelloAttuale, String livelloFinale, Boolean partTime,
 			Double percentualePartTime, Double retribuzioneMensileLorda, Double superminimoMensile, Double ralAnnua,
 			Double superminimoRal, Double diariaMensile, Double diariaGiornaliera, Boolean ticket, Double valoreTicket,
-			Boolean categoriaProtetta, String tutor, Boolean pfi, Boolean corsoSicurezza, Date dataCorsoSicurezza,
-			Boolean pc, Boolean visitaMedica, Date dataVisitaMedica, Double scattiAnzianita, Double tariffaPartitaIva,
+			String tutor, Boolean pfi, Boolean corsoSicurezza, Date dataCorsoSicurezza, Boolean pc,
+			Boolean visitaMedica, Date dataVisitaMedica, Double scattiAnzianita, Double tariffaPartitaIva,
 			Boolean assicurazioneObbligatoria, Double retribuzioneNettaGiornaliera, Double retribuzioneNettaMensile,
 			Double diariaAnnua) {
 		super();
@@ -192,7 +189,6 @@ public class Contratto {
 		this.diariaGiornaliera = diariaGiornaliera;
 		this.ticket = ticket;
 		this.valoreTicket = valoreTicket;
-		this.categoriaProtetta = categoriaProtetta;
 		this.tutor = tutor;
 		this.pfi = pfi;
 		this.corsoSicurezza = corsoSicurezza;
@@ -236,7 +232,6 @@ public class Contratto {
 			return false;
 		Contratto other = (Contratto) obj;
 		return Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
-				&& Objects.equals(categoriaProtetta, other.categoriaProtetta)
 				&& Objects.equals(corsoSicurezza, other.corsoSicurezza)
 				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
 				&& DateUtil.dateCompare(dataCorsoSicurezza, other.dataCorsoSicurezza)
@@ -480,14 +475,6 @@ public class Contratto {
 		this.valoreTicket = valoreTicket;
 	}
 
-	public Boolean getCategoriaProtetta() {
-		return categoriaProtetta;
-	}
-
-	public void setCategoriaProtetta(Boolean categoriaProtetta) {
-		this.categoriaProtetta = categoriaProtetta;
-	}
-
 	public String getTutor() {
 		return tutor;
 	}
@@ -602,30 +589,6 @@ public class Contratto {
 
 		this.RalPartTime = ralPartTime;
 
-	}
-
-	@Override
-	public String toString() {
-
-		return "Contratto [id=" + id + ", tipoCausaFineRapporto=" + tipoCausaFineRapporto.toString()
-				+ ", tipoCanaleReclutamento=" + tipoCanaleReclutamento.toString() + ", tipoContratto="
-				+ tipoContratto.toString() + ", tipoLivelloContratto=" + tipoLivelloContratto.toString()
-				+ ", tipoAzienda=" + tipoAzienda.toString() + ", tipoCcnl=" + tipoCcnl.toString() + ", attivo=" + attivo
-				+ ", qualifica=" + qualifica + ", sedeAssunzione=" + sedeAssunzione + ", dataAssunzione="
-				+ dataAssunzione + ", dataInizioProva=" + dataInizioProva + ", dataFineProva=" + dataFineProva
-				+ ", dataFineRapporto=" + dataFineRapporto + ", mesiDurata=" + mesiDurata + ", livelloAttuale="
-				+ livelloAttuale + ", livelloFinale=" + livelloFinale + ", partTime=" + partTime
-				+ ", percentualePartTime=" + percentualePartTime + ", retribuzioneMensileLorda="
-				+ retribuzioneMensileLorda + ", superminimoMensile=" + superminimoMensile + ", ralAnnua=" + ralAnnua
-				+ ", superminimoRal=" + superminimoRal + ", diariaMensile=" + diariaMensile + ", diariaGiornaliera="
-				+ diariaGiornaliera + ", ticket=" + ticket + ", valoreTicket=" + valoreTicket + ", categoriaProtetta="
-				+ categoriaProtetta + ", tutor=" + tutor + ", pfi=" + pfi + ", corsoSicurezza=" + corsoSicurezza
-				+ ", dataCorsoSicurezza=" + dataCorsoSicurezza + ", pc=" + pc + ", visitaMedica=" + visitaMedica
-				+ ", dataVisitaMedica=" + dataVisitaMedica + ", scattiAnzianita=" + scattiAnzianita
-				+ ", tariffaPartitaIva=" + tariffaPartitaIva + ", assicurazioneObbligatoria="
-				+ assicurazioneObbligatoria + ", retribuzioneNettaGiornaliera=" + retribuzioneNettaGiornaliera
-				+ ", retribuzioneNettaMensile=" + retribuzioneNettaMensile + ", diariaAnnua=" + diariaAnnua
-				+ ", RalPartTime=" + RalPartTime + "]";
 	}
 
 }

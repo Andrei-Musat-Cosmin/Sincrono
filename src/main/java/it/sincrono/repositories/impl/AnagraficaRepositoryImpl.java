@@ -503,7 +503,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[47] != null)
 					contratto.setValoreTicket((Double.valueOf(((BigDecimal) result[47]).toString())));
 				if (result[48] != null)
-					contratto.setCategoriaProtetta((Boolean) result[48]);
+				//	contratto.setCategoriaProtetta((Boolean) result[48]);
 				if (result[49] != null)
 					contratto.setTutor((String) result[49]);
 				if (result[50] != null)

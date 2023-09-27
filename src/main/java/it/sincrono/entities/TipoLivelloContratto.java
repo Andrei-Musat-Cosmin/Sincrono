@@ -40,7 +40,6 @@ public class TipoLivelloContratto {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -50,7 +49,7 @@ public class TipoLivelloContratto {
 		if (getClass() != obj.getClass())
 			return false;
 		TipoLivelloContratto other = (TipoLivelloContratto) obj;
-		return  Objects.equals(id, other.id);
+		return Objects.equals(id, other.id);
 	}
 
 	public Integer getId() {
@@ -83,12 +82,6 @@ public class TipoLivelloContratto {
 
 	public void setMinimiRet23(Double minimiRet23) {
 		this.minimiRet23 = minimiRet23;
-	}
-
-	@Override
-	public String toString() {
-		return "TipoLivelloContratto [id=" + id + ", ccnl=" + ccnl + ", livello=" + livello + ", minimiRet23="
-				+ minimiRet23 + "]";
 	}
 
 }

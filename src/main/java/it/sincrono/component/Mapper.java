@@ -1,6 +1,6 @@
 package it.sincrono.component;
 
-import java.util.stream.Collectors;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
+import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
 import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
@@ -19,25 +20,34 @@ public class Mapper {
 	@Autowired
 	ContrattoRepository contrattoRepository;
 	@Autowired
+	AnagraficaRepository anagraficaRepository;
+	@Autowired
 	CommessaRepository commessaRepository;
 
-	public AnagraficaDto toAnagraficaDto(Anagrafica anagrafica) {
+	public AnagraficaDto toAnagraficaDto(Integer id) {
 		AnagraficaDto anagraficaDto = new AnagraficaDto();
+
+		Anagrafica anagrafica = anagraficaRepository.findById(id).get();
+
 		anagrafica.getUtente().setPassword(null);
 		anagrafica.getUtente().setTokenPassword(null);
 		anagrafica.getUtente().setUsername(null);
 
 		anagraficaDto.setAnagrafica(anagrafica);
 
-		anagraficaDto.setContratto(contrattoRepository.findByIdAnagrafica(anagrafica.getId()));
+		anagraficaDto.setContratto(toContratto(id));
 
-		anagraficaDto.setCommesse(commessaRepository.findByIdAnagrafica(anagrafica.getId()).stream()
-				.map((Commessa) -> toCommessa(Commessa)).collect(Collectors.toList()));
+		anagraficaDto.setCommesse(toCommessaArray(id));
+		
 		return anagraficaDto;
 	}
 
-	public Commessa toCommessa(Commessa commessa) {
-		return commessa;
+	public Contratto toContratto(Integer id) {
+		return contrattoRepository.findByIdAnagrafica(id);
+	}
+
+	public List<Commessa> toCommessaArray(Integer id) {
+		return commessaRepository.findByIdAnagrafica(id);
 	}
 
 	public Boolean toFilter(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {

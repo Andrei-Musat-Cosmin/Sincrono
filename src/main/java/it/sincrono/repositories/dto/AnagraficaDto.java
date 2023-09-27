@@ -61,10 +61,4 @@ public class AnagraficaDto {
 		this.ruolo = ruolo;
 	}
 
-	@Override
-	public String toString() {
-		return "AnagraficaDto [anagrafica=" + anagrafica.toString() + ", contratto=" + contratto.toString()
-				+ ", commesse=" + commesse.toString() + ", ruolo=" + ruolo.toString() + "]";
-	}
-
 }

@@ -53,7 +53,6 @@ public class Commessa {
 	@Column(name = "attivo")
 	private Boolean attivo;
 
-
 	public Commessa(Integer id, String aziendaCliente, String clienteFinale, String titoloPosizione, Boolean distacco,
 			Date distaccoData, String distaccoAzienda, Date dataInizio, Date dataFine, String tariffaGiornaliera,
 			String aziendaDiFatturazioneInterna, Boolean attivo) {
@@ -78,7 +77,6 @@ public class Commessa {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,7 +86,7 @@ public class Commessa {
 		if (getClass() != obj.getClass())
 			return false;
 		Commessa other = (Commessa) obj;
-		return  Objects.equals(aziendaCliente, other.aziendaCliente)
+		return Objects.equals(aziendaCliente, other.aziendaCliente)
 				&& Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
 				&& Objects.equals(clienteFinale, other.clienteFinale) && DateUtil.dateCompare(dataFine, other.dataFine)
 				&& DateUtil.dateCompare(dataInizio, other.dataInizio) && Objects.equals(distacco, other.distacco)
@@ -197,15 +195,6 @@ public class Commessa {
 
 	public void setAttivo(Boolean attivo) {
 		this.attivo = attivo;
-	}
-
-	@Override
-	public String toString() {
-		return "Commessa [id=" + id + ", aziendaCliente=" + aziendaCliente + ", clienteFinale=" + clienteFinale
-				+ ", titoloPosizione=" + titoloPosizione + ", distacco=" + distacco + ", distaccoAzienda="
-				+ distaccoAzienda + ", distaccoData=" + distaccoData + ", dataInizio=" + dataInizio + ", dataFine="
-				+ dataFine + ", tariffaGiornaliera=" + tariffaGiornaliera + ", aziendaDiFatturazioneInterna="
-				+ aziendaDiFatturazioneInterna + ", attivo=" + attivo + "]";
 	}
 
 }

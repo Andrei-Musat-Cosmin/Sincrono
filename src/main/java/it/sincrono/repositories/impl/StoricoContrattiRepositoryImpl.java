@@ -123,7 +123,7 @@ public class StoricoContrattiRepositoryImpl extends BaseRepositoryImpl implement
 				if (result[26] != null)
 					contratto.setValoreTicket((Double.valueOf(((BigDecimal) result[26]).toString())));
 				if (result[27] != null)
-					contratto.setCategoriaProtetta((Boolean) result[27]);
+				//	contratto.setCategoriaProtetta((Boolean) result[27]);
 				if (result[28] != null)
 					contratto.setTutor((String) result[28]);
 				if (result[29] != null)
