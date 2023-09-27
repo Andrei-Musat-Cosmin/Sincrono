@@ -381,7 +381,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			 */
 			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-			
+
 		} catch (ServiceException se) {
 			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
@@ -478,7 +478,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		AnagraficaDto anagraficaDto = null;
 
 		try {
-			anagraficaDto = anagraficaRepository.getAnagraficaDtoByToken(token);
+			anagraficaDto = mapper.toAnagraficaDto(token);
 		} catch (NoSuchElementException ne) {
 			System.out.println("Exception occurs { RECORD_NON_TROVATO }");
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);

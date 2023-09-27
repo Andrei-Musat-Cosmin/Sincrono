@@ -12,6 +12,9 @@ public interface AnagraficaRepository extends JpaRepository<Anagrafica, Integer>
 	@Query("SELECT a.id FROM Anagrafica a WHERE a.attivo = 1")
 	Collection<Integer> findAllId();
 
+	@Query("SELECT a FROM Anagrafica a WHERE a.attivo = 1 AND a.utente.tokenPassword LIKE ?1")
+	Anagrafica findByToken(String token);
+
 //	@Query("SELECT a FROM Anagrafica a WHERE a.attivo = 1")
 //	List<Anagrafica> getAllActive();
 

@@ -38,7 +38,25 @@ public class Mapper {
 		anagraficaDto.setContratto(toContratto(id));
 
 		anagraficaDto.setCommesse(toCommessaArray(id));
-		
+
+		return anagraficaDto;
+	}
+
+	public AnagraficaDto toAnagraficaDto(String token) {
+		AnagraficaDto anagraficaDto = new AnagraficaDto();
+
+		Anagrafica anagrafica = anagraficaRepository.findByToken(token);
+
+		anagrafica.getUtente().setPassword(null);
+		anagrafica.getUtente().setTokenPassword(null);
+		anagrafica.getUtente().setUsername(null);
+
+		anagraficaDto.setAnagrafica(anagrafica);
+
+		anagraficaDto.setContratto(toContratto(anagrafica.getId()));
+
+		anagraficaDto.setCommesse(toCommessaArray(anagrafica.getId()));
+
 		return anagraficaDto;
 	}
 
