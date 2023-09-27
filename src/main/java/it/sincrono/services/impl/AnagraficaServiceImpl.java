@@ -594,12 +594,16 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	private void calcoloTipoLivello(AnagraficaDto anagraficaDto) throws Exception {
+		
+		if(anagraficaDto.getContratto()!=null) {
 
-		List<TipoLivelloContratto> listLivelli = tipologicheContrattoRepository.getTipoLivelliContrattualiMap();
-
-		anagraficaDto.getContratto().setLivelloAttuale(listLivelli.stream()
-				.filter(livello -> livello.getId() == anagraficaDto.getContratto().getTipoLivelloContratto().getId())
-				.toList().get(0).getLivello());
+			List<TipoLivelloContratto> listLivelli = tipologicheContrattoRepository.getTipoLivelliContrattualiMap();
+	
+			anagraficaDto.getContratto().setLivelloAttuale(listLivelli.stream()
+					.filter(livello -> livello.getId() == anagraficaDto.getContratto().getTipoLivelloContratto().getId())
+					.toList().get(0).getLivello());
+			
+		}
 	}
 
 	/*
