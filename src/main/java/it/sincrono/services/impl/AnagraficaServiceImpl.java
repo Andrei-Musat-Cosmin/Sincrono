@@ -233,6 +233,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		} catch (DataIntegrityViolationException de) {
 			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (ServiceException se) {
+			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -378,6 +381,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			 */
 			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+			
+		} catch (ServiceException se) {
+			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 
 		} catch (Exception e) {
 			/*
