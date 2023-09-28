@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import it.sincrono.services.utils.FilterCustom;
 import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
@@ -54,6 +55,8 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 	private AnagraficaRepository anagraficaRepository;
 	@Autowired
 	private MapperCustom mapper;
+	@Autowired
+	private FilterCustom filter;
 
 	@Override
 	public List<AnagraficaDto> getCommesseInscadenza() throws ServiceException {
@@ -61,7 +64,10 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList());
+			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList()).stream()
+					.filter(anagraficaDto -> filter.checkListCommesse(anagraficaDto.getCommesse().stream().filter(
+							commessa ->filter.checkCommesseInScadenza(commessa)).collect(Collectors.toList())))
+					.collect(Collectors.toList());
 			
 			
 		} catch (Exception e) {
@@ -77,7 +83,9 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = dashboardRepository.listContrattiInScadenza();
+			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList()).stream()
+					.filter(anagraficaDto -> 
+					filter.checkContrattiInScadenza(anagraficaDto.getContratto())).collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -91,7 +99,8 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = dashboardRepository.listCommesse(anagraficaRequestDto);
+			list = this.listAllCommesse().stream().filter(
+					anagraficaDto -> filter.toFilterCommesse(anagraficaDto, anagraficaRequestDto)).collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -105,7 +114,10 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = dashboardRepository.listAllCommesse();
+			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList()).stream()
+					.filter(anagraficaDto -> filter.checkListCommesse(anagraficaDto.getCommesse().stream().filter(
+							commessa ->filter.checkScaduta(commessa)).collect(Collectors.toList())))
+					.collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
