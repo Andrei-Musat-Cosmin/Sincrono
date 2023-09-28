@@ -1,6 +1,7 @@
 package it.sincrono.services.impl;
 
 import java.util.Calendar;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -13,7 +14,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import it.sincrono.component.Mapper;
+import it.sincrono.services.utils.FilterCustom;
+import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
@@ -92,7 +94,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private CommessaValidatorList commessaValidatorList;
 
 	@Autowired
-	private Mapper mapper;
+	private MapperCustom mapper;
+
+	@Autowired
+	private FilterCustom filter;
 
 	@Override
 	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaRequestDto anagraficaRequestDto)
@@ -102,7 +107,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		try {
 			list = listAnagraficaDto().stream()
-					.filter(anagraficaDto -> mapper.toFilter(anagraficaDto, anagraficaRequestDto))
+					.filter(anagraficaDto -> filter.toFilter(anagraficaDto, anagraficaRequestDto))
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
@@ -558,9 +563,13 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private void calcoloRalPartTime(AnagraficaDto anagraficaDto) throws Exception {
 
 		Contratto contratto = anagraficaDto.getContratto();
+		
+		if(contratto!=null) {
 
-		if (contratto.getPercentualePartTime() != null && contratto.getRalAnnua() != null) {
-			contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
+			if (contratto.getPercentualePartTime() != null && contratto.getRalAnnua() != null) {
+				contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
+			}
+			
 		}
 
 		anagraficaDto.setContratto(contratto);

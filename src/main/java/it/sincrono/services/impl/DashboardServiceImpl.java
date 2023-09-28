@@ -1,7 +1,9 @@
 package it.sincrono.services.impl;
 
 import java.util.List;
+
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
@@ -47,6 +50,10 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 
 	@Autowired
 	private DashboardRepository dashboardRepository;
+	@Autowired
+	private AnagraficaRepository anagraficaRepository;
+	@Autowired
+	private MapperCustom mapper;
 
 	@Override
 	public List<AnagraficaDto> getCommesseInscadenza() throws ServiceException {
@@ -54,7 +61,9 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = dashboardRepository.listCommesseInScadenza();
+			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList());
+			
+			
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
