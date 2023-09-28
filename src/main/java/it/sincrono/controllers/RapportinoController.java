@@ -48,7 +48,7 @@ public class RapportinoController {
 
 		RapportinoDtoResponse rapportinoDtoResponse = new RapportinoDtoResponse();
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al meotodo listAnagraficaDto");
+			logger.log(Level.INFO, "Inizio chiamata al meotodo getRapportino");
 
 			RapportinoDto rapportinoDto = rapportinoService.getRapportino();
 
@@ -62,7 +62,7 @@ public class RapportinoController {
 			rapportinoDtoResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<RapportinoDtoResponse>(rapportinoDtoResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al meotodo listAnagraficaDto\n");
+		logger.log(Level.INFO, "Fine chiamata al meotodo getRapportino\n");
 
 		return httpEntity;
 	}
