@@ -28,6 +28,9 @@ public interface TipologicheContrattoRepository
 	@Query(value = "SELECT a FROM TipoLivelloContratto a WHERE a.id!=0 ORDER BY a.id")
 	public List<TipoLivelloContratto> getTipoLivelliContrattualiMap() throws RepositoryException;
 
+	@Query(value = "SELECT a FROM TipoLivelloContratto a WHERE a.id!=0 AND a.ccnl LIKE ?1 ORDER BY a.id")
+	public List<TipoLivelloContratto> getTipoLivelliContrattualiMap(String ccnl) throws RepositoryException;
+
 	@Query(value = "SELECT a FROM TipoContratto a WHERE a.id!=0 ORDER BY a.id")
 	public List<TipoContratto> getTipoContratto() throws RepositoryException;
 

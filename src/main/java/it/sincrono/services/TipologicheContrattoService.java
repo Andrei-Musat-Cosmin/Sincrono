@@ -20,6 +20,8 @@ public interface TipologicheContrattoService {
 
 	public List<TipoLivelloContratto> getTipoLivelliContrattualiMap() throws ServiceException;
 
+	public List<TipoLivelloContratto> getTipoLivelliContrattualiMap(String ccnl) throws ServiceException;
+
 	public List<TipoCanaleReclutamento> getTipoCanaleReclutamentoMap() throws ServiceException;
 
 	public List<TipoCausaFineRapporto> getTipoCausaFineRapporto() throws ServiceException;

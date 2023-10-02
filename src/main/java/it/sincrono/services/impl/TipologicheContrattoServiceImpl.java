@@ -72,6 +72,18 @@ public class TipologicheContrattoServiceImpl extends BaseServiceImpl implements 
 	}
 
 	@Override
+	public List<TipoLivelloContratto> getTipoLivelliContrattualiMap(String ccnl) throws ServiceException {
+		List<TipoLivelloContratto> list = null;
+		try {
+			list = tipologicheContrattoRepository.getTipoLivelliContrattualiMap(ccnl);
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
+
+	@Override
 	public List<TipoCanaleReclutamento> getTipoCanaleReclutamentoMap() throws ServiceException {
 		List<TipoCanaleReclutamento> list = null;
 		try {
