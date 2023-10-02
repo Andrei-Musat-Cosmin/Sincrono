@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -53,7 +55,7 @@ public class FileUtil {
 
 		List<GiornoDto> mese = new ArrayList<GiornoDto>();
 
-		if (fileString != null && !fileString.isEmpty())
+		if (fileString != null && !fileString.isEmpty()) {
 
 			for (String giornoNotSplit : fileString.split(";")) {
 
@@ -61,26 +63,34 @@ public class FileUtil {
 
 				GiornoDto giornoDto = new GiornoDto();
 
-				giornoDto.setGiorno(Integer.parseInt(giornoSplit[0]));
+				if (giornoSplit[0] != null)
+					giornoDto.setGiorno(Integer.parseInt(giornoSplit[0]));
 
-				giornoDto.setCliente(giornoSplit[1]);
+				if (giornoSplit[1] != null)
+					giornoDto.setCliente(giornoSplit[1]);
 
-				giornoDto.setOreOrdinarie(Double.parseDouble(giornoSplit[2]));
+				if (giornoSplit[2] != null)
+					giornoDto.setOreOrdinarie(Double.parseDouble(giornoSplit[2]));
 
 				mese.add(giornoDto);
 
 			}
+			
+			rapportinoDto.getMese().setMese(mese);
 
-		rapportinoDto.getMese().setMese(mese);
 
+		} else {
+
+			createRapportinoForMonth(rapportinoDto);
+		}
+
+		
 		return rapportinoDto;
 
 	}
-	
-
 
 	public void creatFolder(String percorso) throws Exception {
-		
+
 		File file = new File(percorso);
 		if (!file.exists()) {
 			try {
@@ -90,6 +100,37 @@ public class FileUtil {
 				throw new Exception();
 			}
 		}
+	}
+
+	private int getNumeroGiorniMese(int anno, int mese) {
+		YearMonth yearMonth = YearMonth.of(anno, mese);
+		return yearMonth.lengthOfMonth();
+	}
+
+	private void createRapportinoForMonth(RapportinoDto rapportinoDto) {
+
+		LocalDate oggi = LocalDate.now();
+
+		rapportinoDto.setMese(new MeseDto());
+
+		List<GiornoDto> mese = new ArrayList<GiornoDto>();
+
+		for (int i = 0; i < getNumeroGiorniMese(oggi.getYear(), oggi.getMonthValue()); i++) {
+
+			GiornoDto giornoDto = new GiornoDto();
+
+			giornoDto.setGiorno(null);
+
+			giornoDto.setCliente(null);
+
+			giornoDto.setOreOrdinarie(null);
+
+			mese.add(giornoDto);
+
+		}
+
+		rapportinoDto.getMese().setMese(mese);
+
 	}
 
 }
