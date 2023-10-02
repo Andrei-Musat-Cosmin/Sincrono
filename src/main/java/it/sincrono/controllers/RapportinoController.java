@@ -2,7 +2,6 @@ package it.sincrono.controllers;
 
 import java.util.List;
 
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import it.sincrono.beans.Esito;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.AnagraficaRequest;
 import it.sincrono.requests.AnagraficaRequestDto;
+import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.responses.AnagraficaDtoListResponse;
 import it.sincrono.responses.AnagraficaDtoResponse;
 import it.sincrono.responses.GenericResponse;
@@ -35,14 +36,12 @@ import it.sincrono.services.exceptions.ServiceException;
 @CrossOrigin
 public class RapportinoController {
 	private static final Logger logger = LogManager.getLogger(RapportinoController.class);
-	
+
 	@Autowired
 	RapportinoService rapportinoService;
 
-	
-	
-	@GetMapping("/get-rapportino")
-	public @ResponseBody HttpEntity<RapportinoDtoResponse> getRapportino() {
+	@GetMapping("/get-rapportino/{codiceFiscale}")
+	public @ResponseBody HttpEntity<RapportinoDtoResponse> getRapportino(@PathVariable("codiceFiscale") String codiceFiscale) {
 
 		HttpEntity<RapportinoDtoResponse> httpEntity = null;
 
@@ -50,7 +49,7 @@ public class RapportinoController {
 		try {
 			logger.log(Level.INFO, "Inizio chiamata al meotodo getRapportino");
 
-			RapportinoDto rapportinoDto = rapportinoService.getRapportino();
+			RapportinoDto rapportinoDto = rapportinoService.getRapportino(codiceFiscale);
 
 			rapportinoDtoResponse.setRapportinoDto(rapportinoDto);
 			rapportinoDtoResponse.setEsito(new Esito());
@@ -66,10 +65,5 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-
-	
-
-
-
 
 }

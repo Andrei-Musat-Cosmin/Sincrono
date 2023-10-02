@@ -1,5 +1,6 @@
 package it.sincrono.services.impl;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
+import it.sincrono.services.utils.FileUtil;
 import it.sincrono.services.utils.FilterCustom;
 import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.entities.Anagrafica;
@@ -54,21 +56,30 @@ import jakarta.transaction.Transactional;
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
 	private static final Logger logger = LogManager.getLogger(RapportinoServiceImpl.class);
-	
 
+	@Autowired
+	FileUtil fileUtil;
 
 	@Override
-	public RapportinoDto getRapportino() throws ServiceException {
-
-		List<AnagraficaDto> list = null;
+	public RapportinoDto getRapportino(String codiceFiscale) throws ServiceException {
+		
+		RapportinoDto rapportinoDto = new RapportinoDto();
 
 		try {
+			
+			
+
+			LocalDate oggi = LocalDate.now();
+
+			rapportinoDto = fileUtil.readFile("C:/Users/SINCRONO/Desktop/" + codiceFiscale + "/"
+					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
+			
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
-		return null;
+		return rapportinoDto;
 	}
 
 }
