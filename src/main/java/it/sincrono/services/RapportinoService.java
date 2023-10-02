@@ -8,7 +8,7 @@ import it.sincrono.services.exceptions.ServiceException;
 public interface RapportinoService {
 
 
-	public RapportinoDto getRapportino(Anagrafica anagrafica) throws ServiceException;
+	public RapportinoDto getRapportino(String codiceFiscale) throws ServiceException;
 
 
 
