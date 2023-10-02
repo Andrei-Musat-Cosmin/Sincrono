@@ -64,10 +64,15 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList()).stream()
-					.filter(anagraficaDto -> filter.checkListCommesse(anagraficaDto.getCommesse().stream().filter(
-							commessa ->filter.checkCommesseInScadenza(commessa)).collect(Collectors.toList())))
-					.collect(Collectors.toList());
+			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList());
+			for(AnagraficaDto anagraficaDto : list) anagraficaDto.getCommesse().stream().filter(commessa->
+			filter.checkCommesseInScadenza(commessa)).collect(Collectors.toList());
+				
+
+					
+					
+				
+			
 			
 			
 		} catch (Exception e) {

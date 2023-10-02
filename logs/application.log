@@ -419,3 +419,940 @@ java.lang.NumberFormatException: For input string: ""
 2023-10-02T12:36:25.146+0200 INFO Inizio chiamata al meotodo getRapportino
 2023-10-02T12:36:26.499+0200 INFO Fine chiamata al meotodo getRapportino
 
+2023-10-02T14:11:51.303+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 6940 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-02T14:11:51.319+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-02T14:11:52.323+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-02T14:11:52.505+0200 INFO Finished Spring Data repository scanning in 169 ms. Found 13 JPA repository interfaces.
+2023-10-02T14:11:53.202+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-02T14:11:53.218+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:11:53.222+0200 INFO Starting service [Tomcat]
+2023-10-02T14:11:53.223+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-02T14:11:53.332+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-02T14:11:53.332+0200 INFO Root WebApplicationContext: initialization completed in 1910 ms
+2023-10-02T14:11:53.563+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-02T14:11:53.639+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-02T14:11:54.048+0200 INFO HikariPool-1 - Starting...
+2023-10-02T14:11:54.451+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57bac3f0
+2023-10-02T14:11:54.454+0200 INFO HikariPool-1 - Start completed.
+2023-10-02T14:11:54.544+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-02T14:11:56.289+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-02T14:11:56.302+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-02T14:11:57.921+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-02T14:11:58.334+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:11:58.371+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-02T14:11:58.381+0200 INFO Started SincronoApplication in 7.675 seconds (process running for 9.662)
+2023-10-02T14:12:11.590+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-02T14:12:11.590+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-02T14:12:11.591+0200 INFO Completed initialization in 1 ms
+2023-10-02T14:18:09.848+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 2084 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-02T14:18:09.866+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-02T14:18:11.548+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-02T14:18:12.008+0200 INFO Finished Spring Data repository scanning in 433 ms. Found 13 JPA repository interfaces.
+2023-10-02T14:18:13.233+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-02T14:18:13.260+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:18:13.264+0200 INFO Starting service [Tomcat]
+2023-10-02T14:18:13.267+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-02T14:18:13.640+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-02T14:18:13.642+0200 INFO Root WebApplicationContext: initialization completed in 3688 ms
+2023-10-02T14:18:14.619+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-02T14:18:14.889+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-02T14:18:16.198+0200 INFO HikariPool-1 - Starting...
+2023-10-02T14:18:17.124+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6ef4297d
+2023-10-02T14:18:17.127+0200 INFO HikariPool-1 - Start completed.
+2023-10-02T14:18:17.314+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-02T14:18:21.160+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-02T14:18:21.182+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-02T14:18:27.756+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-02T14:18:28.343+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:18:28.377+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-02T14:18:28.392+0200 INFO Started SincronoApplication in 19.417 seconds (process running for 24.277)
+2023-10-02T14:21:13.782+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-02T14:21:13.782+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-02T14:21:13.784+0200 INFO Completed initialization in 1 ms
+2023-10-02T14:21:13.839+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:14.016+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:14.271+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:14.289+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:14.330+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:14.351+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:14.389+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:14.407+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:14.451+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:14.476+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:15.918+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:15.938+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.064+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.072+0200 INFO Inizio chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:21:16.078+0200 INFO Inizio chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:21:16.079+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.079+0200 INFO Inizio chiamata al meotodo listAnagraficaDto
+2023-10-02T14:21:16.086+0200 INFO Fine chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:21:16.086+0200 INFO Fine chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:21:16.085+0200 INFO Inizio chiamata al meotodo getTipoCausaFineRapportoMap
+2023-10-02T14:21:16.109+0200 INFO Fine chiamata al meotodo getTipoCausaFineRapportoMap
+2023-10-02T14:21:16.126+0200 INFO Inizio chiamata al meotodo getCcnlMap
+2023-10-02T14:21:16.143+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.127+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-02T14:21:16.164+0200 INFO Fine chiamata al meotodo getCcnlMap
+2023-10-02T14:21:16.188+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.217+0200 INFO Fine chiamata al meotodo listAnagraficaDto
+
+2023-10-02T14:21:16.233+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.248+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.289+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.314+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.347+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.363+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.393+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.409+0200 INFO Fine chiamata al meotodo getAziendeMap
+2023-10-02T14:21:16.413+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.451+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.470+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.501+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.517+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.577+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.590+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.617+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.631+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.660+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.673+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.713+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.727+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.751+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.762+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.787+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.807+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.838+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.851+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.875+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.887+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.918+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.931+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:16.968+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:16.981+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:17.017+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:17.032+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:17.066+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:17.080+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:17.111+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:17.125+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:17.157+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:17.169+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:17.202+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:17.215+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:17.241+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:17.255+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:17.938+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:17.956+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:17.983+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-02T14:21:17.985+0200 INFO Fine chiamata al meotodo getAziendeMap
+2023-10-02T14:21:18.031+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.042+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.083+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.100+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.143+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.162+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.193+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.206+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.246+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.256+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.288+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.299+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.326+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.337+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.365+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.376+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.407+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.419+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.458+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.468+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.493+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.503+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.527+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.542+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.568+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.577+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.604+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.625+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.647+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.655+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.676+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.687+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.712+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.721+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.744+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.754+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.780+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.787+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.845+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.858+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.876+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.884+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.913+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.921+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:18.941+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:18.949+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.123+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.141+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.168+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.182+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.211+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.222+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.252+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.271+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.294+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.306+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.330+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.339+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.367+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.374+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.393+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.403+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.430+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.438+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.462+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.471+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.493+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.501+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.519+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.526+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.546+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.554+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.575+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.583+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.602+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.612+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.633+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.640+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.661+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.670+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.699+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.708+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.730+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.738+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.756+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.765+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.806+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.818+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.863+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.872+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:19.913+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:19.924+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.026+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.036+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.454+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.466+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.494+0200 INFO Inizio chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:21:20.494+0200 INFO Inizio chiamata al meotodo listAnagraficaDto
+2023-10-02T14:21:20.496+0200 INFO Fine chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:21:20.511+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-02T14:21:20.513+0200 INFO Fine chiamata al meotodo getAziendeMap
+2023-10-02T14:21:20.523+0200 INFO Inizio chiamata al meotodo getCcnlMap
+2023-10-02T14:21:20.533+0200 INFO Inizio chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:21:20.533+0200 INFO Inizio chiamata al meotodo getTipoCausaFineRapportoMap
+2023-10-02T14:21:20.537+0200 INFO Fine chiamata al meotodo getCcnlMap
+2023-10-02T14:21:20.537+0200 INFO Fine chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:21:20.539+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.540+0200 INFO Fine chiamata al meotodo getTipoCausaFineRapportoMap
+2023-10-02T14:21:20.543+0200 INFO Fine chiamata al meotodo listAnagraficaDto
+
+2023-10-02T14:21:20.550+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.571+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.580+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.605+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.616+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.635+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.643+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.666+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.675+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.696+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.704+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.722+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.732+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.751+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.759+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.776+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.784+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.803+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.813+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.848+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.858+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.888+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.912+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:20.974+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:20.984+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.026+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.040+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.065+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.074+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.097+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.104+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.133+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.142+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.168+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.177+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.199+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.209+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.233+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.241+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.273+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.283+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.310+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.321+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.348+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.358+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.382+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.394+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.617+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.628+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.672+0200 INFO Inizio chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:21:21.675+0200 INFO Fine chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:21:21.703+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-02T14:21:21.704+0200 INFO Fine chiamata al meotodo getAziendeMap
+2023-10-02T14:21:21.709+0200 INFO Inizio chiamata al meotodo getCcnlMap
+2023-10-02T14:21:21.711+0200 INFO Fine chiamata al meotodo getCcnlMap
+2023-10-02T14:21:21.742+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.752+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.767+0200 INFO Inizio chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:21:21.769+0200 INFO Fine chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:21:21.779+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.790+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.818+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.827+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.857+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.867+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.894+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.905+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.932+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:21.943+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:21.985+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.000+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.081+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.089+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.118+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.126+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.153+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.162+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.190+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.202+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.227+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.237+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.261+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.271+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.290+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.301+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.323+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.330+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.350+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.359+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.388+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.397+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.418+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.428+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.450+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.460+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.487+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.495+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.530+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.539+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.562+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.569+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:21:22.588+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:21:22.595+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:22:58.472+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:22:58.478+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:22:58.478+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:23:15.286+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:23:15.289+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:23:15.289+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:23:24.128+0200 INFO Application shutdown requested.
+2023-10-02T14:23:24.142+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:23:24.142+0200 INFO Stopping service [Tomcat]
+2023-10-02T14:23:24.144+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-02T14:23:24.149+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:23:24.150+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:23:24.151+0200 INFO Shutting down application...
+2023-10-02T14:23:27.995+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 8900 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-02T14:23:28.012+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-02T14:23:29.016+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-02T14:23:29.206+0200 INFO Finished Spring Data repository scanning in 176 ms. Found 13 JPA repository interfaces.
+2023-10-02T14:23:29.901+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-02T14:23:29.914+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:23:29.916+0200 INFO Starting service [Tomcat]
+2023-10-02T14:23:29.917+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-02T14:23:30.066+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-02T14:23:30.066+0200 INFO Root WebApplicationContext: initialization completed in 1947 ms
+2023-10-02T14:23:30.316+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-02T14:23:30.397+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-02T14:23:30.827+0200 INFO HikariPool-1 - Starting...
+2023-10-02T14:23:31.247+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3909a854
+2023-10-02T14:23:31.250+0200 INFO HikariPool-1 - Start completed.
+2023-10-02T14:23:31.337+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-02T14:23:33.201+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-02T14:23:33.215+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-02T14:23:34.948+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-02T14:23:35.389+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:23:35.429+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-02T14:23:35.442+0200 INFO Started SincronoApplication in 8.158 seconds (process running for 9.92)
+2023-10-02T14:23:50.836+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-02T14:23:50.836+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-02T14:23:50.838+0200 INFO Completed initialization in 2 ms
+2023-10-02T14:23:51.115+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:23:57.222+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:23:57.222+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:24:10.891+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:24:22.761+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:24:22.762+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:24:27.080+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:25:30.674+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:25:30.674+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:25:33.644+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:26:11.638+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:26:11.639+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:26:16.540+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:27:35.300+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 732 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-02T14:27:35.314+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-02T14:27:36.157+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-02T14:27:36.310+0200 INFO Finished Spring Data repository scanning in 144 ms. Found 13 JPA repository interfaces.
+2023-10-02T14:27:36.901+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-02T14:27:36.915+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:27:36.917+0200 INFO Starting service [Tomcat]
+2023-10-02T14:27:36.918+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-02T14:27:37.020+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-02T14:27:37.020+0200 INFO Root WebApplicationContext: initialization completed in 1633 ms
+2023-10-02T14:27:37.222+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-02T14:27:37.283+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-02T14:27:37.651+0200 INFO HikariPool-1 - Starting...
+2023-10-02T14:27:38.048+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@736788b
+2023-10-02T14:27:38.050+0200 INFO HikariPool-1 - Start completed.
+2023-10-02T14:27:38.128+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-02T14:27:39.758+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-02T14:27:39.770+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-02T14:27:41.267+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-02T14:27:41.632+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:27:41.659+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-02T14:27:41.670+0200 INFO Started SincronoApplication in 6.884 seconds (process running for 8.448)
+2023-10-02T14:28:05.775+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-02T14:28:05.776+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-02T14:28:05.778+0200 INFO Completed initialization in 2 ms
+2023-10-02T14:28:05.891+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-02T14:28:05.891+0200 INFO Inizio chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:28:05.891+0200 INFO Inizio chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:28:05.891+0200 INFO Inizio chiamata al meotodo getCcnlMap
+2023-10-02T14:28:05.915+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.102+0200 INFO Fine chiamata al meotodo getAziendeMap
+2023-10-02T14:28:06.102+0200 INFO Fine chiamata al meotodo getCcnlMap
+2023-10-02T14:28:06.104+0200 INFO Fine chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:28:06.104+0200 INFO Fine chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:28:06.152+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.237+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.256+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.285+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.303+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.332+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.349+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.385+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.416+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.461+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.481+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.514+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.530+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.553+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.569+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.596+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.612+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.637+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.651+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.671+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.686+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.710+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.726+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.746+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.763+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.790+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.806+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.828+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.846+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.884+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.903+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.930+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.946+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.967+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:06.979+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:06.998+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:07.011+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:07.032+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:07.046+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:07.065+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:07.085+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:07.106+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:07.118+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:07.139+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:07.153+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:28:07.182+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:28:07.192+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:47.857+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:47.873+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:47.916+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:47.934+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:47.989+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.004+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.024+0200 INFO Inizio chiamata al meotodo listAnagraficaDto
+2023-10-02T14:29:48.033+0200 INFO Inizio chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:29:48.035+0200 INFO Inizio chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:29:48.036+0200 INFO Fine chiamata al meotodo getTipoContrattoMap
+2023-10-02T14:29:48.038+0200 INFO Fine chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-02T14:29:48.054+0200 INFO Inizio chiamata al meotodo getCcnlMap
+2023-10-02T14:29:48.054+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-02T14:29:48.057+0200 INFO Fine chiamata al meotodo getCcnlMap
+2023-10-02T14:29:48.060+0200 INFO Fine chiamata al meotodo getAziendeMap
+2023-10-02T14:29:48.073+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.076+0200 INFO Inizio chiamata al meotodo getTipoCausaFineRapportoMap
+2023-10-02T14:29:48.094+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.105+0200 INFO Fine chiamata al meotodo getTipoCausaFineRapportoMap
+2023-10-02T14:29:48.121+0200 INFO Fine chiamata al meotodo listAnagraficaDto
+
+2023-10-02T14:29:48.140+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.163+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.204+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.218+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.238+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.250+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.278+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.293+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.312+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.328+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.354+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.363+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.384+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.395+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.413+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.424+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.441+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.458+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.483+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.495+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.512+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.524+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.543+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.552+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.570+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.579+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.601+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.612+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.631+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.643+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.662+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.671+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.690+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.700+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.717+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.726+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.747+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.760+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.780+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.793+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:48.810+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:29:48.819+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:29:56.794+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDto
+2023-10-02T14:29:56.819+0200 INFO Fine chiamata al meotodo dettaglioAnagraficaDto
+
+2023-10-02T14:30:07.828+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDto
+2023-10-02T14:30:07.850+0200 INFO Fine chiamata al meotodo dettaglioAnagraficaDto
+
+2023-10-02T14:31:47.835+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:47.846+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:47.862+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:47.870+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:47.885+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:47.895+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:47.919+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:47.930+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:48.795+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:48.814+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:48.839+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:48.846+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-02T14:31:48.848+0200 INFO Fine chiamata al meotodo getAziendeMap
+2023-10-02T14:31:48.849+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:48.891+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:48.925+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:48.968+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:48.982+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.005+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.013+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.031+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.040+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.057+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.065+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.084+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.093+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.111+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.118+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.136+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.144+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.160+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.169+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.187+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.197+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.215+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.224+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.241+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.249+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.266+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.276+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.294+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.301+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.318+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.327+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.349+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.358+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.379+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.387+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.407+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.415+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.438+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.448+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.475+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.484+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.505+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.515+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:31:49.534+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-02T14:31:49.543+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-02T14:37:20.388+0200 INFO Application shutdown requested.
+2023-10-02T14:37:20.404+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:37:20.404+0200 INFO Stopping service [Tomcat]
+2023-10-02T14:37:20.406+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-02T14:37:20.412+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:37:20.414+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:37:20.416+0200 INFO Shutting down application...
+2023-10-02T14:37:24.370+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 4676 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-02T14:37:24.388+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-02T14:37:25.334+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-02T14:37:25.519+0200 INFO Finished Spring Data repository scanning in 173 ms. Found 13 JPA repository interfaces.
+2023-10-02T14:37:26.298+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-02T14:37:26.313+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:37:26.316+0200 INFO Starting service [Tomcat]
+2023-10-02T14:37:26.316+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-02T14:37:26.425+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-02T14:37:26.425+0200 INFO Root WebApplicationContext: initialization completed in 1939 ms
+2023-10-02T14:37:26.732+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-02T14:37:26.823+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-02T14:37:27.230+0200 INFO HikariPool-1 - Starting...
+2023-10-02T14:37:27.629+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@56ba8e8c
+2023-10-02T14:37:27.633+0200 INFO HikariPool-1 - Start completed.
+2023-10-02T14:37:27.723+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-02T14:37:29.434+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-02T14:37:29.449+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-02T14:37:31.067+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-02T14:37:31.477+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:37:31.513+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-02T14:37:31.524+0200 INFO Started SincronoApplication in 7.774 seconds (process running for 9.514)
+2023-10-02T14:37:38.914+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-02T14:37:38.914+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-02T14:37:38.915+0200 INFO Completed initialization in 1 ms
+2023-10-02T14:37:38.945+0200 WARN Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2023-10-02T14:37:45.641+0200 WARN Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2023-10-02T14:37:51.661+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:38:02.445+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:38:02.446+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:38:26.773+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:38:40.556+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:38:40.557+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:38:50.518+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:39:40.086+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:39:40.087+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:39:49.930+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:40:25.948+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:40:25.950+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:40:29.687+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:41:52.323+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 6396 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-02T14:41:52.337+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-02T14:41:53.274+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-02T14:41:53.447+0200 INFO Finished Spring Data repository scanning in 161 ms. Found 13 JPA repository interfaces.
+2023-10-02T14:41:54.112+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-02T14:41:54.125+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:41:54.130+0200 INFO Starting service [Tomcat]
+2023-10-02T14:41:54.131+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-02T14:41:54.247+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-02T14:41:54.248+0200 INFO Root WebApplicationContext: initialization completed in 1845 ms
+2023-10-02T14:41:54.484+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-02T14:41:54.552+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-02T14:41:54.960+0200 INFO HikariPool-1 - Starting...
+2023-10-02T14:41:55.355+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@56ba8e8c
+2023-10-02T14:41:55.359+0200 INFO HikariPool-1 - Start completed.
+2023-10-02T14:41:55.445+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-02T14:41:57.172+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-02T14:41:57.186+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-02T14:41:58.929+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-02T14:41:59.340+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:41:59.392+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-02T14:41:59.405+0200 INFO Started SincronoApplication in 7.669 seconds (process running for 9.401)
+2023-10-02T14:42:05.112+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-02T14:42:05.112+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-02T14:42:05.113+0200 INFO Completed initialization in 1 ms
+2023-10-02T14:42:05.296+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:42:30.861+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 8780 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-02T14:42:30.873+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-02T14:42:31.787+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-02T14:42:32.015+0200 INFO Finished Spring Data repository scanning in 210 ms. Found 13 JPA repository interfaces.
+2023-10-02T14:42:32.692+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-02T14:42:32.704+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:42:32.706+0200 INFO Starting service [Tomcat]
+2023-10-02T14:42:32.707+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-02T14:42:32.809+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-02T14:42:32.810+0200 INFO Root WebApplicationContext: initialization completed in 1873 ms
+2023-10-02T14:42:33.056+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-02T14:42:33.126+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-02T14:42:33.519+0200 INFO HikariPool-1 - Starting...
+2023-10-02T14:42:33.956+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1d1c63af
+2023-10-02T14:42:33.959+0200 INFO HikariPool-1 - Start completed.
+2023-10-02T14:42:34.048+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-02T14:42:35.923+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-02T14:42:35.936+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-02T14:42:37.620+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-02T14:42:38.070+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-02T14:42:38.115+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-02T14:42:38.132+0200 INFO Started SincronoApplication in 7.849 seconds (process running for 9.57)
+2023-10-02T14:42:43.515+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-02T14:42:43.515+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-02T14:42:43.516+0200 INFO Completed initialization in 1 ms
+2023-10-02T14:42:43.716+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:42:50.872+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:42:50.873+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:42:54.000+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:44:41.850+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:44:41.851+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:45:11.444+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:45:17.433+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:45:17.433+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:45:26.734+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:45:33.788+0200 ERROR ERRORE_VALIDAZIONE
+2023-10-02T14:45:33.788+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T14:45:49.142+0200 INFO Inizio chiamata al metodo insertAnagrafica
+2023-10-02T14:46:01.139+0200 INFO Fine chiamata al metodo inserAnagrafica
+
+2023-10-02T15:07:10.796+0200 INFO Application shutdown requested.
+2023-10-02T15:07:10.810+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-02T15:07:10.810+0200 INFO Stopping service [Tomcat]
+2023-10-02T15:07:10.813+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-02T15:07:10.819+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-02T15:07:10.824+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-02T15:07:10.830+0200 INFO Shutting down application...
