@@ -30,7 +30,7 @@ import it.sincrono.services.exceptions.ServiceException;
 @RestController
 @CrossOrigin
 public class AnagraficaController {
-	private static final Logger logger = LogManager.getLogger(AnagraficaController.class);
+	private static final Logger LOGGER = LogManager.getLogger(AnagraficaController.class);
 
 	@Autowired
 	private AnagraficaService anagraficaService;
@@ -178,7 +178,7 @@ public class AnagraficaController {
 
 		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al meotodo filterListAnagraficaDto");
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo filterListAnagraficaDto");
 
 			List<AnagraficaDto> anagrafiche = anagraficaService.filterListAnagraficaDto(anagraficaRequestDto);
 
@@ -188,11 +188,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al meotodo filterListAnagraficaDto\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo filterListAnagraficaDto\n");
 
 		return httpEntity;
 	}
@@ -204,7 +204,7 @@ public class AnagraficaController {
 
 		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al meotodo listAnagraficaDto");
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo listAnagraficaDto");
 
 			List<AnagraficaDto> anagrafiche = anagraficaService.listAnagraficaDto();
 
@@ -214,11 +214,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al meotodo listAnagraficaDto\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo listAnagraficaDto\n");
 
 		return httpEntity;
 	}
@@ -228,7 +228,7 @@ public class AnagraficaController {
 		HttpEntity<AnagraficaDtoResponse> httpEntity = null;
 		AnagraficaDtoResponse anagraficaDtoResponse = new AnagraficaDtoResponse();
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al meotodo dettaglioAnagraficaDto");
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo dettaglioAnagraficaDto");
 			AnagraficaDto anagraficaDto = anagraficaService.getAnagraficaDto(id);
 			anagraficaDtoResponse.setAnagraficaDto(anagraficaDto);
 			anagraficaDtoResponse.setEsito(new Esito());
@@ -236,11 +236,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<AnagraficaDtoResponse>(anagraficaDtoResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoResponse>(anagraficaDtoResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al meotodo dettaglioAnagraficaDto\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo dettaglioAnagraficaDto\n");
 		return httpEntity;
 	}
 
@@ -252,7 +252,7 @@ public class AnagraficaController {
 
 		GenericResponse genericResponse = new GenericResponse();
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al metodo insertAnagrafica");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo insertAnagrafica");
 
 			anagraficaService.insertAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
 
@@ -261,11 +261,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al metodo inserAnagrafica\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo inserAnagrafica\n");
 
 		return httpEntity;
 	}
@@ -279,7 +279,7 @@ public class AnagraficaController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al metodo updateAnagrafica");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo updateAnagrafica");
 
 			anagraficaService.updateAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
 
@@ -288,11 +288,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al metodo updateAnagrafica\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo updateAnagrafica\n");
 
 		return httpEntity;
 	}
@@ -336,7 +336,7 @@ public class AnagraficaController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al metodo deleteAnagraficaDto");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo deleteAnagraficaDto");
 
 			anagraficaService.deleteAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
 
@@ -345,11 +345,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al metodo deleteAnagraficaDto\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo deleteAnagraficaDto\n");
 
 		return httpEntity;
 	}
@@ -363,7 +363,7 @@ public class AnagraficaController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al metodo di retainAnagraficaDto");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo di retainAnagraficaDto");
 
 			anagraficaService.retainAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
 
@@ -372,11 +372,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al metodo di retainAnagraficaDto\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo di retainAnagraficaDto\n");
 
 		return httpEntity;
 	}
@@ -387,7 +387,7 @@ public class AnagraficaController {
 
 		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al metodo  anagraficaListContratti");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo  anagraficaListContratti");
 			List<AnagraficaDto> anagrafiche = anagraficaService.anagraficaListContratti();
 
 			anagraficaDtoListResponse.setList(anagrafiche);
@@ -396,11 +396,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al metodo anagraficaListContratti\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo anagraficaListContratti\n");
 		return httpEntity;
 	}
 
@@ -412,7 +412,7 @@ public class AnagraficaController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al metodo deleteScattiContratto");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo deleteScattiContratto");
 
 			anagraficaService.deleteScattoContratti();
 
@@ -421,11 +421,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al metodo deleteScattiContratto\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo deleteScattiContratto\n");
 
 		return httpEntity;
 	}
@@ -436,7 +436,7 @@ public class AnagraficaController {
 		HttpEntity<AnagraficaDtoResponse> httpEntity = null;
 		AnagraficaDtoResponse anagraficaDtoResponse = new AnagraficaDtoResponse();
 		try {
-			logger.log(Level.INFO, "Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken");
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken");
 			AnagraficaDto anagraficaDto = anagraficaService.getAnagraficaDtoByToken(token);
 			anagraficaDtoResponse.setAnagraficaDto(anagraficaDto);
 			anagraficaDtoResponse.setEsito(new Esito());
@@ -444,11 +444,11 @@ public class AnagraficaController {
 			httpEntity = new HttpEntity<AnagraficaDtoResponse>(anagraficaDtoResponse);
 
 		} catch (ServiceException e) {
-			logger.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoResponse>(anagraficaDtoResponse);
 		}
-		logger.log(Level.INFO, "Fine chiamata al metodo dettaglioAnagraficaDtoByToken\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo dettaglioAnagraficaDtoByToken\n");
 
 		return httpEntity;
 	}

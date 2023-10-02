@@ -26,19 +26,18 @@ public class EmailController {
 		HttpEntity<GenericResponse> httpEntity;
 		GenericResponse genericResponse = new GenericResponse();
 		try {
-			System.out.println("\nInizio chiamata al metodo sendMail");
 
 			emailService.sendMail(emailRequest.getFile(), emailRequest.getTo(), emailRequest.getCc(),
 					emailRequest.getSubject(), emailRequest.getBody());
-			genericResponse.setEsito(new Esito());
+
+			genericResponse.setEsito(
+					new Esito(200, "Email inviata correttamente all'indirizzo: " + emailRequest.getTo() + "."));
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		} catch (Exception e) {
 			genericResponse.setEsito(new Esito(500, e.getMessage(), new String[] { null }));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		System.out.println("Fine chiamata al metodo sendMail\n");
-
 		return httpEntity;
 	}
 
