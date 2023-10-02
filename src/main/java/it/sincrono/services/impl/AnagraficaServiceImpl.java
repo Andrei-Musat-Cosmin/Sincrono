@@ -1,7 +1,6 @@
 package it.sincrono.services.impl;
 
 import java.util.Calendar;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -14,8 +13,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import it.sincrono.services.utils.FilterCustom;
-import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
@@ -40,6 +37,8 @@ import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
+import it.sincrono.services.utils.FilterCustom;
+import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.services.utils.ObjectCompare;
 import it.sincrono.services.utils.TokenGenerator;
 import it.sincrono.services.validator.AnagraficaValidator;
@@ -51,7 +50,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
-	private static final Logger logger = LogManager.getLogger(AnagraficaServiceImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger(AnagraficaServiceImpl.class);
 	@Autowired
 	private AnagraficaRepository anagraficaRepository;
 	@Autowired
@@ -106,8 +105,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = listAnagraficaDto().stream()
-					.filter(anagraficaDto -> filter.toFilter(anagraficaDto, anagraficaRequestDto))
+
+			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList())
+					.stream().filter(anagraficaDto -> filter.toFilter(anagraficaDto, anagraficaRequestDto))
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
@@ -123,7 +123,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList());
+			list = anagraficaRepository.findAllactiveId().stream().map(mapper::toAnagraficaDto)
+					.collect(Collectors.toList());
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -563,13 +564,13 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private void calcoloRalPartTime(AnagraficaDto anagraficaDto) throws Exception {
 
 		Contratto contratto = anagraficaDto.getContratto();
-		
-		if(contratto!=null) {
+
+		if (contratto != null) {
 
 			if (contratto.getPercentualePartTime() != null && contratto.getRalAnnua() != null) {
 				contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
 			}
-			
+
 		}
 
 		anagraficaDto.setContratto(contratto);
@@ -603,15 +604,15 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	}
 
 	private void calcoloTipoLivello(AnagraficaDto anagraficaDto) throws Exception {
-		
-		if(anagraficaDto.getContratto()!=null) {
+
+		if (anagraficaDto.getContratto() != null) {
 
 			List<TipoLivelloContratto> listLivelli = tipologicheContrattoRepository.getTipoLivelliContrattualiMap();
-	
-			anagraficaDto.getContratto().setLivelloAttuale(listLivelli.stream()
-					.filter(livello -> livello.getId() == anagraficaDto.getContratto().getTipoLivelloContratto().getId())
+
+			anagraficaDto.getContratto().setLivelloAttuale(listLivelli.stream().filter(
+					livello -> livello.getId() == anagraficaDto.getContratto().getTipoLivelloContratto().getId())
 					.toList().get(0).getLivello());
-			
+
 		}
 	}
 

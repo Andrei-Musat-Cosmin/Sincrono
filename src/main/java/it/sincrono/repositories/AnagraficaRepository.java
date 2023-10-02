@@ -9,11 +9,14 @@ import it.sincrono.entities.Anagrafica;
 
 public interface AnagraficaRepository extends JpaRepository<Anagrafica, Integer>, AnagraficaCustomRepository {
 
-	@Query("SELECT a.id FROM Anagrafica a WHERE a.attivo = 1")
+	@Query("SELECT a.id FROM Anagrafica a")
 	Collection<Integer> findAllId();
 
 	@Query("SELECT a FROM Anagrafica a WHERE a.attivo = 1 AND a.utente.tokenPassword LIKE ?1")
 	Anagrafica findByToken(String token);
+
+	@Query("SELECT a.id FROM Anagrafica a WHERE a.attivo = ?1")
+	Collection<Integer> findAllactiveId();
 
 //	@Query("SELECT a FROM Anagrafica a WHERE a.attivo = 1")
 //	List<Anagrafica> getAllActive();

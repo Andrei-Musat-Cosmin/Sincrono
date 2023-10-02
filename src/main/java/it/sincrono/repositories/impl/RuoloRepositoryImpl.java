@@ -55,7 +55,7 @@ public class RuoloRepositoryImpl extends BaseRepositoryImpl implements RuoloCust
 	}
 
 	@Override
-	public Integer getRuoloByUsername(String username) throws RepositoryException {
+	public Integer getRuoloIdByUtenteUsername(String username) throws RepositoryException {
 
 		Integer idRuolo = 0;
 		String queryString = SqlStrings.SQL_GET_RUOLO_UTENTE;
@@ -74,4 +74,5 @@ public class RuoloRepositoryImpl extends BaseRepositoryImpl implements RuoloCust
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 }

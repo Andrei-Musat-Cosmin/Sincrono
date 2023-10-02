@@ -1,6 +1,7 @@
 package it.sincrono.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,6 @@ public interface RuoloRepository extends JpaRepository<Ruolo, Integer>, RuoloCus
 
 	public Ruolo getPadre(Integer id) throws RepositoryException;
 
-	public Integer getRuoloByUsername(String username);
+	@Query("SELECT a FROM Ruolo a INNER JOIN Profilo b ON a.id = b.ruolo.id WHERE b.utente.id = ?1")
+	public Optional<Ruolo> getRuoloByUtenteUsername(Integer id);
 }
