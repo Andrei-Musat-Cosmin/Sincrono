@@ -37,6 +37,7 @@ import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
+import it.sincrono.services.utils.FileUtil;
 import it.sincrono.services.utils.FilterCustom;
 import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.services.utils.ObjectCompare;
@@ -97,6 +98,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	@Autowired
 	private FilterCustom filter;
+	
+	@Autowired
+	FileUtil fileUtil;
 
 	@Override
 	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaRequestDto anagraficaRequestDto)
@@ -226,6 +230,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				storicoContrattiRepository
 						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
+			
+			
+			fileUtil.creatFolder("C:/Users/SINCRONO/Desktop/" + anagraficaDto.getAnagrafica().getCodiceFiscale());
 
 			/*
 			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),

@@ -62,15 +62,18 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public RapportinoDto getRapportino(Anagrafica anagrafica) throws ServiceException {
-
+		
 		RapportinoDto rapportinoDto = new RapportinoDto();
 
-		LocalDate oggi = LocalDate.now();
-
-		rapportinoDto=fileUtil.readFile("C:/Users/SINCRONO/Desktop/" + anagrafica.getCodiceFiscale() + "/" + oggi.getYear() + "/"
-				+ oggi.getMonthValue() + ".txt");
-
 		try {
+			
+			
+
+			LocalDate oggi = LocalDate.now();
+
+			rapportinoDto = fileUtil.readFile("C:/Users/SINCRONO/Desktop/" + anagrafica.getCodiceFiscale() + "/"
+					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
+			
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
