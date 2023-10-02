@@ -1463,3 +1463,35 @@ java.lang.NumberFormatException: For input string: ""
 2023-10-02T15:35:41.095+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
 2023-10-02T15:35:41.096+0200 INFO Initializing Servlet 'dispatcherServlet'
 2023-10-02T15:35:41.098+0200 INFO Completed initialization in 2 ms
+2023-10-02T16:12:23.619+0200 INFO Application shutdown requested.
+2023-10-02T16:12:23.635+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-02T16:12:23.636+0200 INFO Stopping service [Tomcat]
+2023-10-02T16:12:23.638+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-02T16:12:23.642+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-02T16:12:23.645+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-02T16:12:23.648+0200 INFO Shutting down application...
+2023-10-02T16:12:27.351+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 8300 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-02T16:12:27.370+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-02T16:12:28.411+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-02T16:12:28.599+0200 INFO Finished Spring Data repository scanning in 174 ms. Found 13 JPA repository interfaces.
+2023-10-02T16:12:29.355+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-02T16:12:29.373+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-02T16:12:29.377+0200 INFO Starting service [Tomcat]
+2023-10-02T16:12:29.378+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-02T16:12:29.502+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-02T16:12:29.503+0200 INFO Root WebApplicationContext: initialization completed in 2006 ms
+2023-10-02T16:12:29.768+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-02T16:12:29.848+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-02T16:12:30.327+0200 INFO HikariPool-1 - Starting...
+2023-10-02T16:12:30.782+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4e9ea32f
+2023-10-02T16:12:30.785+0200 INFO HikariPool-1 - Start completed.
+2023-10-02T16:12:30.885+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-02T16:12:32.808+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-02T16:12:32.823+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-02T16:12:34.593+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-02T16:12:35.060+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-02T16:12:35.099+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-02T16:12:35.111+0200 INFO Started SincronoApplication in 8.389 seconds (process running for 10.212)
+2023-10-02T16:12:40.594+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-02T16:12:40.595+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-02T16:12:40.597+0200 INFO Completed initialization in 2 ms

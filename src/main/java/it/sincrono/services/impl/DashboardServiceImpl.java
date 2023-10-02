@@ -127,7 +127,7 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 
 	@Override
 	public List<AnagraficaDto> listAllCommesse() throws ServiceException {
-		List<AnagraficaDto> list = null;
+		List<AnagraficaDto> list = new ArrayList<AnagraficaDto>();
 
 		try {
 			for(AnagraficaDto anagraficaDto : 
