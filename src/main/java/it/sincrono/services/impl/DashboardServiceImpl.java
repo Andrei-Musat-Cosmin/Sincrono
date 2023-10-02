@@ -2,6 +2,9 @@ package it.sincrono.services.impl;
 
 import java.util.List;
 
+import java.util.ArrayList;
+
+
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -61,12 +64,20 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 	@Override
 	public List<AnagraficaDto> getCommesseInscadenza() throws ServiceException {
 
-		List<AnagraficaDto> list = null;
+		List<AnagraficaDto> list = new ArrayList<AnagraficaDto>();
 
 		try {
-			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList());
-			for(AnagraficaDto anagraficaDto : list) anagraficaDto.getCommesse().stream().filter(commessa->
-			filter.checkCommesseInScadenza(commessa)).collect(Collectors.toList());
+			
+			
+			for(AnagraficaDto anagraficaDto : 
+				anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList())) {
+				
+				anagraficaDto.setCommesse(anagraficaDto.getCommesse().stream().filter(
+						commessa->filter.checkCommesseInScadenza(commessa)).collect(Collectors.toList()));
+				
+				list.add(anagraficaDto);
+			}
+			
 				
 
 					
