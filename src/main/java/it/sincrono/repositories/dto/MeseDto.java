@@ -16,6 +16,9 @@ public class MeseDto {
 		this.mese = mese;
 	}
 
+	public MeseDto() {
+	}
+
 	public List<GiornoDto> getMese() {
 		return mese;
 	}

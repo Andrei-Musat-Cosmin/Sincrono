@@ -16,6 +16,9 @@ public class GiornoDto {
 		this.oreOrdinarie = oreOrdinarie;
 	}
 
+	public GiornoDto() {
+	}
+
 	public Integer getGiorno() {
 		return giorno;
 	}

@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import it.sincrono.beans.Esito;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.AnagraficaRequest;
 import it.sincrono.requests.AnagraficaRequestDto;
+import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.responses.AnagraficaDtoListResponse;
 import it.sincrono.responses.AnagraficaDtoResponse;
 import it.sincrono.responses.GenericResponse;
@@ -42,7 +44,7 @@ public class RapportinoController {
 	
 	
 	@GetMapping("/get-rapportino")
-	public @ResponseBody HttpEntity<RapportinoDtoResponse> getRapportino() {
+	public @ResponseBody HttpEntity<RapportinoDtoResponse> getRapportino(@RequestBody AnagraficaRequest anagraficaRequest) {
 
 		HttpEntity<RapportinoDtoResponse> httpEntity = null;
 
@@ -50,7 +52,7 @@ public class RapportinoController {
 		try {
 			logger.log(Level.INFO, "Inizio chiamata al meotodo getRapportino");
 
-			RapportinoDto rapportinoDto = rapportinoService.getRapportino();
+			RapportinoDto rapportinoDto = rapportinoService.getRapportino(anagraficaRequest.getAnagrafica());
 
 			rapportinoDtoResponse.setRapportinoDto(rapportinoDto);
 			rapportinoDtoResponse.setEsito(new Esito());
