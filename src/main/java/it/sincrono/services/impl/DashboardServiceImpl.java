@@ -130,10 +130,14 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList()).stream()
-					.filter(anagraficaDto -> filter.checkListCommesse(anagraficaDto.getCommesse().stream().filter(
-							commessa ->filter.checkScaduta(commessa)).collect(Collectors.toList())))
-					.collect(Collectors.toList());
+			for(AnagraficaDto anagraficaDto : 
+				anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList())) {
+				
+				anagraficaDto.setCommesse(anagraficaDto.getCommesse().stream().filter(
+						commessa->filter.checkScaduta(commessa)).collect(Collectors.toList()));
+				
+				list.add(anagraficaDto);
+			}
 		} catch (Exception e) {
 			System.out.println("Exception occurs {}");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
