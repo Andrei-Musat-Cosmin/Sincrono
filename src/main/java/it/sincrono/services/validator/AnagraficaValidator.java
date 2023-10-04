@@ -38,9 +38,10 @@ public class AnagraficaValidator {
 						return false;
 					}
 
-				} else
+				} else {
 					LOGGER.log(Level.ERROR, "Id dell'anagrafica non deve essere valorizzato");
-				return false;
+					return false;
+				}
 
 			} else {
 
