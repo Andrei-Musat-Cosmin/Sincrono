@@ -102,9 +102,7 @@ public class ContrattoValidator {
 		if (contratto.getTipoLivelloContratto() == null || contratto.getTipoLivelloContratto().getId() == null) {
 			result = false;
 		}
-		if (contratto.getTipoAzienda() == null || contratto.getTipoAzienda().getId() == null) {
-			result = false;
-		}
+	
 		if (contratto.getTipoCcnl() == null || contratto.getTipoCcnl().getId() == null) {
 			result = false;
 		}
