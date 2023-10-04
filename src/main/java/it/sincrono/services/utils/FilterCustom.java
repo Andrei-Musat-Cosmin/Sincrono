@@ -198,7 +198,7 @@ public class FilterCustom {
 		Anagrafica anagrafica = anagraficaDto.getAnagrafica();
 		Anagrafica anagraficaFilter = anagraficaRequestDto.getAnagraficaDto().getAnagrafica();
 
-		if (anagrafica != null) {
+		if (anagraficaFilter!=null &&  anagrafica != null) {
 
 			if (anagraficaFilter.getCognome() != null
 					&& !anagrafica.getCognome().startsWith(anagraficaFilter.getCognome())) {
