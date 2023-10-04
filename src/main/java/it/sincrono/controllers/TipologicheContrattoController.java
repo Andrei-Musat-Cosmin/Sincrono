@@ -54,7 +54,7 @@ public class TipologicheContrattoController {
 			aziendeListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoAzienda>>(aziendeListResponse);
 		}
-		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getAziendeMap");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getAziendeMap\n");
 
 		return httpEntity;
 	}
@@ -81,7 +81,7 @@ public class TipologicheContrattoController {
 			tipoCotnrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoContratto>>(tipoCotnrattoListResponse);
 		}
-		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoContrattoMap");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoContrattoMap\n");
 
 		return httpEntity;
 	}
@@ -108,7 +108,7 @@ public class TipologicheContrattoController {
 			ccnlListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoCcnl>>(ccnlListResponse);
 		}
-		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getCcnlMap");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getCcnlMap\n");
 
 		return httpEntity;
 	}
@@ -161,7 +161,7 @@ public class TipologicheContrattoController {
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineRapporto>>(livelloContrattoListResponse);
 		}
-		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoCausaFineRapportoMap");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoCausaFineRapportoMap\n");
 
 		return httpEntity;
 	}
@@ -188,7 +188,7 @@ public class TipologicheContrattoController {
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoCanaleReclutamento>>(livelloContrattoListResponse);
 		}
-		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoCanaleReclutamentoMap");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoCanaleReclutamentoMap\n");
 
 		return httpEntity;
 	}
@@ -216,7 +216,7 @@ public class TipologicheContrattoController {
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
 		}
-		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoLivelloContrattoMap");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoLivelloContrattoMap\n");
 
 		return httpEntity;
 	}

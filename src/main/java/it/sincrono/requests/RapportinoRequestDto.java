@@ -1,11 +1,14 @@
 package it.sincrono.requests;
 
-import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 
 public class RapportinoRequestDto extends GenericRequest {
 
 	private RapportinoDto rapportinoDto;
+
+	public RapportinoRequestDto() {
+		super();
+	}
 
 	public RapportinoRequestDto(RapportinoDto rapportinoDto) {
 		super();

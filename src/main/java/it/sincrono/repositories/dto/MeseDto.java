@@ -2,31 +2,24 @@ package it.sincrono.repositories.dto;
 
 import java.util.List;
 
-import it.sincrono.entities.Anagrafica;
-import it.sincrono.entities.Commessa;
-import it.sincrono.entities.Contratto;
-import it.sincrono.entities.Ruolo;
-
 public class MeseDto {
 
-	private List<GiornoDto> mese ;
+	private List<GiornoDto> giorni;
 
-	public MeseDto(List<GiornoDto> mese) {
+	public MeseDto(List<GiornoDto> giorni) {
 		super();
-		this.mese = mese;
+		this.giorni = giorni;
 	}
 
 	public MeseDto() {
 	}
 
-	public List<GiornoDto> getMese() {
-		return mese;
+	public List<GiornoDto> getGiorni() {
+		return giorni;
 	}
 
-	public void setMese(List<GiornoDto> mese) {
-		this.mese = mese;
+	public void setGiorni(List<GiornoDto> giorni) {
+		this.giorni = giorni;
 	}
-	
-	
 
 }

@@ -129,6 +129,11 @@ public class Anagrafica {
 		this.categoriaProtetta = categoriaProtetta;
 	}
 
+	public Anagrafica(String codiceFiscale) {
+		super();
+		this.codiceFiscale = codiceFiscale;
+	}
+
 	public Anagrafica() {
 		super();
 		// TODO Auto-generated constructor stub

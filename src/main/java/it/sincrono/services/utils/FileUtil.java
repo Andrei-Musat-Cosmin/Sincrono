@@ -1,26 +1,32 @@
 package it.sincrono.services.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
-import java.io.File;
 
-import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.MeseDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.RapportinoRequestDto;
+import it.sincrono.services.costants.ServiceMessages;
+import it.sincrono.services.exceptions.ServiceException;
 
 @Component
 public class FileUtil {
+	private static final Logger LOGGER = LogManager.getLogger(FileUtil.class);
 
 	public RapportinoDto readFile(String percorso) throws Exception {
 
@@ -41,6 +47,7 @@ public class FileUtil {
 			rapportinoDto = covertStringInRapportinoDto(fileString);
 
 		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new Exception();
 		}
 
@@ -57,34 +64,33 @@ public class FileUtil {
 
 		if (fileString != null && !fileString.isEmpty()) {
 
+			fileString = fileString.replaceAll("\n", "");
 			for (String giornoNotSplit : fileString.split(";")) {
 
 				String[] giornoSplit = giornoNotSplit.split(",");
 
 				GiornoDto giornoDto = new GiornoDto();
 
-				if (giornoSplit[0] != null)
+				if (giornoSplit[0] != null && !giornoSplit[0].isEmpty() && !giornoSplit[0].equals("null"))
 					giornoDto.setGiorno(Integer.parseInt(giornoSplit[0]));
 
-				if (giornoSplit[1] != null)
+				if (giornoSplit[1] != null && !giornoSplit[1].isEmpty() && !giornoSplit[1].equals("null"))
 					giornoDto.setCliente(giornoSplit[1]);
 
-				if (giornoSplit[2] != null)
+				if (giornoSplit[2] != null && !giornoSplit[2].isEmpty() && !giornoSplit[2].equals("null"))
 					giornoDto.setOreOrdinarie(Double.parseDouble(giornoSplit[2]));
 
 				mese.add(giornoDto);
 
 			}
-			
-			rapportinoDto.getMese().setMese(mese);
 
+			rapportinoDto.getMese().setGiorni(mese);
 
 		} else {
 
 			createRapportinoForMonth(rapportinoDto);
 		}
 
-		
 		return rapportinoDto;
 
 	}
@@ -97,6 +103,7 @@ public class FileUtil {
 				Files.createDirectories(Paths.get(percorso).getParent());
 				file.createNewFile();
 			} catch (Exception e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
 				throw new Exception();
 			}
 		}
@@ -129,8 +136,23 @@ public class FileUtil {
 
 		}
 
-		rapportinoDto.getMese().setMese(mese);
+		rapportinoDto.getMese().setGiorni(mese);
 
+	}
+
+	public void saveFile(String path, RapportinoRequestDto rapportino) throws ServiceException {
+		if (rapportino != null) {
+			try (FileWriter writer = new FileWriter(path)) {
+				for (GiornoDto giorno : rapportino.getRapportinoDto().getMese().getGiorni()) {
+					writer.write(giorno.getGiorno() + "," + giorno.getCliente() + "," + giorno.getOreOrdinarie() + ";");
+				}
+				writer.close();
+			} catch (IOException e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+			}
+		}
+		LOGGER.log(Level.INFO, "Rapportino Salvato con successo.");
 	}
 
 }

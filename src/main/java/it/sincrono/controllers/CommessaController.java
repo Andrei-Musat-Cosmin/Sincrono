@@ -1,5 +1,7 @@
 package it.sincrono.controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +22,7 @@ import it.sincrono.services.exceptions.ServiceException;
 @RestController
 @CrossOrigin
 public class CommessaController {
+	private static final Logger LOGGER = LogManager.getLogger(CommessaController.class);
 
 	@Autowired
 	private CommessaService commessaService;
