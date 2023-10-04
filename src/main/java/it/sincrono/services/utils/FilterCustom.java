@@ -57,8 +57,8 @@ public class FilterCustom {
 			Contratto contratto = anagraficaDto.getContratto();
 			Contratto contrattoFilter = anagraficaRequestDto.getAnagraficaDto().getContratto();
 			if (contratto != null) {
-				if (contrattoFilter.getRalAnnua() != null && !contratto.getRalAnnua().toString().toLowerCase()
-						.startsWith(contrattoFilter.getRalAnnua().toString().toLowerCase())) {
+				if (contrattoFilter.getRalAnnua() != null && !String.valueOf(contratto.getRalAnnua().doubleValue())
+						.equals(String.valueOf(contrattoFilter.getRalAnnua().doubleValue()))) {
 					return false;
 				}
 				if (contrattoFilter.getTipoLivelloContratto() != null && contratto.getTipoLivelloContratto()
@@ -200,7 +200,7 @@ public class FilterCustom {
 		Anagrafica anagrafica = anagraficaDto.getAnagrafica();
 		Anagrafica anagraficaFilter = anagraficaRequestDto.getAnagraficaDto().getAnagrafica();
 
-		if (anagraficaFilter!=null &&  anagrafica != null) {
+		if (anagraficaFilter != null && anagrafica != null) {
 
 			if (anagraficaFilter.getCognome() != null
 					&& !anagrafica.getCognome().startsWith(anagraficaFilter.getCognome())) {
