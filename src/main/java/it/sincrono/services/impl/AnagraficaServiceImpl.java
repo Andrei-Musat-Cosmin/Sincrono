@@ -1,5 +1,6 @@
 package it.sincrono.services.impl;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -228,8 +229,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
 
-			fileUtil.creatFolder("C:/Users/SINCRONO/Desktop/" + anagraficaDto.getAnagrafica().getCodiceFiscale());
-
+			LocalDate oggi = LocalDate.now();
+			fileUtil.creatFolder("C:/Users/SINCRONO/Desktop/" + anagraficaDto.getAnagrafica().getCodiceFiscale() + "/"
+					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
 			/*
 			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),
 			 * null, "CREAZIONE UTENZA", "username: " +
@@ -457,9 +459,13 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.listAnagraficaDtoContratti();
+			list = anagraficaRepository.findAnagraficaByContrattoId(
+					anagraficaRepository.getIdContrattiScattiLivello()).stream().
+					map(mapper::toAnagraficaDto).collect(Collectors.toList());
+					
+					
 		} catch (Exception e) {
-			LOGGER.log(Level.ERROR, e.getMessage());
+			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
