@@ -461,11 +461,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.findAnagraficaByContrattoId(
-					anagraficaRepository.getIdContrattiScattiLivello()).stream().
-					map(mapper::toAnagraficaDto).collect(Collectors.toList());
-					
-					
+			list = anagraficaRepository.findAnagraficaByContrattoId(anagraficaRepository.getIdContrattiScattiLivello())
+					.stream().map(mapper::toAnagraficaDto).collect(Collectors.toList());
+
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);

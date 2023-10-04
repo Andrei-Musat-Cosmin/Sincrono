@@ -37,11 +37,12 @@ public class FilterCustom {
 		Anagrafica anagraficaFilter = anagraficaRequestDto.getAnagraficaDto().getAnagrafica();
 
 		if (anagraficaFilter != null) {
-			if (anagraficaFilter.getNome() != null && !anagrafica.getNome().startsWith(anagraficaFilter.getNome())) {
+			if (anagraficaFilter.getNome() != null
+					&& !anagrafica.getNome().toLowerCase().startsWith(anagraficaFilter.getNome().toLowerCase())) {
 				return false;
 			}
 			if (anagraficaFilter.getCognome() != null
-					&& !anagrafica.getCognome().startsWith(anagraficaFilter.getCognome())) {
+					&& !anagrafica.getCognome().toLowerCase().startsWith(anagraficaFilter.getCognome().toLowerCase())) {
 				return false;
 			}
 			if (anagraficaFilter.getAttesaLavori() != null
@@ -56,8 +57,8 @@ public class FilterCustom {
 			Contratto contratto = anagraficaDto.getContratto();
 			Contratto contrattoFilter = anagraficaRequestDto.getAnagraficaDto().getContratto();
 			if (contratto != null) {
-				if (contrattoFilter.getRalAnnua() != null
-						&& !contratto.getRalAnnua().toString().startsWith(contrattoFilter.getRalAnnua().toString())) {
+				if (contrattoFilter.getRalAnnua() != null && !contratto.getRalAnnua().toString().toLowerCase()
+						.startsWith(contrattoFilter.getRalAnnua().toString().toLowerCase())) {
 					return false;
 				}
 				if (contrattoFilter.getTipoLivelloContratto() != null && contratto.getTipoLivelloContratto()
@@ -114,7 +115,8 @@ public class FilterCustom {
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
 			String aziendaCliente = anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente();
 			for (Commessa commessa : anagraficaDto.getCommesse()) {
-				if (aziendaCliente != null && !commessa.getAziendaCliente().startsWith(aziendaCliente)) {
+				if (aziendaCliente != null
+						&& !commessa.getAziendaCliente().toLowerCase().startsWith(aziendaCliente.toLowerCase())) {
 					return false;
 				}
 			}

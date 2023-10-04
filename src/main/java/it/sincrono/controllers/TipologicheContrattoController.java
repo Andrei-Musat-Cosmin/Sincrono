@@ -113,29 +113,32 @@ public class TipologicheContrattoController {
 		return httpEntity;
 	}
 
-//	@GetMapping("/tipo-livelli-contrattuali-map")
-//	public @ResponseBody HttpEntity<TipologicheListResponse<TipoLivelloContratto>> getTipoLivelloContrattoMap() {
-//
-//		HttpEntity<TipologicheListResponse<TipoLivelloContratto>> httpEntity = null;
-//
-//		TipologicheListResponse<TipoLivelloContratto> livelloContrattoListResponse = new TipologicheListResponse<TipoLivelloContratto>();
-//
-//		try {
-//
-//			List<TipoLivelloContratto> list = tipologicheContrattoService.getTipoLivelliContrattualiMap();
-//
-//			livelloContrattoListResponse.setList(list);
-//			livelloContrattoListResponse.setEsito(new Esito());
-//
-//			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
-//
-//		} catch (ServiceException e) {
-//			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-//			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
-//		}
-//
-//		return httpEntity;
-//	}
+	@GetMapping("/tipo-livelli-contrattuali-map")
+	public @ResponseBody HttpEntity<TipologicheListResponse<TipoLivelloContratto>> getTipoLivelloContrattoMap() {
+
+		HttpEntity<TipologicheListResponse<TipoLivelloContratto>> httpEntity = null;
+
+		TipologicheListResponse<TipoLivelloContratto> livelloContrattoListResponse = new TipologicheListResponse<TipoLivelloContratto>();
+
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getTipoLivelloContrattoMap");
+
+			List<TipoLivelloContratto> list = tipologicheContrattoService.getTipoLivelliContrattualiMap();
+
+			livelloContrattoListResponse.setList(list);
+			livelloContrattoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoLivelloContrattoMap\n");
+
+		return httpEntity;
+	}
 
 	@GetMapping("/tipo-causa-fine-rapporto-map")
 	public @ResponseBody HttpEntity<TipologicheListResponse<TipoCausaFineRapporto>> getTipoCausaFineRapportoMap() {
