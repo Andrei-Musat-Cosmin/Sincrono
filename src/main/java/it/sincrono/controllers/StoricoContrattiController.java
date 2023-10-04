@@ -1,5 +1,8 @@
 package it.sincrono.controllers;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,6 +18,7 @@ import it.sincrono.services.StoricoContrattiService;
 @RestController
 @CrossOrigin
 public class StoricoContrattiController {
+	private static final Logger LOGGER = LogManager.getLogger(StoricoContrattiController.class);
 
 	@Autowired
 	private StoricoContrattiService storicoContrattiService;
@@ -27,7 +31,7 @@ public class StoricoContrattiController {
 		ContrattoListResponse contrattoListResponse = new ContrattoListResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo getStoricoContratti");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo getStoricoContratti");
 
 			contrattoListResponse.setList(storicoContrattiService.getStoricoContratti(id));
 			contrattoListResponse.setEsito(new Esito());
@@ -35,10 +39,11 @@ public class StoricoContrattiController {
 			httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
 
 		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			contrattoListResponse.setEsito(new Esito(501, e.getMessage(), null));
 			httpEntity = new HttpEntity<ContrattoListResponse>(contrattoListResponse);
 		}
-		System.out.println("Fine chiamata al metodo getStoricoContratti\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo getStoricoContratti\n");
 
 		return httpEntity;
 	}

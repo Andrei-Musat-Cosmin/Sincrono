@@ -218,8 +218,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 				queryString = queryString.replace("{0}", idContratti);
 
-				System.out.println("daje" + idContratti != null && !idContratti.isEmpty() ? idContratti : "");
-
 				Query query = entityManager.createNativeQuery(queryString);
 
 				List<Object> list = query.getResultList();
@@ -503,9 +501,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[47] != null)
 					contratto.setValoreTicket((Double.valueOf(((BigDecimal) result[47]).toString())));
 				if (result[48] != null)
-				//	contratto.setCategoriaProtetta((Boolean) result[48]);
-				if (result[49] != null)
-					contratto.setTutor((String) result[49]);
+					// contratto.setCategoriaProtetta((Boolean) result[48]);
+					if (result[49] != null)
+						contratto.setTutor((String) result[49]);
 				if (result[50] != null)
 					contratto.setPfi((Boolean) result[50]);
 				if (result[51] != null)

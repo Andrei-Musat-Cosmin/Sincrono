@@ -1,5 +1,8 @@
 package it.sincrono.controllers;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +21,7 @@ import it.sincrono.services.exceptions.ServiceException;
 @RestController
 @CrossOrigin
 public class UtenteController {
+	private static final Logger LOGGER = LogManager.getLogger(UtenteController.class);
 
 	@Autowired
 	private UtenteService utenteService;
@@ -31,7 +35,7 @@ public class UtenteController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo updateUtente");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo updateUtente");
 
 			utenteService.updateUtente(modificaUtenteRequest);
 
@@ -40,10 +44,11 @@ public class UtenteController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
 		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		System.out.println("Fine chiamata al metodo updateUtente\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo updateUtente\n");
 
 		return httpEntity;
 	}
@@ -57,7 +62,7 @@ public class UtenteController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo cambiaPasswordUtente");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo cambiaPasswordUtente");
 
 			utenteService.updateUtente(cambioPasswordRequest);
 
@@ -65,12 +70,12 @@ public class UtenteController {
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
-			System.out.println("Fine chiamata al metodo cambiaPasswordUtente\n");
-
 		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo cambiaPasswordUtente\n");
 
 		return httpEntity;
 	}
@@ -80,13 +85,11 @@ public class UtenteController {
 //		HttpEntity<UtenteResponse> httpEntity = null;
 //		UtenteResponse utenteResponse = new UtenteResponse();
 //		try {
-//			System.out.println("START invocation dettaglioUtente of controller layer");
 //			Utente utente = utenteService.getById(id);
 //			utenteResponse.setUtente(utente);
 //			utenteResponse.setEsito(new Esito());
 //
 //			httpEntity = new HttpEntity<UtenteResponse>(utenteResponse);
-//			System.out.println("END invocation dettaglioUtente of controller layer");
 //
 //		} catch (ServiceException e) {
 //			utenteResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
@@ -103,7 +106,6 @@ public class UtenteController {
 //		UtenteListResponse utenteListResponse = new UtenteListResponse();
 //
 //		try {
-//			System.out.println("START invocation getAll() of controller layer");
 //
 //			List<Utente> utenti = utenteService.list();
 //
@@ -112,7 +114,6 @@ public class UtenteController {
 //
 //			httpEntity = new HttpEntity<UtenteListResponse>(utenteListResponse);
 //
-//			System.out.println("END invocation getAll() of controller layer");
 //
 //		} catch (ServiceException e) {
 //			utenteListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));

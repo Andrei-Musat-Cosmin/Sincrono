@@ -48,7 +48,7 @@ public class FileUtil {
 
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new Exception();
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return rapportinoDto;
@@ -65,6 +65,7 @@ public class FileUtil {
 		if (fileString != null && !fileString.isEmpty()) {
 
 			fileString = fileString.replaceAll("\n", "");
+
 			for (String giornoNotSplit : fileString.split(";")) {
 
 				String[] giornoSplit = giornoNotSplit.split(",");
@@ -104,7 +105,7 @@ public class FileUtil {
 				file.createNewFile();
 			} catch (Exception e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
-				throw new Exception();
+				throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 			}
 		}
 	}
@@ -152,7 +153,7 @@ public class FileUtil {
 				throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
 			}
 		}
-		LOGGER.log(Level.INFO, "Rapportino Salvato con successo.");
+		LOGGER.log(Level.INFO, "Rapportino salvato con successo.");
 	}
 
 }

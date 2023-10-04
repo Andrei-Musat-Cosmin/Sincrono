@@ -3,6 +3,9 @@ package it.sincrono.services.impl;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import it.sincrono.services.validator.StoricoContrattiValidator;
 
 @Service
 public class StoricoContrattiServiceImpl implements StoricoContrattiService {
+	private static final Logger LOGGER = LogManager.getLogger(StoricoContrattiServiceImpl.class);
 
 	@Autowired
 	public StoricoContrattiRepository storicoContrattiRepository;
@@ -34,11 +38,14 @@ public class StoricoContrattiServiceImpl implements StoricoContrattiService {
 
 			return listStoricoContratti;
 
-		} catch (NoSuchElementException ne) {
+		} catch (NoSuchElementException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
@@ -51,7 +58,6 @@ public class StoricoContrattiServiceImpl implements StoricoContrattiService {
 //		try {
 //			list = storicoContrattiRepository.findAll();
 //		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 //		}
 //
@@ -66,10 +72,8 @@ public class StoricoContrattiServiceImpl implements StoricoContrattiService {
 //		try {
 //			storicoContratti = storicoContrattiRepository.findById(ID).get();
 //		} catch (NoSuchElementException ne) {
-//			System.out.println("Exception occurs {}, ID {}");
 //			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 //		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 //		}
 //
@@ -80,7 +84,6 @@ public class StoricoContrattiServiceImpl implements StoricoContrattiService {
 //	public void insert(StoricoContratti storicoContratti) throws ServiceException {
 //
 //		if (!storicoContrattiValidator.validate(storicoContratti, true)) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 //		}
 //
@@ -89,7 +92,6 @@ public class StoricoContrattiServiceImpl implements StoricoContrattiService {
 //		} catch (DataIntegrityViolationException de) {
 //			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 //		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 //		}
 //

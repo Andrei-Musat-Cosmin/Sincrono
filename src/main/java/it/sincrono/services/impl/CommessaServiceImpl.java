@@ -3,6 +3,9 @@ package it.sincrono.services.impl;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import it.sincrono.services.exceptions.ServiceException;
 
 @Service
 public class CommessaServiceImpl implements CommessaService {
+	private static final Logger LOGGER = LogManager.getLogger(CommessaServiceImpl.class);
 
 	@Autowired
 	private CommessaRepository commessaRepository;
@@ -53,14 +57,14 @@ public class CommessaServiceImpl implements CommessaService {
 
 			commessaRepository.saveAndFlush(currentCommessa);
 
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs { RECORD_NON_TROVATO }\n");
+		} catch (NoSuchElementException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }\n");
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }\n");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
@@ -73,14 +77,14 @@ public class CommessaServiceImpl implements CommessaService {
 			commessaRepository.delete(commessa);
 			commessaRepository.flush();
 
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs { RECORD_NON_TROVATO }\n");
+		} catch (NoSuchElementException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }\n");
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }\n");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
@@ -91,7 +95,7 @@ public class CommessaServiceImpl implements CommessaService {
 		try {
 			dashboard = commessaRepository.dashboard();
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }\n");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 		return dashboard;
@@ -107,7 +111,7 @@ public class CommessaServiceImpl implements CommessaService {
 			commessaRepository.saveAndFlush(commessa);
 
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }\n");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
