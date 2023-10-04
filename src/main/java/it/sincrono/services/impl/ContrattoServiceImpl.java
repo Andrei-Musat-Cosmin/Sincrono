@@ -1,13 +1,13 @@
 package it.sincrono.services.impl;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import it.sincrono.entities.Contratto;
 import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.dto.OrganicoDto;
 import it.sincrono.services.ContrattoService;
@@ -16,6 +16,7 @@ import it.sincrono.services.exceptions.ServiceException;
 
 @Service
 public class ContrattoServiceImpl implements ContrattoService {
+	private static final Logger LOGGER = LogManager.getLogger(ContrattoServiceImpl.class);
 
 	@Autowired
 	private ContrattoRepository contrattoRepository;
@@ -82,7 +83,7 @@ public class ContrattoServiceImpl implements ContrattoService {
 		try {
 			organico = contrattoRepository.organico();
 		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 		return organico;

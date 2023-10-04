@@ -46,7 +46,6 @@ public class AnagraficaController {
 //		AnagraficaResponse anagraficaResponse = new AnagraficaResponse();
 //
 //		try {
-//			System.out.println("START invocation getAll() of controller layer");
 //
 //			Anagrafica anagrafica = anagraficaService.getById(id);
 //
@@ -55,7 +54,6 @@ public class AnagraficaController {
 //
 //			httpEntity = new HttpEntity<AnagraficaResponse>(anagraficaResponse);
 //
-//			System.out.println("END invocation getAll() of controller layer");
 //
 //		} catch (ServiceException e) {
 //			anagraficaResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
@@ -73,7 +71,6 @@ public class AnagraficaController {
 //		AnagraficaListResponse anagraficaListResponse = new AnagraficaListResponse();
 //
 //		try {
-//			System.out.println("START invocation getAll() of controller layer");
 //
 //			List<Anagrafica> anagrafiche = anagraficaService.list();
 //
@@ -82,7 +79,6 @@ public class AnagraficaController {
 //
 //			httpEntity = new HttpEntity<AnagraficaListResponse>(anagraficaListResponse);
 //
-//			System.out.println("END invocation getAll() of controller layer");
 //
 //		} catch (ServiceException e) {
 //			anagraficaListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
@@ -100,7 +96,6 @@ public class AnagraficaController {
 //		GenericResponse genericResponse = new GenericResponse();
 //
 //		try {
-//			System.out.println("START invocation insert(anagrafica) of controller layer");
 //
 //			anagraficaService.insert(anagraficaRequest.getAnagrafica());
 //
@@ -108,7 +103,6 @@ public class AnagraficaController {
 //
 //			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 //
-//			System.out.println("END invocation insert(anagrafica) of controller layer");
 //
 //		} catch (ServiceException e) {
 //			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
@@ -126,7 +120,6 @@ public class AnagraficaController {
 //		GenericResponse genericResponse = new GenericResponse();
 //
 //		try {
-//			System.out.println("START invocation insert(anagrafica) of controller layer");
 //
 //			anagraficaService.update(anagraficaRequest.getAnagrafica());
 //
@@ -134,7 +127,6 @@ public class AnagraficaController {
 //
 //			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 //
-//			System.out.println("END invocation insert(anagrafica) of controller layer");
 //
 //		} catch (ServiceException e) {
 //			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
@@ -152,7 +144,6 @@ public class AnagraficaController {
 //		GenericResponse genericResponse = new GenericResponse();
 //
 //		try {
-//			System.out.println("START invocation insert(anagrafica) of controller layer");
 //
 //			anagraficaService.delete(ID);
 //
@@ -160,7 +151,6 @@ public class AnagraficaController {
 //
 //			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 //
-//			System.out.println("END invocation insert(anagrafica) of controller layer");
 //
 //		} catch (ServiceException e) {
 //			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
@@ -307,9 +297,7 @@ public class AnagraficaController {
 	 * 
 	 * GenericResponse genericResponse = new GenericResponse();
 	 * 
-	 * try {
-	 * System.out.println("START invocation insert(anagrafica) of controller layer"
-	 * );
+	 * try { );
 	 * 
 	 * anagraficaService.insertAnagraficaDtoRelations(anagraficaRequestDto.
 	 * getAnagraficaDto());
@@ -318,7 +306,6 @@ public class AnagraficaController {
 	 * 
 	 * httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 	 * 
-	 * System.out.println("END invocation insert(anagrafica) of controller layer");
 	 * 
 	 * } catch (ServiceException e) { genericResponse.setEsito(new
 	 * Esito(e.getCode(), e.getMessage(), null)); httpEntity = new

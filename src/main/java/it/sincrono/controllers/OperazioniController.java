@@ -2,6 +2,9 @@ package it.sincrono.controllers;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +22,7 @@ import it.sincrono.services.exceptions.ServiceException;
 @RestController
 @CrossOrigin
 public class OperazioniController {
+	private static final Logger LOGGER = LogManager.getLogger(OperazioniController.class);
 
 	@Autowired
 	private OperazioniService operazioniService;
@@ -31,7 +35,7 @@ public class OperazioniController {
 		OperazioniListResponse operazioniListResponse = new OperazioniListResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo getOperazioniById");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo getOperazioniById");
 
 			List<Operazione> list = operazioniService.getOperazioniByFunzioni(ID);
 
@@ -42,11 +46,11 @@ public class OperazioniController {
 			httpEntity = new HttpEntity<OperazioniListResponse>(operazioniListResponse);
 
 		} catch (ServiceException e) {
-			operazioniListResponse
-					.setEsito(new Esito(e.getCode(), e.getMessage(), new String[] { String.valueOf(ID) }));
+			LOGGER.log(Level.ERROR, e.getMessage());
+			operazioniListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<OperazioniListResponse>(operazioniListResponse);
 		}
-		System.out.println("Fine chiamata al metodo getOperazioniById\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo getOperazioniById\n");
 
 		return httpEntity;
 	}

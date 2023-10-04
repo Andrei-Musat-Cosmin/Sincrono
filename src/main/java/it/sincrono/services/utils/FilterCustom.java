@@ -4,12 +4,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import it.sincrono.services.utils.DateUtil;
-
 import org.springframework.stereotype.Component;
 
 import it.sincrono.entities.Anagrafica;
@@ -59,56 +55,59 @@ public class FilterCustom {
 		if (anagraficaRequestDto.getAnagraficaDto().getContratto() != null) {
 			Contratto contratto = anagraficaDto.getContratto();
 			Contratto contrattoFilter = anagraficaRequestDto.getAnagraficaDto().getContratto();
-
-			if (contrattoFilter.getRalAnnua() != null
-					&& !contratto.getRalAnnua().toString().startsWith(contrattoFilter.getRalAnnua().toString())) {
-				return false;
-			}
-			if (contrattoFilter.getTipoLivelloContratto() != null && contratto.getTipoLivelloContratto()
-					.getId() != contrattoFilter.getTipoLivelloContratto().getId()) {
-				return false;
-			}
-			if (contrattoFilter.getTipoContratto() != null
-					&& contratto.getTipoContratto().getId() != contrattoFilter.getTipoContratto().getId()) {
-				return false;
-			}
-			if (contrattoFilter.getTipoCcnl() != null
-					&& contratto.getTipoCcnl().getId() != contrattoFilter.getTipoCcnl().getId()) {
-				return false;
-			}
-			if (contrattoFilter.getTipoCanaleReclutamento() != null && contratto.getTipoCanaleReclutamento()
-					.getId() != contrattoFilter.getTipoCanaleReclutamento().getId()) {
-				return false;
-			}
-			if (contrattoFilter.getTipoCausaFineRapporto() != null && contratto.getTipoCausaFineRapporto()
-					.getId() != contrattoFilter.getTipoCausaFineRapporto().getId()) {
-				return false;
-			}
-		}
-		if (anagraficaRequestDto.getAnnoDataInizio() != null) {
-			if (anagraficaDto.getContratto().getDataAssunzione().getYear() != anagraficaRequestDto
-					.getAnnoDataInizio()) {
-				return false;
-			}
-
-			if (anagraficaRequestDto.getMeseDataInizio() != null) {
-				if (anagraficaDto.getContratto().getDataAssunzione().getMonth() != anagraficaRequestDto
-						.getMeseDataInizio()) {
+			if (contratto != null) {
+				if (contrattoFilter.getRalAnnua() != null
+						&& !contratto.getRalAnnua().toString().startsWith(contrattoFilter.getRalAnnua().toString())) {
 					return false;
 				}
-			}
-		}
-		if (anagraficaRequestDto.getAnnoDataFine() != null) {
-			if (anagraficaDto.getContratto().getDataFineRapporto().getYear() != anagraficaRequestDto
-					.getAnnoDataFine()) {
-				return false;
-			}
-			if (anagraficaRequestDto.getMeseDataFine() != null) {
-				if (anagraficaDto.getContratto().getDataFineRapporto().getMonth() != anagraficaRequestDto
-						.getMeseDataFine()) {
+				if (contrattoFilter.getTipoLivelloContratto() != null && contratto.getTipoLivelloContratto()
+						.getId() != contrattoFilter.getTipoLivelloContratto().getId()) {
 					return false;
 				}
-			}
+				if (contrattoFilter.getTipoContratto() != null
+						&& contratto.getTipoContratto().getId() != contrattoFilter.getTipoContratto().getId()) {
+					return false;
+				}
+				if (contrattoFilter.getTipoCcnl() != null
+						&& contratto.getTipoCcnl().getId() != contrattoFilter.getTipoCcnl().getId()) {
+					return false;
+				}
+				if (contrattoFilter.getTipoCanaleReclutamento() != null && contratto.getTipoCanaleReclutamento()
+						.getId() != contrattoFilter.getTipoCanaleReclutamento().getId()) {
+					return false;
+				}
+				if (contrattoFilter.getTipoCausaFineRapporto() != null && contratto.getTipoCausaFineRapporto()
+						.getId() != contrattoFilter.getTipoCausaFineRapporto().getId()) {
+					return false;
+				}
+
+				if (anagraficaRequestDto.getAnnoDataInizio() != null) {
+					if (anagraficaDto.getContratto().getDataAssunzione().getYear() != anagraficaRequestDto
+							.getAnnoDataInizio()) {
+						return false;
+					}
+
+					if (anagraficaRequestDto.getMeseDataInizio() != null) {
+						if (anagraficaDto.getContratto().getDataAssunzione().getMonth() != anagraficaRequestDto
+								.getMeseDataInizio()) {
+							return false;
+						}
+					}
+				}
+				if (anagraficaRequestDto.getAnnoDataFine() != null) {
+					if (anagraficaDto.getContratto().getDataFineRapporto().getYear() != anagraficaRequestDto
+							.getAnnoDataFine()) {
+						return false;
+					}
+					if (anagraficaRequestDto.getMeseDataFine() != null) {
+						if (anagraficaDto.getContratto().getDataFineRapporto().getMonth() != anagraficaRequestDto
+								.getMeseDataFine()) {
+							return false;
+						}
+					}
+				}
+			} else
+				return false;
 		}
 		if (anagraficaRequestDto.getAnagraficaDto().getCommesse() != null
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().size() > 0
@@ -120,6 +119,7 @@ public class FilterCustom {
 				}
 			}
 		}
+
 		return true;
 	}
 
@@ -317,35 +317,31 @@ public class FilterCustom {
 
 		if (anagraficaRequestDto.getAnnoFineContratto() != null) {
 
-		
+			if (anagraficaDto.getContratto() != null && anagraficaDto.getContratto().getDataFineRapporto() != null) {
 
-				if ( anagraficaDto.getContratto() != null && anagraficaDto.getContratto().getDataFineRapporto() != null) {
-
-					if (!DateUtil.compareYear(anagraficaDto.getContratto().getDataFineRapporto(),
-							anagraficaRequestDto.getAnnoFineContratto())) {
-
-						return false;
-
-					}
-
-					if (anagraficaRequestDto.getMeseDataFine() != null) {
-
-						if (!DateUtil.compareYear(anagraficaDto.getContratto().getDataFineRapporto(),
-								anagraficaRequestDto.getMeseFineContratto())) {
-
-							return false;
-
-						}
-
-					}
-
-				}else {
+				if (!DateUtil.compareYear(anagraficaDto.getContratto().getDataFineRapporto(),
+						anagraficaRequestDto.getAnnoFineContratto())) {
 
 					return false;
 
 				}
 
-			
+				if (anagraficaRequestDto.getMeseDataFine() != null) {
+
+					if (!DateUtil.compareYear(anagraficaDto.getContratto().getDataFineRapporto(),
+							anagraficaRequestDto.getMeseFineContratto())) {
+
+						return false;
+
+					}
+
+				}
+
+			} else {
+
+				return false;
+
+			}
 
 		}
 

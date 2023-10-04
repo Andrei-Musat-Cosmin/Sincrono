@@ -1,5 +1,8 @@
 package it.sincrono.services.impl;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -15,6 +18,7 @@ import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailServiceImpl implements EmailService {
+	private static final Logger LOGGER = LogManager.getLogger(EmailServiceImpl.class);
 
 	@Value("${spring.mail.username}")
 	private String fromEmail;
@@ -23,16 +27,17 @@ public class EmailServiceImpl implements EmailService {
 	private JavaMailSender javaMailSender;
 
 	@Override
-	public String sendMail(MultipartFile[] file, String to, String[] cc, String subject, String body) {
+	public String sendMail(MultipartFile[] file, String to, String[] cc, String subject, String body)
+			throws ServiceException {
 		try {
 			if (to == null || to == "") {
-				System.out.println("Exception occurs { ERRORE_VALIDAZIONE: destinatario dell'email non valido }");
+				LOGGER.log(Level.ERROR, "Destinatario dell'email non valido }");
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 			}
 			if (cc != null) {
 				for (int i = 0; i < cc.length; i++)
 					if (cc[i] != "") {
-						System.out.println("Exception occurs { ERRORE_VALIDAZIONE: copie carbone non valide }");
+						LOGGER.log(Level.ERROR, "Copie carbone non valide }");
 						throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 					}
 			}
@@ -57,7 +62,8 @@ public class EmailServiceImpl implements EmailService {
 			javaMailSender.send(mimeMessage);
 			return "mail sent";
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 	}

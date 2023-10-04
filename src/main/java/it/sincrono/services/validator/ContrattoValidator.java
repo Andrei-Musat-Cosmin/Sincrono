@@ -1,15 +1,17 @@
 package it.sincrono.services.validator;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import it.sincrono.entities.Contratto;
 
 @Component
 public class ContrattoValidator {
+	private static final Logger LOGGER = LogManager.getLogger(ContrattoValidator.class);
 
 	public Boolean validate(Contratto contratto, Boolean isNew) {
-
-		boolean result = true;
 
 		if (contratto != null) {
 
@@ -17,45 +19,40 @@ public class ContrattoValidator {
 
 				if (contratto.getId() == null) {
 
-					result = checkForIntegrita(contratto, result);
+					return checkForIntegrita(contratto);
 
 				} else {
-
-					result = false;
+					LOGGER.log(Level.ERROR, "ID del contratto non deve essere valorizzato");
+					return false;
 				}
 			} else if (contratto.getId() != null) {
 
-				result = checkForIntegrita(contratto, result);
+				return checkForIntegrita(contratto);
 
 			} else {
-
-				result = false;
+				LOGGER.log(Level.ERROR, "ID del contratto deve essere valorizzato");
+				return false;
 			}
 
 		} else {
 
-			result = false;
+			return false;
 		}
 
-		return result;
 	}
 
 	public Boolean validateUpdate(Contratto contratto) {
 
-		boolean result = true;
-
 		if (contratto != null) {
 
-			checkForIntegrita(contratto, result);
+			return checkForIntegrita(contratto);
 		} else {
-			result = false;
+			return false;
 		}
-
-		return result;
 
 	}
 
-	Boolean checkForIntegrita(Contratto contratto, Boolean result) {
+	Boolean checkForIntegrita(Contratto contratto) {
 		if (contratto.getTipoContratto() != null) {
 			switch (contratto.getTipoContratto().getId()) {
 			case 1:
@@ -63,52 +60,70 @@ public class ContrattoValidator {
 						|| contratto.getRalAnnua() != null || contratto.getSuperminimoRal() != null
 						|| contratto.getDiariaMensile() != null || contratto.getDiariaGiornaliera() != null
 						|| contratto.getScattiAnzianita() != null || contratto.getTariffaPartitaIva() != null
-						|| contratto.getTicket() != null || contratto.getValoreTicket() != null)
-					result = false;
+						|| contratto.getTicket() != null || contratto.getValoreTicket() != null) {
+					LOGGER.log(Level.ERROR, "I valori inseriti non rispettano la tipologia del contratto: \""
+							+ contratto.getTipoContratto().getDescrizione() + "\".");
+					return false;
+				}
 				break;
 			case 2:
 				if (contratto.getMesiDurata() != null || contratto.getDataFineRapporto() != null
 						|| contratto.getLivelloAttuale() != null || contratto.getLivelloFinale() != null
 						|| contratto.getSuperminimoMensile() != null || contratto.getRalAnnua() != null
 						|| contratto.getSuperminimoRal() != null || contratto.getTutor() != null
-						|| contratto.getPfi() != null)
-					result = false;
+						|| contratto.getPfi() != null) {
+					LOGGER.log(Level.ERROR, "I valori inseriti non rispettano la tipologia del contratto: \""
+							+ contratto.getTipoContratto().getDescrizione() + "\".");
+					return false;
+				}
 				break;
 			case 3:
 				if (contratto.getTariffaPartitaIva() != null || contratto.getTutor() != null
-						|| contratto.getPfi() != null)
-					result = false;
+						|| contratto.getPfi() != null) {
+					LOGGER.log(Level.ERROR, "I valori inseriti non rispettano la tipologia del contratto: \""
+							+ contratto.getTipoContratto().getDescrizione() + "\".");
+					return false;
+				}
 
 				break;
 			case 4:
 				if (contratto.getMesiDurata() != null || contratto.getDataFineRapporto() != null
 						|| contratto.getTariffaPartitaIva() != null || contratto.getTutor() != null
-						|| contratto.getPfi() != null)
-					result = false;
+						|| contratto.getPfi() != null) {
+					LOGGER.log(Level.ERROR, "I valori inseriti non rispettano la tipologia del contratto: \""
+							+ contratto.getTipoContratto().getDescrizione() + "\".");
+					return false;
+				}
 				break;
 			case 5:
-				if (contratto.getTariffaPartitaIva() != null)
-					result = false;
+				if (contratto.getTariffaPartitaIva() != null) {
+					LOGGER.log(Level.ERROR, "I valori inseriti non rispettano la tipologia del contratto: \""
+							+ contratto.getTipoContratto().getDescrizione() + "\".");
+					return false;
+				}
 				break;
 			default:
-				System.out.println("Dato \"TipoContratto\" non riconosciuto");
-				result = false;
-				break;
+				LOGGER.log(Level.ERROR, "Il contratto inserito non e' previsto: \""
+						+ contratto.getTipoContratto().getDescrizione() + "\".");
+				return false;
 			}
 
 		} else {
-			result = false;
+			LOGGER.log(Level.ERROR, "Dato \"Contratto\" non è stato inserito");
+			return false;
 		}
 		if (contratto.getTipoLivelloContratto() == null || contratto.getTipoLivelloContratto().getId() == null) {
-			result = false;
+			LOGGER.log(Level.ERROR, "Dato \"Livello Contratto\" non è stato inserito");
+			return false;
 		}
-	
 		if (contratto.getTipoCcnl() == null || contratto.getTipoCcnl().getId() == null) {
-			result = false;
+			LOGGER.log(Level.ERROR, "Dato \"CCNL\" non è stato inserito");
+			return false;
 		}
 		if (contratto.getTipoCanaleReclutamento() == null || contratto.getTipoCanaleReclutamento().getId() == null) {
-			result = false;
+			LOGGER.log(Level.ERROR, "Dato \"Canale Reclutamento\" non è stato inserito");
+			return false;
 		}
-		return result;
+		return true;
 	}
 }

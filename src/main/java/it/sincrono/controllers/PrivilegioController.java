@@ -2,6 +2,9 @@ package it.sincrono.controllers;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +23,7 @@ import it.sincrono.services.exceptions.ServiceException;
 @RestController
 @CrossOrigin
 public class PrivilegioController {
+	private static final Logger LOGGER = LogManager.getLogger(PrivilegioController.class);
 
 	@Autowired
 	private FunzioneService funzioneService;
@@ -36,7 +40,7 @@ public class PrivilegioController {
 		FunzioniListResponse funzioneListResponse = new FunzioniListResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo funzioniRuoloTree");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo funzioniRuoloTree");
 
 			Integer idFunzione = funzioneService.getFunzioniDalRuolo(id);
 			List<Funzione> funzioni = funzioneService.funzioneTree(idFunzione);
@@ -47,10 +51,11 @@ public class PrivilegioController {
 			httpEntity = new HttpEntity<FunzioniListResponse>(funzioneListResponse);
 
 		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			funzioneListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<FunzioniListResponse>(funzioneListResponse);
 		}
-		System.out.println("Fine chiamata al metodo funzioniRuoloTree\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo funzioniRuoloTree\n");
 
 		return httpEntity;
 	}

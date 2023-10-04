@@ -1,5 +1,8 @@
 package it.sincrono.controllers;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +17,7 @@ import it.sincrono.services.ContrattoService;
 @RestController
 @CrossOrigin
 public class ContrattoController {
+	private static final Logger LOGGER = LogManager.getLogger(ContrattoController.class);
 
 	@Autowired
 	private ContrattoService contrattoService;
@@ -25,15 +29,16 @@ public class ContrattoController {
 		OrganicoDtoListResponse organicoDtoListResponse = new OrganicoDtoListResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo organico");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo organico");
 			organicoDtoListResponse.setEsito(new Esito());
 			organicoDtoListResponse.setList(contrattoService.organico());
 			httpEntity = new HttpEntity<OrganicoDtoListResponse>(organicoDtoListResponse);
 		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			organicoDtoListResponse.setEsito(new Esito(501, e.getMessage(), null));
 			httpEntity = new HttpEntity<OrganicoDtoListResponse>(organicoDtoListResponse);
 		}
-		System.out.println("Fine chiamata al metodo organico\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo organico\n");
 
 		return httpEntity;
 	}
@@ -73,7 +78,6 @@ public class ContrattoController {
 //			contrattoResponse.setEsito(new Esito());
 //
 //			httpEntity = new HttpEntity<ContrattoResponse>(contrattoResponse);
-//			System.out.println("ciao");
 //		} catch (Exception e) {
 //			contrattoResponse.setEsito(new Esito(404, e.getMessage(), new String[] { String.valueOf(id) }));
 //			httpEntity = new HttpEntity<ContrattoResponse>(contrattoResponse);
@@ -110,7 +114,6 @@ public class ContrattoController {
 //			genericResponse.setEsito(new Esito());
 //
 //			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
-//			System.out.println("ciao");
 //		} catch (Exception e) {
 //			genericResponse.setEsito(new Esito(404, e.getMessage(), new String[] { null }));
 //			httpEntity = new HttpEntity<GenericResponse>(genericResponse);

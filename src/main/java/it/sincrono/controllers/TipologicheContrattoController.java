@@ -121,7 +121,6 @@ public class TipologicheContrattoController {
 //		TipologicheListResponse<TipoLivelloContratto> livelloContrattoListResponse = new TipologicheListResponse<TipoLivelloContratto>();
 //
 //		try {
-//			System.out.println("\nInizio chiamata al metodo getTipoLivelloContrattoMap");
 //
 //			List<TipoLivelloContratto> list = tipologicheContrattoService.getTipoLivelliContrattualiMap();
 //
@@ -134,7 +133,6 @@ public class TipologicheContrattoController {
 //			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 //			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
 //		}
-//		System.out.println("Fine chiamata al metodo getTipoLivelloContrattoMap\n");
 //
 //		return httpEntity;
 //	}

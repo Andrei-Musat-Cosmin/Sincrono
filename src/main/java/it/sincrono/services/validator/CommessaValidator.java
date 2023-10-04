@@ -9,8 +9,6 @@ public class CommessaValidator {
 
 	public Boolean validate(Commessa commessa, Boolean isNew) {
 
-		boolean result = true;
-
 		if (commessa != null) {
 
 			if (isNew) {
@@ -19,11 +17,11 @@ public class CommessaValidator {
 
 					if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
 							|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
-						result = false;
+						return false;
 
 				} else {
 
-					result = false;
+					return false;
 				}
 
 			} else {
@@ -32,21 +30,21 @@ public class CommessaValidator {
 
 					if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
 							|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
-						result = false;
+						return false;
 
 				} else {
 
-					result = false;
+					return false;
 				}
 
 			}
 
 		} else {
 
-			result = false;
+			return false;
 		}
 
-		return result;
+		return true;
 
 	}
 

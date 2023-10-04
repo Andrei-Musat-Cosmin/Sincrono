@@ -53,7 +53,9 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
+
 	private static final Logger LOGGER = LogManager.getLogger(AnagraficaServiceImpl.class);
+
 	@Autowired
 	private AnagraficaRepository anagraficaRepository;
 	@Autowired
@@ -117,7 +119,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return list;
@@ -133,7 +135,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return list;
@@ -149,10 +151,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			calcoloTipoLivello(anagraficaDto);
 		} catch (NoSuchElementException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e.getMessage());
+			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return anagraficaDto;
@@ -164,7 +166,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		try {
 			if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)) {
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " dei dati di anagrafica");
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di anagrafica");
 			}
 
 			String passwordUtente = new TokenGenerator().nextToken();
@@ -183,7 +185,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getRuolo() != null) {
 
 				if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di ruolo");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di ruolo");
 				}
 
 				profiloRepository
@@ -197,7 +199,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getCommesse() != null && anagraficaDto.getCommesse().size() != 0) {
 
 				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)) {
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di commesse");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di commesse");
 				}
 
 				for (Commessa commessa : anagraficaDto.getCommesse()) {
@@ -212,7 +214,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			if (anagraficaDto.getContratto() != null) {
 				if (!contrattoValidator.validate(anagraficaDto.getContratto(), true)) {
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di contratto");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di contratto");
 				}
 
 				CalcoloDataFineRapporto(anagraficaDto, true);
@@ -239,7 +241,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			 * + passwordUtente);
 			 */
 
-			System.out.println("Password " + passwordUtente);
+			LOGGER.log(Level.INFO, "Password " + passwordUtente);
 
 		} catch (DataIntegrityViolationException e) {
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_INTEGRITA_DATI);
@@ -266,7 +268,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			// DefaultTransactionDefinition());
 
 			if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), false)) {
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di anagrafica");
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di anagrafica");
 			}
 
 			anagraficaDto.getAnagrafica().setAttivo(true);
@@ -278,7 +280,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getRuolo() != null) {
 
 				if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di ruolo");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di ruolo");
 				}
 
 				Integer idProfilo = profiloRepository.getidProfilo(idAnagrafica);
@@ -290,7 +292,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getCommesse() != null && anagraficaDto.getCommesse().size() != 0) {
 
 				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), true, false)) {
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di commesse");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di commesse");
 				}
 
 				for (Commessa commessa : anagraficaDto.getCommesse()) {
@@ -324,7 +326,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getContratto() != null) {
 
 				if (!contrattoValidator.validateUpdate(anagraficaDto.getContratto())) {
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di contratto");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di contratto");
 				}
 
 				if (anagraficaDto.getContratto().getId() != null) {
@@ -386,11 +388,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			/*
 			 * if (status != null) { transactionManager.rollback(status); }
 			 */
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_INTEGRITA_DATI);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 
 		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 
 		} catch (Exception e) {
@@ -442,10 +444,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			utenteRepository.saveAndFlush(utente);
 
 		} catch (NoSuchElementException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.RECORD_NON_TROVATO);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (DataIntegrityViolationException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_INTEGRITA_DATI);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -491,7 +493,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		try {
 			anagraficaDto = mapper.toAnagraficaDto(token);
 		} catch (NoSuchElementException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.RECORD_NON_TROVATO);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -524,10 +526,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			utenteRepository.saveAndFlush(utente);
 
 		} catch (NoSuchElementException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.RECORD_NON_TROVATO);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (DataIntegrityViolationException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_INTEGRITA_DATI);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -636,7 +638,6 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	 * for() {
 	 * 
 	 * listaCommesse.add(commessaRepository.getById()); } list.add(anagraficaDto); }
-	 * } catch (Exception e) { System.out.println("Exception occurs {}"); throw new
 	 * ServiceException(ServiceMessages.ERRORE_GENERICO); }
 	 * 
 	 * return list;
@@ -645,13 +646,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	 * @Override public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws
 	 * ServiceException { if
 	 * (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), false)) {
-	 * System.out.println("Exception occurs {}"); throw new
 	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); } if
 	 * (!commessaValidator.validate(anagraficaDto.getCommessa(), false)) {
-	 * System.out.println("Exception occurs {}"); throw new
 	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); } if
 	 * (!contrattoValidator.validate(anagraficaDto.getContratto(), false)) {
-	 * System.out.println("Exception occurs {}"); throw new
 	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); }
 	 * 
 	 * try {
@@ -663,12 +661,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	 * commesseRepository.saveAndFlush(anagraficaDto.getCommessa());
 	 * 
 	 * } catch (NoSuchElementException ne) {
-	 * System.out.println("Exception occurs {}"); throw new
 	 * ServiceException(ServiceMessages.RECORD_NON_TROVATO); } catch
 	 * (DataIntegrityViolationException de) {
-	 * System.out.println("Exception occurs {}"); throw new
 	 * ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI); } catch (Exception
-	 * e) { System.out.println("Exception occurs {}"); throw new
 	 * ServiceException(ServiceMessages.ERRORE_GENERICO); }
 	 * 
 	 * }
@@ -681,7 +676,6 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //		try {
 //			list = anagraficaRepository.findAll();
 //		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 //		}
 //
@@ -695,10 +689,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //		try {
 //			anagrafica = anagraficaRepository.findById(ID).get();
 //		} catch (NoSuchElementException ne) {
-//			System.out.println("Exception occurs {}, ID {}");
 //			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 //		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 //		}
 //
@@ -709,17 +701,14 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //	public void insert(Anagrafica anagrafica) throws ServiceException {
 //
 //		if (!anagraficaValidator.validate(anagrafica, true)) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 //		}
 //
 //		try {
 //			anagraficaRepository.saveAndFlush(anagrafica);
 //		} catch (DataIntegrityViolationException de) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 //		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 //		}
 //
@@ -728,7 +717,6 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //	@Override
 //	public void update(Anagrafica anagrafica) throws ServiceException {
 //		if (!anagraficaValidator.validate(anagrafica, false)) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 //		}
 //
@@ -755,13 +743,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //			anagraficaRepository.saveAndFlush(Currentanagrafica);
 //
 //		} catch (NoSuchElementException ne) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 //		} catch (DataIntegrityViolationException de) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 //		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 //		}
 //
@@ -776,13 +761,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 //			anagraficaRepository.flush();
 //
 //		} catch (NoSuchElementException ne) {
-//			System.out.println("Exception occurs {}, id {}");
 //			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 //		} catch (DataIntegrityViolationException de) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 //		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
 //			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 //		}
 //	}
