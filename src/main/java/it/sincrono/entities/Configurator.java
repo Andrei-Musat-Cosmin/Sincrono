@@ -1,7 +1,5 @@
 package it.sincrono.entities;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,10 +16,9 @@ public class Configurator {
 	@Column(name = "id")
 	private Integer id;
 
-
 	@Column(name = "serivizio")
 	private String servizio;
-	
+
 	@Column(name = "path")
 	private String path;
 
@@ -31,16 +28,10 @@ public class Configurator {
 		this.servizio = servizio;
 		this.path = path;
 	}
-	
-	
-	
 
 	public Configurator() {
 		super();
 	}
-
-
-
 
 	public Integer getId() {
 		return id;
@@ -65,9 +56,5 @@ public class Configurator {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	
-	
-	
 
-	
 }
