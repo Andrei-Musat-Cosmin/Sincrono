@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import it.sincrono.repositories.dto.RapportinoDto;
@@ -16,9 +17,11 @@ import it.sincrono.services.utils.FileUtil;
 
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
-	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
 
-	private static String PREFIX = "C:/Users/SINCRONO/Desktop/";
+	@Value("${anagrafiche-profili.path-prefix}")
+	private String PREFIX;
+
+	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
 
 	@Autowired
 	FileUtil fileUtil;
@@ -32,8 +35,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 			LocalDate oggi = LocalDate.now();
 
-			rapportinoDto = fileUtil.readFile("C:/Users/SINCRONO/Desktop/" + codiceFiscale + "/" + oggi.getYear() + "/"
-					+ oggi.getMonthValue() + ".txt");
+			rapportinoDto = fileUtil
+					.readFile(PREFIX + codiceFiscale + "/" + oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
 
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());

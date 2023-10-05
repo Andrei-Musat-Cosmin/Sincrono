@@ -10,3 +10,6 @@ spring:
           starttls:
             enable: true
           auth: true
+
+anagrafiche-profili:
+  path-prefix: C:/Users/SINCRONO/Desktop/profili-anagrafiche/
