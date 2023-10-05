@@ -4004,3 +4004,251 @@ Caused by: org.hibernate.query.SemanticException: Could not interpret path expre
 2023-10-04T11:45:06.488+0200 INFO Inizio chiamata al metodo  anagraficaListContratti
 2023-10-04T11:45:09.948+0200 INFO Fine chiamata al metodo anagraficaListContratti
 
+2023-10-05T14:23:14.608+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 7872 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-05T14:23:14.628+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-05T14:23:17.450+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-05T14:23:17.813+0200 INFO Finished Spring Data repository scanning in 347 ms. Found 14 JPA repository interfaces.
+2023-10-05T14:23:19.842+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-05T14:23:19.879+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-05T14:23:19.882+0200 INFO Starting service [Tomcat]
+2023-10-05T14:23:19.883+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-05T14:23:20.237+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-05T14:23:20.237+0200 INFO Root WebApplicationContext: initialization completed in 5491 ms
+2023-10-05T14:23:20.660+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-05T14:23:20.794+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-05T14:23:21.520+0200 INFO HikariPool-1 - Starting...
+2023-10-05T14:23:22.168+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6207145c
+2023-10-05T14:23:22.172+0200 INFO HikariPool-1 - Start completed.
+2023-10-05T14:23:22.306+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-05T14:23:24.223+0200 INFO HHH000182: No default (no-argument) constructor for class: it.sincrono.entities.ContrattiScattiLivello (class must be instantiated by Interceptor)
+2023-10-05T14:23:25.267+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-05T14:23:25.293+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-05T14:23:27.823+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-05T14:23:28.449+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-05T14:23:28.489+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-05T14:23:28.502+0200 INFO Started SincronoApplication in 14.858 seconds (process running for 18.521)
+2023-10-05T14:26:42.143+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-05T14:26:42.144+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-05T14:26:42.147+0200 INFO Completed initialization in 3 ms
+2023-10-05T14:26:42.230+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:26:42.515+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:26:42.866+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:26:42.900+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:26:42.948+0200 INFO Inizio chiamata al metodo funzioniRuoloTree
+2023-10-05T14:26:43.066+0200 INFO Fine chiamata al metodo funzioniRuoloTree
+
+2023-10-05T14:26:46.502+0200 INFO Inizio chiamata al metodo getOperazioniById
+2023-10-05T14:26:46.526+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:26:46.527+0200 INFO Fine chiamata al metodo getOperazioniById
+
+2023-10-05T14:26:46.590+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:26:46.633+0200 INFO Inizio chiamata al meotodo listAnagraficaDto
+2023-10-05T14:26:46.641+0200 INFO Inizio chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-05T14:26:46.642+0200 INFO Inizio chiamata al meotodo getTipoContrattoMap
+2023-10-05T14:26:46.646+0200 INFO Inizio chiamata al meotodo getTipoCausaFineRapportoMap
+2023-10-05T14:26:46.649+0200 INFO Fine chiamata al meotodo getTipoCanaleReclutamentoMap
+
+2023-10-05T14:26:46.649+0200 INFO Fine chiamata al meotodo getTipoContrattoMap
+
+2023-10-05T14:26:46.675+0200 INFO Fine chiamata al meotodo getTipoCausaFineRapportoMap
+
+2023-10-05T14:26:46.745+0200 INFO Inizio chiamata al meotodo getCcnlMap
+2023-10-05T14:26:46.745+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-05T14:26:46.749+0200 INFO Fine chiamata al meotodo getCcnlMap
+
+2023-10-05T14:26:46.744+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:26:46.752+0200 INFO Fine chiamata al meotodo getAziendeMap
+
+2023-10-05T14:26:46.789+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:26:46.816+0200 INFO Fine chiamata al meotodo listAnagraficaDto
+
+2023-10-05T14:26:46.845+0200 INFO Inizio chiamata al metodo funzioniRuoloTree
+2023-10-05T14:26:46.862+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:26:46.873+0200 INFO Fine chiamata al metodo funzioniRuoloTree
+
+2023-10-05T14:26:46.902+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:26:59.335+0200 INFO Inizio chiamata al metodo getOperazioniById
+2023-10-05T14:26:59.342+0200 INFO Fine chiamata al metodo getOperazioniById
+
+2023-10-05T14:26:59.413+0200 INFO Inizio chiamata al metodo getCommesseInscadenza
+
+2023-10-05T14:26:59.414+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:26:59.469+0200 INFO Inizio chiamata al metodo  anagraficaListContratti
+2023-10-05T14:26:59.488+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:26:59.501+0200 INFO Inizio chiamata al metodo listAllCommesse
+2023-10-05T14:26:59.510+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:26:59.564+0200 INFO Fine chiamata al metodo anagraficaListContratti
+
+2023-10-05T14:26:59.635+0200 INFO Fine chiamata al metodo getCommesseInscadenza
+
+2023-10-05T14:26:59.639+0200 INFO Fine chiamata al metodo listAllCommesse
+
+2023-10-05T14:26:59.641+0200 ERROR Cannot invoke "java.lang.Integer.intValue()" because the return value of "it.sincrono.entities.Contratto.getMesiDurata()" is null
+2023-10-05T14:26:59.642+0200 ERROR ERRORE_GENERICO
+2023-10-05T14:26:59.642+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T14:26:59.737+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-05T14:26:59.740+0200 INFO Fine chiamata al meotodo getAziendeMap
+
+2023-10-05T14:26:59.790+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:26:59.812+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:26:59.847+0200 INFO Inizio chiamata al metodo funzioniRuoloTree
+2023-10-05T14:26:59.862+0200 INFO Fine chiamata al metodo funzioniRuoloTree
+
+2023-10-05T14:27:05.067+0200 INFO Inizio chiamata al meotodo listAnagraficaDto
+2023-10-05T14:27:05.079+0200 INFO Inizio chiamata al meotodo getTipoContrattoMap
+2023-10-05T14:27:05.085+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:27:05.087+0200 INFO Fine chiamata al meotodo getTipoContrattoMap
+
+2023-10-05T14:27:05.108+0200 INFO Inizio chiamata al meotodo getCcnlMap
+2023-10-05T14:27:05.130+0200 INFO Inizio chiamata al meotodo getTipoCausaFineRapportoMap
+2023-10-05T14:27:05.135+0200 INFO Fine chiamata al meotodo getCcnlMap
+
+2023-10-05T14:27:05.112+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-05T14:27:05.141+0200 INFO Fine chiamata al meotodo getTipoCausaFineRapportoMap
+
+2023-10-05T14:27:05.148+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:27:05.149+0200 INFO Fine chiamata al meotodo getAziendeMap
+
+2023-10-05T14:27:05.136+0200 INFO Inizio chiamata al meotodo getTipoCanaleReclutamentoMap
+2023-10-05T14:27:05.157+0200 INFO Fine chiamata al meotodo getTipoCanaleReclutamentoMap
+
+2023-10-05T14:27:05.218+0200 INFO Fine chiamata al meotodo listAnagraficaDto
+
+2023-10-05T14:27:05.219+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:27:05.263+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:27:05.311+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:27:05.336+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:27:05.370+0200 INFO Inizio chiamata al metodo funzioniRuoloTree
+2023-10-05T14:27:05.384+0200 INFO Fine chiamata al metodo funzioniRuoloTree
+
+2023-10-05T14:27:07.871+0200 INFO Inizio chiamata al metodo getOperazioniById
+2023-10-05T14:27:07.878+0200 INFO Fine chiamata al metodo getOperazioniById
+
+2023-10-05T14:27:07.893+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-05T14:27:07.896+0200 INFO Fine chiamata al meotodo getAziendeMap
+
+2023-10-05T14:27:07.916+0200 INFO Inizio chiamata al metodo getCommesseInscadenza
+
+2023-10-05T14:27:07.928+0200 INFO Inizio chiamata al metodo listAllCommesse
+2023-10-05T14:27:07.961+0200 INFO Inizio chiamata al metodo  anagraficaListContratti
+2023-10-05T14:27:07.962+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:27:08.037+0200 INFO Fine chiamata al metodo anagraficaListContratti
+
+2023-10-05T14:27:08.041+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:27:08.077+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:27:08.079+0200 INFO Fine chiamata al metodo getCommesseInscadenza
+
+2023-10-05T14:27:08.109+0200 INFO Fine chiamata al metodo listAllCommesse
+
+2023-10-05T14:27:08.128+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:27:08.137+0200 ERROR Cannot invoke "java.lang.Integer.intValue()" because the return value of "it.sincrono.entities.Contratto.getMesiDurata()" is null
+2023-10-05T14:27:08.137+0200 ERROR ERRORE_GENERICO
+2023-10-05T14:27:08.137+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T14:27:08.156+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:27:08.202+0200 INFO Inizio chiamata al metodo funzioniRuoloTree
+2023-10-05T14:27:08.213+0200 INFO Fine chiamata al metodo funzioniRuoloTree
+
+2023-10-05T14:27:37.051+0200 INFO Inizio chiamata al metodo listCommesse
+2023-10-05T14:29:36.755+0200 INFO Fine chiamata al metodo listCommesse
+
+2023-10-05T14:37:23.396+0200 INFO Inizio chiamata al metodo listCommesse
+2023-10-05T14:37:24.235+0200 INFO Inizio chiamata al meotodo getAziendeMap
+2023-10-05T14:37:24.237+0200 INFO Fine chiamata al meotodo getAziendeMap
+
+2023-10-05T14:37:24.268+0200 INFO Inizio chiamata al metodo getCommesseInscadenza
+
+2023-10-05T14:37:24.347+0200 INFO Inizio chiamata al metodo listAllCommesse
+2023-10-05T14:37:24.351+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:37:24.374+0200 INFO Fine chiamata al metodo getCommesseInscadenza
+
+2023-10-05T14:37:24.390+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:37:24.463+0200 INFO Inizio chiamata al metodo  anagraficaListContratti
+2023-10-05T14:37:24.484+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:37:24.490+0200 INFO Fine chiamata al metodo listAllCommesse
+
+2023-10-05T14:37:24.503+0200 INFO Inizio chiamata al meotodo dettaglioAnagraficaDtoByToken
+2023-10-05T14:37:24.553+0200 INFO Fine chiamata al metodo dettaglioAnagraficaDtoByToken
+
+2023-10-05T14:37:24.563+0200 INFO Fine chiamata al metodo anagraficaListContratti
+
+2023-10-05T14:37:24.624+0200 INFO Inizio chiamata al metodo funzioniRuoloTree
+2023-10-05T14:37:24.638+0200 INFO Fine chiamata al metodo funzioniRuoloTree
+
+2023-10-05T14:37:24.640+0200 ERROR Cannot invoke "java.lang.Integer.intValue()" because the return value of "it.sincrono.entities.Contratto.getMesiDurata()" is null
+2023-10-05T14:37:24.640+0200 ERROR ERRORE_GENERICO
+2023-10-05T14:37:24.641+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T14:37:29.074+0200 INFO Fine chiamata al metodo listCommesse
+
+2023-10-05T14:39:48.085+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:39:48.185+0200 ERROR Cannot invoke "java.lang.Integer.intValue()" because the return value of "it.sincrono.entities.Contratto.getMesiDurata()" is null
+2023-10-05T14:39:48.185+0200 ERROR ERRORE_GENERICO
+2023-10-05T14:39:48.185+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T14:40:03.205+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:47:38.943+0200 ERROR Cannot invoke "java.lang.Integer.intValue()" because the return value of "it.sincrono.entities.Contratto.getMesiDurata()" is null
+2023-10-05T14:47:38.946+0200 ERROR ERRORE_GENERICO
+2023-10-05T14:47:38.947+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T14:47:46.934+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:48:52.850+0200 ERROR Cannot invoke "java.lang.Integer.intValue()" because the return value of "it.sincrono.entities.Contratto.getMesiDurata()" is null
+2023-10-05T14:48:52.852+0200 ERROR ERRORE_GENERICO
+2023-10-05T14:48:52.852+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T14:49:39.439+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:52:27.214+0200 ERROR Cannot invoke "java.lang.Integer.intValue()" because the return value of "it.sincrono.entities.Contratto.getMesiDurata()" is null
+2023-10-05T14:52:27.411+0200 ERROR ERRORE_GENERICO
+2023-10-05T14:52:27.413+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T14:52:35.102+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:53:52.622+0200 ERROR Cannot invoke "java.lang.Integer.intValue()" because the return value of "it.sincrono.entities.Contratto.getMesiDurata()" is null
+2023-10-05T14:53:52.824+0200 ERROR ERRORE_GENERICO
+2023-10-05T14:53:52.827+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T14:54:56.992+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 5392 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-05T14:54:57.006+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-05T14:54:57.882+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-05T14:54:58.056+0200 INFO Finished Spring Data repository scanning in 165 ms. Found 14 JPA repository interfaces.
+2023-10-05T14:54:58.715+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-05T14:54:58.727+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-05T14:54:58.730+0200 INFO Starting service [Tomcat]
+2023-10-05T14:54:58.731+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-05T14:54:58.847+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-05T14:54:58.847+0200 INFO Root WebApplicationContext: initialization completed in 1777 ms
+2023-10-05T14:54:59.073+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-05T14:54:59.141+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-05T14:54:59.498+0200 INFO HikariPool-1 - Starting...
+2023-10-05T14:54:59.912+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@35d88a54
+2023-10-05T14:54:59.915+0200 INFO HikariPool-1 - Start completed.
+2023-10-05T14:54:59.994+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-05T14:55:01.057+0200 INFO HHH000182: No default (no-argument) constructor for class: it.sincrono.entities.ContrattiScattiLivello (class must be instantiated by Interceptor)
+2023-10-05T14:55:01.716+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-05T14:55:01.730+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-05T14:55:03.368+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-05T14:55:03.848+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-05T14:55:03.880+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-05T14:55:03.893+0200 INFO Started SincronoApplication in 7.451 seconds (process running for 8.915)
+2023-10-05T14:55:24.299+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-05T14:55:24.300+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-05T14:55:24.302+0200 INFO Completed initialization in 2 ms
+2023-10-05T14:55:24.347+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T14:55:24.652+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+
+2023-10-05T15:10:28.502+0200 INFO Inizio chiamata al metodo getContrattiInscadenza
+2023-10-05T15:10:28.771+0200 INFO Fine chiamata al metodo getContrattiInscadenza
+

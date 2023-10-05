@@ -188,7 +188,8 @@ public class FilterCustom {
 
 		boolean check = false;
 
-		if (contratto != null && (contratto.getId() != 2 && contratto.getId() != 4)) {
+		if (contratto != null && (contratto.getTipoContratto().getId() != 2 && 
+				contratto.getTipoContratto().getId() != 4)) {
 
 			LocalDate dataAssunzione = DateUtil.convertorDate(contratto.getDataAssunzione());
 
