@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -148,15 +149,15 @@ public class FilterCustom {
 	public Boolean checkScaduta(Commessa commessa) {
 
 		Boolean check = false;
-		
-		if(commessa.getDataFine()!=null) {
+
+		if (commessa.getDataFine() != null) {
 
 			if (DateUtil.convertorDate(commessa.getDataFine()).isBefore(LocalDate.now())) {
-	
+
 				check = true;
-	
+
 			}
-			
+
 		}
 
 		return check;
@@ -166,20 +167,20 @@ public class FilterCustom {
 	public boolean checkCommesseInScadenza(Commessa commessa) {
 
 		boolean check = false;
-		
-		if(commessa.getDataFine()!=null) {
+
+		if (commessa.getDataFine() != null) {
 
 			LocalDate localDateFine = DateUtil.convertorDate(commessa.getDataFine());
-	
+
 			if (localDateFine.isAfter(LocalDate.now())
-	
+
 					&&
-	
+
 					localDateFine.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
-	
+
 				check = true;
 			}
-			
+
 		}
 
 		return check;
@@ -196,8 +197,8 @@ public class FilterCustom {
 
 		boolean check = false;
 
-		if (contratto != null && (contratto.getTipoContratto().getId() != 2 && 
-				contratto.getTipoContratto().getId() != 4)) {
+		if (contratto != null
+				&& (contratto.getTipoContratto().getId() != 2 && contratto.getTipoContratto().getId() != 4)) {
 
 			LocalDate dataAssunzione = DateUtil.convertorDate(contratto.getDataAssunzione());
 
@@ -219,12 +220,21 @@ public class FilterCustom {
 
 	}
 
-	public Boolean toFilterCommesse(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {
+	public Boolean toFilterAnagraficaDtoCommesse(AnagraficaDto anagraficaDto,
+			AnagraficaRequestDto anagraficaRequestDto) {
 
 		if (anagraficaRequestDto == null || anagraficaRequestDto.getAnagraficaDto() == null) {
 			return true;
 
 		}
+
+		return toFilterCommesseAnagrafica(anagraficaDto, anagraficaRequestDto)
+				&& toFilterCommesseContratto(anagraficaDto, anagraficaRequestDto)
+				&& toFilterCommesse(anagraficaDto, anagraficaRequestDto);
+
+	}
+
+	private Boolean toFilterCommesseAnagrafica(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {
 
 		Anagrafica anagrafica = anagraficaDto.getAnagrafica();
 		Anagrafica anagraficaFilter = anagraficaRequestDto.getAnagraficaDto().getAnagrafica();
@@ -255,191 +265,101 @@ public class FilterCustom {
 
 		}
 
+		return true;
+
+	}
+
+	private Boolean toFilterCommesse(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {
+
 		if (anagraficaRequestDto.getAnagraficaDto().getCommesse() != null
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().size() > 0
-				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0) != null
-				) {
-
-			Commessa commessaFilter = anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0);
-
-			List<Commessa> listAppCommesse = new ArrayList<Commessa>();
-
-			for (Commessa commessa : anagraficaDto.getCommesse()) {
-
-				boolean checkCommessa = true;
-
-				if (!commessa.getAziendaCliente()
-						.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente())
-						&& 
-						anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
-
-					checkCommessa = false;
-
-				}
-
-				if (anagraficaRequestDto.getAnnoDataFine() != null) {
-
-					if (commessa.getDataFine() != null) {
-
-						if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getAnnoDataFine())) {
-
-							checkCommessa = false;
-
-						}
-
-						if (anagraficaRequestDto.getMeseDataFine() != null) {
-
-							if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getMeseDataFine())) {
-
-								checkCommessa = false;
-
-							}
-
-						}
-
-					} else {
-
-						checkCommessa = false;
-
-					}
-
-				}
-
-				if (anagraficaRequestDto.getAnnoDataInizio() != null) {
-
-					if (commessa.getDataInizio() != null) {
-
-						if (!DateUtil.compareYear(commessa.getDataInizio(), anagraficaRequestDto.getAnnoDataInizio())) {
-
-							checkCommessa = false;
-
-						}
-
-						if (anagraficaRequestDto.getMeseDataInizio() != null) {
-
-							if (!DateUtil.compareYear(commessa.getDataInizio(),
-									anagraficaRequestDto.getMeseDataInizio())) {
-
-								checkCommessa = false;
-
-							}
-
-						}
-
-					} else {
-
-						checkCommessa = false;
-
-					}
-
-				}
-
-				if (checkCommessa)
-					listAppCommesse.add(commessa);
-
-			}
-
-			if (listAppCommesse == null && listAppCommesse.isEmpty()) {
-
-				return true;
-			}
-
-			anagraficaDto.setCommesse(listAppCommesse);
-
-		}
-		
-		
-
-		
-		if (anagraficaDto.getCommesse() != null
-				&& anagraficaDto.getCommesse().size() > 0
-				) {
-
-		
-
-			List<Commessa> listAppCommesse = new ArrayList<Commessa>();
-
-			for (Commessa commessa : anagraficaDto.getCommesse()) {
-
-				boolean checkCommessa = true;
+				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0) != null) {
 
 			
-
-				if (anagraficaRequestDto.getAnnoDataFine() != null) {
-
-					if (commessa.getDataFine() != null) {
-
-						if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getAnnoDataFine())) {
-
-							checkCommessa = false;
-
-						}
-
-						if (anagraficaRequestDto.getMeseDataFine() != null) {
-
-							if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getMeseDataFine())) {
-
-								checkCommessa = false;
-
-							}
-
-						}
-
-					} else {
-
-						checkCommessa = false;
-
-					}
-
-				}
-
-				if (anagraficaRequestDto.getAnnoDataInizio() != null) {
-
-					if (commessa.getDataInizio() != null) {
-
-						if (!DateUtil.compareYear(commessa.getDataInizio(), anagraficaRequestDto.getAnnoDataInizio())) {
-
-							checkCommessa = false;
-
-						}
-
-						if (anagraficaRequestDto.getMeseDataInizio() != null) {
-
-							if (!DateUtil.compareYear(commessa.getDataInizio(),
-									anagraficaRequestDto.getMeseDataInizio())) {
-
-								checkCommessa = false;
-
-							}
-
-						}
-
-					} else {
-
-						checkCommessa = false;
-
-					}
-
-				}
-
-				if (checkCommessa)
-					listAppCommesse.add(commessa);
-
-			}
-
-			if (listAppCommesse == null && listAppCommesse.isEmpty()) {
-
-				return true;
-			}
-
-			anagraficaDto.setCommesse(listAppCommesse);
+				anagraficaDto.getCommesse().stream().filter(commessa -> 
+				toFilterCommessaAziendaCliente(commessa,anagraficaRequestDto) && 
+				toFilterCommesseYearMonth(commessa,anagraficaRequestDto));
 
 		}
 		
-		
-		
 
+		return anagraficaDto.getCommesse().size() > 0;
+
+	}
+	
+	private boolean toFilterCommessaAziendaCliente(Commessa commessa, AnagraficaRequestDto anagraficaRequestDto) {
 		
+		boolean check=false;
+	
+		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
+		
+		 if(commessa.getAziendaCliente()
+				.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente())) {
+			 
+			 check=true;
+		 }
+		 
+		}
+		
+		return check;
+		
+	}
+
+
+
+	private Boolean toFilterCommesseYearMonth(Commessa commessa, AnagraficaRequestDto anagraficaRequestDto) {
+
+		if (anagraficaRequestDto.getAnnoDataFine() != null) {
+
+			if (commessa.getDataFine() != null) {
+
+				if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getAnnoDataFine())) {
+
+					return false;
+
+				}
+
+				if (anagraficaRequestDto.getMeseDataFine() != null) {
+
+					if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getMeseDataFine())) {
+
+						return false;
+					}
+
+				}
+
+			}
+		}
+
+		if (anagraficaRequestDto.getAnnoDataInizio() != null) {
+
+			if (commessa.getDataInizio() != null) {
+
+				if (!DateUtil.compareYear(commessa.getDataInizio(), anagraficaRequestDto.getAnnoDataInizio())) {
+
+					return false;
+
+				}
+
+				if (anagraficaRequestDto.getMeseDataInizio() != null) {
+
+					if (!DateUtil.compareYear(commessa.getDataInizio(), anagraficaRequestDto.getMeseDataInizio())) {
+
+						return false;
+
+					}
+
+				}
+
+			}
+
+		}
+
+		return true;
+
+	}
+	
+	private Boolean toFilterCommesseContratto(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {
 
 		if (anagraficaRequestDto.getAnnoFineContratto() != null) {
 
