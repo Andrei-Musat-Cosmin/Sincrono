@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.YearMonth;
@@ -15,6 +16,7 @@ import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.hibernate.TypeMismatchException;
 import org.springframework.stereotype.Component;
 
 import it.sincrono.repositories.dto.GiornoDto;
@@ -143,17 +145,28 @@ public class FileUtil {
 
 	public void saveFile(String path, RapportinoRequestDto rapportino) throws ServiceException {
 		if (rapportino != null) {
-			try (FileWriter writer = new FileWriter(path)) {
-				for (GiornoDto giorno : rapportino.getRapportinoDto().getMese().getGiorni()) {
-					writer.write(giorno.getGiorno() + "," + giorno.getCliente() + "," + giorno.getOreOrdinarie() + ";");
+			try {
+				Path filePath = Path.of(path);
+				if (Files.exists(filePath)) {
+					Files.delete(filePath);
 				}
-				writer.close();
+				try (FileWriter writer = new FileWriter(filePath.toFile())) {
+					for (GiornoDto giorno : rapportino.getRapportinoDto().getMese().getGiorni()) {
+						writer.write(
+								giorno.getGiorno() + "," + giorno.getCliente() + "," + giorno.getOreOrdinarie() + ";");
+					}
+				}
+			} catch (TypeMismatchException e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
 			} catch (IOException e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
 				throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+			} catch (Exception e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 			}
 		}
 		LOGGER.log(Level.INFO, "Rapportino salvato con successo.");
 	}
-
 }
