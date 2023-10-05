@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -53,6 +54,8 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
+	@Value("${anagrafiche-profili.path-prefix}")
+	private String PREFIX;
 
 	private static final Logger LOGGER = LogManager.getLogger(AnagraficaServiceImpl.class);
 
@@ -232,8 +235,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			}
 
 			LocalDate oggi = LocalDate.now();
-			fileUtil.creatFolder("C:/Users/SINCRONO/Desktop/" + anagraficaDto.getAnagrafica().getCodiceFiscale() + "/"
-					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
+			fileUtil.creatFolder(PREFIX + anagraficaDto.getAnagrafica().getCodiceFiscale() + "/" + oggi.getYear() + "/"
+					+ oggi.getMonthValue() + ".txt");
 			/*
 			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),
 			 * null, "CREAZIONE UTENZA", "username: " +
