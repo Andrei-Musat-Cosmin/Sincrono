@@ -148,11 +148,15 @@ public class FilterCustom {
 	public Boolean checkScaduta(Commessa commessa) {
 
 		Boolean check = false;
+		
+		if(commessa.getDataFine()!=null) {
 
-		if (DateUtil.convertorDate(commessa.getDataFine()).isBefore(LocalDate.now())) {
-
-			check = true;
-
+			if (DateUtil.convertorDate(commessa.getDataFine()).isBefore(LocalDate.now())) {
+	
+				check = true;
+	
+			}
+			
 		}
 
 		return check;
@@ -162,16 +166,20 @@ public class FilterCustom {
 	public boolean checkCommesseInScadenza(Commessa commessa) {
 
 		boolean check = false;
+		
+		if(commessa.getDataFine()!=null) {
 
-		LocalDate localDateFine = DateUtil.convertorDate(commessa.getDataFine());
-
-		if (localDateFine.isAfter(LocalDate.now())
-
-				&&
-
-				localDateFine.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
-
-			check = true;
+			LocalDate localDateFine = DateUtil.convertorDate(commessa.getDataFine());
+	
+			if (localDateFine.isAfter(LocalDate.now())
+	
+					&&
+	
+					localDateFine.isBefore(LocalDate.now().plus(40, ChronoUnit.DAYS))) {
+	
+				check = true;
+			}
+			
 		}
 
 		return check;
@@ -250,7 +258,7 @@ public class FilterCustom {
 		if (anagraficaRequestDto.getAnagraficaDto().getCommesse() != null
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().size() > 0
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0) != null
-				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
+				) {
 
 			Commessa commessaFilter = anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0);
 
@@ -261,7 +269,9 @@ public class FilterCustom {
 				boolean checkCommessa = true;
 
 				if (!commessa.getAziendaCliente()
-						.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente())) {
+						.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente())
+						&& 
+						anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
 
 					checkCommessa = false;
 
@@ -337,6 +347,99 @@ public class FilterCustom {
 			anagraficaDto.setCommesse(listAppCommesse);
 
 		}
+		
+		
+
+		
+		if (anagraficaDto.getCommesse() != null
+				&& anagraficaDto.getCommesse().size() > 0
+				) {
+
+		
+
+			List<Commessa> listAppCommesse = new ArrayList<Commessa>();
+
+			for (Commessa commessa : anagraficaDto.getCommesse()) {
+
+				boolean checkCommessa = true;
+
+			
+
+				if (anagraficaRequestDto.getAnnoDataFine() != null) {
+
+					if (commessa.getDataFine() != null) {
+
+						if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getAnnoDataFine())) {
+
+							checkCommessa = false;
+
+						}
+
+						if (anagraficaRequestDto.getMeseDataFine() != null) {
+
+							if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getMeseDataFine())) {
+
+								checkCommessa = false;
+
+							}
+
+						}
+
+					} else {
+
+						checkCommessa = false;
+
+					}
+
+				}
+
+				if (anagraficaRequestDto.getAnnoDataInizio() != null) {
+
+					if (commessa.getDataInizio() != null) {
+
+						if (!DateUtil.compareYear(commessa.getDataInizio(), anagraficaRequestDto.getAnnoDataInizio())) {
+
+							checkCommessa = false;
+
+						}
+
+						if (anagraficaRequestDto.getMeseDataInizio() != null) {
+
+							if (!DateUtil.compareYear(commessa.getDataInizio(),
+									anagraficaRequestDto.getMeseDataInizio())) {
+
+								checkCommessa = false;
+
+							}
+
+						}
+
+					} else {
+
+						checkCommessa = false;
+
+					}
+
+				}
+
+				if (checkCommessa)
+					listAppCommesse.add(commessa);
+
+			}
+
+			if (listAppCommesse == null && listAppCommesse.isEmpty()) {
+
+				return true;
+			}
+
+			anagraficaDto.setCommesse(listAppCommesse);
+
+		}
+		
+		
+		
+
+		
 
 		if (anagraficaRequestDto.getAnnoFineContratto() != null) {
 
