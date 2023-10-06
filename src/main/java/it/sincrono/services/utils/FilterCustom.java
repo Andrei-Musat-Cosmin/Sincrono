@@ -271,9 +271,9 @@ public class FilterCustom {
 
 	public Boolean toFilterCommesse(Commessa commessa, AnagraficaRequestDto anagraficaRequestDto) {
 
-		if (anagraficaRequestDto.getAnagraficaDto().getCommesse() != null
+		if (!(anagraficaRequestDto.getAnagraficaDto().getCommesse() != null
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().size() > 0
-				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0) != null) {
+				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0) != null)) {
 
 			
 				 return false;
@@ -292,19 +292,19 @@ public class FilterCustom {
 	
 	private boolean toFilterCommessaAziendaCliente(Commessa commessa, AnagraficaRequestDto anagraficaRequestDto) {
 		
-		boolean check=false;
+		
 	
 		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
 		
-		 if(commessa.getAziendaCliente()
-				.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente())) {
+		 if(!(commessa.getAziendaCliente()
+				.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente()))) {
 			 
-			 check=true;
+			 return false;
 		 }
 		 
 		}
 		
-		return check;
+		return true;
 		
 	}
 
