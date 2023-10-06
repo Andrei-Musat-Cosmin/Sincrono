@@ -220,7 +220,7 @@ public class FilterCustom {
 
 	}
 
-	public Boolean toFilterAnagraficaDtoCommesse(AnagraficaDto anagraficaDto,
+	public Boolean toFilterAnagraficaDto(AnagraficaDto anagraficaDto,
 			AnagraficaRequestDto anagraficaRequestDto) {
 
 		if (anagraficaRequestDto == null || anagraficaRequestDto.getAnagraficaDto() == null) {
@@ -229,8 +229,8 @@ public class FilterCustom {
 		}
 
 		return toFilterCommesseAnagrafica(anagraficaDto, anagraficaRequestDto)
-				&& toFilterCommesseContratto(anagraficaDto, anagraficaRequestDto)
-				&& toFilterCommesse(anagraficaDto, anagraficaRequestDto);
+				&& toFilterCommesseContratto(anagraficaDto, anagraficaRequestDto);
+				
 
 	}
 
@@ -269,21 +269,24 @@ public class FilterCustom {
 
 	}
 
-	private Boolean toFilterCommesse(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {
+	public Boolean toFilterCommesse(Commessa commessa, AnagraficaRequestDto anagraficaRequestDto) {
 
 		if (anagraficaRequestDto.getAnagraficaDto().getCommesse() != null
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().size() > 0
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0) != null) {
 
 			
-				anagraficaDto.getCommesse().stream().filter(commessa -> 
-				toFilterCommessaAziendaCliente(commessa,anagraficaRequestDto) && 
-				toFilterCommesseYearMonth(commessa,anagraficaRequestDto));
+				 return false;
+				
 
 		}
 		
+		
+		return toFilterCommessaAziendaCliente(commessa,anagraficaRequestDto) && 
+		toFilterCommesseYearMonth(commessa,anagraficaRequestDto);
+		
 
-		return anagraficaDto.getCommesse().size() > 0;
+		
 
 	}
 	

@@ -76,8 +76,10 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 
 		try {
 			list = this.listAllCommesse().stream()
-					.filter(anagraficaDto -> filter.toFilterAnagraficaDtoCommesse(anagraficaDto, anagraficaRequestDto))
+					.filter(anagraficaDto -> filter.toFilterAnagraficaDto(anagraficaDto, anagraficaRequestDto))
 					.collect(Collectors.toList());
+			for(AnagraficaDto anagraficaDto: list)
+				anagraficaDto.getCommesse().stream().filter(commessa->filter.toFilterCommesse(commessa,anagraficaRequestDto));
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
