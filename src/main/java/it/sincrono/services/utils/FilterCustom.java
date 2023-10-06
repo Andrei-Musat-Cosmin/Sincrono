@@ -324,7 +324,7 @@ public class FilterCustom {
 
 				if (anagraficaRequestDto.getMeseDataFine() != null) {
 
-					if (!DateUtil.compareYear(commessa.getDataFine(), anagraficaRequestDto.getMeseDataFine())) {
+					if (!DateUtil.compareMonth(commessa.getDataFine(), anagraficaRequestDto.getMeseDataFine())) {
 
 						return false;
 					}
@@ -346,7 +346,7 @@ public class FilterCustom {
 
 				if (anagraficaRequestDto.getMeseDataInizio() != null) {
 
-					if (!DateUtil.compareYear(commessa.getDataInizio(), anagraficaRequestDto.getMeseDataInizio())) {
+					if (!DateUtil.compareMonth(commessa.getDataInizio(), anagraficaRequestDto.getMeseDataInizio())) {
 
 						return false;
 
@@ -377,7 +377,7 @@ public class FilterCustom {
 
 				if (anagraficaRequestDto.getMeseDataFine() != null) {
 
-					if (!DateUtil.compareYear(anagraficaDto.getContratto().getDataFineRapporto(),
+					if (!DateUtil.compareMonth(anagraficaDto.getContratto().getDataFineRapporto(),
 							anagraficaRequestDto.getMeseFineContratto())) {
 
 						return false;
