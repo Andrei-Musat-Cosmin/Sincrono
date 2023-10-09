@@ -2,9 +2,7 @@ package it.sincrono.services.utils;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -65,7 +63,13 @@ public class FilterCustom {
 						return false;
 					}
 				}
+				if (contrattoFilter.getTipoAzienda() != null) {
+					if (contratto.getTipoAzienda() == null || contratto.getTipoAzienda().getDescrizione()
+							.equals(contrattoFilter.getTipoAzienda().getDescrizione())) {
+						return false;
+					}
 
+				}
 				if (contrattoFilter.getTipoLivelloContratto() != null) {
 					if (contratto.getTipoLivelloContratto() == null || contratto.getTipoLivelloContratto()
 							.getId() != contrattoFilter.getTipoLivelloContratto().getId()) {
@@ -76,6 +80,10 @@ public class FilterCustom {
 				if (contrattoFilter.getTipoContratto() != null) {
 					if (contratto.getTipoContratto() == null
 							|| contratto.getTipoContratto().getId() != contrattoFilter.getTipoContratto().getId()) {
+						return false;
+					}
+					if (contratto.getTipoContratto() == null || contratto.getTipoContratto().getDescrizione()
+							.equals(contrattoFilter.getTipoContratto().getDescrizione())) {
 						return false;
 					}
 				}
@@ -220,8 +228,7 @@ public class FilterCustom {
 
 	}
 
-	public Boolean toFilterAnagraficaDto(AnagraficaDto anagraficaDto,
-			AnagraficaRequestDto anagraficaRequestDto) {
+	public Boolean toFilterAnagraficaDto(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {
 
 		if (anagraficaRequestDto == null || anagraficaRequestDto.getAnagraficaDto() == null) {
 			return true;
@@ -230,7 +237,6 @@ public class FilterCustom {
 
 		return toFilterCommesseAnagrafica(anagraficaDto, anagraficaRequestDto)
 				&& toFilterCommesseContratto(anagraficaDto, anagraficaRequestDto);
-				
 
 	}
 
@@ -275,40 +281,30 @@ public class FilterCustom {
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().size() > 0
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0) != null)) {
 
-			
-				 return false;
-				
+			return false;
 
 		}
-		
-		
-		return toFilterCommessaAziendaCliente(commessa,anagraficaRequestDto) && 
-		toFilterCommesseYearMonth(commessa,anagraficaRequestDto);
-		
 
-		
+		return toFilterCommessaAziendaCliente(commessa, anagraficaRequestDto)
+				&& toFilterCommesseYearMonth(commessa, anagraficaRequestDto);
 
 	}
-	
+
 	private boolean toFilterCommessaAziendaCliente(Commessa commessa, AnagraficaRequestDto anagraficaRequestDto) {
-		
-		
-	
+
 		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
-		
-		 if(!(commessa.getAziendaCliente()
-				.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente()))) {
-			 
-			 return false;
-		 }
-		 
+
+			if (!(commessa.getAziendaCliente()
+					.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente()))) {
+
+				return false;
+			}
+
 		}
-		
+
 		return true;
-		
+
 	}
-
-
 
 	private Boolean toFilterCommesseYearMonth(Commessa commessa, AnagraficaRequestDto anagraficaRequestDto) {
 
@@ -361,7 +357,7 @@ public class FilterCustom {
 		return true;
 
 	}
-	
+
 	private Boolean toFilterCommesseContratto(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {
 
 		if (anagraficaRequestDto.getAnnoFineContratto() != null) {

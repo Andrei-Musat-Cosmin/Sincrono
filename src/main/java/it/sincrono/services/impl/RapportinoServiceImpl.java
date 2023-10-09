@@ -1,7 +1,5 @@
 package it.sincrono.services.impl;
 
-import java.time.LocalDate;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import it.sincrono.entities.RapportinoInviato;
+import it.sincrono.repositories.RapportinoRepository;
 import it.sincrono.repositories.dto.RapportinoDto;
-import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.services.RapportinoService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
-import it.sincrono.services.utils.DateUtil;
 import it.sincrono.services.utils.FileUtil;
 import it.sincrono.services.utils.RapportinoUtil;
 import it.sincrono.services.validator.RapportinoValidator;
@@ -30,6 +28,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Autowired
 	FileUtil fileUtil;
+
+	@Autowired
+	RapportinoRepository rapportinoRepository;
 
 	@Autowired
 	RapportinoValidator rapportinoValidator;
@@ -54,7 +55,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 							+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt");
 
 			rapportinoDto.setAnnoRequest(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
-			
+
 			rapportinoDto.setMeseRequest(rapportinoRequestDto.getRapportinoDto().getMeseRequest());
 
 			rapportinoUtil.calcoloRapportinoGiorniUtiliLavoro(rapportinoDto);
@@ -65,7 +66,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
-			LOGGER.log(Level.ERROR, e.getMessage());
+			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
 		}
 
@@ -73,22 +74,83 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public RapportinoDto updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
+	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
-		LocalDate oggi = LocalDate.now();
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() + "/"
-				+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt";
-		RapportinoDto rapportinoDto = new RapportinoDto();
+				+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
 
 		try {
 
 			fileUtil.saveFile(filePath, rapportinoRequestDto);
 		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(e.getCause());
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
 		}
 
-		return rapportinoDto;
+	}
+
+	@Override
+	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
+
+		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() + "/"
+				+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
+
+		try {
+
+			fileUtil.appendNote(filePath, rapportinoRequestDto.getRapportinoDto().getNote());
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+
+		return true;
+	}
+
+	@Override
+	public void insertRapportino(RapportinoInviato rapportinoInviato) throws ServiceException {
+		try {
+			rapportinoRepository.saveAndFlush(rapportinoInviato);
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void updateFreeze(RapportinoInviato rapportinoInviato) throws ServiceException {
+		try {
+			RapportinoInviato currentRapportinoInviato = rapportinoRepository.findById(rapportinoInviato.getId()).get();
+			if (rapportinoInviato.getCheckFreeze()) {
+
+				currentRapportinoInviato.setCheckFreeze(rapportinoInviato.getCheckFreeze());
+
+				rapportinoRepository.saveAndFlush(currentRapportinoInviato);
+			} else {
+				if (currentRapportinoInviato.getCheckFreeze())
+					rapportinoRepository.delete(rapportinoInviato);
+			}
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+	}
+
+	@Override
+	public void delete(Integer id) throws ServiceException {
+		try {
+			rapportinoRepository.deleteById(id);
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+	}
+
+	@Override
+	public RapportinoInviato findByData(RapportinoDto rapportinoDto) throws ServiceException {
+		return rapportinoRepository.findByData(rapportinoDto.getAnagrafica().getCodiceFiscale(),
+				rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest());
 	}
 
 }

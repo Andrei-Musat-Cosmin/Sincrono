@@ -81,23 +81,23 @@ public class FileUtil {
 					giornoDto.setGiorno(Integer.parseInt(giornoSplit[0]));
 
 				for (String elem : giornoSplit[1].split("/")) {
-					
-					if(elem!=null && !elem.equals("null")) {
+
+					if (elem != null && !elem.equals("null")) {
 
 						if (elem.split("-")[0] != null && !elem.split("-")[0].isEmpty()
 								&& !elem.split("-")[0].equals("null"))
 							cliente.add(elem.split("-")[0]);
-	
+
 						if (elem.split("-")[1] != null && !elem.split("-")[1].isEmpty()
 								&& !elem.split("-")[1].equals("null"))
 							oreOrdinarie.add(Double.parseDouble(elem.split("-")[1]));
-						
-					}else {
-						
-						cliente=null;
-						
-						oreOrdinarie=null;
-						
+
+					} else {
+
+						cliente = null;
+
+						oreOrdinarie = null;
+
 					}
 
 				}
@@ -175,11 +175,22 @@ public class FileUtil {
 				if (Files.exists(filePath)) {
 					Files.delete(filePath);
 				}
+				String dati = "";
 				try (FileWriter writer = new FileWriter(filePath.toFile())) {
 					for (GiornoDto giorno : rapportino.getRapportinoDto().getMese().getGiorni()) {
-						writer.write(
-								giorno.getGiorno() + "," + giorno.getCliente() + "," + giorno.getOreOrdinarie() + ";");
+						dati += giorno.getGiorno() + ",";
+						if (giorno.getCliente() != null) {
+							for (int i = 0; i < giorno.getCliente().size(); i++) {
+								dati += giorno.getCliente().get(i) + "-" + giorno.getOreOrdinarie().get(i);
+								if (i < giorno.getCliente().size() - 1)
+									dati += "/";
+							}
+						} else {
+							dati += "null,null";
+						}
+						dati += ";";
 					}
+					writer.write(dati);
 				}
 			} catch (HttpMessageNotReadableException e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
@@ -193,5 +204,26 @@ public class FileUtil {
 			}
 		}
 		LOGGER.log(Level.INFO, "Rapportino salvato con successo.");
+	}
+
+	public void appendNote(String path, String note) throws ServiceException {
+		if (note != null) {
+			try {
+				Path filePath = Path.of(path);
+				try (FileWriter writer = new FileWriter(filePath.toFile(), true)) {
+					writer.append("\n" + note);
+				}
+			} catch (HttpMessageNotReadableException e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+			} catch (IOException e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+			} catch (Exception e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+			}
+		}
+		LOGGER.log(Level.INFO, "Note salvate con successo.");
 	}
 }
