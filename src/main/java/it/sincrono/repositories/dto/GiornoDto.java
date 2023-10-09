@@ -1,15 +1,16 @@
 package it.sincrono.repositories.dto;
 
+import java.util.List;
+
 public class GiornoDto {
 
 	private Integer giorno;
 
-	private String cliente;
+	private List<String> cliente;
 
-	private Double oreOrdinarie;
-	
+	private List<Double> oreOrdinarie;
 
-	public GiornoDto(Integer giorno, String cliente, Double oreOrdinarie) {
+	public GiornoDto(Integer giorno, List<String> cliente, List<Double> oreOrdinarie) {
 		super();
 		this.giorno = giorno;
 		this.cliente = cliente;
@@ -27,22 +28,20 @@ public class GiornoDto {
 		this.giorno = giorno;
 	}
 
-	public String getCliente() {
+	public List<String> getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(String cliente) {
+	public void setCliente(List<String> cliente) {
 		this.cliente = cliente;
 	}
 
-	public Double getOreOrdinarie() {
+	public List<Double> getOreOrdinarie() {
 		return oreOrdinarie;
 	}
 
-	public void setOreOrdinarie(Double oreOrdinarie) {
+	public void setOreOrdinarie(List<Double> oreOrdinarie) {
 		this.oreOrdinarie = oreOrdinarie;
 	}
-	
-	
 
 }
