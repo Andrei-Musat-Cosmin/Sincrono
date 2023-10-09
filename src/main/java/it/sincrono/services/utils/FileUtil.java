@@ -38,15 +38,14 @@ public class FileUtil {
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(percorso))) {
 			StringBuilder fileStringBuilder = new StringBuilder();
-			String linea;
+			String linea = null;
 
-			while ((linea = reader.readLine()) != null) {
-				fileStringBuilder.append(linea).append("\n");
-			}
+			// fileStringBuilder.append(reader.readLine()).append("\n");
+			// String fileString = fileStringBuilder.toString();
 
-			String fileString = fileStringBuilder.toString();
+			rapportinoDto = covertStringInRapportinoDto(reader.readLine());
 
-			rapportinoDto = covertStringInRapportinoDto(fileString);
+			rapportinoDto.setNote(reader.readLine());
 
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -70,6 +69,10 @@ public class FileUtil {
 
 			for (String giornoNotSplit : fileString.split(";")) {
 
+				List<String> cliente = new ArrayList<String>();
+
+				List<Double> oreOrdinarie = new ArrayList<Double>();
+
 				String[] giornoSplit = giornoNotSplit.split(",");
 
 				GiornoDto giornoDto = new GiornoDto();
@@ -77,11 +80,23 @@ public class FileUtil {
 				if (giornoSplit[0] != null && !giornoSplit[0].isEmpty() && !giornoSplit[0].equals("null"))
 					giornoDto.setGiorno(Integer.parseInt(giornoSplit[0]));
 
-				if (giornoSplit[1] != null && !giornoSplit[1].isEmpty() && !giornoSplit[1].equals("null"))
-					giornoDto.setCliente(giornoSplit[1]);
+				for (String elem : giornoSplit[1].split("/")) {
 
-				if (giornoSplit[2] != null && !giornoSplit[2].isEmpty() && !giornoSplit[2].equals("null"))
-					giornoDto.setOreOrdinarie(Double.parseDouble(giornoSplit[2]));
+					if (elem.split("-")[0] != null && !elem.split("-")[0].isEmpty()
+							&& !elem.split("-")[0].equals("null"))
+						cliente.add(elem.split("-")[0]);
+
+					if (elem.split("-")[1] != null && !elem.split("-")[1].isEmpty()
+							&& !elem.split("-")[1].equals("null"))
+						oreOrdinarie.add(Double.parseDouble(elem.split("-")[1]));
+
+				}
+
+				if (cliente != null)
+					giornoDto.setCliente(cliente);
+
+				if (oreOrdinarie != null)
+					giornoDto.setOreOrdinarie(oreOrdinarie);
 
 				mese.add(giornoDto);
 

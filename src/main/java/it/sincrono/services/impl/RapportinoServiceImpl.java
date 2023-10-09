@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.services.RapportinoService;
+import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.FileUtil;
+import it.sincrono.services.validator.RapportinoValidator;
 
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
@@ -26,18 +29,28 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Autowired
 	FileUtil fileUtil;
 
+	@Autowired
+	RapportinoValidator rapportinoValidator;
+
 	@Override
-	public RapportinoDto getRapportino(String codiceFiscale) throws ServiceException {
+	public RapportinoDto getRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
 		RapportinoDto rapportinoDto = new RapportinoDto();
 
 		try {
 
-			LocalDate oggi = LocalDate.now();
+			if (!rapportinoValidator.validate(rapportinoRequestDto.getRapportinoDto())) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+			}
 
 			rapportinoDto = fileUtil
-					.readFile(PREFIX + codiceFiscale + "/" + oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
+					.readFile(PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() + "/"
+							+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+							+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt");
 
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e.getMessage());
