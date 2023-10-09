@@ -49,7 +49,7 @@ public class FileUtil {
 
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+			throw new Exception(e);
 		}
 
 		return rapportinoDto;
@@ -81,14 +81,24 @@ public class FileUtil {
 					giornoDto.setGiorno(Integer.parseInt(giornoSplit[0]));
 
 				for (String elem : giornoSplit[1].split("/")) {
+					
+					if(elem!=null && !elem.equals("null")) {
 
-					if (elem.split("-")[0] != null && !elem.split("-")[0].isEmpty()
-							&& !elem.split("-")[0].equals("null"))
-						cliente.add(elem.split("-")[0]);
-
-					if (elem.split("-")[1] != null && !elem.split("-")[1].isEmpty()
-							&& !elem.split("-")[1].equals("null"))
-						oreOrdinarie.add(Double.parseDouble(elem.split("-")[1]));
+						if (elem.split("-")[0] != null && !elem.split("-")[0].isEmpty()
+								&& !elem.split("-")[0].equals("null"))
+							cliente.add(elem.split("-")[0]);
+	
+						if (elem.split("-")[1] != null && !elem.split("-")[1].isEmpty()
+								&& !elem.split("-")[1].equals("null"))
+							oreOrdinarie.add(Double.parseDouble(elem.split("-")[1]));
+						
+					}else {
+						
+						cliente=null;
+						
+						oreOrdinarie=null;
+						
+					}
 
 				}
 
