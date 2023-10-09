@@ -53,13 +53,13 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 							+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 							+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt");
 
-			/*rapportinoDto.setAnnoRequest(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
+			rapportinoDto.setAnnoRequest(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
 			
 			rapportinoDto.setMeseRequest(rapportinoRequestDto.getRapportinoDto().getMeseRequest());
 
 			rapportinoUtil.calcoloRapportinoGiorniUtiliLavoro(rapportinoDto);
 
-			rapportinoUtil.calcoloRapportinoDtoGiorniLavorati(rapportinoDto);*/
+			rapportinoUtil.calcoloRapportinoDtoGiorniLavorati(rapportinoDto);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);

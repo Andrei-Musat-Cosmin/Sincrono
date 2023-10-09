@@ -25,15 +25,18 @@ public class RapportinoUtil {
 		
 		Double sommaOreLavorate=0.0;
 		
+		
+		
 		for(GiornoDto giornoDto: rapportinoDto.getMese().getGiorni()) {
 			
-			
-			
-			for(Double oreOrdinarie: giornoDto.getOreOrdinarie()) {
+			if(giornoDto.getOreOrdinarie()!=null)  {
 				
-				
-				sommaOreLavorate+=oreOrdinarie;
-				
+				for(Double oreOrdinarie: giornoDto.getOreOrdinarie()) {
+					
+					
+					sommaOreLavorate+=oreOrdinarie;
+					
+				}
 			}
 			
 			
