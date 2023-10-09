@@ -15,7 +15,9 @@ import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.services.RapportinoService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
+import it.sincrono.services.utils.DateUtil;
 import it.sincrono.services.utils.FileUtil;
+import it.sincrono.services.utils.RapportinoUtil;
 import it.sincrono.services.validator.RapportinoValidator;
 
 @Service
@@ -32,6 +34,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Autowired
 	RapportinoValidator rapportinoValidator;
 
+	@Autowired
+	RapportinoUtil rapportinoUtil;
+
 	@Override
 	public RapportinoDto getRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
@@ -47,6 +52,14 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 					.readFile(PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() + "/"
 							+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 							+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt");
+
+			rapportinoDto.setAnnoRequest(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
+			
+			rapportinoDto.setMeseRequest(rapportinoRequestDto.getRapportinoDto().getMeseRequest());
+
+			rapportinoUtil.calcoloRapportinoGiorniUtiliLavoro(rapportinoDto);
+
+			rapportinoUtil.calcoloRapportinoDtoGiorniLavorati(rapportinoDto);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
