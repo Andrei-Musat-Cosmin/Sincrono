@@ -28,7 +28,6 @@ public class FilterCustom {
 	CommessaRepository commessaRepository;
 
 	public Boolean toFilter(AnagraficaDto anagraficaDto, AnagraficaRequestDto anagraficaRequestDto) {
-
 		if (anagraficaRequestDto == null || anagraficaRequestDto.getAnagraficaDto() == null) {
 			return true; // Se non ci sono filtri, return true
 		}
@@ -49,6 +48,10 @@ public class FilterCustom {
 					&& anagrafica.getAttesaLavori() != anagraficaFilter.getAttesaLavori()) {
 				return false;
 			}
+			if (anagraficaFilter.getTipoAzienda() != null && anagrafica.getTipoAzienda() != null
+					&& anagrafica.getTipoAzienda().getId() != anagraficaFilter.getTipoAzienda().getId()) {
+				return false;
+			}
 			if (anagraficaFilter.getAttivo() != null && anagrafica.getAttivo() != null
 					&& anagrafica.getAttivo() != anagraficaFilter.getAttivo()) {
 				return false;
@@ -59,17 +62,10 @@ public class FilterCustom {
 			Contratto contrattoFilter = anagraficaRequestDto.getAnagraficaDto().getContratto();
 			if (contratto != null) {
 				if (contrattoFilter.getRalAnnua() != null) {
-					if (contratto.getRalAnnua() == null || Double.compare(contratto.getRalAnnua().doubleValue(),
-							contrattoFilter.getRalAnnua().doubleValue()) != 0) {
+					if (contratto.getRalAnnua() == null || Integer.compare(contratto.getRalAnnua().intValue(),
+							contrattoFilter.getRalAnnua().intValue()) != 0) {
 						return false;
 					}
-				}
-				if (contrattoFilter.getTipoAzienda() != null) {
-					if (contratto.getTipoAzienda() == null || contratto.getTipoAzienda().getDescrizione()
-							.equals(contrattoFilter.getTipoAzienda().getDescrizione())) {
-						return false;
-					}
-
 				}
 				if (contrattoFilter.getTipoLivelloContratto() != null) {
 					if (contratto.getTipoLivelloContratto() == null || contratto.getTipoLivelloContratto()
@@ -78,17 +74,30 @@ public class FilterCustom {
 					}
 
 				}
-				if (contrattoFilter.getTipoContratto() != null) {
-					if (contratto.getTipoContratto() == null
-							|| contratto.getTipoContratto().getId() != contrattoFilter.getTipoContratto().getId()) {
-						return false;
+				if (contrattoFilter.getTipoAzienda() != null) {
+					if (contrattoFilter.getTipoAzienda().getDescrizione() != null) {
+						if (contratto.getTipoAzienda() == null
+								|| !contratto.getTipoAzienda().getDescrizione().toLowerCase()
+										.equals(contrattoFilter.getTipoAzienda().getDescrizione().toLowerCase())) {
+							return false;
+						}
 					}
-					if (contratto.getTipoContratto() == null || contratto.getTipoContratto().getDescrizione()
-							.equals(contrattoFilter.getTipoContratto().getDescrizione())) {
-						return false;
-					}
-				}
 
+				}
+				if (contrattoFilter.getTipoContratto() != null) {
+					if (contrattoFilter.getTipoContratto().getId() != null) {
+						if (contratto.getTipoContratto() == null
+								|| contratto.getTipoContratto().getId() != contrattoFilter.getTipoContratto().getId()) {
+							return false;
+						}
+					} else {
+						if (!contratto.getTipoContratto().getDescrizione().toLowerCase()
+								.equals(contrattoFilter.getTipoContratto().getDescrizione().toLowerCase())) {
+							return false;
+						}
+					}
+
+				}
 				if (contrattoFilter.getTipoCcnl() != null) {
 					if (contratto.getTipoCcnl() == null
 							|| contratto.getTipoCcnl().getId() != contrattoFilter.getTipoCcnl().getId()) {
@@ -145,12 +154,15 @@ public class FilterCustom {
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().size() > 0
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
 			String aziendaCliente = anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente();
+			Boolean commessaOk = false;
 			for (Commessa commessa : anagraficaDto.getCommesse()) {
 				if (aziendaCliente != null
-						&& !commessa.getAziendaCliente().toLowerCase().startsWith(aziendaCliente.toLowerCase())) {
-					return false;
+						&& commessa.getAziendaCliente().toLowerCase().startsWith(aziendaCliente.toLowerCase())) {
+					commessaOk = true;
 				}
 			}
+			if (!commessaOk)
+				return false;
 		}
 		return true;
 	}
