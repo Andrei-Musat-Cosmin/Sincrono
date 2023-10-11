@@ -58,8 +58,8 @@ public class FilterCustom {
 			Contratto contrattoFilter = anagraficaRequestDto.getAnagraficaDto().getContratto();
 			if (contratto != null) {
 				if (contrattoFilter.getRalAnnua() != null) {
-					if (contratto.getRalAnnua() == null || Double.compare(contratto.getRalAnnua().doubleValue(),
-							contrattoFilter.getRalAnnua().doubleValue()) != 0) {
+					if (contratto.getRalAnnua() == null || Integer.compare(contratto.getRalAnnua().intValue(),
+							contrattoFilter.getRalAnnua().intValue()) != 0) {
 						return false;
 					}
 				}
