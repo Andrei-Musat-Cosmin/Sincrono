@@ -3,12 +3,12 @@ package it.sincrono.responses;
 import java.util.List;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.entities.Anagrafica;
+import it.sincrono.entities.RapportinoInviato;
 
 public class RapportiniInviatListResponse extends GenericResponse {
-	private List<RapportiniInviati> list;
+	private List<RapportinoInviato> list;
 
-	public RapportiniInviatListResponse(Esito esito, List<RapportiniInviati> list) {
+	public RapportiniInviatListResponse(Esito esito, List<RapportinoInviato> list) {
 		super(esito);
 		this.list = list;
 	}
@@ -16,11 +16,11 @@ public class RapportiniInviatListResponse extends GenericResponse {
 	public RapportiniInviatListResponse() {
 	}
 
-	public List<RapportiniInviati> getList() {
+	public List<RapportinoInviato> getList() {
 		return list;
 	}
 
-	public void setList(List<RapportiniInviati> list) {
+	public void setList(List<RapportinoInviato> list) {
 		this.list = list;
 	}
 

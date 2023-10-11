@@ -1,6 +1,7 @@
 package it.sincrono.services.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -9,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Rapportino;
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.RapportinoInviatoRepository;
 import it.sincrono.repositories.RapportinoRepository;
-import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.RapportinoRequest;
@@ -27,8 +28,6 @@ import it.sincrono.services.utils.FileUtil;
 import it.sincrono.services.utils.FilterCustom;
 import it.sincrono.services.utils.RapportinoUtil;
 import it.sincrono.services.validator.RapportinoValidator;
-import it.sincrono.entities.Anagrafica;
-import it.sincrono.entities.Rapportino;
 
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
@@ -58,6 +57,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Autowired
 	ExcelUtil excelUtil;
+
+	@Autowired
+	FilterCustom filterCustom;
 
 	@Override
 	public RapportinoDto getRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
@@ -190,13 +192,70 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		return list;
 	}
 
+	@Override
+	public void addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException {
+
+		RapportinoDto rapportinoDto = new RapportinoDto();
+
+		Rapportino rapportino = new Rapportino();
+
+		Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
+
+		try {
+			rapportinoDto = fileUtil.readFile(PREFIX + rapportinoRequest.getCodiceFiscale() + "/"
+					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
+
+			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
+
+				rapportino.setGiorno(giornoDto.getGiorno());
+
+				rapportino.setOre(giornoDto.getOreOrdinarie().stream().mapToDouble(Double::doubleValue).sum());
+
+				rapportino.setMese(rapportinoRequest.getMese());
+
+				rapportino.setAnno(rapportinoRequest.getAnno());
+
+				rapportino.setAnagrafica(anagrafica);
+
+				rapportinoRepository.saveAndFlush(rapportino);
+
+			}
+
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+
+	}
 
 	@Override
-	public List<RapportinoInviato> getRapportiniFreeze() throws ServiceException {
+	public void deleteRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException {
+
+		try {
+
+			Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
+
+			rapportinoRepository.deleteByMeseAndAnnoAndId(rapportinoRequest.getMese(), rapportinoRequest.getAnno(),
+					anagrafica.getId());
+
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+
+	}
+
+	@Override
+	public List<RapportinoInviato> getRapportiniFreezeFilter(RapportinoInviato rapportinoInviato)
+			throws ServiceException {
+
 		List<RapportinoInviato> list = null;
 
 		try {
-			list = rapportinoInviatoRepository.getRapportiniFreeze();
+			list = rapportinoInviatoRepository.getRapportiniFreeze().stream()
+					.filter(rapportino -> filterCustom.toFilterRapportino(rapportino, rapportinoInviato))
+					.collect(Collectors.toList());
+
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -224,22 +283,23 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public List<RapportinoInviato> getRapportiniFreezeFilter(RapportinoInviato rapportinoInviato)
-			throws ServiceException {
-
+	public List<RapportinoInviato> getRapportiniFreeze() throws ServiceException {
 		List<RapportinoInviato> list = null;
 
 		try {
-			list = rapportinoInviatoRepository.getRapportiniFreeze().stream()
-					.filter(rapportino -> filterCustom.toFilterRapportino(rapportino, rapportinoInviato))
-					.collect(Collectors.toList());
-
+			list = rapportinoInviatoRepository.getRapportiniFreeze();
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return list;
+	}
+
+	@Override
+	public String getRapportinoB64() throws ServiceException {
+
+		return "";
 	}
 
 }
