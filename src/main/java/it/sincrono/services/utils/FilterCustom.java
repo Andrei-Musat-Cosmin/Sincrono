@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
+import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
 import it.sincrono.repositories.ContrattoRepository;
@@ -394,4 +395,33 @@ public class FilterCustom {
 
 	}
 
+	
+	
+	
+	
+	public Boolean toFilterRapportino(RapportinoInviato rapportinoInviato, RapportinoInviato rapportinoInviatoFilter) {
+
+		if(rapportinoInviato.getCognome()!=null && !rapportinoInviato.getCognome().
+				equals(rapportinoInviatoFilter.getCognome())) {
+			
+			return false;
+			
+			
+		}
+		
+		if(rapportinoInviato.getAnno()!=null && rapportinoInviato.getAnno()!=rapportinoInviatoFilter.getAnno()) {
+			
+			return false;
+		}
+		
+		
+		if(rapportinoInviato.getMese()!=null &&rapportinoInviato.getMese()!=rapportinoInviatoFilter.getMese()) {
+			
+			return false;
+		}
+		
+
+		return true;
+
+	}
 }

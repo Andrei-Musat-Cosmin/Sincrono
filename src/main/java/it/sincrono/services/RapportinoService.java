@@ -5,6 +5,7 @@ import java.util.List;
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.services.exceptions.ServiceException;
 
@@ -27,6 +28,14 @@ public interface RapportinoService {
 	public List<RapportinoInviato> getRapportiniNotFreeze() throws ServiceException;
 	
 	public List<RapportinoInviato> getRapportiniFreeze() throws ServiceException;
+
+	public List<RapportinoInviato> getRapportiniNotFreezeFilter(RapportinoInviato rapportinoInviato) throws ServiceException;
+	 
+	public List<RapportinoInviato> getRapportiniFreezeFilter(RapportinoInviato rapportinoInviato) throws ServiceException;
+	
+	public void  addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException;
+	
+	public void deleteRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException;
 
 
 }

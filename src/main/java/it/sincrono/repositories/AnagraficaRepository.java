@@ -28,5 +28,9 @@ public interface AnagraficaRepository extends JpaRepository<Anagrafica, Integer>
 	@Query("SELECT C.idContratto FROM ContrattiScattiLivello C")
 	List<Integer> getIdContrattiScattiLivello();
 	
+	
+	@Query("SELECT a.id FROM Anagrafica a where a.codiceFiscale=?1")
+	Anagrafica findByCodiceFiscale(String codiceFiscale);
+	
 
 }

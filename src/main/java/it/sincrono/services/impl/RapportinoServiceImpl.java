@@ -11,16 +11,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import it.sincrono.entities.RapportinoInviato;
+import it.sincrono.repositories.AnagraficaRepository;
+import it.sincrono.repositories.RapportinoInviatoRepository;
 import it.sincrono.repositories.RapportinoRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
+import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.services.RapportinoService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.FileUtil;
+import it.sincrono.services.utils.FilterCustom;
 import it.sincrono.services.utils.RapportinoUtil;
 import it.sincrono.services.validator.RapportinoValidator;
+import it.sincrono.entities.Anagrafica;
+import it.sincrono.entities.Rapportino;
 
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
@@ -34,13 +41,22 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	FileUtil fileUtil;
 
 	@Autowired
+	RapportinoInviatoRepository rapportinoInviatoRepository;
+
+	@Autowired
 	RapportinoRepository rapportinoRepository;
+
+	@Autowired
+	AnagraficaRepository anagraficaRepository;
 
 	@Autowired
 	RapportinoValidator rapportinoValidator;
 
 	@Autowired
 	RapportinoUtil rapportinoUtil;
+
+	@Autowired
+	FilterCustom filterCustom;
 
 	@Override
 	public RapportinoDto getRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
@@ -115,7 +131,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public void insertRapportino(RapportinoInviato rapportinoInviato) throws ServiceException {
 		try {
-			rapportinoRepository.saveAndFlush(rapportinoInviato);
+			rapportinoInviatoRepository.saveAndFlush(rapportinoInviato);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -125,15 +141,16 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public void updateFreeze(RapportinoInviato rapportinoInviato) throws ServiceException {
 		try {
-			RapportinoInviato currentRapportinoInviato = rapportinoRepository.findById(rapportinoInviato.getId()).get();
+			RapportinoInviato currentRapportinoInviato = rapportinoInviatoRepository.findById(rapportinoInviato.getId())
+					.get();
 			if (rapportinoInviato.getCheckFreeze()) {
 
 				currentRapportinoInviato.setCheckFreeze(rapportinoInviato.getCheckFreeze());
 
-				rapportinoRepository.saveAndFlush(currentRapportinoInviato);
+				rapportinoInviatoRepository.saveAndFlush(currentRapportinoInviato);
 			} else {
 				if (currentRapportinoInviato.getCheckFreeze())
-					rapportinoRepository.delete(rapportinoInviato);
+					rapportinoInviatoRepository.delete(rapportinoInviato);
 			}
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
@@ -144,7 +161,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public void delete(Integer id) throws ServiceException {
 		try {
-			rapportinoRepository.deleteById(id);
+			rapportinoInviatoRepository.deleteById(id);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -153,7 +170,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public RapportinoInviato findByData(RapportinoDto rapportinoDto) throws ServiceException {
-		return rapportinoRepository.findByData(rapportinoDto.getAnagrafica().getCodiceFiscale(),
+		return rapportinoInviatoRepository.findByData(rapportinoDto.getAnagrafica().getCodiceFiscale(),
 				rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest());
 	}
 
@@ -162,7 +179,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		List<RapportinoInviato> list = null;
 
 		try {
-			list = rapportinoRepository.getRapportiniNotFreeze();
+			list = rapportinoInviatoRepository.getRapportiniNotFreeze();
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -170,19 +187,109 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		return list;
 	}
-	
+
 	@Override
 	public List<RapportinoInviato> getRapportiniFreeze() throws ServiceException {
 		List<RapportinoInviato> list = null;
 
 		try {
-			list = rapportinoRepository.getRapportiniFreeze();
+			list = rapportinoInviatoRepository.getRapportiniFreeze();
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return list;
+	}
+
+	@Override
+	public List<RapportinoInviato> getRapportiniNotFreezeFilter(RapportinoInviato rapportinoInviato)
+			throws ServiceException {
+
+		List<RapportinoInviato> list = null;
+
+		try {
+			list = rapportinoInviatoRepository.getRapportiniFreeze().stream()
+					.filter(rapportino -> filterCustom.toFilterRapportino(rapportino, rapportinoInviato))
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<RapportinoInviato> getRapportiniFreezeFilter(RapportinoInviato rapportinoInviato)
+			throws ServiceException {
+
+		List<RapportinoInviato> list = null;
+
+		try {
+			list = rapportinoInviatoRepository.getRapportiniFreeze().stream()
+					.filter(rapportino -> filterCustom.toFilterRapportino(rapportino, rapportinoInviato))
+					.collect(Collectors.toList());
+
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
+
+	@Override
+	public void addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException {
+
+		RapportinoDto rapportinoDto = new RapportinoDto();
+
+		Rapportino rapportino = new Rapportino();
+
+		Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
+
+		try {
+			rapportinoDto = fileUtil.readFile(PREFIX + rapportinoRequest.getCodiceFiscale() + "/"
+					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
+
+			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
+
+				rapportino.setGiorno(giornoDto.getGiorno());
+
+				rapportino.setOre(giornoDto.getOreOrdinarie().stream().mapToDouble(Double::doubleValue).sum());
+
+				rapportino.setMese(rapportinoRequest.getMese());
+
+				rapportino.setAnno(rapportinoRequest.getAnno());
+
+				rapportino.setAnagrafica(anagrafica);
+
+				rapportinoRepository.saveAndFlush(rapportino);
+
+			}
+
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+
+	}
+
+	@Override
+	public void deleteRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException {
+
+		try {
+
+			Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
+
+			rapportinoRepository.deleteByMeseAndAnnoAndId(rapportinoRequest.getMese(), rapportinoRequest.getAnno(),
+					anagrafica.getId());
+
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+
 	}
 
 }

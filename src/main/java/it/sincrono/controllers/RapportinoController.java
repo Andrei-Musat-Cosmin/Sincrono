@@ -21,6 +21,7 @@ import it.sincrono.beans.Esito;
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.RapportinoInviatoRequest;
+import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.RapportiniInviatiListResponse;
@@ -246,5 +247,117 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
+	
+	@GetMapping("/list-not-freeze-filter")
+	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniNotFreezeFilter(
+			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
+
+		HttpEntity<RapportiniInviatiListResponse> httpEntity = null;
+
+		RapportiniInviatiListResponse rapportiniInviatiListResponse = new RapportiniInviatiListResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniNotFreezeFilter");
+
+			List<RapportinoInviato> rapportiniInviatiNotFreeze=rapportinoService.getRapportiniNotFreezeFilter(
+					rapportinoInviatoRequest.getRapportino());
+
+			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
+			rapportiniInviatiListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			rapportiniInviatiListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportiniNotFreezeFilter\n");
+
+		return httpEntity;
+	}
+	
+	
+	@GetMapping("/list-freeze-filter")
+	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniFreezeFilter(
+			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
+
+		HttpEntity<RapportiniInviatiListResponse> httpEntity = null;
+
+		RapportiniInviatiListResponse rapportiniInviatiListResponse = new RapportiniInviatiListResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniFreezeFilter");
+
+			List<RapportinoInviato> rapportiniInviatiNotFreeze=rapportinoService.getRapportiniNotFreezeFilter(
+					rapportinoInviatoRequest.getRapportino());
+
+			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
+			rapportiniInviatiListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			rapportiniInviatiListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportiniFreezeFilter\n");
+
+		return httpEntity;
+	}
+	
+	
+	@PostMapping("/insert-rapportino")
+	public @ResponseBody HttpEntity<GenericResponse> addRapportinoInDatabase(
+			@RequestBody RapportinoRequest rapportinoRequest) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo addRapportinoInDatabase");
+
+			rapportinoService.addRapportinoInDatabase(rapportinoRequest);
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo addRapportinoInDatabase\n");
+
+		return httpEntity;
+	}
+	
+	@DeleteMapping("/delete-rapportino")
+	public @ResponseBody HttpEntity<GenericResponse> deleteRapportinoInDatabase(
+			@RequestBody RapportinoRequest rapportinoRequest) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo addRapportinoInDatabase");
+
+			rapportinoService.addRapportinoInDatabase(rapportinoRequest);
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo addRapportinoInDatabase\n");
+
+		return httpEntity;
+	}
+	
+	
 
 }

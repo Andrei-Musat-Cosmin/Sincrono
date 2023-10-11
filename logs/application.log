@@ -6898,3 +6898,43 @@ Identify and stop the process that's listening on port 8085 or configure this ap
 2023-10-09T17:14:53.420+0200 INFO Inizio chiamata al meotodo updateFreeze
 2023-10-09T17:14:53.440+0200 INFO Fine chiamata al meotodo updateFreeze
 
+2023-10-11T10:59:57.105+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 6912 (C:\Users\SINCRONO\Documents\GitHub\Sincrono\target\classes started by SINCRONO in C:\Users\SINCRONO\Documents\GitHub\Sincrono)
+2023-10-11T10:59:57.120+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-11T10:59:58.217+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-11T10:59:58.455+0200 INFO Finished Spring Data repository scanning in 225 ms. Found 15 JPA repository interfaces.
+2023-10-11T11:00:00.093+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-11T11:00:00.111+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-11T11:00:00.116+0200 INFO Starting service [Tomcat]
+2023-10-11T11:00:00.118+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-11T11:00:00.583+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-11T11:00:00.585+0200 INFO Root WebApplicationContext: initialization completed in 3399 ms
+2023-10-11T11:00:00.980+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-11T11:00:01.080+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-11T11:00:01.607+0200 INFO HikariPool-1 - Starting...
+2023-10-11T11:00:02.600+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@59a2bed1
+2023-10-11T11:00:02.605+0200 INFO HikariPool-1 - Start completed.
+2023-10-11T11:00:02.746+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-11T11:00:04.460+0200 INFO HHH000182: No default (no-argument) constructor for class: it.sincrono.entities.ContrattiScattiLivello (class must be instantiated by Interceptor)
+2023-10-11T11:00:05.422+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-11T11:00:05.443+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-11T11:00:07.786+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-11T11:00:08.663+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-11T11:00:08.698+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-11T11:00:08.712+0200 INFO Started SincronoApplication in 12.299 seconds (process running for 14.885)
+2023-10-11T11:01:03.310+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-11T11:01:03.311+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-11T11:01:03.313+0200 INFO Completed initialization in 2 ms
+2023-10-11T11:01:03.343+0200 WARN Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
+2023-10-11T11:01:07.936+0200 INFO Inizio chiamata al meotodo getRapportiniFreeze
+2023-10-11T11:01:08.024+0200 INFO Fine chiamata al meotodo getRapportiniFreeze
+
+2023-10-11T11:01:28.133+0200 INFO Inizio chiamata al meotodo getRapportiniNotFreeze
+2023-10-11T11:01:28.137+0200 INFO Fine chiamata al meotodo getRapportiniNotFreeze
+
+2023-10-11T12:00:50.001+0200 INFO Application shutdown requested.
+2023-10-11T12:00:50.018+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-11T12:00:50.018+0200 INFO Stopping service [Tomcat]
+2023-10-11T12:00:50.021+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-11T12:00:50.028+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-11T12:00:50.031+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-11T12:00:50.033+0200 INFO Shutting down application...
