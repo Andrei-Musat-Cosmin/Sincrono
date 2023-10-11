@@ -1,5 +1,8 @@
 package it.sincrono.services.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.RapportinoRepository;
+import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.services.RapportinoService;
@@ -151,6 +155,34 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	public RapportinoInviato findByData(RapportinoDto rapportinoDto) throws ServiceException {
 		return rapportinoRepository.findByData(rapportinoDto.getAnagrafica().getCodiceFiscale(),
 				rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest());
+	}
+
+	@Override
+	public List<RapportinoInviato> getRapportiniNotFreeze() throws ServiceException {
+		List<RapportinoInviato> list = null;
+
+		try {
+			list = rapportinoRepository.getRapportiniNotFreeze();
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+	}
+	
+	@Override
+	public List<RapportinoInviato> getRapportiniFreeze() throws ServiceException {
+		List<RapportinoInviato> list = null;
+
+		try {
+			list = rapportinoRepository.getRapportiniFreeze();
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
 	}
 
 }
