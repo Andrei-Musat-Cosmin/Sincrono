@@ -10,13 +10,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "rapportini")
+@Table(name = "commessa")
 public class Rapportino {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+
+	@ManyToOne
+	@JoinColumn(name = "id_anagrafica")
+	private Anagrafica anagrafica;
 
 	@Column(name = "anno")
 	private Integer anno;
@@ -30,35 +34,32 @@ public class Rapportino {
 	@Column(name = "ore")
 	private Double ore;
 
+	@Column(name = "permessi")
+	private Integer permessi;
+
 	@Column(name = "ferie")
 	private Boolean ferie;
 
 	@Column(name = "malattie")
 	private Boolean malattie;
 
-	@Column(name = "permessi")
-	private Integer permessi;
-	
-	@ManyToOne
-	@JoinColumn(name = "id_anagrafica")
-	private Anagrafica anagrafica;
-	
-
-	public Rapportino() {
-		super();
-	}
-
-	public Rapportino(Integer id, Integer anno, Integer mese, Integer giorno, Double ore, Boolean ferie,
-			Boolean malattie, Integer permessi) {
+	public Rapportino(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Integer giorno, Double ore,
+			Integer permessi, Boolean ferie, Boolean malattie) {
 		super();
 		this.id = id;
+		this.anagrafica = anagrafica;
 		this.anno = anno;
 		this.mese = mese;
 		this.giorno = giorno;
 		this.ore = ore;
+		this.permessi = permessi;
 		this.ferie = ferie;
 		this.malattie = malattie;
-		this.permessi = permessi;
+	}
+
+	public Rapportino() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
@@ -67,6 +68,14 @@ public class Rapportino {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public Anagrafica getAnagrafica() {
+		return anagrafica;
+	}
+
+	public void setAnagrafica(Anagrafica anagrafica) {
+		this.anagrafica = anagrafica;
 	}
 
 	public Integer getAnno() {
@@ -101,6 +110,14 @@ public class Rapportino {
 		this.ore = ore;
 	}
 
+	public Integer getPermessi() {
+		return permessi;
+	}
+
+	public void setPermessi(Integer permessi) {
+		this.permessi = permessi;
+	}
+
 	public Boolean getFerie() {
 		return ferie;
 	}
@@ -116,23 +133,5 @@ public class Rapportino {
 	public void setMalattie(Boolean malattie) {
 		this.malattie = malattie;
 	}
-
-	public Integer getPermessi() {
-		return permessi;
-	}
-
-	public void setPermessi(Integer permessi) {
-		this.permessi = permessi;
-	}
-
-	public Anagrafica getAnagrafica() {
-		return anagrafica;
-	}
-
-	public void setAnagrafica(Anagrafica anagrafica) {
-		this.anagrafica = anagrafica;
-	}
-	
-	
 
 }

@@ -25,6 +25,7 @@ import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.RapportiniInviatiListResponse;
+import it.sincrono.responses.RapportinoB64Response;
 import it.sincrono.responses.RapportinoDtoResponse;
 import it.sincrono.services.RapportinoService;
 import it.sincrono.services.exceptions.ServiceException;
@@ -36,6 +37,31 @@ public class RapportinoController {
 
 	@Autowired
 	RapportinoService rapportinoService;
+
+	@GetMapping("/export-rapportino")
+	public @ResponseBody HttpEntity<RapportinoB64Response> getRapportinoB64() {
+		HttpEntity<RapportinoB64Response> httpEntity = null;
+
+		RapportinoB64Response rapportinoB64Response = new RapportinoB64Response();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportinoB64");
+
+			String rapportinoB64 = rapportinoService.getRapportinoB64();
+
+			rapportinoB64Response.setRapportinoB64(rapportinoB64);
+			rapportinoB64Response.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<RapportinoB64Response>(rapportinoB64Response);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			rapportinoB64Response.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<RapportinoB64Response>(rapportinoB64Response);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportinoB64\n");
+
+		return httpEntity;
+	}
 
 	@PostMapping("/get-rapportino")
 	public @ResponseBody HttpEntity<RapportinoDtoResponse> getRapportino(
@@ -194,7 +220,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
+
 	@GetMapping("/list-not-freeze")
 	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniNotFreeze() {
 
@@ -204,7 +230,7 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniNotFreeze");
 
-			List<RapportinoInviato> rapportiniInviatiNotFreeze=rapportinoService.getRapportiniNotFreeze();
+			List<RapportinoInviato> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniNotFreeze();
 
 			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
 			rapportiniInviatiListResponse.setEsito(new Esito());
@@ -220,8 +246,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
-	
+
 	@GetMapping("/list-freeze")
 	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniFreeze() {
 
@@ -231,7 +256,7 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniFreeze");
 
-			List<RapportinoInviato> rapportiniInviatiNotFreeze=rapportinoService.getRapportiniFreeze();
+			List<RapportinoInviato> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniFreeze();
 
 			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
 			rapportiniInviatiListResponse.setEsito(new Esito());

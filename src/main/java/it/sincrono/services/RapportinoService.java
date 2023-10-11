@@ -3,7 +3,6 @@ package it.sincrono.services;
 import java.util.List;
 
 import it.sincrono.entities.RapportinoInviato;
-import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
@@ -24,9 +23,9 @@ public interface RapportinoService {
 	public void delete(Integer id) throws ServiceException;
 
 	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException;
-	
+
 	public List<RapportinoInviato> getRapportiniNotFreeze() throws ServiceException;
-	
+
 	public List<RapportinoInviato> getRapportiniFreeze() throws ServiceException;
 
 	public List<RapportinoInviato> getRapportiniNotFreezeFilter(RapportinoInviato rapportinoInviato) throws ServiceException;
@@ -37,5 +36,6 @@ public interface RapportinoService {
 	
 	public void deleteRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException;
 
+	public String getRapportinoB64() throws ServiceException;;
 
 }
