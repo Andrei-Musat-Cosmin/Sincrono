@@ -51,13 +51,19 @@ public class RapportinoValidator {
 
 		Contratto contratto = mapperCustom.toContratto(idAnagrafica);
 
-		/*for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
+		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 
-			if (giornoDto.getGiorno() == null ||
+			if (!((giornoDto.getGiorno() == null &&
 
-					(giornoDto.getCliente() == null || giornoDto.getCliente().isEmpty()) ||
+					giornoDto.getCliente() == null &&
 
-					(giornoDto.getOreOrdinarie() == null || giornoDto.getOreOrdinarie().isEmpty())) {
+					giornoDto.getOreOrdinarie() == null) ||
+					
+					(giornoDto.getGiorno() != null &&
+
+					giornoDto.getCliente() != null &&
+
+					giornoDto.getOreOrdinarie() != null))) {
 				
 				
 				return false;
@@ -70,7 +76,7 @@ public class RapportinoValidator {
 				//mettere altri campi che devono essere null
 			}
 
-		}*/
+		}
 		
 		
 		return true;
