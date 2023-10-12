@@ -50,7 +50,7 @@ public class RapportinoValidator {
 
 		Contratto contratto = mapperCustom.toContratto(idAnagrafica);
 
-		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
+		/*for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 
 			if (giornoDto.getGiorno() == null ||
 
@@ -61,7 +61,7 @@ public class RapportinoValidator {
 				
 				return false;
 
-			}
+			}*/
 			
 			if(contratto.getTipoContratto().getId()==1 || contratto.getTipoContratto().getId()==2) {
 				
