@@ -383,7 +383,7 @@ public class RapportinoController {
 	}
 	
 	
-	@PostMapping("/get-check-rapportino-nviato")
+	/*@PostMapping("/get-check-rapportino-nviato")
 	public @ResponseBody HttpEntity<CheckRapportinoInviatoResponse> getCheckRapportinoInviato(
 			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
 
@@ -408,7 +408,7 @@ public class RapportinoController {
 		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportino\n");
 
 		return httpEntity;
-	}
+	}*/
 
 
 }
