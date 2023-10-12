@@ -309,9 +309,14 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public String getRapportinoB64() throws ServiceException {
-
-		return "";
+	public String getRapportinoB64(Integer anno, Integer mese) throws ServiceException {
+		try {
+			List<Rapportino> rapportini = rapportinoRepository.findByMeseAndAnno(anno, mese);
+			return excelUtil.toExcel(rapportini);
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
 	}
 
 }

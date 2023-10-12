@@ -25,7 +25,7 @@ import it.sincrono.services.impl.RapportinoServiceImpl;
 public class ExcelUtil {
 	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
 
-	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel";
+	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel.xlsl";
 
 	public String toExcel(List<Rapportino> rapportini) throws ServiceException {
 		try (Workbook workbook = new XSSFWorkbook()) {
@@ -33,27 +33,32 @@ public class ExcelUtil {
 
 //			Row headerRow = sheet.createRow(0);
 
-			int rowNum = 1;
+			int rowNum = 0;
 			int cellNum = 0;
 			String cognomeNome = "";
 			Row row = null;
+			row = sheet.createRow(rowNum);
+			for (int i = 1; i < 32; i++) {
+				row.createCell(i).setCellValue(i);
+			}
 			for (Rapportino rapportino : rapportini) {
 				if (!cognomeNome
 						.equals(rapportino.getAnagrafica().getCognome() + " " + rapportino.getAnagrafica().getNome())) {
 					cognomeNome = rapportino.getAnagrafica().getCognome() + " " + rapportino.getAnagrafica().getNome();
 					cellNum = 0;
-					row = sheet.createRow(rowNum++);
+					rowNum++;
+					row = sheet.createRow(rowNum);
 					row.createCell(cellNum).setCellValue(cognomeNome);
+					cellNum++;
 				}
-				row.createCell(cellNum).setCellValue(rapportino.getGiorno());
 				if (rapportino.getOre() != null) {
 					row.createCell(cellNum).setCellValue(rapportino.getOre());
 				} else if (rapportino.getFerie() != null) {
-					row.createCell(cellNum).setCellValue(rapportino.getFerie());
+					row.createCell(cellNum).setCellValue("F");
 				} else if (rapportino.getMalattie() != null) {
-					row.createCell(cellNum).setCellValue(rapportino.getMalattie());
+					row.createCell(cellNum).setCellValue("M");
 				} else if (rapportino.getPermessi() != null) {
-					row.createCell(cellNum).setCellValue(rapportino.getPermessi());
+					row.createCell(cellNum).setCellValue(rapportino.getPermessi() + "p");
 				}
 				cellNum++;
 
@@ -84,6 +89,9 @@ public class ExcelUtil {
 
 			return base64EncodedString;
 		} catch (IOException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.IMPOSSIBILE_SCRIVERE_EXCEL);
+		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}

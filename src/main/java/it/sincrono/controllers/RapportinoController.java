@@ -38,15 +38,15 @@ public class RapportinoController {
 	@Autowired
 	RapportinoService rapportinoService;
 
-	@GetMapping("/export-rapportino")
-	public @ResponseBody HttpEntity<RapportinoB64Response> getRapportinoB64() {
+	@PostMapping("/export-rapportino")
+	public @ResponseBody HttpEntity<RapportinoB64Response> getRapportinoB64(@RequestBody RapportinoRequest rapportino) {
 		HttpEntity<RapportinoB64Response> httpEntity = null;
 
 		RapportinoB64Response rapportinoB64Response = new RapportinoB64Response();
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportinoB64");
 
-			String rapportinoB64 = rapportinoService.getRapportinoB64();
+			String rapportinoB64 = rapportinoService.getRapportinoB64(rapportino.getAnno(),rapportino.getMese());
 
 			rapportinoB64Response.setRapportinoB64(rapportinoB64);
 			rapportinoB64Response.setEsito(new Esito());
@@ -272,7 +272,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
+
 	@GetMapping("/list-not-freeze-filter")
 	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniNotFreezeFilter(
 			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
@@ -283,8 +283,8 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniNotFreezeFilter");
 
-			List<RapportinoInviato> rapportiniInviatiNotFreeze=rapportinoService.getRapportiniNotFreezeFilter(
-					rapportinoInviatoRequest.getRapportino());
+			List<RapportinoInviato> rapportiniInviatiNotFreeze = rapportinoService
+					.getRapportiniNotFreezeFilter(rapportinoInviatoRequest.getRapportino());
 
 			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
 			rapportiniInviatiListResponse.setEsito(new Esito());
@@ -300,8 +300,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
-	
+
 	@GetMapping("/list-freeze-filter")
 	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniFreezeFilter(
 			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
@@ -312,8 +311,8 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniFreezeFilter");
 
-			List<RapportinoInviato> rapportiniInviatiNotFreeze=rapportinoService.getRapportiniNotFreezeFilter(
-					rapportinoInviatoRequest.getRapportino());
+			List<RapportinoInviato> rapportiniInviatiNotFreeze = rapportinoService
+					.getRapportiniNotFreezeFilter(rapportinoInviatoRequest.getRapportino());
 
 			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
 			rapportiniInviatiListResponse.setEsito(new Esito());
@@ -329,8 +328,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
-	
+
 	@PostMapping("/insert-rapportino")
 	public @ResponseBody HttpEntity<GenericResponse> addRapportinoInDatabase(
 			@RequestBody RapportinoRequest rapportinoRequest) {
@@ -356,7 +354,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
+
 	@DeleteMapping("/delete-rapportino")
 	public @ResponseBody HttpEntity<GenericResponse> deleteRapportinoInDatabase(
 			@RequestBody RapportinoRequest rapportinoRequest) {
@@ -382,7 +380,5 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
-	
 
 }
