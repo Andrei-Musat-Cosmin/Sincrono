@@ -91,12 +91,13 @@ public class FilterCustom {
 							return false;
 						}
 					} else {
-						if (!contratto.getTipoContratto().getDescrizione().toLowerCase()
-								.equals(contrattoFilter.getTipoContratto().getDescrizione().toLowerCase())) {
-							return false;
+						if (contrattoFilter.getTipoContratto().getDescrizione() != null) {
+							if (!contratto.getTipoContratto().getDescrizione().toLowerCase()
+									.equals(contrattoFilter.getTipoContratto().getDescrizione().toLowerCase())) {
+								return false;
+							}
 						}
 					}
-
 				}
 				if (contrattoFilter.getTipoCcnl() != null) {
 					if (contratto.getTipoCcnl() == null
@@ -407,31 +408,24 @@ public class FilterCustom {
 
 	}
 
-	
-	
-	
-	
 	public Boolean toFilterRapportino(RapportinoInviato rapportinoInviato, RapportinoInviato rapportinoInviatoFilter) {
 
-		if(rapportinoInviato.getCognome()!=null && !rapportinoInviato.getCognome().
-				equals(rapportinoInviatoFilter.getCognome())) {
-			
+		if (rapportinoInviato.getCognome() != null
+				&& !rapportinoInviato.getCognome().equals(rapportinoInviatoFilter.getCognome())) {
+
 			return false;
-			
-			
+
 		}
-		
-		if(rapportinoInviato.getAnno()!=null && rapportinoInviato.getAnno()!=rapportinoInviatoFilter.getAnno()) {
-			
-			return false;
-		}
-		
-		
-		if(rapportinoInviato.getMese()!=null &&rapportinoInviato.getMese()!=rapportinoInviatoFilter.getMese()) {
-			
+
+		if (rapportinoInviato.getAnno() != null && rapportinoInviato.getAnno() != rapportinoInviatoFilter.getAnno()) {
+
 			return false;
 		}
-		
+
+		if (rapportinoInviato.getMese() != null && rapportinoInviato.getMese() != rapportinoInviatoFilter.getMese()) {
+
+			return false;
+		}
 
 		return true;
 

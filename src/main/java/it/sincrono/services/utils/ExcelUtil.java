@@ -5,11 +5,18 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -25,40 +32,131 @@ import it.sincrono.services.impl.RapportinoServiceImpl;
 public class ExcelUtil {
 	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
 
-	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel.xlsl";
+	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel.xlsx";
 
 	public String toExcel(List<Rapportino> rapportini) throws ServiceException {
+
 		try (Workbook workbook = new XSSFWorkbook()) {
+			CellStyle baseCellStyle = workbook.createCellStyle();
+			baseCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			baseCellStyle.setAlignment(HorizontalAlignment.CENTER);
+			baseCellStyle.setBorderTop(BorderStyle.MEDIUM);
+			baseCellStyle.setBorderLeft(BorderStyle.MEDIUM);
+			baseCellStyle.setBorderRight(BorderStyle.MEDIUM);
+			baseCellStyle.setBorderBottom(BorderStyle.MEDIUM);
+
+			/* STYLE FOR DEFAULT */
+			CellStyle cellStyleDefault = baseCellStyle;
+			cellStyleDefault.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+			cellStyleDefault.setFillBackgroundColor(IndexedColors.WHITE.getIndex());
+
+			/* STYLE FOR FERIE */
+			CellStyle cellStyleFerie = baseCellStyle;
+			cellStyleFerie.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
+			cellStyleFerie.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
+
+			/* STYLE FOR MALATTIA */
+			CellStyle cellStyleMalattia = baseCellStyle;
+			cellStyleMalattia.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+			cellStyleMalattia.setFillBackgroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+
+			/* STYLE FOR PERMESSI */
+			CellStyle cellStylePermessi = baseCellStyle;
+			cellStylePermessi.setFillForegroundColor(IndexedColors.DARK_RED.getIndex());
+			cellStylePermessi.setFillBackgroundColor(IndexedColors.DARK_RED.getIndex());
+
+			/* STYLE FOR ROL */
+			CellStyle cellStyleRol = baseCellStyle;
+			cellStyleRol.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+			cellStyleRol.setFillBackgroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+
+			/* STYLE FOR SABDOM */
+			CellStyle cellStyleSABDOM = baseCellStyle;
+			cellStyleSABDOM.setFillForegroundColor(IndexedColors.DARK_GREEN.getIndex());
+			cellStyleRol.setFillBackgroundColor(IndexedColors.DARK_GREEN.getIndex());
+
+			/* STYLE FOR PERMESSI */
+			CellStyle cellStyleNODAY = baseCellStyle;
+			cellStyleNODAY.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+			cellStyleNODAY.setFillBackgroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+
 			Sheet sheet = workbook.createSheet("Dati Excel");
-
 //			Row headerRow = sheet.createRow(0);
-
 			int rowNum = 0;
 			int cellNum = 0;
 			String cognomeNome = "";
 			Row row = null;
+			Cell cell = null;
 			row = sheet.createRow(rowNum);
-			for (int i = 1; i < 32; i++) {
-				row.createCell(i).setCellValue(i);
+			Calendar calendar = Calendar.getInstance();
+			int anno = rapportini.get(0).getAnno();
+			int mese = rapportini.get(0).getMese();
+			calendar.set(anno, mese - 1, 1);
+
+			int numeroGiorniNelMese = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+			for (int i = 0; i < 31; i++) {
+				cell = row.createCell(i + 1);
+				cell.setCellValue(i + 1);
+				cell.setCellStyle(cellStyleSABDOM);
+				sheet.autoSizeColumn(i);
+				if (i == 30) {
+					sheet.autoSizeColumn(i + 1);
+				}
 			}
+
 			for (Rapportino rapportino : rapportini) {
+
 				if (!cognomeNome
 						.equals(rapportino.getAnagrafica().getCognome() + " " + rapportino.getAnagrafica().getNome())) {
 					cognomeNome = rapportino.getAnagrafica().getCognome() + " " + rapportino.getAnagrafica().getNome();
 					cellNum = 0;
 					rowNum++;
 					row = sheet.createRow(rowNum);
-					row.createCell(cellNum).setCellValue(cognomeNome);
+					cell = null;
+					cell = row.createCell(cellNum);
+					cell.setCellStyle(cellStyleDefault);
+					cell.setCellValue(cognomeNome);
 					cellNum++;
 				}
+
+				calendar.set(anno, mese - 1, cellNum - 1);
+				int giornoSettimana = calendar.get(Calendar.DAY_OF_WEEK);
+
+				if (giornoSettimana > numeroGiorniNelMese) {
+					cell = null;
+					cell = row.createCell(cellNum);
+					cell.setCellStyle(cellStyleNODAY);
+					cell.setCellValue("Q");
+				}
+				if (giornoSettimana == Calendar.SATURDAY || giornoSettimana == Calendar.SUNDAY) {
+					if (giornoSettimana == Calendar.SATURDAY) {
+						cell = null;
+						cell = row.createCell(cellNum);
+						cell.setCellStyle(cellStyleSABDOM);
+						cell.setCellValue("q");
+					}
+				}
 				if (rapportino.getOre() != null) {
-					row.createCell(cellNum).setCellValue(rapportino.getOre());
+					cell = null;
+					cell = row.createCell(cellNum);
+					cell.setCellStyle(cellStyleDefault);
+					cell.setCellValue("");
 				} else if (rapportino.getFerie() != null) {
-					row.createCell(cellNum).setCellValue("F");
+					cell = null;
+					cell = row.createCell(cellNum);
+					cell.setCellStyle(cellStyleFerie);
+					cell.setCellValue("F");
 				} else if (rapportino.getMalattie() != null) {
-					row.createCell(cellNum).setCellValue("M");
+					cell = null;
+					cell = row.createCell(cellNum);
+					cell.setCellStyle(cellStyleMalattia);
+					cell.setCellValue("M");
 				} else if (rapportino.getPermessi() != null) {
-					row.createCell(cellNum).setCellValue(rapportino.getPermessi() + "p");
+					cell = null;
+					cell = row.createCell(cellNum);
+					cell.setCellStyle(cellStylePermessi);
+					cell.setCellValue(rapportino.getPermessi() + "p");
 				}
 				cellNum++;
 
@@ -73,6 +171,10 @@ public class ExcelUtil {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
+
+	}
+
+	private void write(FileOutputStream outputStream, Row row, Cell cell, Workbook workbook) {
 
 	}
 
