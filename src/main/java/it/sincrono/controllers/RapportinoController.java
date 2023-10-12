@@ -383,9 +383,9 @@ public class RapportinoController {
 	}
 	
 	
-	/*@PostMapping("/get-check-rapportino-nviato")
+	@PostMapping("/get-check-rapportino-inviato")
 	public @ResponseBody HttpEntity<CheckRapportinoInviatoResponse> getCheckRapportinoInviato(
-			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
+			@RequestBody RapportinoRequest RapportinoRequest) {
 
 		HttpEntity<CheckRapportinoInviatoResponse> httpEntity = null;
 
@@ -394,7 +394,7 @@ public class RapportinoController {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportino");
 
 			checkRapportinoInviatoResponse.setCheckInviato(rapportinoService.
-					getCheckRapportinoInviato(rapportinoInviatoRequest.getRapportino()));
+					getCheckRapportinoInviato(RapportinoRequest));
 
 			checkRapportinoInviatoResponse.setEsito(new Esito());
 
@@ -408,7 +408,7 @@ public class RapportinoController {
 		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportino\n");
 
 		return httpEntity;
-	}*/
+	}
 
 
 }

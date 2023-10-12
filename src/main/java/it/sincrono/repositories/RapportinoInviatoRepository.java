@@ -17,5 +17,11 @@ public interface RapportinoInviatoRepository extends JpaRepository<RapportinoInv
 	
 	@Query("SELECT a FROM RapportinoInviato a WHERE a.checkFreeze = true")
 	public List<RapportinoInviato> getRapportiniFreeze();
+	
+	
+	@Query("SELECT CASE WHEN r.anno = ?2 AND r.mese = ?3 AND r.codiceFiscale = ?1 THEN true ELSE false END FROM RapportinoInviato r")
+	public Boolean checkInviato(String codiceFiscale, Integer anno, Integer mese);
+	
+	
 
 }

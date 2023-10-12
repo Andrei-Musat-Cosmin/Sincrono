@@ -319,4 +319,16 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		}
 	}
 
+	@Override
+	public boolean getCheckRapportinoInviato(RapportinoRequest rapportinoRequest) throws ServiceException {
+		try {
+		 return rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
+				 rapportinoRequest.getAnno(), 
+				 rapportinoRequest.getMese());
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+	}
+
 }

@@ -39,5 +39,7 @@ public interface RapportinoService {
 	public void deleteRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException;
 
 	public String getRapportinoB64(Integer anno, Integer mese) throws ServiceException;
+	
+	public boolean getCheckRapportinoInviato(RapportinoRequest RapportinoRequest) throws ServiceException;
 
 }
