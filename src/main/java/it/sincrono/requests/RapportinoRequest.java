@@ -1,17 +1,12 @@
 package it.sincrono.requests;
 
-import it.sincrono.entities.Commessa;
-
 public class RapportinoRequest extends GenericRequest {
 
 	private Integer anno;
-	
+
 	private Integer mese;
-	
+
 	private String CodiceFiscale;
-	
-	
-	
 
 	public RapportinoRequest() {
 		super();
@@ -48,8 +43,5 @@ public class RapportinoRequest extends GenericRequest {
 	public void setCodiceFiscale(String codiceFiscale) {
 		CodiceFiscale = codiceFiscale;
 	}
-	
-	
-	
 
 }

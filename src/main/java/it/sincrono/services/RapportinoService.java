@@ -28,14 +28,16 @@ public interface RapportinoService {
 
 	public List<RapportinoInviato> getRapportiniFreeze() throws ServiceException;
 
-	public List<RapportinoInviato> getRapportiniNotFreezeFilter(RapportinoInviato rapportinoInviato) throws ServiceException;
-	 
-	public List<RapportinoInviato> getRapportiniFreezeFilter(RapportinoInviato rapportinoInviato) throws ServiceException;
-	
-	public void  addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException;
-	
+	public List<RapportinoInviato> getRapportiniNotFreezeFilter(RapportinoInviato rapportinoInviato)
+			throws ServiceException;
+
+	public List<RapportinoInviato> getRapportiniFreezeFilter(RapportinoInviato rapportinoInviato)
+			throws ServiceException;
+
+	public void addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException;
+
 	public void deleteRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException;
 
-	public String getRapportinoB64() throws ServiceException;;
+	public String getRapportinoB64(Integer anno, Integer mese) throws ServiceException;
 
 }
