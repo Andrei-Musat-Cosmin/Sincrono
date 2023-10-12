@@ -23,6 +23,7 @@ import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.RapportinoInviatoRequest;
 import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
+import it.sincrono.responses.CheckRapportinoInviatoResponse;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.RapportiniInviatiListResponse;
 import it.sincrono.responses.RapportinoB64Response;
@@ -380,5 +381,34 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
+	
+	
+	@PostMapping("/get-check-rapportino-nviato")
+	public @ResponseBody HttpEntity<CheckRapportinoInviatoResponse> getCheckRapportinoInviato(
+			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
+
+		HttpEntity<CheckRapportinoInviatoResponse> httpEntity = null;
+
+		CheckRapportinoInviatoResponse checkRapportinoInviatoResponse = new CheckRapportinoInviatoResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportino");
+
+			checkRapportinoInviatoResponse.setCheckInviato(rapportinoService.
+					getCheckRapportinoInviato(rapportinoInviatoRequest.getRapportino()));
+
+			checkRapportinoInviatoResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<CheckRapportinoInviatoResponse>(checkRapportinoInviatoResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			checkRapportinoInviatoResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<CheckRapportinoInviatoResponse>(checkRapportinoInviatoResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportino\n");
+
+		return httpEntity;
+	}
+
 
 }
