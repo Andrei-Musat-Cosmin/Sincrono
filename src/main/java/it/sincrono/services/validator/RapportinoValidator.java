@@ -2,6 +2,7 @@ package it.sincrono.services.validator;
 
 import org.apache.logging.log4j.Level;
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +62,7 @@ public class RapportinoValidator {
 				
 				return false;
 
-			}*/
+			}
 			
 			if(contratto.getTipoContratto().getId()==1 || contratto.getTipoContratto().getId()==2) {
 				
@@ -69,7 +70,7 @@ public class RapportinoValidator {
 				//mettere altri campi che devono essere null
 			}
 
-		}
+		}*/
 		
 		
 		return true;
