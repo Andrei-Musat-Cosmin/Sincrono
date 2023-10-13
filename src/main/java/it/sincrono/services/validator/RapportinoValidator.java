@@ -61,9 +61,9 @@ public class RapportinoValidator {
 					
 					(giornoDto.getGiorno() != null &&
 
-					(giornoDto.getCliente() != null && giornoDto.getCliente().isEmpty()) &&
+					(giornoDto.getCliente() != null && !giornoDto.getCliente().isEmpty()) &&
 
-					(giornoDto.getOreOrdinarie() != null && giornoDto.getOreOrdinarie().isEmpty())))) {
+					(giornoDto.getOreOrdinarie() != null && !giornoDto.getOreOrdinarie().isEmpty())))) {
 				
 				
 				return false;

@@ -1,5 +1,6 @@
 package it.sincrono.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,11 +99,11 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
-		
-		
+
 		if (!rapportinoValidator.updateValidate(rapportinoRequestDto.getRapportinoDto(),
-				anagraficaRepository.findByCodiceFiscale(
-						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()).getId())) {
+				anagraficaRepository
+						.findByCodiceFiscale(rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale())
+						.getId())) {
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
 		}
 
@@ -113,8 +114,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		try {
 
 			fileUtil.saveFile(filePath, rapportinoRequestDto);
-			
-		}catch (ServiceException e) {
+
+		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
@@ -134,7 +135,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		try {
 
 			fileUtil.appendNote(filePath, rapportinoRequestDto.getRapportinoDto().getNote());
-			
+
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -209,7 +210,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		RapportinoDto rapportinoDto = new RapportinoDto();
 
-		Rapportino rapportino = new Rapportino();
+		List<Rapportino> rapportini = new ArrayList<>();
 
 		Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
 
@@ -218,10 +219,11 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
 
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
-
-				rapportino.setGiorno(giornoDto.getGiorno());
-
-				rapportino.setOre(giornoDto.getOreOrdinarie().stream().mapToDouble(Double::doubleValue).sum());
+				Rapportino rapportino = new Rapportino();
+				if (giornoDto.getGiorno() != null)
+					rapportino.setGiorno(giornoDto.getGiorno());
+				if (giornoDto.getOreOrdinarie() != null)
+					rapportino.setOre(giornoDto.getOreOrdinarie().stream().mapToDouble(Double::doubleValue).sum());
 
 				rapportino.setMese(rapportinoRequest.getMese());
 
@@ -229,9 +231,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 				rapportino.setAnagrafica(anagrafica);
 
-				rapportinoRepository.saveAndFlush(rapportino);
-
+				rapportini.add(rapportino);
 			}
+			rapportinoRepository.saveAllAndFlush(rapportini);
 
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
@@ -322,9 +324,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public boolean getCheckRapportinoInviato(RapportinoRequest rapportinoRequest) throws ServiceException {
 		try {
-		 return rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
-				 rapportinoRequest.getAnno(), 
-				 rapportinoRequest.getMese());
+			return rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
+					rapportinoRequest.getAnno(), rapportinoRequest.getMese());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
