@@ -1,8 +1,8 @@
 package it.sincrono.services.utils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.util.Base64;
@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -39,7 +38,6 @@ public class ExcelUtil {
 	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel.xlsx";
 
 	public String toExcel(List<Rapportino> rapportini) throws ServiceException {
-
 		try (Workbook workbook = new XSSFWorkbook()) {
 			/** SETUP CALENDAR PER I CONTROLLI SU SABATI E DOMENICHE **/
 			Calendar calendar = Calendar.getInstance();
@@ -154,13 +152,13 @@ public class ExcelUtil {
 			}
 			for (Rapportino rapportino : rapportini) {
 
-				/** SET DELLA COMBINAZIONE NOME COGNOME DELLA N ITERAZIONE **/
+				/** SET DELLA COMBINAZIONE NOME-COGNOME DELLA N ITERAZIONE **/
 				nomeCognomeAttuale = rapportino.getAnagrafica().getNome() + " "
 						+ rapportino.getAnagrafica().getCognome();
 
 				/**
-				 * SE IL NOME VECCHIO E' DIVERSO DA QUELLO DELLA N ITERAZIONE SONO DIVERSI
-				 * ALLORA E' UNA NUOVA RIGA
+				 * SE IL NOME VECCHIO E QUELLO DELLA N ITERAZIONE SONO DIVERSI ALLORA E' UNA
+				 * NUOVA RIGA
 				 **/
 				if (!nomeCognomePrecedente.equals(nomeCognomeAttuale)) {
 					nomeCognomePrecedente = nomeCognomeAttuale;
@@ -180,80 +178,101 @@ public class ExcelUtil {
 				 * CONTROLLO SE IL GIORNO ATTUALE E' PIU GRANDE DELL'ULTIMO GIORNO DEL MESE
 				 * SELEZIONATO
 				 **/
-				if (giorno > numeroGiorniNelMese) { // SE VERO ALLORA CI SONO DEI GIORNI CHE 'NON ESISTONO'
+				if (giorno > numeroGiorniNelMese) {
+					// Ci sono giorni "inventati"
 					cell.setCellStyle(cellStyleNODAY);
 					cell.setCellValue("Q");
-
-					// CONTROLLO SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
-				}
-				if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
-					cell.setCellStyle(cellStyleSABDOM);
-					cell.setCellValue("q");
-				}
-
-				if (rapportino.getOre() != null) { // SE CI SONO SCRITTE DELLE ORE INSERISCO IL NUMERO DI ORE
-					cell.setCellStyle(cellStyleDefault);
-					if (rapportino.getOre() < 8) { // SE E' MINIORE DI OTTO ORE VA INSERITO COME "STRAORDINARIO"
-						cell.setCellValue(rapportino.getOre());
+				} else {
+					if (rapportino.getOre() != null) {
+						// CI SONO ORE REGISTRATE
+						if (rapportino.getOre() == 8) {
+							// SE SONO ESATTAMENTE 8
+							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
+								// SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
+								cell.setCellStyle(cellStyleAnnoMese);
+								cell.setCellValue(rapportino.getOre());
+							} else {
+								cell.setCellStyle(cellStyleDefault);
+								cell.setCellValue("");
+							}
+						} else {
+							// GESTISCO LE ORE INFERIORI AD 8
+							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
+								cell.setCellStyle(cellStyleAnnoMese);
+								cell.setCellValue(rapportino.getOre());
+							} else {
+								cell.setCellStyle(cellStyleDefault);
+								cell.setCellValue(rapportino.getOre());
+							}
+						}
+					} else if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
+						// SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
+						cell.setCellStyle(cellStyleSABDOM);
+						cell.setCellValue("q");
+					} else if (rapportino.getFerie() != null) {
+						// SE E' STATO UN GIORNO DI FERIE
+						cell.setCellStyle(cellStyleFerie);
+						cell.setCellValue("F");
+					} else if (rapportino.getMalattie() != null) {
+						// SE E' STATO UN GIORNO DI MALATTIA
+						cell.setCellStyle(cellStyleMalattia);
+						cell.setCellValue("M");
+					} else if (rapportino.getPermessi() != null) {
+						// SE E' STATO UN GIORNO DI PERMESSO
+						cell.setCellStyle(cellStylePermessi);
+						cell.setCellValue(rapportino.getPermessi() + "p");
+//				    } else if (rapportino.getRol() != null) {
+//				        // SE E' STATO UN GIORNO DI ROL
+//				        cell.setCellStyle(cellStyleRol);
+//				        cell.setCellValue(rapportino.getRol() + "r");
 					}
-					cell.setCellValue("");
-
-					// INSERISCE "F" SE SI E' PRESO LE FERIE PER QUEL GIORNO
-				} else if (rapportino.getFerie() != null) {
-					cell.setCellStyle(cellStyleFerie);
-					cell.setCellValue("F");
-
-					// INSERISCE "M" SE SI E' PRESO LE MALATTIE PER QUEL GIORNO
-				} else if (rapportino.getMalattie() != null) {
-					cell.setCellStyle(cellStyleMalattia);
-					cell.setCellValue("M");
-
-					// INSERISCE "P" SE SI E' PRESO DELLE ORE DI PERMESSO
-				} else if (rapportino.getPermessi() != null) {
-					cell.setCellStyle(cellStylePermessi);
-					cell.setCellValue(rapportino.getPermessi() + "p");
 				}
-//				else if (rapportino.getRol() != null) {
-//					cell.setCellStyle(cellStyleRol);
-//					cell.setCellValue(rapportino.getPermessi() + "r");
-//				}
+
 				if (cellNum == 31) {
 					int currentRowNum = rowNum + 1;
-					cell = row.createCell(++cellNum, CellType.FORMULA);
+					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleTotale);
-					cell.setCellFormula("COUNTIF(B" + currentRowNum + ":AF" + currentRowNum + ",\"\") + COUNTIF(B"
-							+ currentRowNum + ":AF" + currentRowNum + ",\"<8\") - (SUMIF(B" + currentRowNum + ":AF"
-							+ currentRowNum + ",\"<8\") / 8)");
+					cell.setCellValue("=COUNTIF(B" + currentRowNum + ":AF" + currentRowNum + ";\"\") + COUNTIF(B"
+							+ currentRowNum + ":AF" + currentRowNum + ";\"<8\") - (SUMIF(B" + currentRowNum + ":AF"
+							+ currentRowNum + ";\"<8\") / 8)");
 
-					cell = row.createCell(++cellNum, CellType.FORMULA);
+					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);
-					cell.setCellFormula("COUNTIFS(B" + currentRowNum + ":AF" + currentRowNum + ",\"F\")");
+					cell.setCellValue("=COUNTIFS(B" + currentRowNum + ":AF" + currentRowNum + ";\"F\")");
 
-					cell = row.createCell(++cellNum, CellType.FORMULA);
+					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);
-					cell.setCellFormula("COUNTIFS(B" + currentRowNum + ":AF" + currentRowNum + ",\"M\")");
+					cell.setCellValue("=COUNTIFS(B" + currentRowNum + ":AF" + currentRowNum + ";\"M\")");
 
-					cell = row.createCell(++cellNum, CellType.FORMULA);
+					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);
-					cell.setCellFormula("SUM(IF(MID($B" + currentRowNum + ":$AF" + currentRowNum
-							+ ",2,1)=\"p\",VALUE(MID($B" + currentRowNum + ":$AF" + currentRowNum + ",1,1)),0))");
+					cell.setCellValue("=SUM(IF(MID($B" + currentRowNum + ":$AF" + currentRowNum
+							+ ";2;1)=\"p\";VALUE(MID($B" + currentRowNum + ":$AF" + currentRowNum + ";1;1));0))");
 
-					cell = row.createCell(++cellNum, CellType.FORMULA);
+					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);
-					cell.setCellFormula("SUM(IF(MID(B" + currentRowNum + ":AF" + currentRowNum
-							+ ",2,1)=\"r\",VALUE(MID(B" + currentRowNum + ":AF" + currentRowNum + ",1,1)),0))");
-
+					cell.setCellValue("=SUM(IF(MID(B" + currentRowNum + ":AF" + currentRowNum
+							+ ";2;1)=\"r\";VALUE(MID(B" + currentRowNum + ":AF" + currentRowNum + ";1;1));0))");
+					cellNum = 0;
+					rowNum = currentRowNum - 1;
 				}
 			}
-
-			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			FileOutputStream outputStream = new FileOutputStream(EXCELPATH);
 			workbook.write(outputStream);
 			workbook.close();
+			outputStream.close();
+		} catch (IOException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+		File excelFile = new File(EXCELPATH);
+		try (FileInputStream fis = new FileInputStream(excelFile)) {
+			byte[] excelBytes = new byte[(int) excelFile.length()];
+			fis.read(excelBytes);
 
-			byte[] excelBytes = outputStream.toByteArray();
-			// Convertiamo l'array di byte in una stringa Base64
+			// Convert the bytes to a Base64-encoded string
 			String base64EncodedString = Base64.getEncoder().encodeToString(excelBytes);
-
+			fis.close();
 			return base64EncodedString;
 		} catch (IOException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
