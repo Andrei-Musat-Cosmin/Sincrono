@@ -80,7 +80,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 			rapportinoDto = fileUtil
 					.readFile(PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
-							+ RAPPORTINI + +rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+							+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 							+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt");
 
 			rapportinoDto.setAnnoRequest(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
@@ -111,7 +111,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		}
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
-				+ RAPPORTINI + +rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+				+ RAPPORTINI +rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
 
 		try {
@@ -132,7 +132,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
-				+ RAPPORTINI + +rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
 
 		try {
