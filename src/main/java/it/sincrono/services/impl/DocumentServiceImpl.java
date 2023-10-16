@@ -56,7 +56,7 @@ public class DocumentServiceImpl extends BaseServiceImpl implements DocumentServ
 	public void addImage(DocumentRequest documentRequest) throws ServiceException {
 		
 		if (!documentValidator.addValidate(documentRequest)) {
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di documentRequest");
 		}
 		
 
@@ -78,7 +78,7 @@ public class DocumentServiceImpl extends BaseServiceImpl implements DocumentServ
 	public DocumentResponse getImage(DocumentRequest documentRequest) throws ServiceException {
 		
 		if (!documentValidator.getValidate(documentRequest)) {
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di documentRequest");
 		}
 
 		DocumentResponse documentResponse = new DocumentResponse();
