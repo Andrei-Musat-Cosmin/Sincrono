@@ -2,13 +2,14 @@ package it.sincrono.services.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormatSymbols;
-import java.util.Base64;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -290,21 +291,23 @@ public class ExcelUtil {
 	}
 
 	public static String excelToBase64(String filePath) throws ServiceException {
+		File file = new File(filePath);
+		FileInputStream fileInputStream;
 		try {
-			File file = new File(filePath);
-			FileInputStream fis = new FileInputStream(file);
+			fileInputStream = new FileInputStream(file);
+
 			byte[] bytes = new byte[(int) file.length()];
-			fis.read(bytes);
-			fis.close();
+			fileInputStream.read(bytes);
+			fileInputStream.close();
 
-			// Encode the bytes to Base64
-			String base64EncodedString = Base64.getEncoder().encodeToString(bytes);
+			// Encode the byte array to Base64
+			byte[] encodedBytes = Base64.encodeBase64(bytes);
 
-			return base64EncodedString;
-		} catch (IOException e) {
+			return new String(encodedBytes);
+		} catch (FileNotFoundException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.IMPOSSIBILE_SCRIVERE_EXCEL);
-		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.IMPOSSIBILE_SCRIVERE_EXCEL_CONVERTITO);
+		} catch (IOException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
