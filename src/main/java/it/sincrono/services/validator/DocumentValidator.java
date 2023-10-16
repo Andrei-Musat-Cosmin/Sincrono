@@ -9,8 +9,10 @@ import org.springframework.stereotype.Component;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Contratto;
+import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.DocumentRequest;
 import it.sincrono.services.utils.MapperCustom;
 
 @Component
@@ -20,75 +22,42 @@ public class DocumentValidator {
 	@Autowired
 	MapperCustom mapperCustom;
 
-	public Boolean getValidate(RapportinoDto rapportinoDto) {
+	@Autowired
+	AnagraficaRepository anagraficaRepository;
 
-		if (rapportinoDto != null) {
+	public Boolean getValidate(DocumentRequest documentRequest) {
 
-			if (rapportinoDto.getAnagrafica().getCodiceFiscale() == null
-					|| rapportinoDto.getAnagrafica().getCodiceFiscale().equals("")) {
-				LOGGER.log(Level.ERROR, "codice fiscale del rapportinoDto non è valorizzato");
-				return false;
-			}
-			if (rapportinoDto.getAnnoRequest() == null) {
-				LOGGER.log(Level.ERROR, "anno request del rapportinoDto non è valorizzato");
-				return false;
-			}
+		if (documentRequest.getCodiceFiscale() == null && documentRequest.equals("")) {
 
-			if (rapportinoDto.getMeseRequest() == null) {
-				LOGGER.log(Level.ERROR, "mese request del rapportinoDto non è valorizzato");
-				return false;
-			}
+			return false;
 
-			return true;
+		}
 
-		} else {
+		Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(documentRequest.getCodiceFiscale());
+
+		if (anagrafica == null) {
+
 			return false;
 		}
+		
+		
+		return true;
+
 	}
 
-	public Boolean updateValidate(RapportinoDto rapportinoDto, Anagrafica anagrafica) {
+	public Boolean addValidate(DocumentRequest documentRequest) {
 
-		Contratto contratto;
-
-		if (anagrafica != null) {
-
-			contratto = mapperCustom.toContratto(anagrafica.getId());
-
-		} else {
+		if ((documentRequest.getCodiceFiscale() == null && documentRequest.equals("")) 
+				|| 
+				(documentRequest.getBase64()==null && documentRequest.getBase64().equals(""))) {
 
 			return false;
-		}
-
-		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
-
-			if (!((giornoDto.getGiorno() == null &&
-
-					giornoDto.getCliente() == null &&
-
-					giornoDto.getOreOrdinarie() == null) ||
-
-					(giornoDto.getGiorno() != null &&
-
-							(giornoDto.getCliente() != null && !giornoDto.getCliente().isEmpty()) &&
-
-							(giornoDto.getOreOrdinarie() != null && !giornoDto.getOreOrdinarie().isEmpty())))) {
-
-				return false;
-
-			}
-
-			if (contratto!=null && contratto.getTipoContratto() != null) {
-
-				if (contratto.getTipoContratto().getId() == 1 || contratto.getTipoContratto().getId() == 2) {
-
-					// mettere altri campi che devono essere null
-				}
-
-			}
 
 		}
-
+		
+		
 		return true;
+		
 
 	}
 

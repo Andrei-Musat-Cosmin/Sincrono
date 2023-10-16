@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Contratto;
+import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.services.utils.MapperCustom;
@@ -20,6 +21,9 @@ public class RapportinoValidator {
 	@Autowired
 	MapperCustom mapperCustom;
 
+	@Autowired
+	AnagraficaRepository anagraficaRepository;
+
 	public Boolean getValidate(RapportinoDto rapportinoDto) {
 
 		if (rapportinoDto != null) {
@@ -29,6 +33,17 @@ public class RapportinoValidator {
 				LOGGER.log(Level.ERROR, "codice fiscale del rapportinoDto non è valorizzato");
 				return false;
 			}
+
+			Anagrafica anagrafica = anagraficaRepository
+					.findByCodiceFiscale(rapportinoDto.getAnagrafica().getCodiceFiscale());
+
+			if (anagrafica == null) {
+
+				LOGGER.log(Level.ERROR, "anagrafica non esistente");
+
+				return false;
+			}
+
 			if (rapportinoDto.getAnnoRequest() == null) {
 				LOGGER.log(Level.ERROR, "anno request del rapportinoDto non è valorizzato");
 				return false;
@@ -48,15 +63,17 @@ public class RapportinoValidator {
 
 	public Boolean updateValidate(RapportinoDto rapportinoDto, Anagrafica anagrafica) {
 
-		Contratto contratto;
+		Contratto contratto = null;
 
-		if (anagrafica != null) {
+		if (getValidate(rapportinoDto)) {
 
 			contratto = mapperCustom.toContratto(anagrafica.getId());
 
-		} else {
-
+		}else {
+			
+			
 			return false;
+			
 		}
 
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
@@ -77,7 +94,7 @@ public class RapportinoValidator {
 
 			}
 
-			if (contratto!=null && contratto.getTipoContratto() != null) {
+			if (contratto != null && contratto.getTipoContratto() != null) {
 
 				if (contratto.getTipoContratto().getId() == 1 || contratto.getTipoContratto().getId() == 2) {
 

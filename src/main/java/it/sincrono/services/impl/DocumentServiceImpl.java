@@ -1,6 +1,7 @@
 package it.sincrono.services.impl;
 
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.Level;
@@ -30,6 +31,7 @@ import it.sincrono.services.utils.ExcelUtil;
 import it.sincrono.services.utils.FileUtil;
 import it.sincrono.services.utils.FilterCustom;
 import it.sincrono.services.utils.RapportinoUtil;
+import it.sincrono.services.validator.DocumentValidator;
 import it.sincrono.services.validator.RapportinoValidator;
 
 @Service
@@ -45,27 +47,39 @@ public class DocumentServiceImpl extends BaseServiceImpl implements DocumentServ
 
 	@Autowired
 	FileUtil fileUtil;
-	
+
 	@Autowired
-	AnagraficaRepository anagraficaRepository;
+	DocumentValidator documentValidator;
+	
 
 	@Override
 	public void addImage(DocumentRequest documentRequest) throws ServiceException {
+		
+		if (!documentValidator.addValidate(documentRequest)) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+		}
+		
 
 		try {
 
 			fileUtil.saveFileImage(PREFIX + documentRequest.getCodiceFiscale() + DOCUMENT, documentRequest.getBase64());
 
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
-
 		}
 
 	}
 
 	@Override
 	public DocumentResponse getImage(DocumentRequest documentRequest) throws ServiceException {
+		
+		if (!documentValidator.getValidate(documentRequest)) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+		}
 
 		DocumentResponse documentResponse = new DocumentResponse();
 
@@ -73,12 +87,14 @@ public class DocumentServiceImpl extends BaseServiceImpl implements DocumentServ
 
 			documentResponse = fileUtil.readFileImage(PREFIX + documentRequest.getCodiceFiscale() + DOCUMENT);
 
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
-
 		}
-		
+
 		return documentResponse;
 
 	}
