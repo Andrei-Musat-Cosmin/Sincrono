@@ -10802,3 +10802,468 @@ java.lang.NullPointerException: Cannot invoke "it.sincrono.entities.Contratto.ge
 2023-10-16T11:12:07.661+0200 INFO Inizio chiamata al meotodo getRapportino
 2023-10-16T11:12:11.630+0200 INFO Fine chiamata al meotodo getRapportino
 
+2023-10-16T12:31:25.391+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 11860 (C:\Users\sincrono\git\GruppoDiLavoro\Sincrono\target\classes started by sincrono in C:\Users\sincrono\git\GruppoDiLavoro\Sincrono)
+2023-10-16T12:31:25.403+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-16T12:31:26.197+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-16T12:31:26.392+0200 INFO Finished Spring Data repository scanning in 186 ms. Found 16 JPA repository interfaces.
+2023-10-16T12:31:26.983+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-16T12:31:26.998+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-16T12:31:26.999+0200 INFO Starting service [Tomcat]
+2023-10-16T12:31:26.999+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-16T12:31:27.154+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-16T12:31:27.155+0200 INFO Root WebApplicationContext: initialization completed in 1708 ms
+2023-10-16T12:31:27.381+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-16T12:31:27.442+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-16T12:31:27.815+0200 INFO HikariPool-1 - Starting...
+2023-10-16T12:31:28.223+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54bc3bcf
+2023-10-16T12:31:28.225+0200 INFO HikariPool-1 - Start completed.
+2023-10-16T12:31:28.287+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-16T12:31:29.183+0200 INFO HHH000182: No default (no-argument) constructor for class: it.sincrono.entities.ContrattiScattiLivello (class must be instantiated by Interceptor)
+2023-10-16T12:31:29.771+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-16T12:31:29.784+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T12:31:31.285+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-16T12:31:31.679+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-16T12:31:31.708+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-16T12:31:31.717+0200 INFO Started SincronoApplication in 6.843 seconds (process running for 8.203)
+2023-10-16T12:34:34.954+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-16T12:34:34.954+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-16T12:34:34.956+0200 INFO Completed initialization in 2 ms
+2023-10-16T12:34:35.077+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:34:35.248+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:34:47.713+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:34:47.763+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:35:40.389+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:35:40.429+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:35:44.655+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:35:44.714+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:35:48.539+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:35:48.573+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:36:34.089+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T12:36:34.803+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T12:39:05.268+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:39:05.269+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:39:10.153+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:39:10.155+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:39:14.347+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:39:14.348+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:39:22.408+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:39:22.462+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:39:25.620+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:39:25.666+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:39:29.518+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:39:29.573+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:40:26.204+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T12:40:26.325+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T12:41:34.091+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:41:34.092+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:41:37.169+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:41:37.170+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:41:40.547+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:41:40.549+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:42:12.959+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T12:42:12.985+0200 INFO Rapportino salvato con successo.
+2023-10-16T12:42:12.986+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T12:42:33.448+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T12:42:33.458+0200 INFO Rapportino salvato con successo.
+2023-10-16T12:42:33.458+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T12:42:50.774+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T12:42:50.787+0200 INFO Rapportino salvato con successo.
+2023-10-16T12:42:50.787+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T12:43:02.439+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:43:02.490+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:43:06.249+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:43:06.276+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:43:09.267+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:43:09.353+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:43:13.518+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T12:43:13.643+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T12:48:17.877+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:48:17.878+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:51:22.879+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T12:51:22.987+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T12:53:04.593+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:53:04.595+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:54:34.444+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T12:54:34.449+0200 ERROR ERRORE_VALIDAZIONE per i dati di rapportinoDto
+2023-10-16T12:54:34.449+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T12:56:04.164+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T12:56:04.168+0200 ERROR ERRORE_VALIDAZIONE per i dati di rapportinoDto
+2023-10-16T12:56:04.168+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T12:57:25.745+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:57:25.747+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:57:29.169+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T12:57:29.185+0200 INFO Rapportino salvato con successo.
+2023-10-16T12:57:29.186+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T12:57:39.629+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:57:39.671+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:57:56.377+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:57:56.380+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:57:59.240+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T12:57:59.250+0200 INFO Rapportino salvato con successo.
+2023-10-16T12:57:59.250+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T12:58:04.371+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:58:04.416+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T12:58:20.343+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T12:58:20.345+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T12:58:23.719+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T12:58:23.727+0200 INFO Rapportino salvato con successo.
+2023-10-16T12:58:23.727+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T12:58:27.967+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T12:58:28.013+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:14:30.022+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T14:14:30.092+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T14:22:24.283+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:22:24.284+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:25:53.590+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:25:53.600+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:25:53.600+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:26:05.828+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:26:05.872+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:26:12.746+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:26:12.748+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:30:03.763+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:30:03.763+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:30:08.262+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:30:08.275+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:30:08.276+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:30:14.694+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:30:14.736+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:30:20.895+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:30:20.896+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:30:26.086+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:30:26.097+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:30:26.098+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:30:31.714+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:30:31.745+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:30:57.389+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:30:57.391+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:31:09.388+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:31:09.397+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:31:09.397+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:31:21.120+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:31:21.164+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:31:25.002+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:31:25.004+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:31:29.294+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:31:29.306+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:31:29.306+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:31:34.501+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:31:34.524+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:31:39.368+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:31:39.370+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:31:45.734+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:31:45.747+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:31:45.747+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:31:52.095+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:31:52.130+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:32:02.439+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:32:02.441+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:32:08.173+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:32:08.183+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:32:08.184+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:32:13.012+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:32:13.048+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:32:20.201+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:32:20.203+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:32:24.759+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:32:24.768+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:32:24.768+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:32:30.645+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:32:30.679+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:32:40.641+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:32:40.642+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:32:44.866+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:32:44.876+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:32:44.877+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:32:49.812+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:32:49.855+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:32:54.768+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:32:54.768+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:32:59.268+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:32:59.277+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:32:59.277+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:33:03.438+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:33:03.473+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:33:27.596+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:33:27.598+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:33:45.966+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:33:45.975+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:33:45.975+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:33:49.452+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:33:49.498+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:33:57.864+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:33:57.865+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:34:05.654+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:34:05.667+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:34:05.668+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:34:12.762+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:34:12.797+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:34:17.792+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:34:17.794+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:34:22.057+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:34:22.065+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:34:22.066+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:34:27.649+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:34:27.674+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:34:37.632+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:34:37.633+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:34:43.658+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:34:43.666+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:34:43.666+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:34:49.751+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:34:49.789+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:35:05.427+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:35:05.428+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:35:10.451+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:35:10.459+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:35:10.459+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:35:14.829+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:35:14.863+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:35:20.087+0200 INFO Inizio chiamata al meotodo getRapportino
+2023-10-16T14:35:20.088+0200 INFO Fine chiamata al meotodo getRapportino
+
+2023-10-16T14:35:24.354+0200 INFO Inizio chiamata al meotodo updateRapportino
+2023-10-16T14:35:24.361+0200 INFO Rapportino salvato con successo.
+2023-10-16T14:35:24.362+0200 INFO Fine chiamata al meotodo updateRapportino
+
+2023-10-16T14:35:29.694+0200 INFO Inizio chiamata al meotodo addRapportinoInDatabase
+2023-10-16T14:35:29.729+0200 INFO Fine chiamata al meotodo addRapportinoInDatabase
+
+2023-10-16T14:39:32.319+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T14:39:32.479+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T14:52:44.485+0200 INFO Application shutdown requested.
+2023-10-16T14:52:44.588+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:52:44.588+0200 INFO Stopping service [Tomcat]
+2023-10-16T14:52:44.591+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-16T14:52:44.598+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:52:44.600+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:52:44.601+0200 INFO Shutting down application...
+2023-10-16T14:56:38.449+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 14688 (C:\Users\sincrono\git\GruppoDiLavoro\Sincrono\target\classes started by sincrono in C:\Users\sincrono\git\GruppoDiLavoro\Sincrono)
+2023-10-16T14:56:38.468+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-16T14:56:39.245+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-16T14:56:39.412+0200 INFO Finished Spring Data repository scanning in 157 ms. Found 16 JPA repository interfaces.
+2023-10-16T14:56:40.014+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-16T14:56:40.028+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:56:40.029+0200 INFO Starting service [Tomcat]
+2023-10-16T14:56:40.030+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-16T14:56:40.190+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-16T14:56:40.190+0200 INFO Root WebApplicationContext: initialization completed in 1678 ms
+2023-10-16T14:56:40.391+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-16T14:56:40.446+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-16T14:56:40.751+0200 INFO HikariPool-1 - Starting...
+2023-10-16T14:56:41.082+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f3f434
+2023-10-16T14:56:41.084+0200 INFO HikariPool-1 - Start completed.
+2023-10-16T14:56:41.142+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-16T14:56:41.969+0200 INFO HHH000182: No default (no-argument) constructor for class: it.sincrono.entities.ContrattiScattiLivello (class must be instantiated by Interceptor)
+2023-10-16T14:56:42.509+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-16T14:56:42.521+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T14:56:43.906+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-16T14:56:44.287+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:56:44.311+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-16T14:56:44.320+0200 INFO Started SincronoApplication in 6.339 seconds (process running for 19.887)
+2023-10-16T14:56:48.199+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-16T14:56:48.200+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-16T14:56:48.202+0200 INFO Completed initialization in 2 ms
+2023-10-16T14:56:48.368+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T14:56:49.467+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T14:57:46.851+0200 INFO Application shutdown requested.
+2023-10-16T14:57:46.866+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:57:46.866+0200 INFO Stopping service [Tomcat]
+2023-10-16T14:57:46.867+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-16T14:57:46.871+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:57:46.873+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:57:46.874+0200 INFO Shutting down application...
+2023-10-16T14:57:51.611+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 13640 (C:\Users\sincrono\git\GruppoDiLavoro\Sincrono\target\classes started by sincrono in C:\Users\sincrono\git\GruppoDiLavoro\Sincrono)
+2023-10-16T14:57:51.626+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-16T14:57:52.470+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-16T14:57:52.649+0200 INFO Finished Spring Data repository scanning in 167 ms. Found 16 JPA repository interfaces.
+2023-10-16T14:57:53.368+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-16T14:57:53.380+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:57:53.382+0200 INFO Starting service [Tomcat]
+2023-10-16T14:57:53.383+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-16T14:57:53.506+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-16T14:57:53.506+0200 INFO Root WebApplicationContext: initialization completed in 1818 ms
+2023-10-16T14:57:53.705+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-16T14:57:53.772+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-16T14:57:54.166+0200 INFO HikariPool-1 - Starting...
+2023-10-16T14:57:54.530+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2ca132ad
+2023-10-16T14:57:54.533+0200 INFO HikariPool-1 - Start completed.
+2023-10-16T14:57:54.602+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-16T14:57:55.755+0200 INFO HHH000182: No default (no-argument) constructor for class: it.sincrono.entities.ContrattiScattiLivello (class must be instantiated by Interceptor)
+2023-10-16T14:57:56.287+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-16T14:57:56.300+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T14:57:58.040+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-16T14:57:58.452+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-16T14:57:58.478+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-16T14:57:58.487+0200 INFO Started SincronoApplication in 7.45 seconds (process running for 9.51)
+2023-10-16T14:58:24.659+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-16T14:58:24.659+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-16T14:58:24.661+0200 INFO Completed initialization in 1 ms
+2023-10-16T14:58:24.819+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T14:59:22.084+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T15:06:39.565+0200 INFO Application shutdown requested.
+2023-10-16T15:06:39.642+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:06:39.643+0200 INFO Stopping service [Tomcat]
+2023-10-16T15:06:39.645+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-16T15:06:39.650+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:06:39.652+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:06:39.654+0200 INFO Shutting down application...
+2023-10-16T15:06:43.860+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 7212 (C:\Users\sincrono\git\GruppoDiLavoro\Sincrono\target\classes started by sincrono in C:\Users\sincrono\git\GruppoDiLavoro\Sincrono)
+2023-10-16T15:06:43.876+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-16T15:06:44.607+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-16T15:06:44.769+0200 INFO Finished Spring Data repository scanning in 151 ms. Found 16 JPA repository interfaces.
+2023-10-16T15:06:45.302+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-16T15:06:45.314+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:06:45.316+0200 INFO Starting service [Tomcat]
+2023-10-16T15:06:45.317+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-16T15:06:45.435+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-16T15:06:45.436+0200 INFO Root WebApplicationContext: initialization completed in 1510 ms
+2023-10-16T15:06:45.632+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-16T15:06:45.693+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-16T15:06:46.012+0200 INFO HikariPool-1 - Starting...
+2023-10-16T15:06:46.333+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f3f434
+2023-10-16T15:06:46.335+0200 INFO HikariPool-1 - Start completed.
+2023-10-16T15:06:46.396+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-16T15:06:47.240+0200 INFO HHH000182: No default (no-argument) constructor for class: it.sincrono.entities.ContrattiScattiLivello (class must be instantiated by Interceptor)
+2023-10-16T15:06:47.735+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-16T15:06:47.747+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T15:06:49.092+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-16T15:06:49.436+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:06:49.461+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-16T15:06:49.470+0200 INFO Started SincronoApplication in 6.151 seconds (process running for 7.74)
+2023-10-16T15:06:52.074+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-16T15:06:52.074+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-16T15:06:52.080+0200 INFO Completed initialization in 6 ms
+2023-10-16T15:06:52.233+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T15:06:53.300+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T15:12:13.002+0200 INFO Application shutdown requested.
+2023-10-16T15:12:13.080+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:12:13.080+0200 INFO Stopping service [Tomcat]
+2023-10-16T15:12:13.082+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-16T15:12:13.086+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:12:13.088+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:12:13.089+0200 INFO Shutting down application...
+2023-10-16T15:12:18.888+0200 INFO Starting SincronoApplication using Java 17.0.7 with PID 6572 (C:\Users\sincrono\git\GruppoDiLavoro\Sincrono\target\classes started by sincrono in C:\Users\sincrono\git\GruppoDiLavoro\Sincrono)
+2023-10-16T15:12:18.906+0200 INFO No active profile set, falling back to 1 default profile: "default"
+2023-10-16T15:12:19.641+0200 INFO Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-16T15:12:19.802+0200 INFO Finished Spring Data repository scanning in 151 ms. Found 16 JPA repository interfaces.
+2023-10-16T15:12:20.357+0200 INFO Tomcat initialized with port(s): 8085 (http)
+2023-10-16T15:12:20.367+0200 INFO Initializing ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:12:20.368+0200 INFO Starting service [Tomcat]
+2023-10-16T15:12:20.369+0200 INFO Starting Servlet engine: [Apache Tomcat/10.1.8]
+2023-10-16T15:12:20.491+0200 INFO Initializing Spring embedded WebApplicationContext
+2023-10-16T15:12:20.492+0200 INFO Root WebApplicationContext: initialization completed in 1538 ms
+2023-10-16T15:12:20.684+0200 INFO HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-16T15:12:20.739+0200 INFO HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-10-16T15:12:21.050+0200 INFO HikariPool-1 - Starting...
+2023-10-16T15:12:21.388+0200 INFO HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1f3f434
+2023-10-16T15:12:21.390+0200 INFO HikariPool-1 - Start completed.
+2023-10-16T15:12:21.442+0200 INFO HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-10-16T15:12:22.246+0200 INFO HHH000182: No default (no-argument) constructor for class: it.sincrono.entities.ContrattiScattiLivello (class must be instantiated by Interceptor)
+2023-10-16T15:12:22.741+0200 INFO HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-10-16T15:12:22.752+0200 INFO Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-16T15:12:24.110+0200 WARN spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-16T15:12:24.473+0200 INFO Starting ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:12:24.499+0200 INFO Tomcat started on port(s): 8085 (http) with context path ''
+2023-10-16T15:12:24.507+0200 INFO Started SincronoApplication in 6.131 seconds (process running for 7.667)
+2023-10-16T15:12:30.291+0200 INFO Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-16T15:12:30.292+0200 INFO Initializing Servlet 'dispatcherServlet'
+2023-10-16T15:12:30.293+0200 INFO Completed initialization in 1 ms
+2023-10-16T15:12:30.420+0200 INFO Inizio chiamata al meotodo getRapportinoB64
+2023-10-16T15:12:31.360+0200 INFO Fine chiamata al meotodo getRapportinoB64
+
+2023-10-16T15:25:06.362+0200 INFO Application shutdown requested.
+2023-10-16T15:25:06.438+0200 INFO Pausing ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:25:06.438+0200 INFO Stopping service [Tomcat]
+2023-10-16T15:25:06.440+0200 INFO Destroying Spring FrameworkServlet 'dispatcherServlet'
+2023-10-16T15:25:06.445+0200 INFO Stopping ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:25:06.447+0200 INFO Destroying ProtocolHandler ["http-nio-8085"]
+2023-10-16T15:25:06.448+0200 INFO Shutting down application...

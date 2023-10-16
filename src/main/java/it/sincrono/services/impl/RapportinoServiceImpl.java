@@ -1,7 +1,7 @@
 package it.sincrono.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.Level;
@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
+	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel.xlsx";
 
 	@Value("${anagrafiche-profili.path-prefix}")
 	private String PREFIX;
@@ -316,13 +317,27 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public String getRapportinoB64(Integer anno, Integer mese) throws ServiceException {
+		int valAnno = anno.intValue();
+		int valMese = mese.intValue();
+		int rowNum = 0;
 		try {
-			List<Rapportino> rapportini = rapportinoRepository.findByMeseAndAnno(anno, mese);
-			return excelUtil.toExcel(rapportini);
+			List<Rapportino> rapportini = rapportinoRepository.findByMeseAndAnno(valAnno, valMese);
+			rowNum = excelUtil.toExcel(rapportini, rowNum, false);
+
+			rapportini = rapportinoRepository.findByMeseAndAnno(valAnno, ++valMese);
+			if (!rapportini.isEmpty())
+				rowNum = excelUtil.toExcel(rapportini, ++rowNum, true);
+
+			rapportini = rapportinoRepository.findByMeseAndAnno(valAnno, ++valMese);
+			if (!rapportini.isEmpty())
+				rowNum = excelUtil.toExcel(rapportini, ++rowNum, true);
+
+			return ExcelUtil.excelToBase64(EXCELPATH);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
+
 	}
 
 	@Override

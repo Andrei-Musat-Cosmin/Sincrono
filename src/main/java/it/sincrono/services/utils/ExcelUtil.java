@@ -37,8 +37,12 @@ public class ExcelUtil {
 	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
 	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel.xlsx";
 
-	public String toExcel(List<Rapportino> rapportini) throws ServiceException {
-		try (Workbook workbook = new XSSFWorkbook()) {
+	public int toExcel(List<Rapportino> rapportini, int rowNum, boolean append) throws ServiceException {
+		try {
+			FileInputStream fileInputStream = new FileInputStream(EXCELPATH);
+			Workbook workbook = (append ? new XSSFWorkbook(fileInputStream) : new XSSFWorkbook());
+			Sheet sheet = (append ? workbook.getSheet("Dati Excel") : workbook.createSheet("Dati Excel"));
+
 			/** SETUP CALENDAR PER I CONTROLLI SU SABATI E DOMENICHE **/
 			Calendar calendar = Calendar.getInstance();
 			int anno = rapportini.get(0).getAnno();
@@ -46,8 +50,13 @@ public class ExcelUtil {
 			calendar.set(anno, mese - 1, 1);
 			int numeroGiorniNelMese = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+			/** SETUP PER LE VARIABILI DEI CALCOLI PER OGNI RAPPORTINO **/
+			double tot = 0;
+			double ferie = 0;
+			double malattie = 0;
+			double ex_fs = 0;
+			double rol = 0;
 			/** SETUP DEGLI GLI OGGETTI PER LA COSTRUZIONE DELL'EXCEL **/
-			Sheet sheet = workbook.createSheet("Dati Excel");
 			sheet.setColumnWidth(0, 30 * 256);
 			for (int i = 1; i <= 31; i++) {
 				sheet.setColumnWidth(i, 3 * 256);
@@ -83,7 +92,6 @@ public class ExcelUtil {
 			CellStyle cellStyleSABDOM = createCellStyle(workbook, IndexedColors.GREEN, false);
 			CellStyle cellStyleNODAY = createCellStyle(workbook, IndexedColors.LIGHT_CORNFLOWER_BLUE, false);
 
-			int rowNum = 0;
 			int cellNum = 0;
 			String nomeCognomePrecedente = "", nomeCognomeAttuale = "";
 			row = sheet.createRow(rowNum);
@@ -120,14 +128,13 @@ public class ExcelUtil {
 			cell.setCellStyle(cellStyleRolLabel);
 			cell.setCellValue("ROL");
 
-			sheet.addMergedRegion(new CellRangeAddress(0, 0, 1, 31));
+			sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 1, 31));
 
-			rowNum++;
-			row = sheet.createRow(rowNum);
+			row = sheet.createRow(++rowNum);
 			row.setHeightInPoints(30);
-			for (int i = 0; i < 32; i++) {
-				cell = row.createCell(i + 1);
-				cell.setCellValue(i + 1);
+			for (int i = 1; i < 32; i++) {
+				cell = row.createCell(i);
+				cell.setCellValue(i);
 				cell.setCellStyle(cellStyleGiorni);
 				if (i == 31) {
 					cell = null;
@@ -141,12 +148,12 @@ public class ExcelUtil {
 					cell.setCellStyle(cellStylePermessiLabel);
 					cell = row.createCell(++i);
 					cell.setCellStyle(cellStyleRolLabel);
-					sheet.addMergedRegion(new CellRangeAddress(0, 1, 32, 32));
-					sheet.addMergedRegion(new CellRangeAddress(0, 1, 33, 33));
-					sheet.addMergedRegion(new CellRangeAddress(0, 1, 34, 34));
-					sheet.addMergedRegion(new CellRangeAddress(0, 1, 35, 35));
-					sheet.addMergedRegion(new CellRangeAddress(0, 1, 36, 36));
-					sheet.addMergedRegion(new CellRangeAddress(0, 1, 0, 0));
+					sheet.addMergedRegion(new CellRangeAddress(rowNum - 1, rowNum, 32, 32));
+					sheet.addMergedRegion(new CellRangeAddress(rowNum - 1, rowNum, 33, 33));
+					sheet.addMergedRegion(new CellRangeAddress(rowNum - 1, rowNum, 34, 34));
+					sheet.addMergedRegion(new CellRangeAddress(rowNum - 1, rowNum, 35, 35));
+					sheet.addMergedRegion(new CellRangeAddress(rowNum - 1, rowNum, 36, 36));
+					sheet.addMergedRegion(new CellRangeAddress(rowNum - 1, rowNum, 0, 0));
 				}
 
 			}
@@ -173,7 +180,6 @@ public class ExcelUtil {
 				cell = row.createCell(++cellNum);
 				calendar.set(anno, mese - 1, cellNum);
 				int giorno = calendar.get(Calendar.DAY_OF_WEEK);
-
 				/**
 				 * CONTROLLO SE IL GIORNO ATTUALE E' PIU GRANDE DELL'ULTIMO GIORNO DEL MESE
 				 * SELEZIONATO
@@ -187,22 +193,27 @@ public class ExcelUtil {
 						// CI SONO ORE REGISTRATE
 						if (rapportino.getOre() == 8) {
 							// SE SONO ESATTAMENTE 8
+
 							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
 								// SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
 								cell.setCellStyle(cellStyleAnnoMese);
 								cell.setCellValue(rapportino.getOre());
+								tot++;
 							} else {
 								cell.setCellStyle(cellStyleDefault);
 								cell.setCellValue("");
+								tot++;
 							}
 						} else {
 							// GESTISCO LE ORE INFERIORI AD 8
 							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
 								cell.setCellStyle(cellStyleAnnoMese);
 								cell.setCellValue(rapportino.getOre());
+								tot += 1 - (rapportino.getOre() / 8);
 							} else {
 								cell.setCellStyle(cellStyleDefault);
 								cell.setCellValue(rapportino.getOre());
+								tot += 1 - (rapportino.getOre() / 8);
 							}
 						}
 					} else if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
@@ -213,18 +224,22 @@ public class ExcelUtil {
 						// SE E' STATO UN GIORNO DI FERIE
 						cell.setCellStyle(cellStyleFerie);
 						cell.setCellValue("F");
+						ferie++;
 					} else if (rapportino.getMalattie() != null) {
 						// SE E' STATO UN GIORNO DI MALATTIA
 						cell.setCellStyle(cellStyleMalattia);
 						cell.setCellValue("M");
+						malattie++;
 					} else if (rapportino.getPermessi() != null) {
 						// SE E' STATO UN GIORNO DI PERMESSO
 						cell.setCellStyle(cellStylePermessi);
 						cell.setCellValue(rapportino.getPermessi() + "p");
+						ex_fs++;
 //				    } else if (rapportino.getRol() != null) {
 //				        // SE E' STATO UN GIORNO DI ROL
 //				        cell.setCellStyle(cellStyleRol);
 //				        cell.setCellValue(rapportino.getRol() + "r");
+//						rol++;
 					}
 				}
 
@@ -232,53 +247,46 @@ public class ExcelUtil {
 					int currentRowNum = rowNum + 1;
 					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleTotale);
-					cell.setCellValue("=COUNTIF(B" + currentRowNum + ":AF" + currentRowNum + ";\"\") + COUNTIF(B"
-							+ currentRowNum + ":AF" + currentRowNum + ";\"<8\") - (SUMIF(B" + currentRowNum + ":AF"
-							+ currentRowNum + ";\"<8\") / 8)");
+					cell.setCellValue(tot);
 
 					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);
-					cell.setCellValue("=COUNTIFS(B" + currentRowNum + ":AF" + currentRowNum + ";\"F\")");
+					cell.setCellValue(ferie);
 
 					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);
-					cell.setCellValue("=COUNTIFS(B" + currentRowNum + ":AF" + currentRowNum + ";\"M\")");
+					cell.setCellValue(malattie);
 
 					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);
-					cell.setCellValue("=SUM(IF(MID($B" + currentRowNum + ":$AF" + currentRowNum
-							+ ";2;1)=\"p\";VALUE(MID($B" + currentRowNum + ":$AF" + currentRowNum + ";1;1));0))");
+					cell.setCellValue(ex_fs);
 
 					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);
-					cell.setCellValue("=SUM(IF(MID(B" + currentRowNum + ":AF" + currentRowNum
-							+ ";2;1)=\"r\";VALUE(MID(B" + currentRowNum + ":AF" + currentRowNum + ";1;1));0))");
+					cell.setCellValue(rol);
+
+					/** RESET DELLE VARIABILI **/
 					cellNum = 0;
-					rowNum = currentRowNum - 1;
+					tot = 0;
+					ferie = 0;
+					malattie = 0;
+					ex_fs = 0;
+					rol = 0;
 				}
 			}
-			FileOutputStream outputStream = new FileOutputStream(EXCELPATH);
-			workbook.write(outputStream);
+			try (FileOutputStream outputStream = new FileOutputStream(EXCELPATH)) {
+				workbook.write(outputStream);
+			}
 			workbook.close();
-			outputStream.close();
+			return rowNum;
 		} catch (IOException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-		File excelFile = new File(EXCELPATH);
-		try (FileInputStream fis = new FileInputStream(excelFile)) {
-			byte[] excelBytes = new byte[(int) excelFile.length()];
-			fis.read(excelBytes);
-
-			// Convert the bytes to a Base64-encoded string
-			String base64EncodedString = Base64.getEncoder().encodeToString(excelBytes);
-			fis.close();
-			return base64EncodedString;
-		} catch (IOException e) {
+			throw new ServiceException(ServiceMessages.IMPOSSIBILE_SCRIVERE_EXCEL);
+		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
 
+		}
 	}
 
 	public static String excelToBase64(String filePath) throws ServiceException {
