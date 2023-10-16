@@ -239,6 +239,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			}
 
 			LocalDate oggi = LocalDate.now();
+			
 			fileUtil.creatFolder(PREFIX + anagraficaDto.getAnagrafica().getCodiceFiscale()
 					+ RAPPORTINI + oggi.getYear() + "/"
 					+ oggi.getMonthValue() + ".txt");
