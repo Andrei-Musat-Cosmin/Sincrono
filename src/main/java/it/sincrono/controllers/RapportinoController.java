@@ -356,7 +356,7 @@ public class RapportinoController {
 		return httpEntity;
 	}
 
-	@DeleteMapping("/delete-rapportino")
+	@PostMapping("/delete-rapportino")
 	public @ResponseBody HttpEntity<GenericResponse> deleteRapportinoInDatabase(
 			@RequestBody RapportinoRequest rapportinoRequest) {
 
@@ -366,7 +366,7 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo addRapportinoInDatabase");
 
-			rapportinoService.addRapportinoInDatabase(rapportinoRequest);
+			rapportinoService.deleteRapportinoInDatabase(rapportinoRequest);
 
 			genericResponse.setEsito(new Esito());
 

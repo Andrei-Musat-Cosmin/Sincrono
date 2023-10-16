@@ -10,8 +10,9 @@ import it.sincrono.entities.Rapportino;
 
 public interface RapportinoRepository extends JpaRepository<Rapportino, Integer> {
 
+	
 	@Modifying
-	@Query("DELETE FROM Rapportino r WHERE r.mese = ?1 AND r.anno = ?2 AND r.anagrafica.id=?3")
+	@Query(value="DELETE FROM rapportini r WHERE r.mese = ?1 AND r.anno = ?2 AND r.id_anagrafica=?3",nativeQuery = true)
 	void deleteByMeseAndAnnoAndId(int mese, int anno, int idAnagrafica);
 
 	@Query("SELECT a FROM Rapportino a WHERE a.anno = ?1 AND a.mese = ?2 ORDER BY (a.anagrafica.id)")

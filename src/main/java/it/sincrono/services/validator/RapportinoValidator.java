@@ -2,7 +2,6 @@ package it.sincrono.services.validator;
 
 import org.apache.logging.log4j.Level;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +46,18 @@ public class RapportinoValidator {
 		}
 	}
 
-	public Boolean updateValidate(RapportinoDto rapportinoDto, Integer idAnagrafica) {
+	public Boolean updateValidate(RapportinoDto rapportinoDto, Anagrafica anagrafica) {
 
-		Contratto contratto = mapperCustom.toContratto(idAnagrafica);
+		Contratto contratto;
+
+		if (anagrafica != null) {
+
+			contratto = mapperCustom.toContratto(anagrafica.getId());
+
+		} else {
+
+			return false;
+		}
 
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 
@@ -58,27 +66,28 @@ public class RapportinoValidator {
 					giornoDto.getCliente() == null &&
 
 					giornoDto.getOreOrdinarie() == null) ||
-					
+
 					(giornoDto.getGiorno() != null &&
 
-					(giornoDto.getCliente() != null && !giornoDto.getCliente().isEmpty()) &&
+							(giornoDto.getCliente() != null && !giornoDto.getCliente().isEmpty()) &&
 
-					(giornoDto.getOreOrdinarie() != null && !giornoDto.getOreOrdinarie().isEmpty())))) {
-				
-				
+							(giornoDto.getOreOrdinarie() != null && !giornoDto.getOreOrdinarie().isEmpty())))) {
+
 				return false;
 
 			}
-			
-			if(contratto.getTipoContratto().getId()==1 || contratto.getTipoContratto().getId()==2) {
-				
-				
-				//mettere altri campi che devono essere null
+
+			if (contratto!=null && contratto.getTipoContratto() != null) {
+
+				if (contratto.getTipoContratto().getId() == 1 || contratto.getTipoContratto().getId() == 2) {
+
+					// mettere altri campi che devono essere null
+				}
+
 			}
 
 		}
-		
-		
+
 		return true;
 
 	}

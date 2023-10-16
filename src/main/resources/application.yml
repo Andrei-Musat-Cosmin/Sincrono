@@ -13,3 +13,13 @@ spring:
 
 anagrafiche-profili:
   path-prefix: C:/Users/SINCRONO/Desktop/profili-anagrafiche/
+  
+  
+  anagrafiche-profili-rapportini:
+    path-prefix-rapportini: /rapportini/
+  
+  
+  anagrafiche-profili-documenti:
+   path-prefix-documenti: /documenti/image-profile.txt
+  
+ 

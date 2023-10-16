@@ -23,6 +23,7 @@ import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.MeseDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.RapportinoRequestDto;
+import it.sincrono.responses.DocumentResponse;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 
@@ -226,4 +227,54 @@ public class FileUtil {
 		}
 		LOGGER.log(Level.INFO, "Note salvate con successo.");
 	}
+
+	// ------------metodi per la lettura e scrittura di un image in base64 nel
+	// file---------------------------------------
+
+	public void saveFileImage(String percorso, String base64) throws Exception {
+
+		try {
+
+			Path filePath = Path.of(percorso);
+			try (FileWriter writer = new FileWriter(filePath.toFile(), true)) {
+				writer.write(base64);
+			}
+		} catch (HttpMessageNotReadableException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+		} catch (IOException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		LOGGER.log(Level.INFO, "image salvata con successo.");
+	}
+
+	public DocumentResponse readFileImage(String percorso) throws Exception {
+
+		creatFolder(percorso);
+
+		DocumentResponse documentResponse = null;
+
+		try (BufferedReader reader = new BufferedReader(new FileReader(percorso))) {
+
+			documentResponse = covertStringInDocumentResponse(reader.readLine());
+
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new Exception(e);
+		}
+
+		return documentResponse;
+	}
+
+	private DocumentResponse covertStringInDocumentResponse(String fileString) {
+
+		return new DocumentResponse(fileString);
+
+	}
+
 }
