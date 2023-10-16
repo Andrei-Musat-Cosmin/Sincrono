@@ -2,7 +2,6 @@ package it.sincrono.services.impl;
 
 import java.util.List;
 
-
 import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.Level;
@@ -33,13 +32,12 @@ import it.sincrono.services.utils.RapportinoUtil;
 import it.sincrono.services.validator.RapportinoValidator;
 import java.util.ArrayList;
 
-
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
 
 	@Value("${anagrafiche-profili.path-prefix}")
 	private String PREFIX;
-	
+
 	@Value("${anagrafiche-profili.anagrafiche-profili-rapportini.path-prefix-rapportini}")
 	private String RAPPORTINI;
 
@@ -81,9 +79,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			}
 
 			rapportinoDto = fileUtil
-					.readFile(PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() 
-							+ RAPPORTINI+
-							+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+					.readFile(PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
+							+ RAPPORTINI + +rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 							+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt");
 
 			rapportinoDto.setAnnoRequest(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
@@ -107,24 +104,21 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
-		
-		
-		if (!rapportinoValidator.updateValidate(rapportinoRequestDto.getRapportinoDto(),
-				anagraficaRepository.findByCodiceFiscale(
-						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()))) {
+
+		if (!rapportinoValidator.updateValidate(rapportinoRequestDto.getRapportinoDto(), anagraficaRepository
+				.findByCodiceFiscale(rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()))) {
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
 		}
 
-		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() 
-				+ RAPPORTINI +
-				+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
+				+ RAPPORTINI + +rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
 
 		try {
 
 			fileUtil.saveFile(filePath, rapportinoRequestDto);
-			
-		}catch (ServiceException e) {
+
+		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
@@ -137,14 +131,14 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
-		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() + "/"
-				+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
+				+ RAPPORTINI + +rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
 
 		try {
 
 			fileUtil.appendNote(filePath, rapportinoRequestDto.getRapportinoDto().getNote());
-			
+
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -224,8 +218,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
 
 		try {
-			rapportinoDto = fileUtil.readFile(PREFIX + rapportinoRequest.getCodiceFiscale() + "/"
-					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
+			rapportinoDto = fileUtil.readFile(PREFIX + rapportinoRequest.getCodiceFiscale() + RAPPORTINI
+					+rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
 
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 				Rapportino rapportino = new Rapportino();
@@ -252,7 +246,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-   @Transactional
+	@Transactional
 	public void deleteRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException {
 
 		try {
@@ -334,9 +328,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public boolean getCheckRapportinoInviato(RapportinoRequest rapportinoRequest) throws ServiceException {
 		try {
-		 return rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
-				 rapportinoRequest.getAnno(), 
-				 rapportinoRequest.getMese());
+			return rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
+					rapportinoRequest.getAnno(), rapportinoRequest.getMese());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);

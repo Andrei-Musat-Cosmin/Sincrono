@@ -45,6 +45,9 @@ public class DocumentServiceImpl extends BaseServiceImpl implements DocumentServ
 
 	@Autowired
 	FileUtil fileUtil;
+	
+	@Autowired
+	AnagraficaRepository anagraficaRepository;
 
 	@Override
 	public void addImage(DocumentRequest documentRequest) throws ServiceException {
