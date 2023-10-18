@@ -153,12 +153,12 @@ public class FilterCustom {
 		}
 		if (anagraficaRequestDto.getAnagraficaDto().getCommesse() != null
 				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().size() > 0
-				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
-			String aziendaCliente = anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente();
+				&& anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAzienda() != null) {
+			Integer idTipoAzienda = anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAzienda()
+					.getId();
 			Boolean commessaOk = false;
 			for (Commessa commessa : anagraficaDto.getCommesse()) {
-				if (aziendaCliente != null
-						&& commessa.getAziendaCliente().toLowerCase().startsWith(aziendaCliente.toLowerCase())) {
+				if (idTipoAzienda != null && commessa.getTipoAzienda().getId() == idTipoAzienda) {
 					commessaOk = true;
 				}
 			}
@@ -306,11 +306,10 @@ public class FilterCustom {
 
 	private boolean toFilterCommessaAziendaCliente(Commessa commessa, AnagraficaRequestDto anagraficaRequestDto) {
 
-		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null) {
+		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAzienda() != null) {
 
-			if (!(commessa.getAziendaCliente()
-					.startsWith(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente()))) {
-
+			if (commessa.getTipoAzienda().getId() != anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0)
+					.getTipoAzienda().getId()) {
 				return false;
 			}
 

@@ -173,9 +173,8 @@ public class FileUtil {
 		if (rapportino != null) {
 			try {
 				Path filePath = Path.of(path);
-				if (Files.exists(filePath)) {
+				if (Files.exists(filePath))
 					Files.delete(filePath);
-				}
 				String dati = "";
 				try (FileWriter writer = new FileWriter(filePath.toFile())) {
 					for (GiornoDto giorno : rapportino.getRapportinoDto().getMese().getGiorni()) {

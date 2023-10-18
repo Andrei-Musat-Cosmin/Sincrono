@@ -30,7 +30,6 @@ import it.sincrono.services.utils.FileUtil;
 import it.sincrono.services.utils.FilterCustom;
 import it.sincrono.services.utils.RapportinoUtil;
 import it.sincrono.services.validator.RapportinoValidator;
-import java.util.ArrayList;
 
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
@@ -93,7 +92,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			rapportinoUtil.calcoloRapportinoDtoGiorniLavorati(rapportinoDto);
 
 		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
@@ -112,7 +111,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		}
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
-				+ RAPPORTINI +rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
 
 		try {
@@ -120,7 +119,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			fileUtil.saveFile(filePath, rapportinoRequestDto);
 
 		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
@@ -220,7 +219,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		try {
 			rapportinoDto = fileUtil.readFile(PREFIX + rapportinoRequest.getCodiceFiscale() + RAPPORTINI
-					+rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
+					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
 
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 				Rapportino rapportino = new Rapportino();

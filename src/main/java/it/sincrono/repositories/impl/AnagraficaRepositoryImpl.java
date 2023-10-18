@@ -129,9 +129,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				}
 			}
 		}
-		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null)
+		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAzienda() != null)
 			listAnagraficaDto = CheckForFilterCommessa(listAnagraficaDto,
-					anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente());
+					anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAzienda().getId());
 		return listAnagraficaDto;
 	}
 
@@ -544,8 +544,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 				if (anagraficaDto.getCommesse().get(0) != null) {
 					Commessa commessa = anagraficaDto.getCommesse().get(0);
-					if (commessa.getAziendaCliente() != null && commessa.getAziendaCliente() != "") {
-						subString += " AND c.azienda_cliente LIKE '" + commessa.getAziendaCliente() + "'";
+					if (commessa.getTipoAzienda() != null && commessa.getTipoAzienda().getId() != null) {
+						subString += " AND c.azienda_cliente = " + commessa.getTipoAzienda().getId() + "";
 					}
 
 				}
@@ -572,8 +572,12 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					Commessa commessa = new Commessa();
 					if (currentCommessa[0] != null)
 						commessa.setId((Integer) currentCommessa[0]);
-					if (currentCommessa[1] != null)
-						commessa.setAziendaCliente((String) currentCommessa[1]);
+					TipoAzienda tipoAzienda = new TipoAzienda();
+					if (currentCommessa[1] != null) {
+						tipoAzienda.setId((Integer) currentCommessa[1]);
+						tipoAzienda.setDescrizione((String) currentCommessa[12]);
+					}
+					commessa.setTipoAzienda(tipoAzienda);
 					if (currentCommessa[2] != null)
 						commessa.setClienteFinale((String) currentCommessa[2]);
 					if (currentCommessa[3] != null)
@@ -603,7 +607,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		return listaCommesse;
 	}
 
-	private List<AnagraficaDto> CheckForFilterCommessa(List<AnagraficaDto> listAnagraficaDto, String aziendaCliente) {
+	private List<AnagraficaDto> CheckForFilterCommessa(List<AnagraficaDto> listAnagraficaDto, Integer idTipoAzienda) {
 
 		Integer currentId = 0;
 		boolean flag;
@@ -614,7 +618,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			flag = false;
 
 			for (Commessa commessa : currentAnagraficaDto.getCommesse()) {
-				if (commessa.getAziendaCliente().toLowerCase().equals(aziendaCliente.toLowerCase())) {
+				if (commessa.getTipoAzienda().getId() == idTipoAzienda) {
 					flag = true;
 					break;
 				}
