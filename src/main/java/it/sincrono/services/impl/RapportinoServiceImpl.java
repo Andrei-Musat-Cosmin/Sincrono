@@ -74,7 +74,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		try {
 
-			if (!rapportinoValidator.getValidate(rapportinoRequestDto.getRapportinoDto())) {
+			if (!rapportinoValidator.validateFieldsForPath(rapportinoRequestDto.getRapportinoDto())) {
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
 			}
 
@@ -105,8 +105,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
-		if (!rapportinoValidator.updateValidate(rapportinoRequestDto.getRapportinoDto(), anagraficaRepository
-				.findByCodiceFiscale(rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()))) {
+		if (!rapportinoValidator.validateGiornoDto(rapportinoRequestDto.getRapportinoDto())) {
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
 		}
 
@@ -130,6 +129,13 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
+		
+		
+		
+		if (!rapportinoValidator.validateNote(rapportinoRequestDto.getRapportinoDto())) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+		}
+
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
 				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
@@ -140,6 +146,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			fileUtil.appendNote(filePath, rapportinoRequestDto.getRapportinoDto().getNote());
 
 		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
 		}
@@ -149,8 +158,15 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void insertRapportino(RapportinoInviato rapportinoInviato) throws ServiceException {
+		
+		if (!rapportinoValidator.validateRapportiniInviati(rapportinoInviato)) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoInviato");
+		}
+		
 		try {
 			rapportinoInviatoRepository.saveAndFlush(rapportinoInviato);
+			
+	
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -159,6 +175,12 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void updateFreeze(RapportinoInviato rapportinoInviato) throws ServiceException {
+		
+		if (!rapportinoValidator.validateFreeze(rapportinoInviato)) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoInviato");
+		}
+		
+		
 		try {
 			RapportinoInviato currentRapportinoInviato = rapportinoInviatoRepository.findById(rapportinoInviato.getId())
 					.get();
@@ -169,7 +191,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 				rapportinoInviatoRepository.saveAndFlush(currentRapportinoInviato);
 			} else {
 				if (currentRapportinoInviato.getCheckFreeze())
-					rapportinoInviatoRepository.delete(rapportinoInviato);
+					rapportinoInviatoRepository.delete(rapportinoInviato);  //id,checkFrezzee
 			}
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
@@ -210,6 +232,10 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException {
+		
+		if (!rapportinoValidator.validateFieldsForPath(rapportinoRequest)){
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoRequest");
+		}
 
 		RapportinoDto rapportinoDto = new RapportinoDto();
 
@@ -238,6 +264,10 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			}
 			rapportinoRepository.saveAllAndFlush(rapportini);
 
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());

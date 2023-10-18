@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Contratto;
+import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.services.utils.MapperCustom;
 
 @Component
@@ -24,7 +26,7 @@ public class RapportinoValidator {
 	@Autowired
 	AnagraficaRepository anagraficaRepository;
 
-	public Boolean getValidate(RapportinoDto rapportinoDto) {
+	public Boolean validateFieldsForPath(RapportinoDto rapportinoDto) {
 
 		if (rapportinoDto != null) {
 
@@ -61,13 +63,21 @@ public class RapportinoValidator {
 		}
 	}
 
-	public Boolean updateValidate(RapportinoDto rapportinoDto, Anagrafica anagrafica) {
+	public Boolean validateGiornoDto(RapportinoDto rapportinoDto) {
 
 		Contratto contratto = null;
 
-		if (getValidate(rapportinoDto)) {
+		if (validateFieldsForPath(rapportinoDto)) {
 
-			contratto = mapperCustom.toContratto(anagrafica.getId());
+			contratto = mapperCustom.toContratto(
+					
+					anagraficaRepository.findByCodiceFiscale(
+							
+							rapportinoDto.getAnagrafica().getCodiceFiscale()
+							
+							).getId());
+					
+				
 
 		}else {
 			
@@ -108,5 +118,117 @@ public class RapportinoValidator {
 		return true;
 
 	}
+	
+	
+	public Boolean validateNote(RapportinoDto rapportinoDto) {
 
+		Contratto contratto = null;
+
+		if (!validateFieldsForPath(rapportinoDto)) {
+
+					return false;
+				
+
+		}
+
+		if(rapportinoDto.getNote()==null || rapportinoDto.getNote().equals("")) {
+			
+			
+			return false;
+		}
+		
+		
+		return true;
+
+	}
+
+	
+	public Boolean validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
+
+	
+
+		if(rapportinoInviato.getId()==null) {
+			
+			if((rapportinoInviato.getNome()==null || rapportinoInviato.getNome().equals("")) ||
+			   (rapportinoInviato.getCognome()==null || rapportinoInviato.getCognome().equals("")) ||
+			   (rapportinoInviato.getCodiceFiscale()==null || rapportinoInviato.getCodiceFiscale().equals("")) ||
+			   (rapportinoInviato.getMese()==null || rapportinoInviato.getAnno()==null)) {
+				
+				return false;
+				
+				
+			}
+			
+			
+		}else {
+			
+			return false;
+		}
+		
+		
+		return true;
+
+	}
+	
+	
+	public Boolean validateFreeze(RapportinoInviato rapportinoInviato) {
+
+		
+
+		if(rapportinoInviato.getId()!=null) {
+			
+			if(rapportinoInviato.getCheckFreeze()==null) {
+				
+				return false;
+				
+				
+			}
+			
+			
+		}else {
+			
+			return false;
+		}
+		
+		
+		return true;
+
+	}
+	
+	public Boolean validateFieldsForPath(RapportinoRequest rapportinoRequest) {
+
+		if (rapportinoRequest != null) {
+
+			if (rapportinoRequest.getCodiceFiscale() == null
+					|| rapportinoRequest.getCodiceFiscale().equals("")) {
+				LOGGER.log(Level.ERROR, "codice fiscale del rapportinoRequest non è valorizzato");
+				return false;
+			}
+
+			Anagrafica anagrafica = anagraficaRepository
+					.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
+
+			if (anagrafica == null) {
+
+				LOGGER.log(Level.ERROR, "anagrafica non esistente");
+
+				return false;
+			}
+
+			if (rapportinoRequest.getAnno() == null) {
+				LOGGER.log(Level.ERROR, "anno request del rapportinoRequest non è valorizzato");
+				return false;
+			}
+
+			if (rapportinoRequest.getMese() == null) {
+				LOGGER.log(Level.ERROR, "mese request del rapportinoRequest non è valorizzato");
+				return false;
+			}
+
+			return true;
+
+		} else {
+			return false;
+		}
+	}
 }

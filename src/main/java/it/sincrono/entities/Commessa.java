@@ -1,7 +1,10 @@
 package it.sincrono.entities;
 
 import java.util.Date;
+import java.util.Objects;
 
+import it.sincrono.services.utils.DateUtil;
+import it.sincrono.services.utils.TipologicheCompare;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -71,6 +74,24 @@ public class Commessa {
 		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
 		this.attivo = attivo;
 
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Commessa other = (Commessa) obj;
+		return  Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
+				&& Objects.equals(clienteFinale, other.clienteFinale) && DateUtil.dateCompare(dataFine, other.dataFine)
+				&& DateUtil.dateCompare(dataInizio, other.dataInizio) && Objects.equals(distacco, other.distacco)
+				&& Objects.equals(distaccoAzienda, other.distaccoAzienda)
+				&& DateUtil.dateCompare(distaccoData, other.distaccoData) && Objects.equals(id, other.id)
+				&& Objects.equals(tariffaGiornaliera, other.tariffaGiornaliera)
+				&& Objects.equals(titoloPosizione, other.titoloPosizione);
 	}
 
 	public Commessa() {
