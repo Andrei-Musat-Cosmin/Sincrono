@@ -10,11 +10,7 @@ public class GiornoDto {
 
 	private List<Double> oreOrdinarie;
 
-	private Double fascia1;
-
-	private Double fascia2;
-
-	private Double fascia3;
+	private List<StraordinarioDto> straordinari;
 
 	private Boolean ferie;
 
@@ -24,15 +20,13 @@ public class GiornoDto {
 
 	private String note;
 
-	public GiornoDto(Integer giorno, List<String> cliente, List<Double> oreOrdinarie, Double fascia1, Double fascia2,
-			Double fascia3, Boolean ferie, Boolean malattie, Double permessi, String note) {
+	public GiornoDto(Integer giorno, List<String> cliente, List<Double> oreOrdinarie,
+			List<StraordinarioDto> straordinari, Boolean ferie, Boolean malattie, Double permessi, String note) {
 		super();
 		this.giorno = giorno;
 		this.cliente = cliente;
 		this.oreOrdinarie = oreOrdinarie;
-		this.fascia1 = fascia1;
-		this.fascia2 = fascia2;
-		this.fascia3 = fascia3;
+		this.straordinari = straordinari;
 		this.ferie = ferie;
 		this.malattie = malattie;
 		this.permessi = permessi;
@@ -41,7 +35,6 @@ public class GiornoDto {
 
 	public GiornoDto() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getGiorno() {
@@ -68,28 +61,12 @@ public class GiornoDto {
 		this.oreOrdinarie = oreOrdinarie;
 	}
 
-	public Double getFascia1() {
-		return fascia1;
+	public List<StraordinarioDto> getStraordinari() {
+		return straordinari;
 	}
 
-	public void setFascia1(Double fascia1) {
-		this.fascia1 = fascia1;
-	}
-
-	public Double getFascia2() {
-		return fascia2;
-	}
-
-	public void setFascia2(Double fascia2) {
-		this.fascia2 = fascia2;
-	}
-
-	public Double getFascia3() {
-		return fascia3;
-	}
-
-	public void setFascia3(Double fascia3) {
-		this.fascia3 = fascia3;
+	public void setStraordinari(List<StraordinarioDto> straordinari) {
+		this.straordinari = straordinari;
 	}
 
 	public Boolean getFerie() {
@@ -123,5 +100,9 @@ public class GiornoDto {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	
+	
+	
 
 }

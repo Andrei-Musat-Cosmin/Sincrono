@@ -2,7 +2,7 @@ package it.sincrono.services.utils;
 
 import it.sincrono.entities.Contratto;
 
-public class TipologicheCompare {
+public class TipologicheCompareContratto {
 
 	public static Boolean tipologicheCompare(Contratto contratto, Contratto ContrattoDb) {
 

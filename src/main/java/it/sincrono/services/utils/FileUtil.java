@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.MeseDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.repositories.dto.StraordinarioDto;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.responses.DocumentResponse;
 import it.sincrono.services.costants.ServiceMessages;
@@ -73,6 +74,10 @@ public class FileUtil {
 				List<String> cliente = new ArrayList<String>();
 
 				List<Double> oreOrdinarie = new ArrayList<Double>();
+				
+				StraordinarioDto straordinario = new StraordinarioDto();
+				
+				List<StraordinarioDto> straordinari = new ArrayList<StraordinarioDto>();;
 
 				String[] giornoSplit = giornoNotSplit.split(",");
 
@@ -92,14 +97,34 @@ public class FileUtil {
 						if (elem.split("-")[1] != null && !elem.split("-")[1].isEmpty()
 								&& !elem.split("-")[1].equals("null"))
 							oreOrdinarie.add(Double.parseDouble(elem.split("-")[1]));
+						
+						if (elem.split("-")[2] != null && !elem.split("-")[2].isEmpty()
+								&& !elem.split("-")[2].equals("null"))
+							straordinario.setFascia1(Double.parseDouble(elem.split("-")[2]));
+						
+						if (elem.split("-")[3] != null && !elem.split("-")[3].isEmpty()
+								&& !elem.split("-")[3].equals("null"))
+							straordinario.setFascia2(Double.parseDouble(elem.split("-")[3]));
+						
+						if (elem.split("-")[4] != null && !elem.split("-")[4].isEmpty()
+								&& !elem.split("-")[4].equals("null"))
+							straordinario.setFascia3(Double.parseDouble(elem.split("-")[4]));
+						
+						straordinari.add(straordinario.getFascia1()!=null ||
+								straordinario.getFascia2()!=null 
+								|| straordinario.getFascia3()!=null?straordinario:null);
 
 					} else {
 
 						cliente = null;
 
 						oreOrdinarie = null;
+						
+						straordinari=null;
 
 					}
+					
+					
 
 				}
 
@@ -108,6 +133,26 @@ public class FileUtil {
 
 				if (oreOrdinarie != null)
 					giornoDto.setOreOrdinarie(oreOrdinarie);
+				
+				if (straordinari != null)
+					giornoDto.setStraordinari(straordinari);
+				
+				
+				
+				if (giornoSplit[2] != null && !giornoSplit[2].isEmpty() && !giornoSplit[2].equals("null"))
+					giornoDto.setFerie(Boolean.parseBoolean(giornoSplit[2]));
+				
+				if (giornoSplit[3] != null && !giornoSplit[3].isEmpty() && !giornoSplit[3].equals("null"))
+					giornoDto.setMalattie(Boolean.parseBoolean(giornoSplit[3]));
+				
+				if (giornoSplit[4] != null && !giornoSplit[4].isEmpty() && !giornoSplit[4].equals("null"))
+					giornoDto.setPermessi(Double.parseDouble(giornoSplit[4]));
+				
+				if (giornoSplit[5] != null && !giornoSplit[5].isEmpty() && !giornoSplit[5].equals("null"))
+					giornoDto.setNote(giornoSplit[5]);
+				
+				
+				
 
 				mese.add(giornoDto);
 

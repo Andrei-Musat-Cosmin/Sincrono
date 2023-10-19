@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.Objects;
 
 import it.sincrono.services.utils.DateUtil;
-import it.sincrono.services.utils.TipologicheCompare;
+import it.sincrono.services.utils.TipologicheCompareCommessa;
+import it.sincrono.services.utils.TipologicheCompareContratto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -85,7 +86,7 @@ public class Commessa {
 		if (getClass() != obj.getClass())
 			return false;
 		Commessa other = (Commessa) obj;
-		return  Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
+		return TipologicheCompareCommessa.tipologicheCompare(this, other) && Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
 				&& Objects.equals(clienteFinale, other.clienteFinale) && DateUtil.dateCompare(dataFine, other.dataFine)
 				&& DateUtil.dateCompare(dataInizio, other.dataInizio) && Objects.equals(distacco, other.distacco)
 				&& Objects.equals(distaccoAzienda, other.distaccoAzienda)

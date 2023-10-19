@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import it.sincrono.services.utils.DateUtil;
-import it.sincrono.services.utils.TipologicheCompare;
+import it.sincrono.services.utils.TipologicheCompareContratto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -255,7 +255,7 @@ public class Contratto {
 				&& Objects.equals(superminimoMensile, other.superminimoMensile)
 				&& Objects.equals(superminimoRal, other.superminimoRal)
 				&& Objects.equals(tariffaPartitaIva, other.tariffaPartitaIva) && Objects.equals(ticket, other.ticket)
-				&& TipologicheCompare.tipologicheCompare(this, other) && Objects.equals(tutor, other.tutor)
+				&& TipologicheCompareContratto.tipologicheCompare(this, other) && Objects.equals(tutor, other.tutor)
 				&& Objects.equals(valoreTicket, other.valoreTicket) && Objects.equals(visitaMedica, other.visitaMedica);
 	}
 
