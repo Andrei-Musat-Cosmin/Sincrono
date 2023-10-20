@@ -75,10 +75,7 @@ public class FileUtil {
 
 				List<Double> oreOrdinarie = new ArrayList<Double>();
 
-				StraordinarioDto straordinario = new StraordinarioDto();
-
 				List<StraordinarioDto> straordinari = new ArrayList<StraordinarioDto>();
-				;
 
 				String[] giornoSplit = giornoNotSplit.split(",");
 
@@ -90,6 +87,8 @@ public class FileUtil {
 				for (String elem : giornoSplit[1].split("/")) {
 
 					if (elem != null && !elem.equals("null")) {
+
+						StraordinarioDto straordinario = new StraordinarioDto();
 
 						if (elem.split("-")[0] != null && !elem.split("-")[0].isEmpty()
 								&& !elem.split("-")[0].equals("null"))
@@ -238,7 +237,7 @@ public class FileUtil {
 										dati += "-" + giorno.getStraordinari().get(i).getFascia3();
 									} else
 										dati += "-null";
-								}else {
+								} else {
 									dati += "-null-null-null";
 								}
 
