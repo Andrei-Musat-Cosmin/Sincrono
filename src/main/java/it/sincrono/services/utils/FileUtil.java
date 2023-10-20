@@ -326,7 +326,7 @@ public class FileUtil {
 		try {
 
 			Path filePath = Path.of(percorso);
-			try (FileWriter writer = new FileWriter(filePath.toFile(), true)) {
+			try (FileWriter writer = new FileWriter(filePath.toFile())) {
 				writer.write(base64);
 			}
 		} catch (HttpMessageNotReadableException e) {
