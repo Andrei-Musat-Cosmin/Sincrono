@@ -220,8 +220,14 @@ public class FileUtil {
 						if (giorno.getCliente() != null) {
 							for (int i = 0; i < giorno.getCliente().size(); i++) {
 
-								/** SET DELLA COMMESSA & SET ORE ORDINARIE **/
-								dati += giorno.getCliente().get(i) + "-" + giorno.getOreOrdinarie().get(i);
+								/** SET DELLA COMMESSA **/
+								dati += giorno.getCliente().get(i);
+
+								/** SET ORE ORDINARIE SE CI SONO **/
+								if (giorno.getOreOrdinarie() != null) {
+									dati += "-" + giorno.getOreOrdinarie().get(i);
+								} else
+									dati += "-null";
 
 								/** SET DI 1FASCIA &OR 2FASCIA &OR 3FASCIA **/
 								if (giorno.getStraordinari() != null) {
@@ -245,39 +251,31 @@ public class FileUtil {
 								if (i < giorno.getCliente().size() - 1)
 									dati += "/";
 							}
-							/** SET DELLE FEIRE E DELLE MALATTIE A NULL **/
-							dati += ",null,null,";
+							/** SET DI FERIE OR MALATTIE **/
+							if (giorno.getFerie() != null) {
+								dati += "," + giorno.getFerie();
+							} else
+								dati += ",null";
+							if (giorno.getMalattie() != null) {
+								dati += "," + giorno.getMalattie();
+							} else
+								dati += ",null";
 
 							/** SET DEI PERMESSI **/
 							if (giorno.getPermessi() != null) {
-								dati += giorno.getPermessi() + ",";
+								dati += "," + giorno.getPermessi();
 							} else
-								dati += "null,";
+								dati += ",null";
 
 							/** SET DELLE NOTE **/
 							if (giorno.getNote() != null) {
-								dati += giorno.getNote();
+								dati += "," + giorno.getNote();
 							} else
-								dati += "null";
+								dati += ",null";
 
 						} else {
 							/** SE IL GIORNO E' NULL **/
-							dati += "null,null,null,null,null,";
-
-							/** SET DI FERIE OR MALATTIE **/
-							if (giorno.getFerie() != null) {
-								dati += giorno.getFerie() + ",";
-							} else
-								dati += "null,";
-							if (giorno.getMalattie() != null) {
-								dati += giorno.getMalattie() + ",";
-							} else
-								dati += "null,";
-							dati += "null,";
-							if (giorno.getNote() != null && giorno.getNote() != "") {
-								dati += giorno.getNote();
-							} else
-								dati += "null";
+							dati += "null,null,null,null,null,null,null,null,null";
 						}
 						dati += ";";
 					}
