@@ -35,7 +35,7 @@ public class Rapportino {
 	private Double ore;
 
 	@Column(name = "permessi")
-	private Integer permessi;
+	private Double permessi;
 
 	@Column(name = "ferie")
 	private Boolean ferie;
@@ -44,7 +44,7 @@ public class Rapportino {
 	private Boolean malattie;
 
 	public Rapportino(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Integer giorno, Double ore,
-			Integer permessi, Boolean ferie, Boolean malattie) {
+			Double permessi, Boolean ferie, Boolean malattie) {
 		super();
 		this.id = id;
 		this.anagrafica = anagrafica;
@@ -110,11 +110,11 @@ public class Rapportino {
 		this.ore = ore;
 	}
 
-	public Integer getPermessi() {
+	public Double getPermessi() {
 		return permessi;
 	}
 
-	public void setPermessi(Integer permessi) {
+	public void setPermessi(Double permessi) {
 		this.permessi = permessi;
 	}
 

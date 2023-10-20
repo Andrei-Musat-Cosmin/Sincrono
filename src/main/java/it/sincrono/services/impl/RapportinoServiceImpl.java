@@ -105,9 +105,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
-//		if (!rapportinoValidator.validateGiornoDto(rapportinoRequestDto.getRapportinoDto())) {
-//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
-//		}
+		if (!rapportinoValidator.validateGiornoDto(rapportinoRequestDto.getRapportinoDto())) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+		}
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
 				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
@@ -119,7 +119,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.valueOf(e.getMessage()));
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -129,13 +129,10 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
-		
-		
-		
+
 		if (!rapportinoValidator.validateNote(rapportinoRequestDto.getRapportinoDto())) {
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
 		}
-
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
 				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
@@ -158,15 +155,14 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void insertRapportino(RapportinoInviato rapportinoInviato) throws ServiceException {
-		
+
 		if (!rapportinoValidator.validateRapportiniInviati(rapportinoInviato)) {
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoInviato");
 		}
-		
+
 		try {
 			rapportinoInviatoRepository.saveAndFlush(rapportinoInviato);
-			
-	
+
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -175,12 +171,11 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void updateFreeze(RapportinoInviato rapportinoInviato) throws ServiceException {
-		
+
 		if (!rapportinoValidator.validateFreeze(rapportinoInviato)) {
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoInviato");
 		}
-		
-		
+
 		try {
 			RapportinoInviato currentRapportinoInviato = rapportinoInviatoRepository.findById(rapportinoInviato.getId())
 					.get();
@@ -191,7 +186,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 				rapportinoInviatoRepository.saveAndFlush(currentRapportinoInviato);
 			} else {
 				if (currentRapportinoInviato.getCheckFreeze())
-					rapportinoInviatoRepository.delete(rapportinoInviato);  //id,checkFrezzee
+					rapportinoInviatoRepository.delete(rapportinoInviato); // id,checkFrezzee
 			}
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
@@ -232,8 +227,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException {
-		
-		if (!rapportinoValidator.validateFieldsForPath(rapportinoRequest)){
+
+		if (!rapportinoValidator.validateFieldsForPath(rapportinoRequest)) {
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoRequest");
 		}
 
@@ -249,6 +244,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 				Rapportino rapportino = new Rapportino();
+
 				if (giornoDto.getGiorno() != null)
 					rapportino.setGiorno(giornoDto.getGiorno());
 				if (giornoDto.getOreOrdinarie() != null)
@@ -258,12 +254,20 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 				rapportino.setAnno(rapportinoRequest.getAnno());
 
+				if (giornoDto.getFerie() != null)
+					rapportino.setFerie(giornoDto.getFerie());
+
+				if (giornoDto.getMalattie() != null)
+					rapportino.setMalattie(giornoDto.getMalattie());
+
+				if (giornoDto.getPermessi() != null)
+					rapportino.setPermessi(giornoDto.getPermessi());
+
 				rapportino.setAnagrafica(anagrafica);
 
 				rapportini.add(rapportino);
 			}
 			rapportinoRepository.saveAllAndFlush(rapportini);
-
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());

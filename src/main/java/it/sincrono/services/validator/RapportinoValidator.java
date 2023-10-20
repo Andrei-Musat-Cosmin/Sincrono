@@ -108,7 +108,10 @@ public class RapportinoValidator {
 
 				if (contratto.getTipoContratto().getId() == 1 || contratto.getTipoContratto().getId() == 2) {
 
-					// mettere altri campi che devono essere null
+					if(giornoDto.getFerie()!=null || giornoDto.getPermessi()!=null || giornoDto.getMalattie()!=null) {
+						
+						return false;
+					}
 				}
 
 			}
