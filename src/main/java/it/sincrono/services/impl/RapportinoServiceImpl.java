@@ -105,9 +105,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
-		if (!rapportinoValidator.validateGiornoDto(rapportinoRequestDto.getRapportinoDto())) {
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
-		}
+//		if (!rapportinoValidator.validateGiornoDto(rapportinoRequestDto.getRapportinoDto())) {
+//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+//		}
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
 				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
@@ -119,7 +119,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.valueOf(e.getMessage()));
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());

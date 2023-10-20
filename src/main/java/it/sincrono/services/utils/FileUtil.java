@@ -74,10 +74,11 @@ public class FileUtil {
 				List<String> cliente = new ArrayList<String>();
 
 				List<Double> oreOrdinarie = new ArrayList<Double>();
-				
+
 				StraordinarioDto straordinario = new StraordinarioDto();
-				
-				List<StraordinarioDto> straordinari = new ArrayList<StraordinarioDto>();;
+
+				List<StraordinarioDto> straordinari = new ArrayList<StraordinarioDto>();
+				;
 
 				String[] giornoSplit = giornoNotSplit.split(",");
 
@@ -97,34 +98,31 @@ public class FileUtil {
 						if (elem.split("-")[1] != null && !elem.split("-")[1].isEmpty()
 								&& !elem.split("-")[1].equals("null"))
 							oreOrdinarie.add(Double.parseDouble(elem.split("-")[1]));
-						
+
 						if (elem.split("-")[2] != null && !elem.split("-")[2].isEmpty()
 								&& !elem.split("-")[2].equals("null"))
 							straordinario.setFascia1(Double.parseDouble(elem.split("-")[2]));
-						
+
 						if (elem.split("-")[3] != null && !elem.split("-")[3].isEmpty()
 								&& !elem.split("-")[3].equals("null"))
 							straordinario.setFascia2(Double.parseDouble(elem.split("-")[3]));
-						
+
 						if (elem.split("-")[4] != null && !elem.split("-")[4].isEmpty()
 								&& !elem.split("-")[4].equals("null"))
 							straordinario.setFascia3(Double.parseDouble(elem.split("-")[4]));
-						
-						straordinari.add(straordinario.getFascia1()!=null ||
-								straordinario.getFascia2()!=null 
-								|| straordinario.getFascia3()!=null?straordinario:null);
+
+						straordinari.add(straordinario.getFascia1() != null || straordinario.getFascia2() != null
+								|| straordinario.getFascia3() != null ? straordinario : null);
 
 					} else {
 
 						cliente = null;
 
 						oreOrdinarie = null;
-						
-						straordinari=null;
+
+						straordinari = null;
 
 					}
-					
-					
 
 				}
 
@@ -133,26 +131,21 @@ public class FileUtil {
 
 				if (oreOrdinarie != null)
 					giornoDto.setOreOrdinarie(oreOrdinarie);
-				
+
 				if (straordinari != null)
 					giornoDto.setStraordinari(straordinari);
-				
-				
-				
+
 				if (giornoSplit[2] != null && !giornoSplit[2].isEmpty() && !giornoSplit[2].equals("null"))
 					giornoDto.setFerie(Boolean.parseBoolean(giornoSplit[2]));
-				
+
 				if (giornoSplit[3] != null && !giornoSplit[3].isEmpty() && !giornoSplit[3].equals("null"))
 					giornoDto.setMalattie(Boolean.parseBoolean(giornoSplit[3]));
-				
+
 				if (giornoSplit[4] != null && !giornoSplit[4].isEmpty() && !giornoSplit[4].equals("null"))
 					giornoDto.setPermessi(Double.parseDouble(giornoSplit[4]));
-				
+
 				if (giornoSplit[5] != null && !giornoSplit[5].isEmpty() && !giornoSplit[5].equals("null"))
 					giornoDto.setNote(giornoSplit[5]);
-				
-				
-				
 
 				mese.add(giornoDto);
 
@@ -223,15 +216,69 @@ public class FileUtil {
 				String dati = "";
 				try (FileWriter writer = new FileWriter(filePath.toFile())) {
 					for (GiornoDto giorno : rapportino.getRapportinoDto().getMese().getGiorni()) {
+						/** SET DEL GIORNO **/
 						dati += giorno.getGiorno() + ",";
 						if (giorno.getCliente() != null) {
 							for (int i = 0; i < giorno.getCliente().size(); i++) {
+
+								/** SET DELLA COMMESSA & SET ORE ORDINARIE **/
 								dati += giorno.getCliente().get(i) + "-" + giorno.getOreOrdinarie().get(i);
+
+								/** SET DI 1FASCIA &OR 2FASCIA &OR 3FASCIA **/
+								if (giorno.getStraordinari() != null) {
+									if (giorno.getStraordinari().get(i).getFascia1() != null) {
+										dati += "-" + giorno.getStraordinari().get(i).getFascia1();
+									} else
+										dati += "-null";
+									if (giorno.getStraordinari().get(i).getFascia2() != null) {
+										dati += "-" + giorno.getStraordinari().get(i).getFascia2();
+									} else
+										dati += "-null";
+									if (giorno.getStraordinari().get(i).getFascia3() != null) {
+										dati += "-" + giorno.getStraordinari().get(i).getFascia3();
+									} else
+										dati += "-null";
+								}else {
+									dati += "-null-null-null";
+								}
+
+								/** SEPARATORER PER IL PROSSIMO CLIENTE **/
 								if (i < giorno.getCliente().size() - 1)
 									dati += "/";
 							}
+							/** SET DELLE FEIRE E DELLE MALATTIE A NULL **/
+							dati += ",null,null,";
+
+							/** SET DEI PERMESSI **/
+							if (giorno.getPermessi() != null) {
+								dati += giorno.getPermessi() + ",";
+							} else
+								dati += "null,";
+
+							/** SET DELLE NOTE **/
+							if (giorno.getNote() != null) {
+								dati += giorno.getNote();
+							} else
+								dati += "null";
+
 						} else {
-							dati += "null,null";
+							/** SE IL GIORNO E' NULL **/
+							dati += "null,null,null,null,null,";
+
+							/** SET DI FERIE OR MALATTIE **/
+							if (giorno.getFerie() != null) {
+								dati += giorno.getFerie() + ",";
+							} else
+								dati += "null,";
+							if (giorno.getMalattie() != null) {
+								dati += giorno.getMalattie() + ",";
+							} else
+								dati += "null,";
+							dati += "null,";
+							if (giorno.getNote() != null && giorno.getNote() != "") {
+								dati += giorno.getNote();
+							} else
+								dati += "null";
 						}
 						dati += ";";
 					}
