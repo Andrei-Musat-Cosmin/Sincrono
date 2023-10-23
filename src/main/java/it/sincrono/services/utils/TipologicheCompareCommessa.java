@@ -15,9 +15,9 @@ public class TipologicheCompareCommessa {
 
 		Boolean check = false;
 
-		if (commessa.getTipoAzienda() != null) {
+		if (commessa.getTipoAziendaCliente() != null) {
 
-			if (commessa.getTipoAzienda().equals(commessaDb.getTipoAzienda())) {
+			if (commessa.getTipoAziendaCliente().equals(commessaDb.getTipoAziendaCliente())) {
 
 				check = true;
 
@@ -26,9 +26,9 @@ public class TipologicheCompareCommessa {
 				check = false;
 			}
 
-		} else if (commessaDb.getTipoAzienda() != null) {
+		} else if (commessaDb.getTipoAziendaCliente() != null) {
 
-			if (commessa.getTipoAzienda().equals(commessaDb.getTipoAzienda())) {
+			if (commessa.getTipoAziendaCliente().equals(commessaDb.getTipoAziendaCliente())) {
 
 				check = true;
 

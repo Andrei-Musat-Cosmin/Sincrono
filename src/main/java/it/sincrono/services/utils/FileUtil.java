@@ -206,7 +206,7 @@ public class FileUtil {
 
 	}
 
-	public void saveFile(String path, RapportinoRequestDto rapportino) throws ServiceException {
+	public void saveFile(String path, RapportinoRequestDto rapportino) throws Exception {
 		if (rapportino != null) {
 			try {
 				Path filePath = Path.of(path);
@@ -283,19 +283,22 @@ public class FileUtil {
 				}
 			} catch (HttpMessageNotReadableException e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
-				throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+				// throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+				throw new HttpMessageNotReadableException(e.getMessage());
 			} catch (IOException e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
-				throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+				// throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+				throw new IOException(e.getMessage());
 			} catch (Exception e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
-				throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+				// throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+				throw new Exception(e.getMessage());
 			}
 		}
 		LOGGER.log(Level.INFO, "Rapportino salvato con successo.");
 	}
 
-	public void appendNote(String path, String note) throws ServiceException {
+	public void appendNote(String path, String note) throws Exception {
 		if (note != null) {
 			try {
 				Path filePath = Path.of(path);
@@ -304,13 +307,16 @@ public class FileUtil {
 				}
 			} catch (HttpMessageNotReadableException e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
-				throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+				// throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+				throw new HttpMessageNotReadableException(e.getMessage());
 			} catch (IOException e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
-				throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+				// throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+				throw new IOException(e.getMessage());
 			} catch (Exception e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
-				throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+				// throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+				throw new Exception(e.getMessage());
 			}
 		}
 		LOGGER.log(Level.INFO, "Note salvate con successo.");
@@ -321,21 +327,22 @@ public class FileUtil {
 
 	public void saveFileImage(String percorso, String base64) throws Exception {
 
-		try {
+		Path filePath = Path.of(percorso);
+		try (FileWriter writer = new FileWriter(filePath.toFile())) {
+			writer.write(base64);
 
-			Path filePath = Path.of(percorso);
-			try (FileWriter writer = new FileWriter(filePath.toFile())) {
-				writer.write(base64);
-			}
 		} catch (HttpMessageNotReadableException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+			// throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+			throw new HttpMessageNotReadableException(e.getMessage());
 		} catch (IOException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+			// throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+			throw new IOException(e.getMessage());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+			// throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+			throw new Exception(e.getMessage());
 		}
 
 		LOGGER.log(Level.INFO, "image salvata con successo.");

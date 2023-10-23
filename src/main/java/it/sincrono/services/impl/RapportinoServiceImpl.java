@@ -1,5 +1,6 @@
 package it.sincrono.services.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -105,9 +107,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
-//		if (!rapportinoValidator.validateGiornoDto(rapportinoRequestDto.getRapportinoDto())) {
-//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
-//		}
+		if (!rapportinoValidator.validateGiornoDto(rapportinoRequestDto.getRapportinoDto())) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+		}
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
 				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
@@ -117,9 +119,13 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 			fileUtil.saveFile(filePath, rapportinoRequestDto);
 
-		} catch (ServiceException e) {
+
+		} catch (HttpMessageNotReadableException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+		} catch (IOException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -131,7 +137,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
 
 		if (!rapportinoValidator.validateNote(rapportinoRequestDto.getRapportinoDto())) {
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoDto");
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoRequestDto");
 		}
 
 		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
@@ -142,9 +148,13 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 			fileUtil.appendNote(filePath, rapportinoRequestDto.getRapportinoDto().getNote());
 
-		} catch (ServiceException e) {
+	
+		} catch (HttpMessageNotReadableException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+		} catch (IOException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
@@ -269,9 +279,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			}
 			rapportinoRepository.saveAllAndFlush(rapportini);
 
-		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+	
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());
