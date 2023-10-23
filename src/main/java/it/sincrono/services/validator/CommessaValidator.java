@@ -15,7 +15,7 @@ public class CommessaValidator {
 
 				if (commessa.getId() == null) {
 
-					if (commessa.getTipoAzienda() == null && commessa.getTipoAzienda().getId() == null
+					if (commessa.getTipoAziendaCliente() == null && commessa.getTipoAziendaCliente().getId() == null
 							|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
 						return false;
 
@@ -28,7 +28,7 @@ public class CommessaValidator {
 
 				if (commessa.getId() != null) {
 
-					if (commessa.getTipoAzienda() == null && commessa.getTipoAzienda().getId() == null
+					if (commessa.getTipoAziendaCliente() == null && commessa.getTipoAziendaCliente().getId() == null
 							|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
 						return false;
 

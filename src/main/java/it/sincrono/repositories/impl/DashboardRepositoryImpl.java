@@ -13,6 +13,7 @@ import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
 import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
@@ -73,11 +74,11 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 
 				if (anagraficaDto.getCommesse() != null) {
 
-					if (anagraficaDto.getCommesse().get(0).getTipoAzienda() != null
-							&& anagraficaDto.getCommesse().get(0).getTipoAzienda().getId() != null) {
+					if (anagraficaDto.getCommesse().get(0).getTipoAziendaCliente() != null
+							&& anagraficaDto.getCommesse().get(0).getTipoAziendaCliente().getId() != null) {
 
 						subString += " AND d.id_tipo_azienda LIKE '"
-								+ anagraficaDto.getCommesse().get(0).getTipoAzienda().getId() + "'";
+								+ anagraficaDto.getCommesse().get(0).getTipoAziendaCliente().getId() + "'";
 
 					}
 
@@ -131,12 +132,12 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result != null) {
 					if (result[4] != null)
 						commessa.setId((Integer) result[4]);
-					TipoAzienda tipoAzienda = new TipoAzienda();
+					TipoAziendaCliente tipoAziendaCliente = new TipoAziendaCliente();
 					if (result[5] != null) {
-						tipoAzienda.setId((Integer) result[5]);
-						tipoAzienda.setDescrizione((String) result[15]);
+						tipoAziendaCliente.setId((Integer) result[5]);
+						tipoAziendaCliente.setDescrizione((String) result[15]);
 					}
-					commessa.setTipoAzienda(tipoAzienda);
+					commessa.setTipoAziendaCliente(tipoAziendaCliente);
 					if (result[6] != null)
 						commessa.setClienteFinale((String) result[6]);
 					if (result[7] != null)
@@ -231,12 +232,12 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					if (currentCommessa != null && ((Integer) currentCommessa[0]) != 0) {
 						if (currentCommessa[0] != null)
 							commessa.setId((Integer) currentCommessa[0]);
-						TipoAzienda tipoAzienda = new TipoAzienda();
+						TipoAziendaCliente tipoAziendaCliente = new TipoAziendaCliente();
 						if (currentCommessa[1] != null) {
-							tipoAzienda.setId((Integer) currentCommessa[1]);
-							tipoAzienda.setDescrizione((String) currentCommessa[12]);
+							tipoAziendaCliente.setId((Integer) currentCommessa[1]);
+							tipoAziendaCliente.setDescrizione((String) currentCommessa[12]);
 						}
-						commessa.setTipoAzienda(tipoAzienda);
+						commessa.setTipoAziendaCliente(tipoAziendaCliente);
 						if (currentCommessa[2] != null)
 							commessa.setClienteFinale((String) currentCommessa[2]);
 						if (currentCommessa[3] != null)
@@ -570,12 +571,12 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result != null) {
 					if (result[4] != null)
 						commessa.setId((Integer) result[4]);
-					TipoAzienda tipoAzienda = new TipoAzienda();
+					TipoAziendaCliente tipoAziendaCliente = new TipoAziendaCliente();
 					if (result[5] != null) {
-						tipoAzienda.setId((Integer) result[5]);
-						tipoAzienda.setDescrizione((String) result[15]);
+						tipoAziendaCliente.setId((Integer) result[5]);
+						tipoAziendaCliente.setDescrizione((String) result[15]);
 					}
-					commessa.setTipoAzienda(tipoAzienda);
+					commessa.setTipoAziendaCliente(tipoAziendaCliente);
 					if (result[6] != null)
 						commessa.setClienteFinale((String) result[6]);
 					if (result[7] != null)

@@ -11,6 +11,7 @@ import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
 import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
@@ -129,9 +130,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				}
 			}
 		}
-		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAzienda() != null)
+		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAziendaCliente() != null)
 			listAnagraficaDto = CheckForFilterCommessa(listAnagraficaDto,
-					anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAzienda().getId());
+					anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAziendaCliente().getId());
 		return listAnagraficaDto;
 	}
 
@@ -544,8 +545,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 				if (anagraficaDto.getCommesse().get(0) != null) {
 					Commessa commessa = anagraficaDto.getCommesse().get(0);
-					if (commessa.getTipoAzienda() != null && commessa.getTipoAzienda().getId() != null) {
-						subString += " AND c.azienda_cliente = " + commessa.getTipoAzienda().getId() + "";
+					if (commessa.getTipoAziendaCliente() != null && commessa.getTipoAziendaCliente().getId() != null) {
+						subString += " AND c.azienda_cliente = " + commessa.getTipoAziendaCliente().getId() + "";
 					}
 
 				}
@@ -572,12 +573,12 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					Commessa commessa = new Commessa();
 					if (currentCommessa[0] != null)
 						commessa.setId((Integer) currentCommessa[0]);
-					TipoAzienda tipoAzienda = new TipoAzienda();
+					TipoAziendaCliente tipoAziendaCliente = new TipoAziendaCliente();
 					if (currentCommessa[1] != null) {
-						tipoAzienda.setId((Integer) currentCommessa[1]);
-						tipoAzienda.setDescrizione((String) currentCommessa[12]);
+						tipoAziendaCliente.setId((Integer) currentCommessa[1]);
+						tipoAziendaCliente.setDescrizione((String) currentCommessa[12]);
 					}
-					commessa.setTipoAzienda(tipoAzienda);
+					commessa.setTipoAziendaCliente(tipoAziendaCliente);
 					if (currentCommessa[2] != null)
 						commessa.setClienteFinale((String) currentCommessa[2]);
 					if (currentCommessa[3] != null)
@@ -618,7 +619,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			flag = false;
 
 			for (Commessa commessa : currentAnagraficaDto.getCommesse()) {
-				if (commessa.getTipoAzienda().getId() == idTipoAzienda) {
+				if (commessa.getTipoAziendaCliente().getId() == idTipoAzienda) {
 					flag = true;
 					break;
 				}

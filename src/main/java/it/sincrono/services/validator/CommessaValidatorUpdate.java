@@ -11,7 +11,7 @@ public class CommessaValidatorUpdate {
 
 		boolean result = true;
 
-		if (commessa.getTipoAzienda() == null && commessa.getTipoAzienda().getId() == null
+		if (commessa.getTipoAziendaCliente() == null && commessa.getTipoAziendaCliente().getId() == null
 				|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
 			result = false;
 
