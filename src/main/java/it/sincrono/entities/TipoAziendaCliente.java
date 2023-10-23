@@ -41,7 +41,7 @@ public class TipoAziendaCliente {
 		if (getClass() != obj.getClass())
 			return false;
 		TipoAziendaCliente other = (TipoAziendaCliente) obj;
-		return Objects.equals(id, other.id);
+		return  Objects.equals(id, other.id);
 	}
 
 	public Integer getId() {
