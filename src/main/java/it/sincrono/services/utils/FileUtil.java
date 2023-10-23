@@ -110,8 +110,18 @@ public class FileUtil {
 								&& !elem.split("-")[4].equals("null"))
 							straordinario.setFascia3(Double.parseDouble(elem.split("-")[4]));
 
-						straordinari.add(straordinario.getFascia1() != null || straordinario.getFascia2() != null
-								|| straordinario.getFascia3() != null ? straordinario : null);
+						/*straordinari.add(straordinario.getFascia1() != null || straordinario.getFascia2() != null
+								|| straordinario.getFascia3() != null ? straordinario : null);*/
+						
+						if(straordinario.getFascia1() != null || straordinario.getFascia2() != null
+								|| straordinario.getFascia3() != null) {
+							
+							straordinari.add(straordinario);
+							
+						}else {
+							
+							straordinari=null;
+						}
 
 					} else {
 
