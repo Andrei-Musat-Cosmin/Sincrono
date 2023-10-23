@@ -30,5 +30,4 @@ public class RuoloResponse extends GenericResponse {
 		this.ruolo = ruolo;
 	}
 
-	
 }

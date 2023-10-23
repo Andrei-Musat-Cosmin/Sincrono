@@ -5,7 +5,7 @@ import java.util.List;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Funzione;
 
-public class FunzioniListResponse extends GenericResponse{
+public class FunzioniListResponse extends GenericResponse {
 	private List<Funzione> list;
 
 	public FunzioniListResponse(Esito esito, List<Funzione> list) {

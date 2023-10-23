@@ -47,7 +47,7 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportinoB64");
 
-			String rapportinoB64 = rapportinoService.getRapportinoB64(rapportino.getAnno(),rapportino.getMese());
+			String rapportinoB64 = rapportinoService.getRapportinoB64(rapportino.getAnno(), rapportino.getMese());
 
 			rapportinoB64Response.setRapportinoB64(rapportinoB64);
 			rapportinoB64Response.setEsito(new Esito());
@@ -381,8 +381,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
-	
+
 	@PostMapping("/get-check-rapportino-inviato")
 	public @ResponseBody HttpEntity<CheckRapportinoInviatoResponse> getCheckRapportinoInviato(
 			@RequestBody RapportinoRequest RapportinoRequest) {
@@ -393,8 +392,8 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportino");
 
-			checkRapportinoInviatoResponse.setCheckInviato(rapportinoService.
-					getCheckRapportinoInviato(RapportinoRequest));
+			checkRapportinoInviatoResponse
+					.setCheckInviato(rapportinoService.getCheckRapportinoInviato(RapportinoRequest));
 
 			checkRapportinoInviatoResponse.setEsito(new Esito());
 
@@ -409,6 +408,5 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-
 
 }

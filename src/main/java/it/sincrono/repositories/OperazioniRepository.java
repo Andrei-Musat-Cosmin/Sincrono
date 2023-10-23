@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import it.sincrono.entities.Operazione;
 
-public interface OperazioniRepository extends JpaRepository<Operazione, Integer>{
-	
+public interface OperazioniRepository extends JpaRepository<Operazione, Integer> {
+
 	@Query(value = "SELECT a FROM Operazione a WHERE a.funzione.id = :id")
 	public List<Operazione> getOperazioniByFunzioni(@Param("id") Integer id);
 

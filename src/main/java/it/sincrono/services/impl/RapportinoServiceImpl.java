@@ -119,7 +119,6 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 			fileUtil.saveFile(filePath, rapportinoRequestDto);
 
-
 		} catch (HttpMessageNotReadableException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
@@ -148,7 +147,6 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 			fileUtil.appendNote(filePath, rapportinoRequestDto.getRapportinoDto().getNote());
 
-	
 		} catch (HttpMessageNotReadableException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
@@ -279,7 +277,6 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			}
 			rapportinoRepository.saveAllAndFlush(rapportini);
 
-	
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
 			throw new ServiceException(e.getMessage());

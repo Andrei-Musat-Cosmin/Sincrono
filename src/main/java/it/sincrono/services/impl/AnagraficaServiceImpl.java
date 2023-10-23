@@ -32,7 +32,7 @@ import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.repositories.StoricoContrattiRepository;
-import it.sincrono.repositories.TipologicheContrattoRepository;
+import it.sincrono.repositories.TipologicheRepository;
 import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.requests.AnagraficaRequestDto;
@@ -54,7 +54,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
-	
+
 	@Value("${anagrafiche-profili.path-prefix}")
 	private String PREFIX;
 
@@ -78,7 +78,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private ProfiloRepository profiloRepository;
 	@Autowired
-	private TipologicheContrattoRepository tipologicheContrattoRepository;
+	private TipologicheRepository tipologicheContrattoRepository;
 
 	@Autowired
 	private EmailService emailService;
@@ -239,13 +239,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			}
 
 			LocalDate oggi = LocalDate.now();
-			
-			fileUtil.creatFolder(PREFIX + anagraficaDto.getAnagrafica().getCodiceFiscale()
-					+ RAPPORTINI + oggi.getYear() + "/"
-					+ oggi.getMonthValue() + ".txt");
-			
-			
-	
+
+			fileUtil.creatFolder(PREFIX + anagraficaDto.getAnagrafica().getCodiceFiscale() + RAPPORTINI + oggi.getYear()
+					+ "/" + oggi.getMonthValue() + ".txt");
+
 			/*
 			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),
 			 * null, "CREAZIONE UTENZA", "username: " +
@@ -624,7 +621,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		if (anagraficaDto.getContratto() != null) {
 
-			List<TipoLivelloContratto> listLivelli = tipologicheContrattoRepository.getTipoLivelliContrattualiMap();
+			List<TipoLivelloContratto> listLivelli = tipologicheContrattoRepository.getTipoLivelloContrattoMap();
 
 			anagraficaDto.getContratto().setLivelloAttuale(listLivelli.stream().filter(
 					livello -> livello.getId() == anagraficaDto.getContratto().getTipoLivelloContratto().getId())

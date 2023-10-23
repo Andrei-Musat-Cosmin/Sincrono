@@ -2,7 +2,6 @@ package it.sincrono.responses;
 
 import java.util.List;
 
-
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.RapportinoInviato;
 

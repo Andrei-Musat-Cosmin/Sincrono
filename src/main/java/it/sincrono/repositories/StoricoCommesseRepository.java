@@ -12,6 +12,5 @@ import it.sincrono.entities.StoricoCommesse;
 public interface StoricoCommesseRepository extends JpaRepository<StoricoCommesse, Integer> {
 
 	List<Commessa> getStoricoCommesseByAnagrafica(Integer id);
-	
-	
+
 }

@@ -3,7 +3,7 @@ package it.sincrono.responses;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.StoricoCommesse;
 
-public class StoricoCommesseResponse extends GenericResponse{
+public class StoricoCommesseResponse extends GenericResponse {
 
 	private StoricoCommesse storicoCommesse;
 

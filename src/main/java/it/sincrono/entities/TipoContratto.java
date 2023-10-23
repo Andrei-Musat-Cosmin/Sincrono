@@ -31,7 +31,7 @@ public class TipoContratto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -41,7 +41,7 @@ public class TipoContratto {
 		if (getClass() != obj.getClass())
 			return false;
 		TipoContratto other = (TipoContratto) obj;
-		return  Objects.equals(id, other.id);
+		return Objects.equals(id, other.id);
 	}
 
 	public Integer getId() {
@@ -59,6 +59,5 @@ public class TipoContratto {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
-
 
 }

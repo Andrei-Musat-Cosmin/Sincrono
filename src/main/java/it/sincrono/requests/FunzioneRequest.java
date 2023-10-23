@@ -23,8 +23,5 @@ public class FunzioneRequest {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
+
 }

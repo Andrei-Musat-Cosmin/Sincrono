@@ -1,14 +1,10 @@
 package it.sincrono.services.utils;
 
-import java.util.Calendar;
-
-import java.util.Date;
-import java.sql.Timestamp;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
-
-import org.springframework.stereotype.Component;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DateUtil {
 	public static Boolean dateCompare(Date date, Date otherDate) {
@@ -71,7 +67,7 @@ public class DateUtil {
 	public static int calcolaGiorniUtiliLavoro(int anno, int meseIntero) {
 
 		Month mese = null;
-		
+
 		mese = convertIntInMonth(meseIntero);
 
 		int giorniLavorativi = 0;

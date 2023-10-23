@@ -2,8 +2,6 @@ package it.sincrono.entities;
 
 import java.util.Set;
 
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,8 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import it.sincrono.services.utils.TokenGenerator;
 
 @Entity
 @Table(name = "utenti")
@@ -47,14 +43,12 @@ public class Utente {
 		this.attivo = attivo;
 	}
 
-	public Utente(String username, Boolean attivo,String password) {
+	public Utente(String username, Boolean attivo, String password) {
 		super();
 		this.username = username;
 		this.attivo = attivo;
-		this.password=password;
+		this.password = password;
 	}
-	
-	
 
 	public Utente(Integer id) {
 		super();

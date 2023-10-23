@@ -24,6 +24,4 @@ public class PrivilegioRequest {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	}
-
+}

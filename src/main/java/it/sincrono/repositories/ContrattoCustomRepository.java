@@ -9,7 +9,7 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 public interface ContrattoCustomRepository extends BaseCustomRepository {
 
 	public List<OrganicoDto> organico() throws RepositoryException;
-	
+
 	public Contratto currentContratto(Integer id) throws RepositoryException;
 
 }

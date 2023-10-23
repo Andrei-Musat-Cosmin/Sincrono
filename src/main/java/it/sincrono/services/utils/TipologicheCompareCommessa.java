@@ -1,7 +1,6 @@
 package it.sincrono.services.utils;
 
 import it.sincrono.entities.Commessa;
-import it.sincrono.entities.Contratto;
 
 public class TipologicheCompareCommessa {
 

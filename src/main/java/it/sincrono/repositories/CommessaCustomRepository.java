@@ -9,7 +9,7 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 public interface CommessaCustomRepository extends BaseCustomRepository {
 
 	public List<CommessaDto> dashboard() throws RepositoryException;
-	
+
 	public Commessa currentCommessa(Integer id) throws RepositoryException;
 
 }

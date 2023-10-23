@@ -1,8 +1,7 @@
 package it.sincrono.responses;
 
-public class CheckRapportinoInviatoResponse extends GenericResponse{
-	
-	
+public class CheckRapportinoInviatoResponse extends GenericResponse {
+
 	private boolean checkInviato;
 
 	public CheckRapportinoInviatoResponse(boolean checkInviato) {
@@ -21,9 +20,5 @@ public class CheckRapportinoInviatoResponse extends GenericResponse{
 	public void setCheckInviato(boolean checkInviato) {
 		this.checkInviato = checkInviato;
 	}
-	
-	
-	
-	
 
 }

@@ -1,18 +1,11 @@
 package it.sincrono.services.impl;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import it.sincrono.entities.Privilegio;
 import it.sincrono.repositories.PrivilegioRepository;
 import it.sincrono.services.PrivilegioService;
-import it.sincrono.services.costants.ServiceMessages;
-import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.validator.PrivilegioValidator;
-import jakarta.transaction.Transactional;
 
 /**
  * POSSIBILE RIMOZIONE

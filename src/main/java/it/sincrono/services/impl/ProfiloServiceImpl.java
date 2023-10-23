@@ -1,26 +1,16 @@
 package it.sincrono.services.impl;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import it.sincrono.entities.Profilo;
 import it.sincrono.repositories.ProfiloRepository;
-import it.sincrono.repositories.dto.ProfiloDto;
 import it.sincrono.services.ProfiloService;
-import it.sincrono.services.costants.ServiceMessages;
-import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.validator.ProfiloValidator;
-
 
 /**
  * POSSIBILE RIMOZIONE
  *
  */
-
 
 @Service
 public class ProfiloServiceImpl implements ProfiloService {

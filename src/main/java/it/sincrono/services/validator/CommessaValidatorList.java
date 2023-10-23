@@ -9,41 +9,39 @@ import it.sincrono.entities.Commessa;
 
 @Component
 public class CommessaValidatorList {
-	
+
 	@Autowired
 	private CommessaValidatorUpdate commessaValidatorUpdate;
-	
+
 	@Autowired
 	private CommessaValidator commessaValidator;
-	
-	
-	public Boolean validate(List<Commessa> commesse,boolean checkValidator,boolean isNew) {
-		
-		Boolean check=true;
-		
-		for(Commessa commessa: commesse) {
-			
-			if(checkValidator) {
-				
-				if(!commessaValidatorUpdate.validate(commessa)) {
-					
-					check=false;
-					
+
+	public Boolean validate(List<Commessa> commesse, boolean checkValidator, boolean isNew) {
+
+		Boolean check = true;
+
+		for (Commessa commessa : commesse) {
+
+			if (checkValidator) {
+
+				if (!commessaValidatorUpdate.validate(commessa)) {
+
+					check = false;
+
 				}
-				
-			}else {
-				
-				if(!commessaValidator.validate(commessa,isNew)) {
-					
-					check=false;
-					
+
+			} else {
+
+				if (!commessaValidator.validate(commessa, isNew)) {
+
+					check = false;
+
 				}
-				
-				
+
 			}
-			
+
 		}
-		
+
 		return check;
 	}
 

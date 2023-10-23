@@ -15,22 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
 import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
 import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.responses.TipologicheListResponse;
-import it.sincrono.services.TipologicheContrattoService;
+import it.sincrono.services.TipologicheService;
 import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
 @CrossOrigin
-public class TipologicheContrattoController {
-	private static final Logger LOGGER = LogManager.getLogger(TipologicheContrattoController.class);
+public class TipologicheController {
+	private static final Logger LOGGER = LogManager.getLogger(TipologicheController.class);
 
 	@Autowired
-	private TipologicheContrattoService tipologicheContrattoService;
+	private TipologicheService tipologicheService;
 
 	@GetMapping("/tipo-azienda-map")
 	public @ResponseBody HttpEntity<TipologicheListResponse<TipoAzienda>> getAziendeMap() {
@@ -42,7 +43,7 @@ public class TipologicheContrattoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getAziendeMap");
 
-			List<TipoAzienda> list = tipologicheContrattoService.getAziendeMap();
+			List<TipoAzienda> list = tipologicheService.getTipoAziendaMap();
 
 			aziendeListResponse.setList(list);
 			aziendeListResponse.setEsito(new Esito());
@@ -69,7 +70,7 @@ public class TipologicheContrattoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getTipoContrattoMap");
 
-			List<TipoContratto> list = tipologicheContrattoService.getTipoContrattoMap();
+			List<TipoContratto> list = tipologicheService.getTipoContrattoMap();
 
 			tipoCotnrattoListResponse.setList(list);
 			tipoCotnrattoListResponse.setEsito(new Esito());
@@ -96,7 +97,7 @@ public class TipologicheContrattoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getCcnlMap");
 
-			List<TipoCcnl> list = tipologicheContrattoService.getCcnlMap();
+			List<TipoCcnl> list = tipologicheService.getTipoCcnlMap();
 
 			ccnlListResponse.setList(list);
 			ccnlListResponse.setEsito(new Esito());
@@ -123,7 +124,7 @@ public class TipologicheContrattoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getTipoLivelloContrattoMap");
 
-			List<TipoLivelloContratto> list = tipologicheContrattoService.getTipoLivelliContrattualiMap();
+			List<TipoLivelloContratto> list = tipologicheService.getTipoLivelloContrattoMap();
 
 			livelloContrattoListResponse.setList(list);
 			livelloContrattoListResponse.setEsito(new Esito());
@@ -150,7 +151,7 @@ public class TipologicheContrattoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getTipoCausaFineRapportoMap");
 
-			List<TipoCausaFineRapporto> list = tipologicheContrattoService.getTipoCausaFineRapporto();
+			List<TipoCausaFineRapporto> list = tipologicheService.getTipoCausaFineRapportoMap();
 
 			livelloContrattoListResponse.setList(list);
 			livelloContrattoListResponse.setEsito(new Esito());
@@ -177,7 +178,7 @@ public class TipologicheContrattoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getTipoCanaleReclutamentoMap");
 
-			List<TipoCanaleReclutamento> list = tipologicheContrattoService.getTipoCanaleReclutamentoMap();
+			List<TipoCanaleReclutamento> list = tipologicheService.getTipoCanaleReclutamentoMap();
 
 			livelloContrattoListResponse.setList(list);
 			livelloContrattoListResponse.setEsito(new Esito());
@@ -194,6 +195,33 @@ public class TipologicheContrattoController {
 		return httpEntity;
 	}
 
+	@GetMapping("/tipo-azienda-cliente-map")
+	public @ResponseBody HttpEntity<TipologicheListResponse<TipoAziendaCliente>> getTipoAziendaClienteMap() {
+
+		HttpEntity<TipologicheListResponse<TipoAziendaCliente>> httpEntity = null;
+
+		TipologicheListResponse<TipoAziendaCliente> livelloContrattoListResponse = new TipologicheListResponse<TipoAziendaCliente>();
+
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getTipoLivelloContrattoMap");
+
+			List<TipoAziendaCliente> list = tipologicheService.getTipoAziendaClienteMap();
+
+			livelloContrattoListResponse.setList(list);
+			livelloContrattoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoAziendaCliente>>(livelloContrattoListResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoAziendaCliente>>(livelloContrattoListResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoLivelloContrattoMap\n");
+
+		return httpEntity;
+	}
+
 	@GetMapping("/livelli-by-ccnl/{ccnl}")
 	public @ResponseBody HttpEntity<TipologicheListResponse<TipoLivelloContratto>> getTipoLivelloContrattoMap(
 			@PathVariable("ccnl") String ccnl) {
@@ -205,7 +233,7 @@ public class TipologicheContrattoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getTipoLivelloContrattoMap");
 
-			List<TipoLivelloContratto> list = tipologicheContrattoService.getTipoLivelliContrattualiMap(ccnl);
+			List<TipoLivelloContratto> list = tipologicheService.getTipoLivelloContrattoMap(ccnl);
 
 			livelloContrattoListResponse.setList(list);
 			livelloContrattoListResponse.setEsito(new Esito());

@@ -1,7 +1,6 @@
 package it.sincrono.responses;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 
 public class RapportinoDtoResponse extends GenericResponse {

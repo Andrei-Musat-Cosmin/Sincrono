@@ -7,7 +7,7 @@ import it.sincrono.entities.Profilo;
 @Component
 public class ProfiloValidator {
 
-	public boolean validate(Profilo profilo){
+	public boolean validate(Profilo profilo) {
 
 		boolean result = true;
 

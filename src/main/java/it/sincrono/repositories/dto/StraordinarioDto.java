@@ -2,8 +2,6 @@ package it.sincrono.repositories.dto;
 
 public class StraordinarioDto {
 
-
-
 	private Double fascia1;
 
 	private Double fascia2;
@@ -45,9 +43,4 @@ public class StraordinarioDto {
 		this.fascia3 = fascia3;
 	}
 
-	
-	
-
-	
-	
 }

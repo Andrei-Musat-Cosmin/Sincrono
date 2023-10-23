@@ -101,8 +101,4 @@ public class GiornoDto {
 		this.note = note;
 	}
 
-	
-	
-	
-
 }

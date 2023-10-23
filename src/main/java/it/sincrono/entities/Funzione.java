@@ -139,6 +139,4 @@ public class Funzione {
 		this.id = id;
 	}
 
-	
-	
 }

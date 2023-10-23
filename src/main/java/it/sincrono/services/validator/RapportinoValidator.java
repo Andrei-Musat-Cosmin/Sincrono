@@ -1,7 +1,6 @@
 package it.sincrono.services.validator;
 
 import org.apache.logging.log4j.Level;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,20 +69,17 @@ public class RapportinoValidator {
 		if (validateFieldsForPath(rapportinoDto)) {
 
 			contratto = mapperCustom.toContratto(
-					
-					anagraficaRepository.findByCodiceFiscale(
-							
-							rapportinoDto.getAnagrafica().getCodiceFiscale()
-							
-							).getId());
-					
-				
 
-		}else {
-			
-			
+					anagraficaRepository.findByCodiceFiscale(
+
+							rapportinoDto.getAnagrafica().getCodiceFiscale()
+
+					).getId());
+
+		} else {
+
 			return false;
-			
+
 		}
 
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
@@ -108,8 +104,9 @@ public class RapportinoValidator {
 
 				if (contratto.getTipoContratto().getId() == 1 || contratto.getTipoContratto().getId() == 2) {
 
-					if(giornoDto.getFerie()!=null || giornoDto.getPermessi()!=null || giornoDto.getMalattie()!=null) {
-						
+					if (giornoDto.getFerie() != null || giornoDto.getPermessi() != null
+							|| giornoDto.getMalattie() != null) {
+
 						return false;
 					}
 				}
@@ -121,95 +118,77 @@ public class RapportinoValidator {
 		return true;
 
 	}
-	
-	
+
 	public Boolean validateNote(RapportinoDto rapportinoDto) {
 
 		Contratto contratto = null;
 
 		if (!validateFieldsForPath(rapportinoDto)) {
 
-					return false;
-				
+			return false;
 
 		}
 
-		if(rapportinoDto.getNote()==null || rapportinoDto.getNote().equals("")) {
-			
-			
+		if (rapportinoDto.getNote() == null || rapportinoDto.getNote().equals("")) {
+
 			return false;
 		}
-		
-		
+
 		return true;
 
 	}
 
-	
 	public Boolean validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
 
-	
+		if (rapportinoInviato.getId() == null) {
 
-		if(rapportinoInviato.getId()==null) {
-			
-			if((rapportinoInviato.getNome()==null || rapportinoInviato.getNome().equals("")) ||
-			   (rapportinoInviato.getCognome()==null || rapportinoInviato.getCognome().equals("")) ||
-			   (rapportinoInviato.getCodiceFiscale()==null || rapportinoInviato.getCodiceFiscale().equals("")) ||
-			   (rapportinoInviato.getMese()==null || rapportinoInviato.getAnno()==null)) {
-				
+			if ((rapportinoInviato.getNome() == null || rapportinoInviato.getNome().equals(""))
+					|| (rapportinoInviato.getCognome() == null || rapportinoInviato.getCognome().equals(""))
+					|| (rapportinoInviato.getCodiceFiscale() == null || rapportinoInviato.getCodiceFiscale().equals(""))
+					|| (rapportinoInviato.getMese() == null || rapportinoInviato.getAnno() == null)) {
+
 				return false;
-				
-				
+
 			}
-			
-			
-		}else {
-			
+
+		} else {
+
 			return false;
 		}
-		
-		
+
 		return true;
 
 	}
-	
-	
+
 	public Boolean validateFreeze(RapportinoInviato rapportinoInviato) {
 
-		
+		if (rapportinoInviato.getId() != null) {
 
-		if(rapportinoInviato.getId()!=null) {
-			
-			if(rapportinoInviato.getCheckFreeze()==null) {
-				
+			if (rapportinoInviato.getCheckFreeze() == null) {
+
 				return false;
-				
-				
+
 			}
-			
-			
-		}else {
-			
+
+		} else {
+
 			return false;
 		}
-		
-		
+
 		return true;
 
 	}
-	
+
 	public Boolean validateFieldsForPath(RapportinoRequest rapportinoRequest) {
 
 		if (rapportinoRequest != null) {
 
-			if (rapportinoRequest.getCodiceFiscale() == null
-					|| rapportinoRequest.getCodiceFiscale().equals("")) {
+			if (rapportinoRequest.getCodiceFiscale() == null || rapportinoRequest.getCodiceFiscale().equals("")) {
 				LOGGER.log(Level.ERROR, "codice fiscale del rapportinoRequest non è valorizzato");
 				return false;
 			}
 
-			Anagrafica anagrafica = anagraficaRepository
-					.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
+			Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
 
 			if (anagrafica == null) {
 
