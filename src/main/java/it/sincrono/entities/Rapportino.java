@@ -31,6 +31,15 @@ public class Rapportino {
 	@Column(name = "giorno")
 	private Integer giorno;
 
+	@Column(name = "1_fascia")
+	private Double fasca1;
+
+	@Column(name = "2_fascia")
+	private Double fascia2;
+
+	@Column(name = "3_fascia")
+	private Double fascia3;
+
 	@Column(name = "ore")
 	private Double ore;
 
@@ -43,14 +52,17 @@ public class Rapportino {
 	@Column(name = "malattie")
 	private Boolean malattie;
 
-	public Rapportino(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Integer giorno, Double ore,
-			Double permessi, Boolean ferie, Boolean malattie) {
+	public Rapportino(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Integer giorno, Double fasca1,
+			Double fascia2, Double fascia3, Double ore, Double permessi, Boolean ferie, Boolean malattie) {
 		super();
 		this.id = id;
 		this.anagrafica = anagrafica;
 		this.anno = anno;
 		this.mese = mese;
 		this.giorno = giorno;
+		this.fasca1 = fasca1;
+		this.fascia2 = fascia2;
+		this.fascia3 = fascia3;
 		this.ore = ore;
 		this.permessi = permessi;
 		this.ferie = ferie;
@@ -59,7 +71,6 @@ public class Rapportino {
 
 	public Rapportino() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
@@ -102,6 +113,30 @@ public class Rapportino {
 		this.giorno = giorno;
 	}
 
+	public Double getFasca1() {
+		return fasca1;
+	}
+
+	public void setFasca1(Double fasca1) {
+		this.fasca1 = fasca1;
+	}
+
+	public Double getFascia2() {
+		return fascia2;
+	}
+
+	public void setFascia2(Double fascia2) {
+		this.fascia2 = fascia2;
+	}
+
+	public Double getFascia3() {
+		return fascia3;
+	}
+
+	public void setFascia3(Double fascia3) {
+		this.fascia3 = fascia3;
+	}
+
 	public Double getOre() {
 		return ore;
 	}
@@ -133,5 +168,10 @@ public class Rapportino {
 	public void setMalattie(Boolean malattie) {
 		this.malattie = malattie;
 	}
+	
+	
+	
+
+	
 
 }

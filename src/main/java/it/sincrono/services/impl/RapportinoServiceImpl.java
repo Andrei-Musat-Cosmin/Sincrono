@@ -20,6 +20,7 @@ import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.RapportinoInviatoRepository;
 import it.sincrono.repositories.RapportinoRepository;
+import it.sincrono.repositories.dto.DuplicazioniGiornoDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.RapportinoRequest;
@@ -253,27 +254,46 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 				Rapportino rapportino = new Rapportino();
 
-				if (giornoDto.getGiorno() != null)
-					rapportino.setGiorno(giornoDto.getGiorno());
-				if (giornoDto.getOreOrdinarie() != null)
-					rapportino.setOre(giornoDto.getOreOrdinarie().stream().mapToDouble(Double::doubleValue).sum());
+				if (giornoDto.getDuplicazioniGiornoDto() != null && giornoDto.getDuplicazioniGiornoDto().size() > 0) {
 
-				rapportino.setMese(rapportinoRequest.getMese());
+					if (giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno() != null)
+						rapportino.setGiorno(giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno());
 
-				rapportino.setAnno(rapportinoRequest.getAnno());
+					rapportino.setOre(
+							giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getOreOrdinarie() != null)
+									.mapToDouble(DuplicazioniGiornoDto::getOreOrdinarie).sum());
 
-				if (giornoDto.getFerie() != null)
-					rapportino.setFerie(giornoDto.getFerie());
+					rapportino.setFasca1(
+							giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getFascia1() != null)
+									.mapToDouble(DuplicazioniGiornoDto::getFascia1).sum());
 
-				if (giornoDto.getMalattie() != null)
-					rapportino.setMalattie(giornoDto.getMalattie());
+					rapportino.setFascia2(
+							giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getFascia2() != null)
+									.mapToDouble(DuplicazioniGiornoDto::getFascia2).sum());
 
-				if (giornoDto.getPermessi() != null)
-					rapportino.setPermessi(giornoDto.getPermessi());
+					rapportino.setFascia3(
+							giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getFascia3() != null)
+									.mapToDouble(DuplicazioniGiornoDto::getFascia3).sum());
 
-				rapportino.setAnagrafica(anagrafica);
+					rapportino.setMese(rapportinoRequest.getMese());
 
-				rapportini.add(rapportino);
+					rapportino.setAnno(rapportinoRequest.getAnno());
+
+					if (giornoDto.getFerie() != null)
+						rapportino.setFerie(giornoDto.getFerie());
+
+					if (giornoDto.getMalattie() != null)
+						rapportino.setMalattie(giornoDto.getMalattie());
+
+					if (giornoDto.getPermessi() != null)
+						rapportino.setPermessi(giornoDto.getPermessi());
+
+					rapportino.setAnagrafica(anagrafica);
+
+					rapportini.add(rapportino);
+
+				}
+
 			}
 			rapportinoRepository.saveAllAndFlush(rapportini);
 

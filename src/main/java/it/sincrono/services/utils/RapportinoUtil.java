@@ -2,6 +2,7 @@ package it.sincrono.services.utils;
 
 import org.springframework.stereotype.Component;
 
+import it.sincrono.repositories.dto.DuplicazioniGiornoDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 
@@ -21,14 +22,9 @@ public class RapportinoUtil {
 
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 
-			if (giornoDto.getOreOrdinarie() != null) {
-
-				for (Double oreOrdinarie : giornoDto.getOreOrdinarie()) {
-
-					sommaOreLavorate += oreOrdinarie;
-
-				}
-			}
+			sommaOreLavorate = sommaOreLavorate
+					+ giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getOreOrdinarie() != null)
+							.mapToDouble(DuplicazioniGiornoDto::getOreOrdinarie).sum();
 
 		}
 
