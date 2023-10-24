@@ -4,13 +4,8 @@ import java.util.List;
 
 public class GiornoDto {
 
-	private Integer giorno;
 
-	private List<String> cliente;
-
-	private List<Double> oreOrdinarie;
-
-	private List<StraordinarioDto> straordinari;
+	private List<DuplicazioniGiornoDto> duplicazioniGiornoDto ;
 
 	private Boolean ferie;
 
@@ -19,14 +14,15 @@ public class GiornoDto {
 	private Double permessi;
 
 	private String note;
+	
+	
+	
+	
 
-	public GiornoDto(Integer giorno, List<String> cliente, List<Double> oreOrdinarie,
-			List<StraordinarioDto> straordinari, Boolean ferie, Boolean malattie, Double permessi, String note) {
+	public GiornoDto(List<DuplicazioniGiornoDto> duplicazioniGiornoDto, Boolean ferie, Boolean malattie,
+			Double permessi, String note) {
 		super();
-		this.giorno = giorno;
-		this.cliente = cliente;
-		this.oreOrdinarie = oreOrdinarie;
-		this.straordinari = straordinari;
+		this.duplicazioniGiornoDto = duplicazioniGiornoDto;
 		this.ferie = ferie;
 		this.malattie = malattie;
 		this.permessi = permessi;
@@ -37,36 +33,12 @@ public class GiornoDto {
 		super();
 	}
 
-	public Integer getGiorno() {
-		return giorno;
+	public List<DuplicazioniGiornoDto> getDuplicazioniGiornoDto() {
+		return duplicazioniGiornoDto;
 	}
 
-	public void setGiorno(Integer giorno) {
-		this.giorno = giorno;
-	}
-
-	public List<String> getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(List<String> cliente) {
-		this.cliente = cliente;
-	}
-
-	public List<Double> getOreOrdinarie() {
-		return oreOrdinarie;
-	}
-
-	public void setOreOrdinarie(List<Double> oreOrdinarie) {
-		this.oreOrdinarie = oreOrdinarie;
-	}
-
-	public List<StraordinarioDto> getStraordinari() {
-		return straordinari;
-	}
-
-	public void setStraordinari(List<StraordinarioDto> straordinari) {
-		this.straordinari = straordinari;
+	public void setDuplicazioniGiornoDto(List<DuplicazioniGiornoDto> duplicazioniGiornoDto) {
+		this.duplicazioniGiornoDto = duplicazioniGiornoDto;
 	}
 
 	public Boolean getFerie() {
@@ -100,5 +72,8 @@ public class GiornoDto {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	
+	
 
 }
