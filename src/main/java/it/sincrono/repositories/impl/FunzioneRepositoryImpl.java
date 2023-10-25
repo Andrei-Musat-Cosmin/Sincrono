@@ -27,9 +27,9 @@ public class FunzioneRepositoryImpl extends BaseRepositoryImpl implements Funzio
 			String subString;
 
 			if (id == null) {
-				subString = "AND a.funzione IS NULL";
+				subString = "WHERE a.funzione IS NULL";
 			} else {
-				subString = "AND a.funzione = " + id;
+				subString = "WHERE a.funzione = " + id;
 			}
 
 			Query query = entityManager.createQuery(queryString.replace("{0}", subString));

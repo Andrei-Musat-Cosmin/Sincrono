@@ -33,9 +33,6 @@ public class Funzione {
 	@Column(name = "percorso")
 	private String percorso;
 
-	@Column(name = "immagine")
-	private String immagine;
-
 	@Column(name = "ordinamento")
 	private Integer ordinamento;
 
@@ -43,15 +40,14 @@ public class Funzione {
 
 	private transient Boolean privilegio;
 
-	public Funzione(Integer id, Funzione funzione, Integer menuItem, String nome, String percorso, String immagine,
-			Integer ordinamento, List<Funzione> funzioni, Boolean privilegio) {
+	public Funzione(Integer id, Funzione funzione, Integer menuItem, String nome, String percorso, Integer ordinamento,
+			List<Funzione> funzioni, Boolean privilegio) {
 		super();
 		this.id = id;
 		this.funzione = funzione;
 		this.menuItem = menuItem;
 		this.nome = nome;
 		this.percorso = percorso;
-		this.immagine = immagine;
 		this.ordinamento = ordinamento;
 		this.funzioni = funzioni;
 		this.privilegio = privilegio;
@@ -100,14 +96,6 @@ public class Funzione {
 
 	public void setPercorso(String percorso) {
 		this.percorso = percorso;
-	}
-
-	public String getImmagine() {
-		return immagine;
-	}
-
-	public void setImmagine(String immagine) {
-		this.immagine = immagine;
 	}
 
 	public Integer getOrdinamento() {

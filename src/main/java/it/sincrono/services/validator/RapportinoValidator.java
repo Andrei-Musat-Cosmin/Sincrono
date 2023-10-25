@@ -10,6 +10,7 @@ import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.AnagraficaRepository;
+import it.sincrono.repositories.dto.DuplicazioniGiornoDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.RapportinoRequest;
@@ -25,157 +26,240 @@ public class RapportinoValidator {
 	@Autowired
 	AnagraficaRepository anagraficaRepository;
 
-	public Boolean validateFieldsForPath(RapportinoDto rapportinoDto) {
-
+	public String validateFieldsForPath(RapportinoDto rapportinoDto) {
+		String msg = null;
 		if (rapportinoDto != null) {
 
 			if (rapportinoDto.getAnagrafica().getCodiceFiscale() == null
 					|| rapportinoDto.getAnagrafica().getCodiceFiscale().equals("")) {
-				LOGGER.log(Level.ERROR, "codice fiscale del rapportinoDto non è valorizzato");
-				return false;
+				msg = "codice fiscale del rapportinoDto non è valorizzato";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
 			}
 
 			Anagrafica anagrafica = anagraficaRepository
 					.findByCodiceFiscale(rapportinoDto.getAnagrafica().getCodiceFiscale());
 
 			if (anagrafica == null) {
+				msg = "anagrafica non esistente";
+				LOGGER.log(Level.ERROR, msg);
 
-				LOGGER.log(Level.ERROR, "anagrafica non esistente");
-
-				return false;
+				return msg;
 			}
 
 			if (rapportinoDto.getAnnoRequest() == null) {
-				LOGGER.log(Level.ERROR, "anno request del rapportinoDto non è valorizzato");
-				return false;
+				msg = "anno request del rapportinoDto non è valorizzato";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
 			}
 
 			if (rapportinoDto.getMeseRequest() == null) {
-				LOGGER.log(Level.ERROR, "mese request del rapportinoDto non è valorizzato");
-				return false;
+				msg = "mese request del rapportinoDto non è valorizzato";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
 			}
 
-			return true;
+			return msg;
 
 		} else {
-			return false;
+			msg = "rapportino non è valorizzato";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
 	}
 
-	public Boolean validateGiornoDto(RapportinoDto rapportinoDto) {
-
+	public String validateGiornoDto(RapportinoDto rapportinoDto) {
 		Contratto contratto = null;
-
-		if (validateFieldsForPath(rapportinoDto)) {
-
+		String msg = null;
+		if ((msg = validateFieldsForPath(rapportinoDto)) == null) {
 			contratto = mapperCustom.toContratto(
-
-					anagraficaRepository.findByCodiceFiscale(
-
-							rapportinoDto.getAnagrafica().getCodiceFiscale()
-
-					).getId());
-
+					anagraficaRepository.findByCodiceFiscale(rapportinoDto.getAnagrafica().getCodiceFiscale()).getId());
 		} else {
-
-			return false;
-
+			return msg;
 		}
 
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 
-			if (!((giornoDto.getGiorno() == null &&
+			if (giornoDto.getDuplicazioniGiornoDto() != null) {
+				if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null
+						&& giornoDto.getPermessi() == null) {
+					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
+						if (giornoDuplicato.getGiorno() == null || giornoDuplicato.getCliente() == null
+								|| giornoDuplicato.getOreOrdinarie() == null) {
+							msg = "Le ore non sono state inserite nel giorno: " + giornoDuplicato.getGiorno();
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
+					}
+				} else if ((giornoDto.getFerie() != null && giornoDto.getMalattie() == null
+						&& giornoDto.getPermessi() == null)
+						|| (giornoDto.getMalattie() != null && giornoDto.getFerie() == null
+								&& giornoDto.getPermessi() == null)
+						|| (giornoDto.getPermessi() != null && giornoDto.getFerie() == null
+								&& giornoDto.getMalattie() == null)) {
 
-					giornoDto.getCliente() == null &&
+					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
+						if (giornoDuplicato.getGiorno() != null) {
+							if (giornoDto.getPermessi() != null) {
+								if (giornoDuplicato.getGiorno() == null) {
+									msg = "Non è stato inserito il numero del giorno";
+									LOGGER.log(Level.ERROR, msg);
+									return msg;
+								}
+								if (giornoDuplicato.getCliente() == null) {
+									msg = "Il giorno " + giornoDuplicato.getGiorno() + " non conitente il cliente";
+									LOGGER.log(Level.ERROR, msg);
+									return msg;
+								}
+								if (giornoDuplicato.getOreOrdinarie() == null) {
 
-					giornoDto.getOreOrdinarie() == null) ||
+									msg = "Il giorno " + giornoDuplicato.getGiorno() + " non contiente le ore lavorate";
+									LOGGER.log(Level.ERROR, msg);
+									return msg;
+								}
+							} else {
+								if (giornoDuplicato.getCliente() == null || giornoDuplicato.getOreOrdinarie() != null
+										|| giornoDuplicato.getFascia1() != null || giornoDuplicato.getFascia2() != null
+										|| giornoDuplicato.getFascia3() != null) {
+									msg = "Sono state valorizzate delle ore nel giorno " + giornoDuplicato.getGiorno()
+											+ " segnato con " + (giornoDto.getFerie() ? "ferie" : "malattia");
+									LOGGER.log(Level.ERROR, msg);
+									return msg;
+								}
+							}
+						} else {
+							if (giornoDuplicato.getCliente() != null) {
+								msg = "E' stato valorizzato il cliente in un giorno segnato come "
+										+ (giornoDto.getFerie() ? "ferie" : "malattia");
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getOreOrdinarie() != null) {
+								msg = "Sono state valorizzate delle ore in un giorno segnato come "
+										+ (giornoDto.getFerie() ? "ferie" : "malattia");
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia1() != null) {
+								msg = "Sono state valorizzate delle ore di straordinario fascia1 in un giorno segnato come "
+										+ " segnato con " + (giornoDto.getFerie() ? "ferie" : "malattia");
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia2() != null) {
+								msg = "Sono state valorizzate delle ore di straordinario fascia2 in un giorno segnato come "
+										+ " segnato con " + (giornoDto.getFerie() ? "ferie" : "malattia");
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia3() != null) {
+								msg = "Sono state valorizzate delle ore di straordinario fascia3 in un giorno segnato come "
+										+ " segnato con " + (giornoDto.getFerie() ? "ferie" : "malattia");
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+						}
+					}
+				} else {
+					msg = "Un giorno è stato segnato con piu di uno fra i seguenti: ferie, malattie e permessi";
+					LOGGER.log(Level.ERROR, msg);
+					return msg;
+				}
 
-					(giornoDto.getGiorno() != null &&
-
-							(giornoDto.getCliente() != null && !giornoDto.getCliente().isEmpty()) &&
-
-							(giornoDto.getOreOrdinarie() != null && !giornoDto.getOreOrdinarie().isEmpty())))) {
-
-				return false;
-
+			} else {
+				if (giornoDto.getFerie() != null || giornoDto.getMalattie() != null
+						|| giornoDto.getPermessi() != null) {
+					msg = "Un giorno è stato segnato con piu di uno fra i seguenti: ferie, malattie e permessi";
+					LOGGER.log(Level.ERROR, msg);
+					return msg;
+				}
 			}
 
 			if (contratto != null && contratto.getTipoContratto() != null) {
 
 				if (contratto.getTipoContratto().getId() == 1 || contratto.getTipoContratto().getId() == 2) {
-
 					if (giornoDto.getFerie() != null || giornoDto.getPermessi() != null
 							|| giornoDto.getMalattie() != null) {
-
-						return false;
+						msg = "Non sono previsti ferie malattie o permessi per il contratto: "
+								+ contratto.getTipoContratto().getDescrizione();
+						LOGGER.log(Level.ERROR, msg);
+						return msg;
 					}
 				}
-
 			}
-
 		}
-
-		return true;
-
+		return msg;
 	}
 
-	public Boolean validateNote(RapportinoDto rapportinoDto) {
+	public String validateNote(RapportinoDto rapportinoDto) {
+		String msg = null;
 
-		Contratto contratto = null;
-
-		if (!validateFieldsForPath(rapportinoDto)) {
-
-			return false;
-
+		if ((msg = validateFieldsForPath(rapportinoDto)) != null) {
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
-
 		if (rapportinoDto.getNote() == null || rapportinoDto.getNote().equals("")) {
-
-			return false;
+			msg = "Le note non sono state inserte corretteamlete";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
 
-		return true;
+		return msg;
 
 	}
 
-	public Boolean validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
-
+	public String validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
+		String msg = null;
 		if (rapportinoInviato.getId() == null) {
 
-			if ((rapportinoInviato.getNome() == null || rapportinoInviato.getNome().equals(""))
-					|| (rapportinoInviato.getCognome() == null || rapportinoInviato.getCognome().equals(""))
-					|| (rapportinoInviato.getCodiceFiscale() == null || rapportinoInviato.getCodiceFiscale().equals(""))
-					|| (rapportinoInviato.getMese() == null || rapportinoInviato.getAnno() == null)) {
-
-				return false;
+			if (rapportinoInviato.getNome() == null || rapportinoInviato.getNome().equals("")) {
+				msg = "Le nome non è stato inserito corretteamlete";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
+			}
+			if (rapportinoInviato.getCognome() == null || rapportinoInviato.getCognome().equals("")) {
+				msg = "Il cognome non è stato inserito correttamete corretteamlete";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
+			}
+			if (rapportinoInviato.getCodiceFiscale() == null || rapportinoInviato.getCodiceFiscale().equals("")) {
+				msg = "Il codice fiscale non è stato inserito correttamete corretteamlete";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
+			}
+			if (rapportinoInviato.getMese() == null || rapportinoInviato.getAnno() == null) {
+				msg = "Il mese non è stato inserito correttamete corretteamlete";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
 
 			}
 
 		} else {
-
-			return false;
+			msg = "Non è stato possibile effettuare l'inserimento, il campo \"id\" è valorizzato";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
 
-		return true;
+		return msg;
 
 	}
 
-	public Boolean validateFreeze(RapportinoInviato rapportinoInviato) {
-
+	public String validateFreeze(RapportinoInviato rapportinoInviato) {
+		String msg = null;
 		if (rapportinoInviato.getId() != null) {
 
 			if (rapportinoInviato.getCheckFreeze() == null) {
-
-				return false;
-
+				msg = "Non è stato valorizzato il valore \"checkFreeze\"";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
 			}
 
 		} else {
-
-			return false;
+			msg = "Non è stato possibile effettuare l'inserimento, il campo \"id\" è valorizzato";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
-
-		return true;
+		return msg;
 
 	}
 

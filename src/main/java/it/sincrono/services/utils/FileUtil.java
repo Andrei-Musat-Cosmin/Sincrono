@@ -1,7 +1,6 @@
 package it.sincrono.services.utils;
 
 import java.io.BufferedReader;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -20,10 +19,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Component;
 
+import it.sincrono.repositories.dto.DuplicazioniGiornoDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.MeseDto;
 import it.sincrono.repositories.dto.RapportinoDto;
-import it.sincrono.repositories.dto.DuplicazioniGiornoDto;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.responses.DocumentResponse;
 import it.sincrono.services.costants.ServiceMessages;
@@ -132,14 +131,12 @@ public class FileUtil {
 						 * 
 						 * straordinari=null; }
 						 */
-						
 
 						giornoDto.getDuplicazioniGiornoDto().add(duplicazioniGiornoDto);
 
 						duplicazioniGiornoDto = new DuplicazioniGiornoDto();
 
 					}
-
 
 				}
 
@@ -223,70 +220,59 @@ public class FileUtil {
 					Files.delete(filePath);
 				String dati = "";
 				try (FileWriter writer = new FileWriter(filePath.toFile())) {
-					for (GiornoDto giorno : rapportino.getRapportinoDto().getMese().getGiorni()) {
-						/** SET DEL GIORNO **/
-						dati += giorno.getGiorno() + ",";
-						if (giorno.getCliente() != null) {
-							for (int i = 0; i < giorno.getCliente().size(); i++) {
+					for (GiornoDto giornoDto : rapportino.getRapportinoDto().getMese().getGiorni()) {
 
-								/** SET DELLA COMMESSA **/
-								dati += giorno.getCliente().get(i);
+						if (giornoDto.getDuplicazioniGiornoDto() != null
+								&& giornoDto.getDuplicazioniGiornoDto().get(0) != null
+								&& giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno() != null) {
+							dati += giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno() + ",";
+							for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
+								int i = 1;
 
-								/** SET ORE ORDINARIE SE CI SONO **/
-								if (giorno.getOreOrdinarie() != null) {
-									dati += "-" + giorno.getOreOrdinarie().get(i);
+								if (giornoDuplicato.getCliente() != null) {
+									dati += giornoDuplicato.getCliente() + "-";
 								} else
-									dati += "-null";
+									dati += "null-";
+								if (giornoDuplicato.getOreOrdinarie() != null) {
+									dati += giornoDuplicato.getOreOrdinarie() + "-";
+								} else
+									dati += "null-";
+								if (giornoDuplicato.getFascia1() != null) {
+									dati += giornoDuplicato.getFascia1() + "-";
+								} else
+									dati += "null-";
+								if (giornoDuplicato.getFascia2() != null) {
+									dati += giornoDuplicato.getFascia2() + "-";
+								} else
+									dati += "null-";
+								if (giornoDuplicato.getFascia3() != null) {
+									dati += giornoDuplicato.getFascia3();
+								} else
+									dati += "null";
 
-								/** SET DI 1FASCIA &OR 2FASCIA &OR 3FASCIA **/
-								if (giorno.getStraordinari() != null) {
-									if (giorno.getStraordinari().get(i).getFascia1() != null) {
-										dati += "-" + giorno.getStraordinari().get(i).getFascia1();
-									} else
-										dati += "-null";
-									if (giorno.getStraordinari().get(i).getFascia2() != null) {
-										dati += "-" + giorno.getStraordinari().get(i).getFascia2();
-									} else
-										dati += "-null";
-									if (giorno.getStraordinari().get(i).getFascia3() != null) {
-										dati += "-" + giorno.getStraordinari().get(i).getFascia3();
-									} else
-										dati += "-null";
-								} else {
-									dati += "-null-null-null";
-								}
-
-								/** SEPARATORER PER IL PROSSIMO CLIENTE **/
-								if (i < giorno.getCliente().size() - 1)
+								if (i < giornoDto.getDuplicazioniGiornoDto().size())
 									dati += "/";
+								i++;
 							}
-							/** SET DI FERIE OR MALATTIE **/
-							if (giorno.getFerie() != null) {
-								dati += "," + giorno.getFerie();
-							} else
-								dati += ",null";
-							if (giorno.getMalattie() != null) {
-								dati += "," + giorno.getMalattie();
-							} else
-								dati += ",null";
+						} else
+							dati += "null,null-null-null-null-null,";
+						if (giornoDto.getFerie() != null) {
+							dati += "," + giornoDto.getFerie();
+						} else
+							dati += ",null";
+						if (giornoDto.getMalattie() != null) {
+							dati += "," + giornoDto.getMalattie() + ",";
+						} else
+							dati += ",null";
+						if (giornoDto.getPermessi() != null) {
+							dati += "," + giornoDto.getPermessi();
+						} else
+							dati += ",null";
+						if (giornoDto.getNote() != null) {
+							dati += "," + giornoDto.getNote() + ";";
+						} else
+							dati += ",null;";
 
-							/** SET DEI PERMESSI **/
-							if (giorno.getPermessi() != null) {
-								dati += "," + giorno.getPermessi();
-							} else
-								dati += ",null";
-
-							/** SET DELLE NOTE **/
-							if (giorno.getNote() != null) {
-								dati += "," + giorno.getNote();
-							} else
-								dati += ",null";
-
-						} else {
-							/** SE IL GIORNO E' NULL **/
-							dati += "null,null,null,null,null,null,null,null,null";
-						}
-						dati += ";";
 					}
 					writer.write(dati);
 				}
@@ -305,6 +291,7 @@ public class FileUtil {
 			}
 		}
 		LOGGER.log(Level.INFO, "Rapportino salvato con successo.");
+
 	}
 
 	public void appendNote(String path, String note) throws Exception {
@@ -331,8 +318,7 @@ public class FileUtil {
 		LOGGER.log(Level.INFO, "Note salvate con successo.");
 	}
 
-	// ------------metodi per la lettura e scrittura di un image in base64 nel
-	// file---------------------------------------
+	// metodi per la lettura e scrittura di un image in base64 nel file
 
 	public void saveFileImage(String percorso, String base64) throws Exception {
 

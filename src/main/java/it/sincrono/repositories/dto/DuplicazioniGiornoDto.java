@@ -1,7 +1,5 @@
 package it.sincrono.repositories.dto;
 
-import java.util.List;
-
 public class DuplicazioniGiornoDto {
 
 	private Integer giorno;
@@ -78,8 +76,5 @@ public class DuplicazioniGiornoDto {
 	public void setFascia3(Double fascia3) {
 		this.fascia3 = fascia3;
 	}
-
-
-	
 
 }
