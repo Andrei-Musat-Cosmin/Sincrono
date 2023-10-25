@@ -260,10 +260,12 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 					if (giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno() != null)
 						rapportino.setGiorno(giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno());
+					
+					Double sum=null;
 
 					rapportino.setOre(
-							giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getOreOrdinarie() != null)
-									.mapToDouble(DuplicazioniGiornoDto::getOreOrdinarie).sum());
+							 sum=giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getOreOrdinarie() != null)
+									.mapToDouble(DuplicazioniGiornoDto::getOreOrdinarie).sum()==0?null:sum);
 
 					rapportino.setFasca1(
 							giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getFascia1() != null)
