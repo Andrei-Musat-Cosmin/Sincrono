@@ -27,11 +27,11 @@ public interface SqlStrings {
 	// public final String SQL_RUOLO_PROFILO = "SELECT b.nome FROM profili a INNER
 	// JOIN ruoli b ON a.id_ruolo = b.id INNER JOIN utenti c ON a.id_utente = c.id
 	// WHERE c.id = :id ORDER BY b.nome";
-	public final String SQL_GET_FUNZIONE_RUOLO = "SELECT a.id FROM funzioni a INNER JOIN privilegi b ON a.id = b.id_funzione INNER JOIN ruoli c ON b.id_ruolo = c.id WHERE 1=1 AND a.id_padre IS NULL {0}";
+	public final String SQL_GET_FUNZIONE_RUOLO = "SELECT a.id FROM funzioni a INNER JOIN privilegi b ON a.id = b.id_funzione INNER JOIN ruoli c ON b.id_ruolo = c.id INNER JOIN profili d ON d.id_ruolo = c.id WHERE a.id_padre IS NULL {0}";
 
 	public final String SQL_GET_PRIVILEGIO = "Select p FROM Privilegio p WHERE p.ruolo.id = :id_ruolo AND p.funzione.id = :id_funzione";
 	public final String SQL_GET_PRIVILEGIO_ESISTENTE_PADRE = "SELECT 1 FROM Privilegi p WHERE p.funzione.id = :idpadre AND p.ruolo.id = :idruolo";
-	public final String SQL_TREE_FUNZIONI = "SELECT a FROM Funzione a WHERE 1 = 1 {0} ORDER BY a.ordinamento";
+	public final String SQL_TREE_FUNZIONI = "SELECT a FROM Funzione a {0} ORDER BY a.ordinamento";
 	public final String SQL_GET_FUNZIONI_FIGLIE = "SELECT a FROM Funzione a WHERE a.funzione.id = id";
 	public final String SQL_GET_RUOLO_UTENTE = "SELECT r.id FROM ruoli r INNER JOIN profili a ON r.id = a.id_ruolo INNER JOIN utenti u ON u.id = a.id_utente WHERE 1=1 AND u.username = '{0}'";
 	public final String SQL_CURRENT_COMMESSA = "SELECT * FROM commessa c WHERE c.id=(SELECT  c.id FROM storico_commesse st INNER JOIN anagrafica a ON a.id=st.id_anagrafica INNER JOIN commessa c ON c.id=st.id_commessa WHERE c.stato=1 AND a.id={0}";

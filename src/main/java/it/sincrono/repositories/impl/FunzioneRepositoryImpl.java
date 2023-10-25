@@ -65,7 +65,7 @@ public class FunzioneRepositoryImpl extends BaseRepositoryImpl implements Funzio
 		try {
 			String queryString = SqlStrings.SQL_GET_FUNZIONE_RUOLO;
 
-			String subString = "AND c.id = " + id;
+			String subString = "AND d.id_utente = " + id;
 
 			Query query = entityManager.createNativeQuery(queryString.replace("{0}", subString));
 
