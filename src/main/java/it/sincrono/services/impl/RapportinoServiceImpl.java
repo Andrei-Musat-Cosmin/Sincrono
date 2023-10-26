@@ -38,15 +38,15 @@ import it.sincrono.services.validator.RapportinoValidator;
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
 
 	@Value("${anagrafiche-profili.path-prefix}")
-	private static String PREFIX;
+	private String PREFIX;
 
-	@Value("${anagrafica-profili.destinazione}")
-	private static String DESTINAZIONE;
+	@Value("${anagrafiche-profili.destinazione}")
+	private String DESTINAZIONE;
 
 	@Value("${anagrafiche-profili.anagrafiche-profili-rapportini.path-prefix-rapportini}")
-	private static String RAPPORTINI;
+	private String RAPPORTINI;
 
-	private static final String EXCELPATH = PREFIX + "provaSalvataggioExcel.xlsx";
+	public String EXCELPATH = "provaSalvataggioExcel.xlsx";
 
 	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
 
@@ -389,17 +389,17 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		int rowNum = 0;
 		try {
 			List<Rapportino> rapportini = rapportinoRepository.findByMeseAndAnno(valAnno, valMese);
-			rowNum = excelUtil.toExcel(rapportini, rowNum, false);
+			rowNum = excelUtil.toExcel(rapportini, rowNum, false, PREFIX + EXCELPATH);
 
 			rapportini = rapportinoRepository.findByMeseAndAnno(valAnno, ++valMese);
 			if (!rapportini.isEmpty())
-				rowNum = excelUtil.toExcel(rapportini, ++rowNum, true);
+				rowNum = excelUtil.toExcel(rapportini, ++rowNum, true, PREFIX + EXCELPATH);
 
 			rapportini = rapportinoRepository.findByMeseAndAnno(valAnno, ++valMese);
 			if (!rapportini.isEmpty())
-				rowNum = excelUtil.toExcel(rapportini, ++rowNum, true);
+				rowNum = excelUtil.toExcel(rapportini, ++rowNum, true, PREFIX + EXCELPATH);
 
-			return ExcelUtil.excelToBase64(EXCELPATH);
+			return ExcelUtil.excelToBase64(PREFIX + EXCELPATH);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);

@@ -39,10 +39,11 @@ import it.sincrono.services.impl.RapportinoServiceImpl;
 
 @Component
 public class ExcelUtil {
-	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
-	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel.xlsx";
 
-	public int toExcel(List<Rapportino> rapportini, int rowNum, boolean append) throws ServiceException {
+	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
+
+	public int toExcel(List<Rapportino> rapportini, int rowNum, boolean append, String EXCELPATH)
+			throws ServiceException {
 		try {
 			FileInputStream fileInputStream = new FileInputStream(EXCELPATH);
 			Workbook workbook = (append ? new XSSFWorkbook(fileInputStream) : new XSSFWorkbook());
