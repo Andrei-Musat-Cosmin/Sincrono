@@ -19,10 +19,13 @@ import it.sincrono.services.validator.DocumentValidator;
 public class DocumentServiceImpl extends BaseServiceImpl implements DocumentService {
 
 	@Value("${anagrafiche-profili.path-prefix}")
-	private String PREFIX;
+	private static String PREFIX;
+
+	@Value("${anagrafica-profili.destinazione}")
+	private static String DESTINAZIONE;
 
 	@Value("${anagrafiche-profili.anagrafiche-profili-documenti.path-prefix-documenti}")
-	private String DOCUMENT;
+	private static String DOCUMENT;
 
 	private static final Logger LOGGER = LogManager.getLogger(DocumentServiceImpl.class);
 
@@ -41,7 +44,8 @@ public class DocumentServiceImpl extends BaseServiceImpl implements DocumentServ
 
 		try {
 
-			fileUtil.saveFileImage(PREFIX + documentRequest.getCodiceFiscale() + DOCUMENT, documentRequest.getBase64());
+			fileUtil.saveFileImage(PREFIX + DESTINAZIONE + documentRequest.getCodiceFiscale() + DOCUMENT,
+					documentRequest.getBase64());
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
@@ -64,7 +68,8 @@ public class DocumentServiceImpl extends BaseServiceImpl implements DocumentServ
 
 		try {
 
-			documentResponse = fileUtil.readFileImage(PREFIX + documentRequest.getCodiceFiscale() + DOCUMENT);
+			documentResponse = fileUtil
+					.readFileImage(PREFIX + DESTINAZIONE + documentRequest.getCodiceFiscale() + DOCUMENT);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);

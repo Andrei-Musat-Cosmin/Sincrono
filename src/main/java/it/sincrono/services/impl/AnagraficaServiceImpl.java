@@ -56,10 +56,13 @@ import jakarta.transaction.Transactional;
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
 
 	@Value("${anagrafiche-profili.path-prefix}")
-	private String PREFIX;
+	private static String PREFIX;
+
+	@Value("${anagrafica-profili.destinazione}")
+	private static String DESTINAZIONE;
 
 	@Value("${anagrafiche-profili.anagrafiche-profili-rapportini.path-prefix-rapportini}")
-	private String RAPPORTINI;
+	private static String RAPPORTINI;
 
 	private static final Logger LOGGER = LogManager.getLogger(AnagraficaServiceImpl.class);
 
@@ -240,8 +243,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			LocalDate oggi = LocalDate.now();
 
-			fileUtil.creatFolder(PREFIX + anagraficaDto.getAnagrafica().getCodiceFiscale() + RAPPORTINI + oggi.getYear()
-					+ "/" + oggi.getMonthValue() + ".txt");
+			fileUtil.creatFolder(PREFIX + DESTINAZIONE + anagraficaDto.getAnagrafica().getCodiceFiscale() + RAPPORTINI
+					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
 
 			/*
 			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),

@@ -12,8 +12,8 @@ spring:
           auth: true
 
 anagrafiche-profili:
-  path-prefix: C:/Users/SINCRONO/Desktop/profili-anagrafiche/
-  
+  path-prefix: C:/Users/SINCRONO/Desktop/
+  destinazione: profili-anagrafiche/
   
   anagrafiche-profili-rapportini:
     path-prefix-rapportini: /rapportini/

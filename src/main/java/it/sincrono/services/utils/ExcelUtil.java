@@ -16,15 +16,19 @@ import org.apache.logging.log4j.Logger;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Comment;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
@@ -43,6 +47,7 @@ public class ExcelUtil {
 			FileInputStream fileInputStream = new FileInputStream(EXCELPATH);
 			Workbook workbook = (append ? new XSSFWorkbook(fileInputStream) : new XSSFWorkbook());
 			Sheet sheet = (append ? workbook.getSheet("Dati Excel") : workbook.createSheet("Dati Excel"));
+			RichTextString str = null;
 
 			/** SETUP CALENDAR PER I CONTROLLI SU SABATI E DOMENICHE **/
 			Calendar calendar = Calendar.getInstance();
@@ -57,6 +62,10 @@ public class ExcelUtil {
 			double malattie = 0;
 			double ex_fs = 0;
 			double rol = 0;
+			double f1_f2_f3 = 0;
+			double straordinariSum = 0;
+			String permessi = null;
+
 			/** SETUP DEGLI GLI OGGETTI PER LA COSTRUZIONE DELL'EXCEL **/
 			sheet.setColumnWidth(0, 30 * 256);
 			for (int i = 1; i <= 31; i++) {
@@ -178,6 +187,7 @@ public class ExcelUtil {
 					cell.setCellValue(nomeCognomePrecedente);
 
 				}
+
 				cell = row.createCell(++cellNum);
 				calendar.set(anno, mese - 1, cellNum);
 				int giorno = calendar.get(Calendar.DAY_OF_WEEK);
@@ -186,56 +196,128 @@ public class ExcelUtil {
 				 * SELEZIONATO
 				 **/
 				if (giorno > numeroGiorniNelMese) {
-					// Ci sono giorni "inventati"
+					// SE CI SONO GIORNI INESISTENTI NEL MESE CORRENTE
 					cell.setCellStyle(cellStyleNODAY);
 					cell.setCellValue("Q");
 				} else {
+					if (rapportino.getFascia1() != null) {
+						f1_f2_f3 += rapportino.getFascia1();
+					}
+					if (rapportino.getFascia2() != null) {
+						f1_f2_f3 += rapportino.getFascia2();
+					}
+					if (rapportino.getFascia3() != null) {
+						f1_f2_f3 += rapportino.getFascia3();
+					}
 					if (rapportino.getOre() != null) {
 						// CI SONO ORE REGISTRATE
+
 						if (rapportino.getOre() == 8) {
 							// SE SONO ESATTAMENTE 8
 
 							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
 								// SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
-								cell.setCellStyle(cellStyleAnnoMese);
-								cell.setCellValue(rapportino.getOre());
-								tot++;
+								if (f1_f2_f3 != 0) {
+									cell.setCellStyle(cellStyleAnnoMese);
+									cell.setCellValue(rapportino.getOre() + f1_f2_f3);
+									tot += (rapportino.getOre() + f1_f2_f3) / 8;
+								} else {
+									cell.setCellStyle(cellStyleAnnoMese);
+									cell.setCellValue(rapportino.getOre());
+									tot++;
+								}
+								f1_f2_f3 += rapportino.getOre();
+
 							} else {
-								cell.setCellStyle(cellStyleDefault);
-								cell.setCellValue("");
-								tot++;
+								if (f1_f2_f3 != 0) {
+									cell.setCellStyle(cellStyleAnnoMese);
+									cell.setCellValue(rapportino.getOre() + f1_f2_f3);
+									tot += (rapportino.getOre() + f1_f2_f3) / 8;
+								} else {
+									cell.setCellStyle(cellStyleDefault);
+									cell.setCellValue("");
+									tot++;
+								}
 							}
 						} else {
 							// GESTISCO LE ORE INFERIORI AD 8
+
 							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
 								cell.setCellStyle(cellStyleAnnoMese);
-								cell.setCellValue(rapportino.getOre());
-								tot += 1 - (rapportino.getOre() / 8);
+								cell.setCellValue(rapportino.getOre() + f1_f2_f3);
+								if (rapportino.getOre() + f1_f2_f3 < 8)
+									tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+								else
+									tot += rapportino.getOre() + f1_f2_f3 / 8;
+								f1_f2_f3 += rapportino.getOre();
 							} else {
-								cell.setCellStyle(cellStyleDefault);
-								cell.setCellValue(rapportino.getOre());
-								tot += 1 - (rapportino.getOre() / 8);
+								if (rapportino.getPermessi() != null) {
+									// SE E' STATO UN GIORNO DI PERMESSO
+									if (f1_f2_f3 != 0) {
+										cell.setCellStyle(cellStyleAnnoMese);
+										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
+										if (rapportino.getOre() + f1_f2_f3 < 8)
+											tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+										else
+											tot += (rapportino.getOre() + f1_f2_f3) / 8;
+									} else {
+										cell.setCellStyle(cellStyleDefault);
+										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
+										if (rapportino.getOre() + f1_f2_f3 < 8)
+											tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+										else
+											tot += (rapportino.getOre() + f1_f2_f3) / 8;
+									}
+									str = new XSSFRichTextString(
+											"Di cui " + rapportino.getPermessi() + " ore di permesso.");
+									Comment comment = sheet.createDrawingPatriarch()
+											.createCellComment(new XSSFClientAnchor());
+									comment.setString(str);
+									cell.setCellComment(comment);
+									ex_fs++;
+								} else {
+									if (f1_f2_f3 != 0) {
+										cell.setCellStyle(cellStyleAnnoMese);
+										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
+										if (rapportino.getOre() + f1_f2_f3 < 8)
+											tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+										else
+											tot += (rapportino.getOre() + f1_f2_f3) / 8;
+									} else {
+										cell.setCellStyle(cellStyleDefault);
+										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
+										if (rapportino.getOre() + f1_f2_f3 < 8)
+											tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+										else
+											tot += (rapportino.getOre() + f1_f2_f3) / 8;
+									}
+								}
 							}
 						}
 					} else if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
 						// SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
+
 						cell.setCellStyle(cellStyleSABDOM);
 						cell.setCellValue("q");
 					} else if (rapportino.getFerie() != null) {
 						// SE E' STATO UN GIORNO DI FERIE
+
 						cell.setCellStyle(cellStyleFerie);
 						cell.setCellValue("F");
 						ferie++;
 					} else if (rapportino.getMalattie() != null) {
 						// SE E' STATO UN GIORNO DI MALATTIA
+
 						cell.setCellStyle(cellStyleMalattia);
 						cell.setCellValue("M");
 						malattie++;
-					} else if (rapportino.getPermessi() != null) {
-						// SE E' STATO UN GIORNO DI PERMESSO
-						cell.setCellStyle(cellStylePermessi);
-						cell.setCellValue(rapportino.getPermessi() + "p");
-						ex_fs++;
+//					} else if (rapportino.getPermessi() != null) {
+//						// SE E' STATO UN GIORNO DI PERMESSO
+//
+//						cell.setCellStyle(cellStylePermessi);
+//						cell.setCellValue(rapportino.getPermessi() + "p");
+//						ex_fs++;
+
 //				    } else if (rapportino.getRol() != null) {
 //				        // SE E' STATO UN GIORNO DI ROL
 //				        cell.setCellStyle(cellStyleRol);
@@ -244,11 +326,18 @@ public class ExcelUtil {
 					}
 				}
 
+				straordinariSum += f1_f2_f3;
+				f1_f2_f3 = 0; // RICOMINCIA A CONTARE LE ORE DI STRAORDINARIO DELLA GIORNATA
+
 				if (cellNum == 31) {
-					int currentRowNum = rowNum + 1;
+					str = new XSSFRichTextString("Di cui " + straordinariSum + " ore di straordinari.");
+					Comment comment = sheet.createDrawingPatriarch().createCellComment(new XSSFClientAnchor());
+					comment.setString(str);
+
 					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleTotale);
 					cell.setCellValue(tot);
+					cell.setCellComment(comment);
 
 					cell = row.createCell(++cellNum);
 					cell.setCellStyle(cellStyleDefault);

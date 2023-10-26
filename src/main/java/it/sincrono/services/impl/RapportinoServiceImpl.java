@@ -36,13 +36,17 @@ import it.sincrono.services.validator.RapportinoValidator;
 
 @Service
 public class RapportinoServiceImpl extends BaseServiceImpl implements RapportinoService {
-	private static final String EXCELPATH = "C:/Users/SINCRONO/Desktop/provaSalvataggioExcel.xlsx";
 
 	@Value("${anagrafiche-profili.path-prefix}")
-	private String PREFIX;
+	private static String PREFIX;
+
+	@Value("${anagrafica-profili.destinazione}")
+	private static String DESTINAZIONE;
 
 	@Value("${anagrafiche-profili.anagrafiche-profili-rapportini.path-prefix-rapportini}")
-	private String RAPPORTINI;
+	private static String RAPPORTINI;
+
+	private static final String EXCELPATH = PREFIX + "provaSalvataggioExcel.xlsx";
 
 	private static final Logger LOGGER = LogManager.getLogger(RapportinoServiceImpl.class);
 
@@ -81,8 +85,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 			}
 
-			rapportinoDto = fileUtil
-					.readFile(PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
+			rapportinoDto = fileUtil.readFile(
+					PREFIX + DESTINAZIONE + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
 							+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 							+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt");
 
@@ -113,8 +117,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 		}
 
-		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
-				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+		String filePath = PREFIX + DESTINAZIONE
+				+ rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() + RAPPORTINI
+				+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
 
 		try {
@@ -142,8 +147,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 		}
 
-		String filePath = PREFIX + rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale()
-				+ RAPPORTINI + rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+		String filePath = PREFIX + DESTINAZIONE
+				+ rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() + RAPPORTINI
+				+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
 				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
 
 		try {
@@ -238,9 +244,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public void addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException {
-
-		if (!rapportinoValidator.validateFieldsForPath(rapportinoRequest)) {
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di rapportinoRequest");
+		String msg = null;
+		if ((msg = rapportinoValidator.validateFieldsForPath(rapportinoRequest)) != null) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 		}
 
 		RapportinoDto rapportinoDto = new RapportinoDto();
@@ -250,7 +256,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(rapportinoRequest.getCodiceFiscale());
 
 		try {
-			rapportinoDto = fileUtil.readFile(PREFIX + rapportinoRequest.getCodiceFiscale() + RAPPORTINI
+			rapportinoDto = fileUtil.readFile(PREFIX + DESTINAZIONE + rapportinoRequest.getCodiceFiscale() + RAPPORTINI
 					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
 
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
@@ -260,16 +266,14 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 					if (giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno() != null)
 						rapportino.setGiorno(giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno());
-					
-					Double sum=null;
-					
-				
 
-					rapportino.setOre(
-							 sum=giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getOreOrdinarie() != null)
-									.mapToDouble(DuplicazioniGiornoDto::getOreOrdinarie).sum()==Double.parseDouble("0")?null:sum);
+					Double sum = giornoDto.getDuplicazioniGiornoDto().stream()
+							.filter(dto -> dto.getOreOrdinarie() != null)
+							.mapToDouble(DuplicazioniGiornoDto::getOreOrdinarie).sum();
 
-					rapportino.setFasca1(
+					rapportino.setOre(sum == Double.parseDouble("0") ? null : sum);
+
+					rapportino.setFascia1(
 							giornoDto.getDuplicazioniGiornoDto().stream().filter(dto -> dto.getFascia1() != null)
 									.mapToDouble(DuplicazioniGiornoDto::getFascia1).sum());
 
@@ -299,7 +303,6 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 					rapportini.add(rapportino);
 
 				}
-
 			}
 			rapportinoRepository.saveAllAndFlush(rapportini);
 

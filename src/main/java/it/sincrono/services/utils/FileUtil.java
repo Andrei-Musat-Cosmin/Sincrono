@@ -86,10 +86,9 @@ public class FileUtil {
 				for (String elem : giornoSplit[1].split("/")) {
 
 					if (elem != null && !elem.equals("null")) {
-						
+
 						if (giornoSplit[0] != null && !giornoSplit[0].isEmpty() && !giornoSplit[0].equals("null"))
 							duplicazioniGiornoDto.setGiorno(Integer.parseInt(giornoSplit[0]));
-
 
 						if (elem.split("-")[0] != null && !elem.split("-")[0].isEmpty()
 								&& !elem.split("-")[0].equals("null"))

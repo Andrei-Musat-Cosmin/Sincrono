@@ -4,8 +4,7 @@ import java.util.List;
 
 public class GiornoDto {
 
-
-	private List<DuplicazioniGiornoDto> duplicazioniGiornoDto ;
+	private List<DuplicazioniGiornoDto> duplicazioniGiornoDto;
 
 	private Boolean ferie;
 
@@ -14,10 +13,6 @@ public class GiornoDto {
 	private Double permessi;
 
 	private String note;
-	
-	
-	
-	
 
 	public GiornoDto(List<DuplicazioniGiornoDto> duplicazioniGiornoDto, Boolean ferie, Boolean malattie,
 			Double permessi, String note) {
@@ -72,8 +67,5 @@ public class GiornoDto {
 	public void setNote(String note) {
 		this.note = note;
 	}
-
-	
-	
 
 }

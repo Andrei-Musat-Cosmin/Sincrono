@@ -32,7 +32,7 @@ public class Rapportino {
 	private Integer giorno;
 
 	@Column(name = "1_fascia")
-	private Double fasca1;
+	private Double fascia1;
 
 	@Column(name = "2_fascia")
 	private Double fascia2;
@@ -52,7 +52,7 @@ public class Rapportino {
 	@Column(name = "malattie")
 	private Boolean malattie;
 
-	public Rapportino(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Integer giorno, Double fasca1,
+	public Rapportino(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Integer giorno, Double fascia1,
 			Double fascia2, Double fascia3, Double ore, Double permessi, Boolean ferie, Boolean malattie) {
 		super();
 		this.id = id;
@@ -60,7 +60,7 @@ public class Rapportino {
 		this.anno = anno;
 		this.mese = mese;
 		this.giorno = giorno;
-		this.fasca1 = fasca1;
+		this.fascia1 = fascia1;
 		this.fascia2 = fascia2;
 		this.fascia3 = fascia3;
 		this.ore = ore;
@@ -71,6 +71,7 @@ public class Rapportino {
 
 	public Rapportino() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
@@ -113,12 +114,12 @@ public class Rapportino {
 		this.giorno = giorno;
 	}
 
-	public Double getFasca1() {
-		return fasca1;
+	public Double getFascia1() {
+		return fascia1;
 	}
 
-	public void setFasca1(Double fasca1) {
-		this.fasca1 = fasca1;
+	public void setFascia1(Double fascia1) {
+		this.fascia1 = fascia1;
 	}
 
 	public Double getFascia2() {
@@ -168,10 +169,4 @@ public class Rapportino {
 	public void setMalattie(Boolean malattie) {
 		this.malattie = malattie;
 	}
-	
-	
-	
-
-	
-
 }
