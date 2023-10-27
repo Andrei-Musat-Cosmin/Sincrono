@@ -45,7 +45,10 @@ public class ExcelUtil {
 	public int toExcel(List<Rapportino> rapportini, int rowNum, boolean append, String EXCELPATH)
 			throws ServiceException {
 		try {
-			FileInputStream fileInputStream = new FileInputStream(EXCELPATH);
+			FileInputStream fileInputStream = null;
+			if (append) {
+				fileInputStream = new FileInputStream(EXCELPATH);
+			}
 			Workbook workbook = (append ? new XSSFWorkbook(fileInputStream) : new XSSFWorkbook());
 			Sheet sheet = (append ? workbook.getSheet("Dati Excel") : workbook.createSheet("Dati Excel"));
 			RichTextString str = null;
