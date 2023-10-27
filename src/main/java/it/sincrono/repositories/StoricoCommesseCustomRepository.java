@@ -7,6 +7,6 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 
 public interface StoricoCommesseCustomRepository extends BaseCustomRepository {
 
-	List<Commessa> getStoricoCommesseByAnagrafica(Integer id) throws RepositoryException;
+//	List<Commessa> getStoricoCommesseByAnagrafica(Integer id) throws RepositoryException;
 
 }
