@@ -18,10 +18,6 @@ import it.sincrono.responses.RuoloListResponse;
 import it.sincrono.services.RuoloService;
 import it.sincrono.services.exceptions.ServiceException;
 
-/**
- * POSSIBILE CANCELLAZIONE
- */
-
 @RestController
 @CrossOrigin
 public class RuoloController {
@@ -172,7 +168,7 @@ public class RuoloController {
 //
 //		return httpEntity;
 //	}
-//
+	
 	@GetMapping("/ruoli-map")
 	public @ResponseBody HttpEntity<RuoloListResponse> map() {
 

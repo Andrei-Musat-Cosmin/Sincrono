@@ -169,4 +169,5 @@ public class Rapportino {
 	public void setMalattie(Boolean malattie) {
 		this.malattie = malattie;
 	}
+
 }

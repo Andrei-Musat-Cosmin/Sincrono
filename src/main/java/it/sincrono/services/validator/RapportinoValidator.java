@@ -135,8 +135,51 @@ public class RapportinoValidator {
 							}
 						}
 					} else {
-						if ((msg = checkPerGliAltriDati(giornoDuplicato, giornoDto)) != null)
+						if (giornoDuplicato.getCliente() != null) {
+							msg = "E' stato segnato il cliente in un giorno senza numero";
+							LOGGER.log(Level.ERROR, msg);
 							return msg;
+						}
+						if (giornoDuplicato.getOreOrdinarie() != null) {
+							msg = "Sono state segnate delle ore in un giorno senza numero";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
+						if (giornoDuplicato.getFascia1() != null) {
+							msg = "Sono state segnate delle ore di straordinario fascia 18-20 in un giorno senza numero";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
+						if (giornoDuplicato.getFascia2() != null) {
+							msg = "Sono state segnate delle ore di straordinario fascia 20-22 in un giorno senza numero";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
+						if (giornoDuplicato.getFascia3() != null) {
+							msg = "Sono state segnate delle ore di straordinario fascia 22-09 in un giorno senza numero";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
+						if (giornoDto.getFerie() != null) {
+							msg = "Un giorno senza numero è stato segnato come feriale";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
+						if (giornoDto.getMalattie() != null) {
+							msg = "Un giorno senza numero è stato segnato come malattia";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
+						if (giornoDto.getPermessi() != null) {
+							msg = "Un giorno senza numero è stato segnato con delle ore di permesso";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
+						if (giornoDto.getNote() != null) {
+							msg = "Un giorno senza numero è stato segnato con delle note";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
+						}
 					}
 				}
 			} else {
@@ -159,6 +202,7 @@ public class RapportinoValidator {
 			}
 		}
 		return msg;
+
 	}
 
 	public String validateNote(RapportinoDto rapportinoDto) {
