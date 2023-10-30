@@ -13,15 +13,21 @@ public class GiornoDto {
 	private Double permessi;
 
 	private String note;
+	
+	private Integer numeroGiorno;
+	
+	private String nomeGiorno;
 
 	public GiornoDto(List<DuplicazioniGiornoDto> duplicazioniGiornoDto, Boolean ferie, Boolean malattie,
-			Double permessi, String note) {
+			Double permessi, String note, Integer numeroGiorno, String nomeGiorno) {
 		super();
 		this.duplicazioniGiornoDto = duplicazioniGiornoDto;
 		this.ferie = ferie;
 		this.malattie = malattie;
 		this.permessi = permessi;
 		this.note = note;
+		this.numeroGiorno = numeroGiorno;
+		this.nomeGiorno = nomeGiorno;
 	}
 
 	public GiornoDto() {
@@ -67,5 +73,25 @@ public class GiornoDto {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	public Integer getNumeroGiorno() {
+		return numeroGiorno;
+	}
+
+	public void setNumeroGiorno(Integer numeroGiorno) {
+		this.numeroGiorno = numeroGiorno;
+	}
+
+	public String getNomeGiorno() {
+		return nomeGiorno;
+	}
+
+	public void setNomeGiorno(String nomeGiorno) {
+		this.nomeGiorno = nomeGiorno;
+	}
+	
+	
+
+	
 
 }

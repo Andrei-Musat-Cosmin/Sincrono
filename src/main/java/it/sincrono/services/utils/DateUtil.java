@@ -1,12 +1,14 @@
 package it.sincrono.services.utils;
 
 import java.time.DayOfWeek;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
+	
 	public static Boolean dateCompare(Date date, Date otherDate) {
 
 		if (date == null && otherDate == null) {
@@ -120,6 +122,16 @@ public class DateUtil {
 		default:
 			return null;
 		}
+	}
+
+	public static String getNomeGiorno(Integer numeroGiorno, Integer anno, Integer mese) {
+
+		Date data = new Date(anno - 1900, mese - 1, numeroGiorno);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+
+		return sdf.format(data);
+
 	}
 
 }

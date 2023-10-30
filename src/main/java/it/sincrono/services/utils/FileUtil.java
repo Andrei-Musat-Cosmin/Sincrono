@@ -45,7 +45,11 @@ public class FileUtil {
 			// fileStringBuilder.append(reader.readLine()).append("\n");
 			// String fileString = fileStringBuilder.toString();
 
-			rapportinoDto = covertStringInRapportinoDto(reader.readLine());
+			rapportinoDto = covertStringInRapportinoDto(reader.readLine(),percorso);
+			
+			insertDayInRapportino(rapportinoDto,percorso);
+			
+			
 
 			rapportinoDto.setNote(reader.readLine());
 
@@ -56,8 +60,27 @@ public class FileUtil {
 
 		return rapportinoDto;
 	}
+	
+	private void insertDayInRapportino(RapportinoDto rapportinoDto,String percorso) {
 
-	private RapportinoDto covertStringInRapportinoDto(String fileString) {
+		
+		Integer i=1;
+	
+		
+		for(GiornoDto giornoDto: rapportinoDto.getMese().getGiorni()) {
+			
+			
+			giornoDto.setNumeroGiorno(i);
+			giornoDto.setNomeGiorno(DateUtil.getNomeGiorno(i,Integer.valueOf(percorso.split("/")[7]), 
+					Integer.valueOf(percorso.split("/")[8].split("\\.")[0])));
+			i++;
+	
+			
+		}
+
+	}
+
+	private RapportinoDto covertStringInRapportinoDto(String fileString,String percorso) {
 
 		RapportinoDto rapportinoDto = new RapportinoDto();
 
@@ -160,7 +183,7 @@ public class FileUtil {
 
 		} else {
 
-			createRapportinoForMonth(rapportinoDto);
+			createRapportinoForMonth(rapportinoDto,percorso);
 		}
 
 		return rapportinoDto;
@@ -186,9 +209,9 @@ public class FileUtil {
 		return yearMonth.lengthOfMonth();
 	}
 
-	private void createRapportinoForMonth(RapportinoDto rapportinoDto) {
+	private void createRapportinoForMonth(RapportinoDto rapportinoDto,String percorso) {
 
-		LocalDate oggi = LocalDate.now();
+		
 
 		rapportinoDto.setMese(new MeseDto());
 
@@ -196,7 +219,8 @@ public class FileUtil {
 
 		DuplicazioniGiornoDto duplicazioniGiornoDto = new DuplicazioniGiornoDto();
 
-		for (int i = 0; i < getNumeroGiorniMese(oggi.getYear(), oggi.getMonthValue()); i++) {
+		for (int i = 0; i < getNumeroGiorniMese(Integer.valueOf(percorso.split("/")[7]), 
+				Integer.valueOf(percorso.split("/")[8].split("\\.")[0])); i++) {
 
 			GiornoDto giornoDto = new GiornoDto();
 

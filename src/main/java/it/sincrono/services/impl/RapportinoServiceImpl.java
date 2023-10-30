@@ -76,6 +76,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public RapportinoDto getRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
+		
 		RapportinoDto rapportinoDto = new RapportinoDto();
 		String msg = null;
 
