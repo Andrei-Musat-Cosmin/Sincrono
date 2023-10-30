@@ -14,7 +14,7 @@ import it.sincrono.repositories.exceptions.RepositoryException;
 public interface StoricoCommesseRepository
 		extends JpaRepository<StoricoCommesse, Integer>, StoricoCommesseCustomRepository {
 
-	@Query("SELECT b FROM StoricoCommesse a INNER JOIN Commessa b ON b.id = a.commessa.id WHERE a.anagrafica.id = ?1 AND a.commessa.id>0")
+	@Query("SELECT b FROM StoricoCommesse a INNER JOIN Commessa b ON b.id = a.commessa.id WHERE a.anagrafica.id = ?1 AND a.commessa.id>0 order by b.clienteFinale")
 	List<Commessa> getStoricoCommesseByAnagrafica(Integer id) throws RepositoryException;
 
 }
