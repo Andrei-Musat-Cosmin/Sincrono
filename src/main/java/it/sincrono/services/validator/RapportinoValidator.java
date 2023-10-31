@@ -32,7 +32,7 @@ public class RapportinoValidator {
 
 			if (rapportinoDto.getAnagrafica().getCodiceFiscale() == null
 					|| rapportinoDto.getAnagrafica().getCodiceFiscale().equals("")) {
-				msg = " Codice fiscale del rapportinoDto non è valorizzato";
+				msg = " Codice fiscale del rapportinoDto non e' valorizzato";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
@@ -48,13 +48,13 @@ public class RapportinoValidator {
 			}
 
 			if (rapportinoDto.getAnnoRequest() == null) {
-				msg = " Anno del rapportino non è valorizzato";
+				msg = " Anno del rapportino non e' valorizzato";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
 
 			if (rapportinoDto.getMeseRequest() == null) {
-				msg = " Mese del rapportino non è valorizzato";
+				msg = " Mese del rapportino non e' valorizzato";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
@@ -62,7 +62,7 @@ public class RapportinoValidator {
 			return msg;
 
 		} else {
-			msg = " Rapportino non è valorizzato";
+			msg = " Rapportino non e' valorizzato";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
@@ -83,25 +83,74 @@ public class RapportinoValidator {
 			if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null && giornoDto.getPermessi() == null) {
 				if (giornoDto.getNumeroGiorno() != null) {
 					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
-
-						if (giornoDuplicato.getCliente() == null) {
-							msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente il cliente";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDuplicato.getOreOrdinarie() == null) {
-							msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente le ore lavorate";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDto.getNote() == null || giornoDto.getNote().equals("")) {
-							msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente le note";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
+						if (giornoDuplicato.getOreOrdinarie() != null) {
+							if (giornoDuplicato.getCliente() == null) {
+								msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiene il cliente";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDto.getNote() == null || giornoDto.getNote().equals("")) {
+								msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente le note";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDto.getNomeGiorno().equals("sabato")
+									|| giornoDto.getNomeGiorno().equals("domenica")) {
+								if (giornoDuplicato.getOreOrdinarie() > 8) {
+									msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+											+ " sono state dichiarate piu' di otto ore ordinarie,"
+											+ " se intendevi inserire straordianri utilizza i campi appositi";
+								}
+							} else {
+								if (giornoDuplicato.getOreOrdinarie() != 8) {
+									if (giornoDuplicato.getOreOrdinarie() > 8) {
+										msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+												+ " sono state dichiarate piu' di otto ore ordinarie,"
+												+ " se intendevi inserire straordianri utilizza i campi appositi";
+									}
+									if (giornoDuplicato.getOreOrdinarie() < 8) {
+										msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+												+ " le ore ordinarie sono inferiori a 8 ore,"
+												+ " se hai preso dei permessi utilizza il campo apposito";
+									}
+									LOGGER.log(Level.ERROR, msg);
+									return msg;
+								}
+							}
+							if (giornoDuplicato.getFascia1() != null && giornoDuplicato.getFascia1() > 2) {
+								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+										+ " le ore di straoridinario 18-20 superano le 2 ore";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia2() != null && giornoDuplicato.getFascia2() > 2) {
+								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+										+ " le ore di straoridinario 20-22 superano le 2 ore";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia3() != null && giornoDuplicato.getFascia3() > 13) {
+								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+										+ " le ore di straoridinario 22-09 superano le 13 ore";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+						} else {
+							if (giornoDuplicato.getCliente() != null) {
+								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+										+ " e' stato inseito un cliente senza le ore";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia1() != null || giornoDuplicato.getFascia2() != null
+									|| giornoDuplicato.getFascia3() != null) {
+								msg = " Sono state dichiarate delle ore di straordinario nel giorno "
+										+ giornoDto.getNumeroGiorno() + " dove non sono state inserite le ore";
+							}
 						}
 					}
 				} else {
-					msg = " Il numero di un giorno non è stato valorizzato";
+					msg = " Il numero di un giorno non e' stato valorizzato";
 					LOGGER.log(Level.ERROR, msg);
 					return msg;
 				}
@@ -125,7 +174,50 @@ public class RapportinoValidator {
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
+							if (giornoDto.getNote() == null || giornoDto.getNote().equals("")) {
+								msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente le note";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getOreOrdinarie() + giornoDto.getPermessi() != 8) {
+								if (giornoDuplicato.getOreOrdinarie() + giornoDto.getPermessi() > 8) {
+									msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+											+ " sono state dichiarate piu' di otto ore"
+											+ " ordinarie contando anche le ore di permesso,"
+											+ " se intendevi inserire straordianri utilizza i campi appositi";
+								}
+								if (giornoDuplicato.getOreOrdinarie() + giornoDto.getPermessi() < 8) {
+									msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+											+ " le ore ordinarie e i permessi non arrivano a 8 ore";
+								}
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia1() != null && giornoDuplicato.getFascia1() > 2) {
+								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+										+ " le ore di straoridinario 18-20 superano le 2 ore";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia2() != null && giornoDuplicato.getFascia2() > 2) {
+								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+										+ " le ore di straoridinario 20-22 superano le 2 ore";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							if (giornoDuplicato.getFascia3() != null && giornoDuplicato.getFascia3() > 13) {
+								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+										+ " le ore di straoridinario 22-09 superano le 13 ore";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+
 						} else {
+							if (giornoDuplicato.getCliente() != null) {
+								msg = " Nel giorno " + giornoDto.getNumeroGiorno() + " e' stato inserito il cliente";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
 							if (giornoDuplicato.getOreOrdinarie() != null || giornoDuplicato.getFascia1() != null
 									|| giornoDuplicato.getFascia2() != null || giornoDuplicato.getFascia3() != null) {
 								msg = " Sono state dichiarate delle ore lavorate nel giorno "
@@ -137,12 +229,17 @@ public class RapportinoValidator {
 						}
 					}
 				} else {
-					msg = " Il numero di un giorno non è stato valorizzato";
+					msg = " Il numero di un giorno non e' stato valorizzato";
 					LOGGER.log(Level.ERROR, msg);
 					return msg;
 				}
 			} else {
-				msg = " Un giorno è stato segnato con piu di uno fra i seguenti: ferie, malattie e permessi";
+				if (giornoDto.getNumeroGiorno() != null) {
+					msg = " Il giorno " + giornoDto.getNumeroGiorno() + " e' stato segnato con piu di uno fra i"
+							+ "seguenti: ferie, malattie e permessi";
+				} else {
+					msg = " Un giorno e' stato segnato con piu di uno fra i seguenti: ferie, malattie e permessi";
+				}
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
@@ -186,29 +283,29 @@ public class RapportinoValidator {
 		if (rapportinoInviato.getId() == null) {
 
 			if (rapportinoInviato.getNome() == null || rapportinoInviato.getNome().equals("")) {
-				msg = " Le nome non è stato inserito corretteamlete";
+				msg = " Le nome non e' stato inserito corretteamlete";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
 			if (rapportinoInviato.getCognome() == null || rapportinoInviato.getCognome().equals("")) {
-				msg = " Il cognome non è stato inserito correttamete corretteamlete";
+				msg = " Il cognome non e' stato inserito correttamete corretteamlete";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
 			if (rapportinoInviato.getCodiceFiscale() == null || rapportinoInviato.getCodiceFiscale().equals("")) {
-				msg = " Il codice fiscale non è stato inserito correttamete corretteamlete";
+				msg = " Il codice fiscale non e' stato inserito correttamete corretteamlete";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
 			if (rapportinoInviato.getMese() == null || rapportinoInviato.getAnno() == null) {
-				msg = " Il mese non è stato inserito correttamete corretteamlete";
+				msg = " Il mese non e' stato inserito correttamete corretteamlete";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 
 			}
 
 		} else {
-			msg = " Non è stato possibile effettuare l'inserimento, il campo \"id\" è valorizzato";
+			msg = " Non e' stato possibile effettuare l'inserimento, il campo \"id\" e' valorizzato";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
@@ -222,13 +319,13 @@ public class RapportinoValidator {
 		if (rapportinoInviato.getId() != null) {
 
 			if (rapportinoInviato.getCheckFreeze() == null) {
-				msg = " Non è stato valorizzato il valore \"checkFreeze\"";
+				msg = " Non e' stato valorizzato il valore \"checkFreeze\"";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
 
 		} else {
-			msg = " Non è stato possibile effettuare l'inserimento, il campo \"id\" è valorizzato";
+			msg = " Non e' stato possibile effettuare l'inserimento, il campo \"id\" non e' valorizzato";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
@@ -241,7 +338,7 @@ public class RapportinoValidator {
 		if (rapportinoRequest != null) {
 
 			if (rapportinoRequest.getCodiceFiscale() == null || rapportinoRequest.getCodiceFiscale().equals("")) {
-				msg = " Codice fiscale del rapportinoRequest non è valorizzato";
+				msg = " Codice fiscale del rapportinoRequest non e' valorizzato";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
@@ -255,19 +352,19 @@ public class RapportinoValidator {
 			}
 
 			if (rapportinoRequest.getAnno() == null) {
-				msg = " Anno del rapportino non è valorizzato";
+				msg = " Anno del rapportino non e' valorizzato";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
 
 			if (rapportinoRequest.getMese() == null) {
-				msg = " Mese del rapportino non è valorizzato";
+				msg = " Mese del rapportino non e' valorizzato";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
 
 		} else {
-			msg = " Rapportino non è valorizzato";
+			msg = " Rapportino non e' valorizzato";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}

@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
@@ -216,8 +215,7 @@ public class FileUtil {
 
 						if (giornoDto.getDuplicazioniGiornoDto() != null
 								&& giornoDto.getDuplicazioniGiornoDto().get(0) != null
-								&& giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno() != null) {
-							dati += giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno() + ",";
+								&& giornoDto.getDuplicazioniGiornoDto().get(0).getCliente() != null) {
 							for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
 								int i = 1;
 
@@ -247,7 +245,7 @@ public class FileUtil {
 								i++;
 							}
 						} else
-							dati += "null,null-null-null-null-null,";
+							dati += "null-null-null-null-null";
 						if (giornoDto.getFerie() != null) {
 							dati += "," + giornoDto.getFerie();
 						} else
