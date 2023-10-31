@@ -76,7 +76,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Override
 	public RapportinoDto getRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
-		
+
 		RapportinoDto rapportinoDto = new RapportinoDto();
 		String msg = null;
 
@@ -261,12 +261,13 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
 
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
+
 				Rapportino rapportino = new Rapportino();
 
 				if (giornoDto.getDuplicazioniGiornoDto() != null && giornoDto.getDuplicazioniGiornoDto().size() > 0) {
 
-					if (giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno() != null)
-						rapportino.setGiorno(giornoDto.getDuplicazioniGiornoDto().get(0).getGiorno());
+					if (giornoDto.getNumeroGiorno() != null)
+						rapportino.setGiorno(giornoDto.getNumeroGiorno());
 
 					Double sum = giornoDto.getDuplicazioniGiornoDto().stream()
 							.filter(dto -> dto.getOreOrdinarie() != null)
