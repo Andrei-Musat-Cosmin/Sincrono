@@ -81,27 +81,29 @@ public class RapportinoValidator {
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 
 			if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null && giornoDto.getPermessi() == null) {
-				for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
-					if (giornoDuplicato.getGiorno() != null) {
+				if (giornoDto.getNumeroGiorno() != null) {
+					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
+
 						if (giornoDuplicato.getCliente() == null) {
-							msg = " Il giorno: " + giornoDuplicato.getGiorno() + " non contiente il cliente";
+							msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente il cliente";
 							LOGGER.log(Level.ERROR, msg);
 							return msg;
 						}
 						if (giornoDuplicato.getOreOrdinarie() == null) {
-							msg = " Il giorno: " + giornoDuplicato.getGiorno() + " non contiente le ore lavorate";
+							msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente le ore lavorate";
 							LOGGER.log(Level.ERROR, msg);
 							return msg;
 						}
 						if (giornoDto.getNote() == null || giornoDto.getNote().equals("")) {
-							msg = " Il giorno: " + giornoDuplicato.getGiorno() + " non contiente le note";
+							msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente le note";
 							LOGGER.log(Level.ERROR, msg);
 							return msg;
 						}
-					} else {
-						if ((msg = checkPerGliAltriDati(giornoDuplicato, giornoDto)) != null)
-							return msg;
 					}
+				} else {
+					msg = " Il numero di un giorno non è stato valorizzato";
+					LOGGER.log(Level.ERROR, msg);
+					return msg;
 				}
 			} else if ((giornoDto.getFerie() != null && giornoDto.getMalattie() == null
 					&& giornoDto.getPermessi() == null)
@@ -109,78 +111,35 @@ public class RapportinoValidator {
 							&& giornoDto.getPermessi() == null)
 					|| (giornoDto.getPermessi() != null && giornoDto.getFerie() == null
 							&& giornoDto.getMalattie() == null)) {
+				if (giornoDto.getNumeroGiorno() != null) {
+					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
 
-				for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
-					if (giornoDuplicato.getGiorno() != null) {
 						if (giornoDto.getPermessi() != null) {
 							if (giornoDuplicato.getCliente() == null) {
-								msg = " Il giorno " + giornoDuplicato.getGiorno() + " non conitente il cliente";
+								msg = " Il giorno " + giornoDto.getNumeroGiorno() + " non conitente il cliente";
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
 							if (giornoDuplicato.getOreOrdinarie() == null) {
-
-								msg = " Il giorno " + giornoDuplicato.getGiorno() + " non contiente le ore lavorate";
+								msg = " Il giorno " + giornoDto.getNumeroGiorno() + " non contiente le ore lavorate";
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
 						} else {
 							if (giornoDuplicato.getOreOrdinarie() != null || giornoDuplicato.getFascia1() != null
 									|| giornoDuplicato.getFascia2() != null || giornoDuplicato.getFascia3() != null) {
-								msg = " Sono state valorizzate delle ore lavorate nel giorno "
-										+ giornoDuplicato.getGiorno() + " segnato con "
+								msg = " Sono state dichiarate delle ore lavorate nel giorno "
+										+ giornoDto.getNumeroGiorno() + " segnato con "
 										+ (giornoDto.getFerie() != null ? "ferie" : "malattia");
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
 						}
-					} else {
-						if (giornoDuplicato.getCliente() != null) {
-							msg = "E' stato segnato il cliente in un giorno senza numero";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDuplicato.getOreOrdinarie() != null) {
-							msg = "Sono state segnate delle ore in un giorno senza numero";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDuplicato.getFascia1() != null) {
-							msg = "Sono state segnate delle ore di straordinario fascia 18-20 in un giorno senza numero";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDuplicato.getFascia2() != null) {
-							msg = "Sono state segnate delle ore di straordinario fascia 20-22 in un giorno senza numero";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDuplicato.getFascia3() != null) {
-							msg = "Sono state segnate delle ore di straordinario fascia 22-09 in un giorno senza numero";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDto.getFerie() != null) {
-							msg = "Un giorno senza numero è stato segnato come feriale";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDto.getMalattie() != null) {
-							msg = "Un giorno senza numero è stato segnato come malattia";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDto.getPermessi() != null) {
-							msg = "Un giorno senza numero è stato segnato con delle ore di permesso";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
-						if (giornoDto.getNote() != null) {
-							msg = "Un giorno senza numero è stato segnato con delle note";
-							LOGGER.log(Level.ERROR, msg);
-							return msg;
-						}
 					}
+				} else {
+					msg = " Il numero di un giorno non è stato valorizzato";
+					LOGGER.log(Level.ERROR, msg);
+					return msg;
 				}
 			} else {
 				msg = " Un giorno è stato segnato con piu di uno fra i seguenti: ferie, malattie e permessi";
@@ -315,53 +274,4 @@ public class RapportinoValidator {
 		return msg;
 	}
 
-	private String checkPerGliAltriDati(DuplicazioniGiornoDto giornoDuplicato, GiornoDto giornoDto) {
-		String msg = null;
-		if (giornoDuplicato.getCliente() != null) {
-			msg = " E' stato segnato il cliente in un giorno senza numero";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		if (giornoDuplicato.getOreOrdinarie() != null) {
-			msg = " Sono state segnate delle ore in un giorno senza numero";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		if (giornoDuplicato.getFascia1() != null) {
-			msg = " Sono state segnate delle ore di straordinario fascia 18-20 in un giorno senza numero";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		if (giornoDuplicato.getFascia2() != null) {
-			msg = " Sono state segnate delle ore di straordinario fascia 20-22 in un giorno senza numero";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		if (giornoDuplicato.getFascia3() != null) {
-			msg = " Sono state segnate delle ore di straordinario fascia 22-09 in un giorno senza numero";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		if (giornoDto.getFerie() != null) {
-			msg = " Un giorno senza numero è stato segnato come feriale";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		if (giornoDto.getMalattie() != null) {
-			msg = " Un giorno senza numero è stato segnato come malattia";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		if (giornoDto.getPermessi() != null) {
-			msg = " Un giorno senza numero è stato segnato con delle ore di permesso";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		if (giornoDto.getNote() != null) {
-			msg = " Un giorno senza numero è stato segnato con delle note";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}
-		return msg;
-	}
 }

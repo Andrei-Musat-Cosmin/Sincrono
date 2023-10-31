@@ -197,14 +197,15 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		try {
 			RapportinoInviato currentRapportinoInviato = rapportinoInviatoRepository.findById(rapportinoInviato.getId())
 					.get();
+			currentRapportinoInviato.setCheckFreeze(rapportinoInviato.getCheckFreeze());
+			rapportinoInviatoRepository.saveAndFlush(currentRapportinoInviato);
 			if (rapportinoInviato.getCheckFreeze()) {
-
-				currentRapportinoInviato.setCheckFreeze(rapportinoInviato.getCheckFreeze());
-
-				rapportinoInviatoRepository.saveAndFlush(currentRapportinoInviato);
+				RapportinoRequest rapportinoRequest = new RapportinoRequest(rapportinoInviato.getAnno(),
+						rapportinoInviato.getMese(), rapportinoInviato.getCodiceFiscale());
+				addRapportinoInDatabase(rapportinoRequest);
 			} else {
-				if (currentRapportinoInviato.getCheckFreeze())
-					rapportinoInviatoRepository.delete(rapportinoInviato); // id,checkFrezzee
+				rapportinoRepository.deleteByMeseAndAnnoAndId(rapportinoInviato.getAnno(), rapportinoInviato.getMese(),
+						anagraficaRepository.findByCodiceFiscale(rapportinoInviato.getCodiceFiscale()).getId());
 			}
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());

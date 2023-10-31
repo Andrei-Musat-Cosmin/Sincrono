@@ -6,7 +6,7 @@ public class RapportinoRequest extends GenericRequest {
 
 	private Integer mese;
 
-	private String CodiceFiscale;
+	private String codiceFiscale;
 
 	public RapportinoRequest() {
 		super();
@@ -17,7 +17,7 @@ public class RapportinoRequest extends GenericRequest {
 		super();
 		this.anno = anno;
 		this.mese = mese;
-		CodiceFiscale = codiceFiscale;
+		this.codiceFiscale = codiceFiscale;
 	}
 
 	public Integer getAnno() {
@@ -37,11 +37,11 @@ public class RapportinoRequest extends GenericRequest {
 	}
 
 	public String getCodiceFiscale() {
-		return CodiceFiscale;
+		return codiceFiscale;
 	}
 
 	public void setCodiceFiscale(String codiceFiscale) {
-		CodiceFiscale = codiceFiscale;
+		this.codiceFiscale = codiceFiscale;
 	}
 
 }
