@@ -45,11 +45,9 @@ public class FileUtil {
 			// fileStringBuilder.append(reader.readLine()).append("\n");
 			// String fileString = fileStringBuilder.toString();
 
-			rapportinoDto = covertStringInRapportinoDto(reader.readLine(),percorso);
-			
-			insertDayInRapportino(rapportinoDto,percorso);
-			
-			
+			rapportinoDto = covertStringInRapportinoDto(reader.readLine(), percorso);
+
+			insertDayInRapportino(rapportinoDto, percorso);
 
 			rapportinoDto.setNote(reader.readLine());
 
@@ -60,27 +58,23 @@ public class FileUtil {
 
 		return rapportinoDto;
 	}
-	
-	private void insertDayInRapportino(RapportinoDto rapportinoDto,String percorso) {
 
-		
-		Integer i=1;
-	
-		
-		for(GiornoDto giornoDto: rapportinoDto.getMese().getGiorni()) {
-			
-			
+	private void insertDayInRapportino(RapportinoDto rapportinoDto, String percorso) {
+
+		Integer i = 1;
+
+		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
+
 			giornoDto.setNumeroGiorno(i);
-			giornoDto.setNomeGiorno(DateUtil.getNomeGiorno(i,Integer.valueOf(percorso.split("/")[7]), 
+			giornoDto.setNomeGiorno(DateUtil.getNomeGiorno(i, Integer.valueOf(percorso.split("/")[7]),
 					Integer.valueOf(percorso.split("/")[8].split("\\.")[0])));
 			i++;
-	
-			
+
 		}
 
 	}
 
-	private RapportinoDto covertStringInRapportinoDto(String fileString,String percorso) {
+	private RapportinoDto covertStringInRapportinoDto(String fileString, String percorso) {
 
 		RapportinoDto rapportinoDto = new RapportinoDto();
 
@@ -94,10 +88,6 @@ public class FileUtil {
 
 			for (String giornoNotSplit : fileString.split(";")) {
 
-				List<String> cliente = new ArrayList<String>();
-
-				List<Double> oreOrdinarie = new ArrayList<Double>();
-
 				GiornoDto giornoDto = new GiornoDto();
 
 				giornoDto.setDuplicazioniGiornoDto(new ArrayList<DuplicazioniGiornoDto>());
@@ -106,12 +96,9 @@ public class FileUtil {
 
 				String[] giornoSplit = giornoNotSplit.split(",");
 
-				for (String elem : giornoSplit[1].split("/")) {
+				for (String elem : giornoSplit[0].split("/")) {
 
 					if (elem != null && !elem.equals("null")) {
-
-						if (giornoSplit[0] != null && !giornoSplit[0].isEmpty() && !giornoSplit[0].equals("null"))
-							duplicazioniGiornoDto.setGiorno(Integer.parseInt(giornoSplit[0]));
 
 						if (elem.split("-")[0] != null && !elem.split("-")[0].isEmpty()
 								&& !elem.split("-")[0].equals("null"))
@@ -138,23 +125,6 @@ public class FileUtil {
 
 							duplicazioniGiornoDto.setFascia3(Double.parseDouble(elem.split("-")[4]));
 
-						/*
-						 * straordinari.add(straordinario.getFascia1() != null ||
-						 * straordinario.getFascia2() != null || straordinario.getFascia3() != null ?
-						 * straordinario : null);
-						 */
-
-						/*
-						 * if(straordinario.getFascia1() != null || straordinario.getFascia2() != null
-						 * || straordinario.getFascia3() != null) {
-						 * 
-						 * straordinari.add(straordinario);
-						 * 
-						 * }else {
-						 * 
-						 * straordinari=null; }
-						 */
-
 						giornoDto.getDuplicazioniGiornoDto().add(duplicazioniGiornoDto);
 
 						duplicazioniGiornoDto = new DuplicazioniGiornoDto();
@@ -163,17 +133,17 @@ public class FileUtil {
 
 				}
 
+				if (giornoSplit[1] != null && !giornoSplit[1].isEmpty() && !giornoSplit[1].equals("null"))
+					giornoDto.setFerie(Boolean.parseBoolean(giornoSplit[1]));
+
 				if (giornoSplit[2] != null && !giornoSplit[2].isEmpty() && !giornoSplit[2].equals("null"))
-					giornoDto.setFerie(Boolean.parseBoolean(giornoSplit[2]));
+					giornoDto.setMalattie(Boolean.parseBoolean(giornoSplit[2]));
 
 				if (giornoSplit[3] != null && !giornoSplit[3].isEmpty() && !giornoSplit[3].equals("null"))
-					giornoDto.setMalattie(Boolean.parseBoolean(giornoSplit[3]));
+					giornoDto.setPermessi(Double.parseDouble(giornoSplit[3]));
 
 				if (giornoSplit[4] != null && !giornoSplit[4].isEmpty() && !giornoSplit[4].equals("null"))
-					giornoDto.setPermessi(Double.parseDouble(giornoSplit[4]));
-
-				if (giornoSplit[5] != null && !giornoSplit[5].isEmpty() && !giornoSplit[5].equals("null"))
-					giornoDto.setNote(giornoSplit[5]);
+					giornoDto.setNote(giornoSplit[4]);
 
 				mese.add(giornoDto);
 
@@ -183,7 +153,7 @@ public class FileUtil {
 
 		} else {
 
-			createRapportinoForMonth(rapportinoDto,percorso);
+			createRapportinoForMonth(rapportinoDto, percorso);
 		}
 
 		return rapportinoDto;
@@ -209,9 +179,7 @@ public class FileUtil {
 		return yearMonth.lengthOfMonth();
 	}
 
-	private void createRapportinoForMonth(RapportinoDto rapportinoDto,String percorso) {
-
-		
+	private void createRapportinoForMonth(RapportinoDto rapportinoDto, String percorso) {
 
 		rapportinoDto.setMese(new MeseDto());
 
@@ -219,7 +187,7 @@ public class FileUtil {
 
 		DuplicazioniGiornoDto duplicazioniGiornoDto = new DuplicazioniGiornoDto();
 
-		for (int i = 0; i < getNumeroGiorniMese(Integer.valueOf(percorso.split("/")[7]), 
+		for (int i = 0; i < getNumeroGiorniMese(Integer.valueOf(percorso.split("/")[7]),
 				Integer.valueOf(percorso.split("/")[8].split("\\.")[0])); i++) {
 
 			GiornoDto giornoDto = new GiornoDto();
