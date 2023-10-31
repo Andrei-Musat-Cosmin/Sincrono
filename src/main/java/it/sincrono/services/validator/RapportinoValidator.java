@@ -79,9 +79,18 @@ public class RapportinoValidator {
 		}
 
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
+			double totOre = 0.0;
+			double totStraordinario1 = 0.0;
+			double totStraordinario2 = 0.0;
+			double totStraordinario3 = 0.0;
+			double permessi = 0.0;
+			boolean ferieOrMalattie = false;
+			boolean checkWeekend = (giornoDto.getNomeGiorno().equals("sabato")
+					|| giornoDto.getNomeGiorno().equals("domenica"));
+			if (giornoDto.getNumeroGiorno() != null) {
+				if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null
+						&& giornoDto.getPermessi() == null) {
 
-			if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null && giornoDto.getPermessi() == null) {
-				if (giornoDto.getNumeroGiorno() != null) {
 					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
 						if (giornoDuplicato.getOreOrdinarie() != null) {
 							if (giornoDuplicato.getCliente() == null) {
@@ -94,47 +103,14 @@ public class RapportinoValidator {
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
-							if (giornoDto.getNomeGiorno().equals("sabato")
-									|| giornoDto.getNomeGiorno().equals("domenica")) {
-								if (giornoDuplicato.getOreOrdinarie() > 8) {
-									msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-											+ " sono state dichiarate piu' di otto ore ordinarie,"
-											+ " se intendevi inserire straordianri utilizza i campi appositi";
-								}
-							} else {
-								if (giornoDuplicato.getOreOrdinarie() != 8) {
-									if (giornoDuplicato.getOreOrdinarie() > 8) {
-										msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-												+ " sono state dichiarate piu' di otto ore ordinarie,"
-												+ " se intendevi inserire straordianri utilizza i campi appositi";
-									}
-									if (giornoDuplicato.getOreOrdinarie() < 8) {
-										msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-												+ " le ore ordinarie sono inferiori a 8 ore,"
-												+ " se hai preso dei permessi utilizza il campo apposito";
-									}
-									LOGGER.log(Level.ERROR, msg);
-									return msg;
-								}
-							}
-							if (giornoDuplicato.getFascia1() != null && giornoDuplicato.getFascia1() > 2) {
-								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-										+ " le ore di straoridinario 18-20 superano le 2 ore";
-								LOGGER.log(Level.ERROR, msg);
-								return msg;
-							}
-							if (giornoDuplicato.getFascia2() != null && giornoDuplicato.getFascia2() > 2) {
-								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-										+ " le ore di straoridinario 20-22 superano le 2 ore";
-								LOGGER.log(Level.ERROR, msg);
-								return msg;
-							}
-							if (giornoDuplicato.getFascia3() != null && giornoDuplicato.getFascia3() > 13) {
-								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-										+ " le ore di straoridinario 22-09 superano le 13 ore";
-								LOGGER.log(Level.ERROR, msg);
-								return msg;
-							}
+							totOre += giornoDuplicato.getOreOrdinarie();
+							if (giornoDuplicato.getFascia1() != null)
+								totStraordinario1 += giornoDuplicato.getFascia1();
+							if (giornoDuplicato.getFascia2() != null)
+								totStraordinario2 += giornoDuplicato.getFascia2();
+							if (giornoDuplicato.getFascia3() != null)
+								totStraordinario3 += giornoDuplicato.getFascia3();
+
 						} else {
 							if (giornoDuplicato.getCliente() != null) {
 								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
@@ -147,20 +123,18 @@ public class RapportinoValidator {
 								msg = " Sono state dichiarate delle ore di straordinario nel giorno "
 										+ giornoDto.getNumeroGiorno() + " dove non sono state inserite le ore";
 							}
+							checkWeekend = (giornoDto.getNomeGiorno().equals("sabato")
+									|| giornoDto.getNomeGiorno().equals("domenica"));
 						}
 					}
-				} else {
-					msg = " Il numero di un giorno non e' stato valorizzato";
-					LOGGER.log(Level.ERROR, msg);
-					return msg;
-				}
-			} else if ((giornoDto.getFerie() != null && giornoDto.getMalattie() == null
-					&& giornoDto.getPermessi() == null)
-					|| (giornoDto.getMalattie() != null && giornoDto.getFerie() == null
-							&& giornoDto.getPermessi() == null)
-					|| (giornoDto.getPermessi() != null && giornoDto.getFerie() == null
-							&& giornoDto.getMalattie() == null)) {
-				if (giornoDto.getNumeroGiorno() != null) {
+
+				} else if ((giornoDto.getFerie() != null && giornoDto.getMalattie() == null
+						&& giornoDto.getPermessi() == null)
+						|| (giornoDto.getMalattie() != null && giornoDto.getFerie() == null
+								&& giornoDto.getPermessi() == null)
+						|| (giornoDto.getPermessi() != null && giornoDto.getFerie() == null
+								&& giornoDto.getMalattie() == null)) {
+
 					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
 
 						if (giornoDto.getPermessi() != null) {
@@ -179,39 +153,15 @@ public class RapportinoValidator {
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
-							if (giornoDuplicato.getOreOrdinarie() + giornoDto.getPermessi() != 8) {
-								if (giornoDuplicato.getOreOrdinarie() + giornoDto.getPermessi() > 8) {
-									msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-											+ " sono state dichiarate piu' di otto ore"
-											+ " ordinarie contando anche le ore di permesso,"
-											+ " se intendevi inserire straordianri utilizza i campi appositi";
-								}
-								if (giornoDuplicato.getOreOrdinarie() + giornoDto.getPermessi() < 8) {
-									msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-											+ " le ore ordinarie e i permessi non arrivano a 8 ore";
-								}
-								LOGGER.log(Level.ERROR, msg);
-								return msg;
-							}
-							if (giornoDuplicato.getFascia1() != null && giornoDuplicato.getFascia1() > 2) {
-								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-										+ " le ore di straoridinario 18-20 superano le 2 ore";
-								LOGGER.log(Level.ERROR, msg);
-								return msg;
-							}
-							if (giornoDuplicato.getFascia2() != null && giornoDuplicato.getFascia2() > 2) {
-								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-										+ " le ore di straoridinario 20-22 superano le 2 ore";
-								LOGGER.log(Level.ERROR, msg);
-								return msg;
-							}
-							if (giornoDuplicato.getFascia3() != null && giornoDuplicato.getFascia3() > 13) {
-								msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
-										+ " le ore di straoridinario 22-09 superano le 13 ore";
-								LOGGER.log(Level.ERROR, msg);
-								return msg;
-							}
-
+							totOre += giornoDuplicato.getOreOrdinarie();
+							if (giornoDuplicato.getFascia1() != null)
+								totStraordinario1 += giornoDuplicato.getFascia1();
+							if (giornoDuplicato.getFascia2() != null)
+								totStraordinario2 += giornoDuplicato.getFascia2();
+							if (giornoDuplicato.getFascia3() != null)
+								totStraordinario3 += giornoDuplicato.getFascia3();
+							if (giornoDto.getPermessi() != null)
+								permessi = giornoDto.getPermessi();
 						} else {
 							if (giornoDuplicato.getCliente() != null) {
 								msg = " Nel giorno " + giornoDto.getNumeroGiorno() + " e' stato inserito il cliente";
@@ -226,20 +176,21 @@ public class RapportinoValidator {
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
+							ferieOrMalattie = true;
 						}
 					}
 				} else {
-					msg = " Il numero di un giorno non e' stato valorizzato";
+					if (giornoDto.getNumeroGiorno() != null) {
+						msg = " Il giorno " + giornoDto.getNumeroGiorno() + " e' stato segnato con piu di uno fra i"
+								+ "seguenti: ferie, malattie e permessi";
+					} else {
+						msg = " Un giorno e' stato segnato con piu di uno fra i seguenti: ferie, malattie e permessi";
+					}
 					LOGGER.log(Level.ERROR, msg);
 					return msg;
 				}
 			} else {
-				if (giornoDto.getNumeroGiorno() != null) {
-					msg = " Il giorno " + giornoDto.getNumeroGiorno() + " e' stato segnato con piu di uno fra i"
-							+ "seguenti: ferie, malattie e permessi";
-				} else {
-					msg = " Un giorno e' stato segnato con piu di uno fra i seguenti: ferie, malattie e permessi";
-				}
+				msg = " Il numero di un giorno non e' stato valorizzato";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
@@ -249,11 +200,53 @@ public class RapportinoValidator {
 				if (contratto.getTipoContratto().getId() == 1 || contratto.getTipoContratto().getId() == 2) {
 					if (giornoDto.getFerie() != null || giornoDto.getPermessi() != null
 							|| giornoDto.getMalattie() != null) {
-						msg = " Non sono previsti ferie malattie o permessi per il contratto: "
+						msg = " Non sono previsti ferie malattie o permessi per un contratto: "
 								+ contratto.getTipoContratto().getDescrizione();
 						LOGGER.log(Level.ERROR, msg);
 						return msg;
 					}
+				}
+			}
+			if (!ferieOrMalattie) {
+				if (checkWeekend) {
+					if (totOre + permessi > 8) {
+						msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+								+ " sono state dichiarate piu' di otto ore ordinarie,"
+								+ " se intendevi inserire straordianri utilizza i campi appositi";
+					}
+				} else {
+					if (totOre + permessi != 8) {
+						if (totOre + permessi > 8) {
+							msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+									+ " sono state dichiarate piu' di otto ore fra permessi e ore ordinarie,"
+									+ " se intendevi inserire straordianri utilizza i campi appositi";
+						}
+						if (totOre + permessi < 8) {
+							msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+									+ " le ore fra permessi e ore ordinarie sono inferiori a 8"
+									+ " ricontrolla i dati inseriti";
+						}
+						LOGGER.log(Level.ERROR, msg);
+						return msg;
+					}
+				}
+				if (totStraordinario1 > 2) {
+					msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+							+ " le ore di straoridinario 18-20 superano le 2 ore";
+					LOGGER.log(Level.ERROR, msg);
+					return msg;
+				}
+				if (totStraordinario2 > 2) {
+					msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+							+ " le ore di straoridinario 20-22 superano le 2 ore";
+					LOGGER.log(Level.ERROR, msg);
+					return msg;
+				}
+				if (totStraordinario3 > 13) {
+					msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
+							+ " le ore di straoridinario 22-09 superano le 13 ore";
+					LOGGER.log(Level.ERROR, msg);
+					return msg;
 				}
 			}
 		}

@@ -61,19 +61,18 @@ public class ExcelUtil {
 			int numeroGiorniNelMese = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
 			/** SETUP PER LE VARIABILI DEI CALCOLI PER OGNI RAPPORTINO **/
-			double tot = 0;
-			double ferie = 0;
-			double malattie = 0;
-			double ex_fs = 0;
-			double rol = 0;
-			double f1_f2_f3 = 0;
-			double straordinariSum = 0;
-			String permessi = null;
+			double tot = 0.0;
+			int ferie = 0;
+			int malattie = 0;
+			int ex_fs = 0;
+			int rol = 0;
+			double f1_f2_f3 = 0.0;
+			double straordinariSum = 0.0;
 
 			/** SETUP DEGLI GLI OGGETTI PER LA COSTRUZIONE DELL'EXCEL **/
 			sheet.setColumnWidth(0, 30 * 256);
 			for (int i = 1; i <= 31; i++) {
-				sheet.setColumnWidth(i, 3 * 256);
+				sheet.setColumnWidth(i, 5 * 256);
 			}
 			for (int i = 33; i <= 37; i++) {
 				sheet.setColumnWidth(i, 8 * 256);
@@ -100,8 +99,8 @@ public class ExcelUtil {
 			CellStyle cellStyleFerie = createCellStyle(workbook, IndexedColors.YELLOW, false);
 			CellStyle cellStyleTotale = createCellStyle(workbook, IndexedColors.YELLOW, false);
 			CellStyle cellStyleMalattia = createCellStyle(workbook, IndexedColors.LIGHT_GREEN, false);
-			CellStyle cellStylePermessi = createCellStyle(workbook, IndexedColors.LIGHT_ORANGE, false);
-			CellStyle cellStyleRol = createCellStyle(workbook, IndexedColors.LIGHT_TURQUOISE, false);
+//			CellStyle cellStylePermessi = createCellStyle(workbook, IndexedColors.LIGHT_ORANGE, false);
+//			CellStyle cellStyleRol = createCellStyle(workbook, IndexedColors.LIGHT_TURQUOISE, false);
 
 			CellStyle cellStyleSABDOM = createCellStyle(workbook, IndexedColors.GREEN, false);
 			CellStyle cellStyleNODAY = createCellStyle(workbook, IndexedColors.LIGHT_CORNFLOWER_BLUE, false);
@@ -216,15 +215,15 @@ public class ExcelUtil {
 					if (rapportino.getOre() != null) {
 						// CI SONO ORE REGISTRATE
 
-						if (rapportino.getOre() == 8) {
+						if (rapportino.getOre() == 8.0) {
 							// SE SONO ESATTAMENTE 8
 
 							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
 								// SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
-								if (f1_f2_f3 != 0) {
+								if (f1_f2_f3 != 0.0) {
 									cell.setCellStyle(cellStyleAnnoMese);
 									cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-									tot += (rapportino.getOre() + f1_f2_f3) / 8;
+									tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
 								} else {
 									cell.setCellStyle(cellStyleAnnoMese);
 									cell.setCellValue(rapportino.getOre());
@@ -233,10 +232,10 @@ public class ExcelUtil {
 								f1_f2_f3 += rapportino.getOre();
 
 							} else {
-								if (f1_f2_f3 != 0) {
+								if (f1_f2_f3 != 0.0) {
 									cell.setCellStyle(cellStyleAnnoMese);
 									cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-									tot += (rapportino.getOre() + f1_f2_f3) / 8;
+									tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
 								} else {
 									cell.setCellStyle(cellStyleDefault);
 									cell.setCellValue("");
@@ -249,28 +248,28 @@ public class ExcelUtil {
 							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
 								cell.setCellStyle(cellStyleAnnoMese);
 								cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-								if (rapportino.getOre() + f1_f2_f3 < 8)
-									tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+								if (rapportino.getOre() + f1_f2_f3 < 8.0)
+									tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
 								else
-									tot += rapportino.getOre() + f1_f2_f3 / 8;
+									tot += rapportino.getOre() + f1_f2_f3 / 8.0;
 								f1_f2_f3 += rapportino.getOre();
 							} else {
 								if (rapportino.getPermessi() != null) {
 									// SE E' STATO UN GIORNO DI PERMESSO
-									if (f1_f2_f3 != 0) {
+									if (f1_f2_f3 != 0.0) {
 										cell.setCellStyle(cellStyleAnnoMese);
 										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-										if (rapportino.getOre() + f1_f2_f3 < 8)
-											tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+										if (rapportino.getOre() + f1_f2_f3 < 8.0)
+											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
 										else
-											tot += (rapportino.getOre() + f1_f2_f3) / 8;
+											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
 									} else {
 										cell.setCellStyle(cellStyleDefault);
 										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-										if (rapportino.getOre() + f1_f2_f3 < 8)
-											tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+										if (rapportino.getOre() + f1_f2_f3 < 8.0)
+											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
 										else
-											tot += (rapportino.getOre() + f1_f2_f3) / 8;
+											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
 									}
 									str = new XSSFRichTextString(
 											"Di cui " + rapportino.getPermessi() + " ore di permesso.");
@@ -280,20 +279,20 @@ public class ExcelUtil {
 									cell.setCellComment(comment);
 									ex_fs++;
 								} else {
-									if (f1_f2_f3 != 0) {
+									if (f1_f2_f3 != 0.0) {
 										cell.setCellStyle(cellStyleAnnoMese);
 										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-										if (rapportino.getOre() + f1_f2_f3 < 8)
-											tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+										if (rapportino.getOre() + f1_f2_f3 < 8.0)
+											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
 										else
-											tot += (rapportino.getOre() + f1_f2_f3) / 8;
+											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
 									} else {
 										cell.setCellStyle(cellStyleDefault);
 										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-										if (rapportino.getOre() + f1_f2_f3 < 8)
-											tot += 1 - ((rapportino.getOre() + f1_f2_f3) / 8);
+										if (rapportino.getOre() + f1_f2_f3 < 8.0)
+											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
 										else
-											tot += (rapportino.getOre() + f1_f2_f3) / 8;
+											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
 									}
 								}
 							}
@@ -331,7 +330,7 @@ public class ExcelUtil {
 				}
 
 				straordinariSum += f1_f2_f3;
-				f1_f2_f3 = 0; // RICOMINCIA A CONTARE LE ORE DI STRAORDINARIO DELLA GIORNATA
+				f1_f2_f3 = 0.0; // RICOMINCIA A CONTARE LE ORE DI STRAORDINARIO DELLA GIORNATA
 
 				if (cellNum == 31) {
 					str = new XSSFRichTextString("Di cui " + straordinariSum + " ore di straordinari.");
@@ -361,7 +360,7 @@ public class ExcelUtil {
 
 					/** RESET DELLE VARIABILI **/
 					cellNum = 0;
-					tot = 0;
+					tot = 0.0;
 					ferie = 0;
 					malattie = 0;
 					ex_fs = 0;
