@@ -87,6 +87,8 @@ public class RapportinoValidator {
 			boolean ferieOrMalattie = false;
 			boolean checkWeekend = (giornoDto.getNomeGiorno().equals("sabato")
 					|| giornoDto.getNomeGiorno().equals("domenica"));
+			boolean checkEmptyDay = false;
+
 			if (giornoDto.getNumeroGiorno() != null) {
 				if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null
 						&& giornoDto.getPermessi() == null) {
@@ -123,8 +125,8 @@ public class RapportinoValidator {
 								msg = " Sono state dichiarate delle ore di straordinario nel giorno "
 										+ giornoDto.getNumeroGiorno() + " dove non sono state inserite le ore";
 							}
-							checkWeekend = (giornoDto.getNomeGiorno().equals("sabato")
-									|| giornoDto.getNomeGiorno().equals("domenica"));
+							checkEmptyDay = true;
+
 						}
 					}
 
@@ -207,7 +209,7 @@ public class RapportinoValidator {
 					}
 				}
 			}
-			if (!ferieOrMalattie) {
+			if (!ferieOrMalattie && !checkEmptyDay) {
 				if (checkWeekend) {
 					if (totOre + permessi > 8) {
 						msg = " Nel giorno: " + giornoDto.getNumeroGiorno()
