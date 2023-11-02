@@ -5,6 +5,7 @@ import java.util.List;
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.AnagraficaFilterRequestDto;
 import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
@@ -26,14 +27,14 @@ public interface RapportinoService {
 
 	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException;
 
-	public List<AnagraficaDto> getRapportiniNotFreeze() throws ServiceException;
+	public List<AnagraficaDto> getRapportiniNotFreeze(AnagraficaFilterRequestDto anagraficaFilterRequestDto) throws ServiceException;
 
-	public List<AnagraficaDto> getRapportiniFreeze() throws ServiceException;
+	public List<AnagraficaDto> getRapportiniFreeze(AnagraficaFilterRequestDto anagraficaFilterRequestDto) throws ServiceException;
 
-	public List<AnagraficaDto> getRapportiniNotFreezeFilter(AnagraficaRequestDto anagraficaRequestDto)
+	public List<AnagraficaDto> getRapportiniNotFreezeFilter(AnagraficaFilterRequestDto anagraficaFilterRequestDto)
 			throws ServiceException;
 
-	public List<AnagraficaDto> getRapportiniFreezeFilter(AnagraficaRequestDto anagraficaRequestDto)
+	public List<AnagraficaDto> getRapportiniFreezeFilter(AnagraficaFilterRequestDto anagraficaFilterRequestDto)
 			throws ServiceException;
 
 	public void addRapportinoInDatabase(RapportinoRequest rapportinoRequest) throws ServiceException;

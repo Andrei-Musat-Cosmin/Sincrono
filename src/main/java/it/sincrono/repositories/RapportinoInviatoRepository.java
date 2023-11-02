@@ -13,11 +13,11 @@ public interface RapportinoInviatoRepository
 	@Query("SELECT a FROM RapportinoInviato a WHERE a.checkFreeze = false AND a.codiceFiscale LIKE ?1 AND a.anno = ?2 AND a.mese = ?3")
 	public RapportinoInviato findByData(String codiceFiscale, Integer anno, Integer mese);
 
-	@Query("SELECT a FROM RapportinoInviato a WHERE a.checkFreeze = false")
-	public List<RapportinoInviato> getRapportiniNotFreeze();
+	@Query("SELECT a FROM RapportinoInviato a WHERE a.checkFreeze = false and a.mese=?1 and a.anno=?2")
+	public List<RapportinoInviato> getRapportiniNotFreeze(Integer mese,Integer anno);
 
-	@Query("SELECT  a FROM RapportinoInviato a WHERE a.checkFreeze = true")
-	public List<RapportinoInviato> getRapportiniFreeze();
+	@Query("SELECT  a FROM RapportinoInviato a WHERE a.checkFreeze = true and a.mese=?1 and a.anno=?2")
+	public List<RapportinoInviato> getRapportiniFreeze(Integer mese,Integer anno);
 
 	@Query("SELECT CASE WHEN r.anno = ?2 AND r.mese = ?3 AND r.codiceFiscale = ?1 THEN true ELSE false END FROM RapportinoInviato r")
 	public Boolean checkInviato(String codiceFiscale, Integer anno, Integer mese);

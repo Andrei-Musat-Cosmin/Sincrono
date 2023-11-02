@@ -24,6 +24,7 @@ import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.DuplicazioniGiornoDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.AnagraficaFilterRequestDto;
 import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
@@ -236,18 +237,20 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public List<AnagraficaDto> getRapportiniNotFreeze() throws ServiceException {
+	public List<AnagraficaDto> getRapportiniNotFreeze(AnagraficaFilterRequestDto anagraficaFilterRequestDto)
+			throws ServiceException {
 
-		List<AnagraficaDto> listAnagraficheUnion =  new ArrayList<>();
+		List<AnagraficaDto> listAnagraficheUnion = new ArrayList<>();
 
 		try {
 
-			final List<RapportinoInviato> list = rapportinoInviatoRepository.getRapportiniNotFreeze();
+			final List<RapportinoInviato> list = rapportinoInviatoRepository
+					.getRapportiniNotFreeze(anagraficaFilterRequestDto.getMese(), anagraficaFilterRequestDto.getAnno());
 
 			List<AnagraficaDto> listAnagraficheNotInList = null;
 
 			List<AnagraficaDto> listAnagraficheInList = null;
-			
+
 			List<AnagraficaDto> listAnagrafiche = null;
 
 			listAnagrafiche = anagraficaRepository.findAllactiveId().stream().map(mapper::toAnagraficaDto)
@@ -256,22 +259,22 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			listAnagraficheNotInList = new ArrayList<>();
 
 			listAnagraficheInList = new ArrayList<>();
-			
+
 			listAnagraficheNotInList.addAll(listAnagrafiche);
-			
+
 			listAnagraficheInList.addAll(listAnagrafiche);
 
-			listAnagraficheInList=listAnagraficheInList.stream().filter(elem -> filterCustom.checkInList(elem, list))
+			listAnagraficheInList = listAnagraficheInList.stream().filter(elem -> filterCustom.checkInList(elem, list))
 					.collect(Collectors.toList()).stream().map(elem -> mapper.setCheckInviato(elem, true))
-					.collect(Collectors.toList());
+					.collect(Collectors.toList()).stream()
+					.map(elem -> mapper.setAnnoMese(elem, anagraficaFilterRequestDto)).collect(Collectors.toList());
 
-			listAnagraficheNotInList=listAnagraficheNotInList.stream().filter(elem -> filterCustom.checkNotInList(elem, list))
-					.collect(Collectors.toList()).stream().map(elem -> mapper.setCheckInviato(elem, false))
-					.collect(Collectors.toList());
-			
-			
+			listAnagraficheNotInList = listAnagraficheNotInList.stream()
+					.filter(elem -> filterCustom.checkNotInList(elem, list)).collect(Collectors.toList()).stream()
+					.map(elem -> mapper.setCheckInviato(elem, false)).collect(Collectors.toList());
+
 			listAnagraficheUnion.addAll(listAnagraficheInList);
-			
+
 			listAnagraficheUnion.addAll(listAnagraficheNotInList);
 
 		} catch (Exception e) {
@@ -373,15 +376,16 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public List<AnagraficaDto> getRapportiniFreezeFilter(AnagraficaRequestDto anagraficaRequestDto)
+	public List<AnagraficaDto> getRapportiniFreezeFilter(AnagraficaFilterRequestDto anagraficaFilterRequestDto)
 			throws ServiceException {
 
 		List<AnagraficaDto> list = null;
 
 		try {
 
-			list = getRapportiniFreeze().stream()
-					.filter(anagraficaDto -> filterCustom.toFilter(anagraficaDto, anagraficaRequestDto))
+			list = getRapportiniFreeze(anagraficaFilterRequestDto).stream()
+					.filter(anagraficaDto -> filterCustom.toFilter(anagraficaDto,
+							new AnagraficaRequestDto(anagraficaFilterRequestDto.getAnagraficaDto())))
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -392,15 +396,16 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public List<AnagraficaDto> getRapportiniNotFreezeFilter(AnagraficaRequestDto anagraficaRequestDto)
+	public List<AnagraficaDto> getRapportiniNotFreezeFilter(AnagraficaFilterRequestDto anagraficaFilterRequestDto)
 			throws ServiceException {
 
 		List<AnagraficaDto> list = null;
 
 		try {
 
-			list = getRapportiniNotFreeze().stream()
-					.filter(anagraficaDto -> filterCustom.toFilter(anagraficaDto, anagraficaRequestDto))
+			list = getRapportiniNotFreeze(anagraficaFilterRequestDto).stream()
+					.filter(anagraficaDto -> filterCustom.toFilter(anagraficaDto,
+							new AnagraficaRequestDto(anagraficaFilterRequestDto.getAnagraficaDto())))
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -411,13 +416,15 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public List<AnagraficaDto> getRapportiniFreeze() throws ServiceException {
+	public List<AnagraficaDto> getRapportiniFreeze(AnagraficaFilterRequestDto anagraficaFilterRequestDto)
+			throws ServiceException {
 
 		List<AnagraficaDto> listAnagrafiche = null;
 
 		try {
 
-			final List<RapportinoInviato> list = rapportinoInviatoRepository.getRapportiniFreeze();
+			final List<RapportinoInviato> list = rapportinoInviatoRepository
+					.getRapportiniFreeze(anagraficaFilterRequestDto.getMese(), anagraficaFilterRequestDto.getAnno());
 
 			listAnagrafiche = anagraficaRepository.findAllactiveId().stream().map(mapper::toAnagraficaDto)
 					.collect(Collectors.toList()).stream().filter(elem -> filterCustom.checkInList(elem, list))

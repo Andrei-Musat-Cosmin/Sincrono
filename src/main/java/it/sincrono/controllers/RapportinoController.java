@@ -21,6 +21,7 @@ import it.sincrono.beans.Esito;
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.AnagraficaFilterRequestDto;
 import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.requests.RapportinoInviatoRequest;
 import it.sincrono.requests.RapportinoRequest;
@@ -225,8 +226,9 @@ public class RapportinoController {
 		return httpEntity;
 	}
 
-	@GetMapping("/list-not-freeze")
-	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniNotFreeze() {
+	@PostMapping("/list-not-freeze")
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniNotFreeze(
+			@RequestBody AnagraficaFilterRequestDto anagraficaFilterRequestDto) {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
@@ -234,7 +236,7 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniNotFreeze");
 
-			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniNotFreeze();
+			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniNotFreeze(anagraficaFilterRequestDto);
 
 			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
 			anagraficaDtoListResponse.setEsito(new Esito());
@@ -251,8 +253,9 @@ public class RapportinoController {
 		return httpEntity;
 	}
 
-	@GetMapping("/list-freeze")
-	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniFreeze() {
+	@PostMapping("/list-freeze")
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniFreeze(
+			@RequestBody AnagraficaFilterRequestDto anagraficaFilterRequestDto) {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
@@ -260,7 +263,8 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniFreeze");
 
-			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniFreeze();
+			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniFreeze(
+					anagraficaFilterRequestDto);
 
 			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
 			anagraficaDtoListResponse.setEsito(new Esito());
@@ -279,7 +283,7 @@ public class RapportinoController {
 
 	@PostMapping("/list-not-freeze-filter")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniNotFreezeFilter(
-			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+			@RequestBody AnagraficaFilterRequestDto anagraficaFilterRequestDto) {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
@@ -288,7 +292,7 @@ public class RapportinoController {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniNotFreezeFilter");
 
 			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService
-					.getRapportiniNotFreezeFilter(anagraficaRequestDto);
+					.getRapportiniNotFreezeFilter(anagraficaFilterRequestDto);
 
 			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
 			anagraficaDtoListResponse.setEsito(new Esito());
@@ -307,7 +311,7 @@ public class RapportinoController {
 
 	@PostMapping("/list-freeze-filter")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniFreezeFilter(
-			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
+			@RequestBody AnagraficaFilterRequestDto anagraficaFilterRequestDto) {
 
 		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
@@ -316,7 +320,7 @@ public class RapportinoController {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniFreezeFilter");
 
 			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService
-					.getRapportiniNotFreezeFilter(anagraficaRequestDto);
+					.getRapportiniNotFreezeFilter(anagraficaFilterRequestDto);
 
 			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
 			anagraficaDtoListResponse.setEsito(new Esito());

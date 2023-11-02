@@ -14,6 +14,7 @@ import it.sincrono.repositories.CommessaRepository;
 import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.RuoloRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
+import it.sincrono.requests.AnagraficaFilterRequestDto;
 
 @Component
 public class MapperCustom {
@@ -85,6 +86,16 @@ public class MapperCustom {
 		
 		anagraficaDto.getAnagrafica().setCheckInviato(check);
 
+		return anagraficaDto;
+	}
+
+	public AnagraficaDto setAnnoMese(AnagraficaDto anagraficaDto,
+			AnagraficaFilterRequestDto anagraficaFilterRequestDto) {
+		
+		anagraficaDto.getAnagrafica().setAnno(anagraficaFilterRequestDto.getAnno());
+		
+		anagraficaDto.getAnagrafica().setMese(anagraficaFilterRequestDto.getMese());
+		
 		return anagraficaDto;
 	}
 

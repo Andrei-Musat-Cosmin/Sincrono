@@ -98,8 +98,13 @@ public class Anagrafica {
 	
 	@Transient
     private  Boolean checkInviato; 
-
-
+	
+	@Transient
+    private  Integer anno;
+	
+	@Transient
+    private  Integer mese;
+	
 	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, String nome, String cognome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
@@ -356,6 +361,24 @@ public class Anagrafica {
 	public void setCheckInviato(Boolean checkInviato) {
 		this.checkInviato = checkInviato;
 	}
+
+	public Integer getAnno() {
+		return anno;
+	}
+
+	public void setAnno(Integer anno) {
+		this.anno = anno;
+	}
+
+	public Integer getMese() {
+		return mese;
+	}
+
+	public void setMese(Integer mese) {
+		this.mese = mese;
+	}
+	
+	
 	
 	
 
