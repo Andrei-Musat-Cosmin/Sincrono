@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "anagrafica")
@@ -95,7 +96,8 @@ public class Anagrafica {
 	@Column(name = "categoria_protetta")
 	private Boolean categoriaProtetta;
 	
-    private transient Boolean checkInviato; 
+	@Transient
+    private  Boolean checkInviato; 
 
 
 	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, String nome, String cognome,

@@ -277,7 +277,7 @@ public class RapportinoController {
 		return httpEntity;
 	}
 
-	@GetMapping("/list-not-freeze-filter")
+	@PostMapping("/list-not-freeze-filter")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniNotFreezeFilter(
 			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
@@ -305,7 +305,7 @@ public class RapportinoController {
 		return httpEntity;
 	}
 
-	@GetMapping("/list-freeze-filter")
+	@PostMapping("/list-freeze-filter")
 	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniFreezeFilter(
 			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
