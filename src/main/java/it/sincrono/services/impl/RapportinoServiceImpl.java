@@ -20,9 +20,11 @@ import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.RapportinoInviatoRepository;
 import it.sincrono.repositories.RapportinoRepository;
+import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.DuplicazioniGiornoDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.services.RapportinoService;
@@ -31,6 +33,7 @@ import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.ExcelUtil;
 import it.sincrono.services.utils.FileUtil;
 import it.sincrono.services.utils.FilterCustom;
+import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.services.utils.RapportinoUtil;
 import it.sincrono.services.validator.RapportinoValidator;
 
@@ -73,6 +76,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 	@Autowired
 	FilterCustom filterCustom;
+
+	@Autowired
+	private MapperCustom mapper;
 
 	@Override
 	public RapportinoDto getRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
@@ -230,18 +236,50 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public List<RapportinoInviato> getRapportiniNotFreeze() throws ServiceException {
-		List<RapportinoInviato> list = null;
+	public List<AnagraficaDto> getRapportiniNotFreeze() throws ServiceException {
+
+		List<AnagraficaDto> listAnagraficheUnion =  new ArrayList<>();
 
 		try {
-			list = rapportinoInviatoRepository.getRapportiniNotFreeze();
-			list = rapportinoInviatoRepository.getRapportiniNotFreeze();
+
+			final List<RapportinoInviato> list = rapportinoInviatoRepository.getRapportiniNotFreeze();
+
+			List<AnagraficaDto> listAnagraficheNotInList = null;
+
+			List<AnagraficaDto> listAnagraficheInList = null;
+			
+			List<AnagraficaDto> listAnagrafiche = null;
+
+			listAnagrafiche = anagraficaRepository.findAllactiveId().stream().map(mapper::toAnagraficaDto)
+					.collect(Collectors.toList());
+
+			listAnagraficheNotInList = new ArrayList<>();
+
+			listAnagraficheInList = new ArrayList<>();
+			
+			listAnagraficheNotInList.addAll(listAnagrafiche);
+			
+			listAnagraficheInList.addAll(listAnagrafiche);
+
+			listAnagraficheInList=listAnagraficheInList.stream().filter(elem -> filterCustom.checkInList(elem, list))
+					.collect(Collectors.toList()).stream().map(elem -> mapper.setCheckInviato(elem, true))
+					.collect(Collectors.toList());
+
+			listAnagraficheNotInList=listAnagraficheNotInList.stream().filter(elem -> filterCustom.checkNotInList(elem, list))
+					.collect(Collectors.toList()).stream().map(elem -> mapper.setCheckInviato(elem, false))
+					.collect(Collectors.toList());
+			
+			
+			listAnagraficheUnion.addAll(listAnagraficheInList);
+			
+			listAnagraficheUnion.addAll(listAnagraficheNotInList);
+
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
-		return list;
+		return listAnagraficheUnion;
 	}
 
 	@Override
@@ -335,33 +373,15 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public List<RapportinoInviato> getRapportiniFreezeFilter(RapportinoInviato rapportinoInviato)
+	public List<AnagraficaDto> getRapportiniFreezeFilter(AnagraficaRequestDto anagraficaRequestDto)
 			throws ServiceException {
 
-		List<RapportinoInviato> list = null;
+		List<AnagraficaDto> list = null;
 
 		try {
-			list = rapportinoInviatoRepository.getRapportiniFreeze().stream()
-					.filter(rapportino -> filterCustom.toFilterRapportino(rapportino, rapportinoInviato))
-					.collect(Collectors.toList());
 
-		} catch (Exception e) {
-			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-		return list;
-	}
-
-	@Override
-	public List<RapportinoInviato> getRapportiniNotFreezeFilter(RapportinoInviato rapportinoInviato)
-			throws ServiceException {
-
-		List<RapportinoInviato> list = null;
-
-		try {
-			list = rapportinoInviatoRepository.getRapportiniFreeze().stream()
-					.filter(rapportino -> filterCustom.toFilterRapportino(rapportino, rapportinoInviato))
+			list = getRapportiniFreeze().stream()
+					.filter(anagraficaDto -> filterCustom.toFilter(anagraficaDto, anagraficaRequestDto))
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -372,17 +392,43 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public List<RapportinoInviato> getRapportiniFreeze() throws ServiceException {
-		List<RapportinoInviato> list = null;
+	public List<AnagraficaDto> getRapportiniNotFreezeFilter(AnagraficaRequestDto anagraficaRequestDto)
+			throws ServiceException {
+
+		List<AnagraficaDto> list = null;
 
 		try {
-			list = rapportinoInviatoRepository.getRapportiniFreeze();
+
+			list = getRapportiniNotFreeze().stream()
+					.filter(anagraficaDto -> filterCustom.toFilter(anagraficaDto, anagraficaRequestDto))
+					.collect(Collectors.toList());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return list;
+	}
+
+	@Override
+	public List<AnagraficaDto> getRapportiniFreeze() throws ServiceException {
+
+		List<AnagraficaDto> listAnagrafiche = null;
+
+		try {
+
+			final List<RapportinoInviato> list = rapportinoInviatoRepository.getRapportiniFreeze();
+
+			listAnagrafiche = anagraficaRepository.findAllactiveId().stream().map(mapper::toAnagraficaDto)
+					.collect(Collectors.toList()).stream().filter(elem -> filterCustom.checkInList(elem, list))
+					.collect(Collectors.toList());
+
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return listAnagrafiche;
 	}
 
 	@Override

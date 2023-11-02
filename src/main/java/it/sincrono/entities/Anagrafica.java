@@ -94,6 +94,9 @@ public class Anagrafica {
 
 	@Column(name = "categoria_protetta")
 	private Boolean categoriaProtetta;
+	
+    private transient Boolean checkInviato; 
+
 
 	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, String nome, String cognome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
@@ -343,5 +346,15 @@ public class Anagrafica {
 	public void setCategoriaProtetta(Boolean categoriaProtetta) {
 		this.categoriaProtetta = categoriaProtetta;
 	}
+
+	public Boolean getCheckInviato() {
+		return checkInviato;
+	}
+
+	public void setCheckInviato(Boolean checkInviato) {
+		this.checkInviato = checkInviato;
+	}
+	
+	
 
 }

@@ -3,6 +3,7 @@ package it.sincrono.services.utils;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -428,5 +429,22 @@ public class FilterCustom {
 
 		return true;
 
+	}
+	
+	
+	public Boolean checkInList( AnagraficaDto anagraficaDto,List<RapportinoInviato> list) {
+		
+		
+		return list.stream().
+				filter(elem->elem.getCodiceFiscale().equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
+				.collect(Collectors.toList()).size()>0?true:false;
+	}
+	
+	public Boolean checkNotInList(AnagraficaDto anagraficaDto,List<RapportinoInviato> list) {
+		
+		
+		return list.stream().
+				filter(elem->elem.getCodiceFiscale().equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
+				.collect(Collectors.toList()).size()==0?true:false;
 	}
 }

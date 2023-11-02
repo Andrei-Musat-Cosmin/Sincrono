@@ -19,10 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.RapportinoInviato;
+import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
+import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.requests.RapportinoInviatoRequest;
 import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
+import it.sincrono.responses.AnagraficaDtoListResponse;
 import it.sincrono.responses.CheckRapportinoInviatoResponse;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.RapportiniInviatiListResponse;
@@ -223,25 +226,25 @@ public class RapportinoController {
 	}
 
 	@GetMapping("/list-not-freeze")
-	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniNotFreeze() {
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniNotFreeze() {
 
-		HttpEntity<RapportiniInviatiListResponse> httpEntity = null;
+		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
-		RapportiniInviatiListResponse rapportiniInviatiListResponse = new RapportiniInviatiListResponse();
+		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniNotFreeze");
 
-			List<RapportinoInviato> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniNotFreeze();
+			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniNotFreeze();
 
-			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
-			rapportiniInviatiListResponse.setEsito(new Esito());
+			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
+			anagraficaDtoListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			rapportiniInviatiListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
 		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportiniNotFreeze\n");
 
@@ -249,25 +252,25 @@ public class RapportinoController {
 	}
 
 	@GetMapping("/list-freeze")
-	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniFreeze() {
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniFreeze() {
 
-		HttpEntity<RapportiniInviatiListResponse> httpEntity = null;
+		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
-		RapportiniInviatiListResponse rapportiniInviatiListResponse = new RapportiniInviatiListResponse();
+		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniFreeze");
 
-			List<RapportinoInviato> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniFreeze();
+			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniFreeze();
 
-			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
-			rapportiniInviatiListResponse.setEsito(new Esito());
+			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
+			anagraficaDtoListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			rapportiniInviatiListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
 		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportiniFreeze\n");
 
@@ -275,27 +278,27 @@ public class RapportinoController {
 	}
 
 	@GetMapping("/list-not-freeze-filter")
-	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniNotFreezeFilter(
-			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniNotFreezeFilter(
+			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
-		HttpEntity<RapportiniInviatiListResponse> httpEntity = null;
+		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
-		RapportiniInviatiListResponse rapportiniInviatiListResponse = new RapportiniInviatiListResponse();
+		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniNotFreezeFilter");
 
-			List<RapportinoInviato> rapportiniInviatiNotFreeze = rapportinoService
-					.getRapportiniNotFreezeFilter(rapportinoInviatoRequest.getRapportino());
+			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService
+					.getRapportiniNotFreezeFilter(anagraficaRequestDto);
 
-			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
-			rapportiniInviatiListResponse.setEsito(new Esito());
+			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
+			anagraficaDtoListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			rapportiniInviatiListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
 		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportiniNotFreezeFilter\n");
 
@@ -303,27 +306,27 @@ public class RapportinoController {
 	}
 
 	@GetMapping("/list-freeze-filter")
-	public @ResponseBody HttpEntity<RapportiniInviatiListResponse> getRapportiniFreezeFilter(
-			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequest) {
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> getRapportiniFreezeFilter(
+			@RequestBody AnagraficaRequestDto anagraficaRequestDto) {
 
-		HttpEntity<RapportiniInviatiListResponse> httpEntity = null;
+		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
-		RapportiniInviatiListResponse rapportiniInviatiListResponse = new RapportiniInviatiListResponse();
+		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniFreezeFilter");
 
-			List<RapportinoInviato> rapportiniInviatiNotFreeze = rapportinoService
-					.getRapportiniNotFreezeFilter(rapportinoInviatoRequest.getRapportino());
+			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService
+					.getRapportiniNotFreezeFilter(anagraficaRequestDto);
 
-			rapportiniInviatiListResponse.setList(rapportiniInviatiNotFreeze);
-			rapportiniInviatiListResponse.setEsito(new Esito());
+			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
+			anagraficaDtoListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			rapportiniInviatiListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<RapportiniInviatiListResponse>(rapportiniInviatiListResponse);
+			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
 		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getRapportiniFreezeFilter\n");
 

@@ -16,7 +16,7 @@ public interface RapportinoInviatoRepository
 	@Query("SELECT a FROM RapportinoInviato a WHERE a.checkFreeze = false")
 	public List<RapportinoInviato> getRapportiniNotFreeze();
 
-	@Query("SELECT a FROM RapportinoInviato a WHERE a.checkFreeze = true")
+	@Query("SELECT  a FROM RapportinoInviato a WHERE a.checkFreeze = true")
 	public List<RapportinoInviato> getRapportiniFreeze();
 
 	@Query("SELECT CASE WHEN r.anno = ?2 AND r.mese = ?3 AND r.codiceFiscale = ?1 THEN true ELSE false END FROM RapportinoInviato r")

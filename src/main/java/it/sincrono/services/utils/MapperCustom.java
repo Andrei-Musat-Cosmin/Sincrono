@@ -78,5 +78,14 @@ public class MapperCustom {
 	public List<Commessa> toCommessaArray(Integer id) {
 		return commessaRepository.findByIdAnagrafica(id);
 	}
+	
+	
+	public AnagraficaDto setCheckInviato(AnagraficaDto anagraficaDto,Boolean check) {
+		
+		
+		anagraficaDto.getAnagrafica().setCheckInviato(check);
+
+		return anagraficaDto;
+	}
 
 }
