@@ -311,7 +311,8 @@ public class RapportinoValidator {
 
 	public String validateFreeze(RapportinoInviato rapportinoInviato) {
 		String msg = null;
-		if (rapportinoInviato.getId() != null) {
+		if (((rapportinoInviato.getCodiceFiscale() != null && !rapportinoInviato.getCodiceFiscale().equals("")))
+				&& rapportinoInviato.getAnno() != null && rapportinoInviato.getMese() != null) {
 
 			if (rapportinoInviato.getCheckFreeze() == null) {
 				msg = " Non e' stato valorizzato il valore \"checkFreeze\"";
@@ -320,7 +321,8 @@ public class RapportinoValidator {
 			}
 
 		} else {
-			msg = " Non e' stato possibile effettuare l'inserimento, il campo \"id\" non e' valorizzato";
+			msg = " Non e' stato possibile effettuare l'inserimento, uno dei campi obbligatori"
+					+ " \"codiceFiscale\", \"anno\" e \"mese\" non e' stato valorizzato correttamente";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}

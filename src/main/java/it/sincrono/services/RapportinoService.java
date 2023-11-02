@@ -19,7 +19,7 @@ public interface RapportinoService {
 
 	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException;
 
-	public void insertRapportino(RapportinoInviato rapportinoInviato) throws ServiceException;
+	public void inviaRapportino(RapportinoInviato rapportinoInviato) throws ServiceException;
 
 	public void updateFreeze(RapportinoInviato rapportinoInviato) throws ServiceException;
 

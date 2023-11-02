@@ -179,13 +179,14 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	}
 
 	@Override
-	public void insertRapportino(RapportinoInviato rapportinoInviato) throws ServiceException {
+	public void inviaRapportino(RapportinoInviato rapportinoInviato) throws ServiceException {
 		String msg = null;
 
 		if ((msg = rapportinoValidator.validateRapportiniInviati(rapportinoInviato)) != null) {
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 		}
 		try {
+			rapportinoInviato.setCheckFreeze(false);
 			rapportinoInviatoRepository.saveAndFlush(rapportinoInviato);
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getCause());
@@ -202,8 +203,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 		}
 
 		try {
-			RapportinoInviato currentRapportinoInviato = rapportinoInviatoRepository.findById(rapportinoInviato.getId())
-					.get();
+			RapportinoInviato currentRapportinoInviato = rapportinoInviatoRepository.findByCodiceFiscaleAnnoMese(
+					rapportinoInviato.getCodiceFiscale(), rapportinoInviato.getAnno(), rapportinoInviato.getMese());
 			currentRapportinoInviato.setCheckFreeze(rapportinoInviato.getCheckFreeze());
 			rapportinoInviatoRepository.saveAndFlush(currentRapportinoInviato);
 			if (rapportinoInviato.getCheckFreeze()) {

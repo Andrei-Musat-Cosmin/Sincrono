@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,14 +21,12 @@ import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.AnagraficaFilterRequestDto;
-import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.requests.RapportinoInviatoRequest;
 import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.responses.AnagraficaDtoListResponse;
 import it.sincrono.responses.CheckRapportinoInviatoResponse;
 import it.sincrono.responses.GenericResponse;
-import it.sincrono.responses.RapportiniInviatiListResponse;
 import it.sincrono.responses.RapportinoB64Response;
 import it.sincrono.responses.RapportinoDtoResponse;
 import it.sincrono.services.RapportinoService;
@@ -149,17 +146,17 @@ public class RapportinoController {
 		return httpEntity;
 	}
 
-	@PutMapping("/insert-rapportino")
-	public @ResponseBody HttpEntity<GenericResponse> insertRapportino(
+	@PutMapping("/invia-rapportino")
+	public @ResponseBody HttpEntity<GenericResponse> inviaRapportino(
 			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequestDto) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
 
 		GenericResponse genericResponse = new GenericResponse();
 		try {
-			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo insertRapportino");
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo inviaRapportino");
 
-			rapportinoService.insertRapportino(rapportinoInviatoRequestDto.getRapportino());
+			rapportinoService.inviaRapportino(rapportinoInviatoRequestDto.getRapportino());
 
 			genericResponse.setEsito(new Esito());
 
@@ -170,7 +167,7 @@ public class RapportinoController {
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		LOGGER.log(Level.INFO, "Fine chiamata al meotodo insertRapportino\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo inviaRapportino\n");
 
 		return httpEntity;
 	}
@@ -236,7 +233,8 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniNotFreeze");
 
-			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniNotFreeze(anagraficaFilterRequestDto);
+			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService
+					.getRapportiniNotFreeze(anagraficaFilterRequestDto);
 
 			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
 			anagraficaDtoListResponse.setEsito(new Esito());
@@ -263,8 +261,8 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportiniFreeze");
 
-			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService.getRapportiniFreeze(
-					anagraficaFilterRequestDto);
+			List<AnagraficaDto> rapportiniInviatiNotFreeze = rapportinoService
+					.getRapportiniFreeze(anagraficaFilterRequestDto);
 
 			anagraficaDtoListResponse.setList(rapportiniInviatiNotFreeze);
 			anagraficaDtoListResponse.setEsito(new Esito());
