@@ -10,6 +10,8 @@ import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.AnagraficaRepository;
+import it.sincrono.repositories.RapportinoInviatoRepository;
+import it.sincrono.repositories.RapportinoRepository;
 import it.sincrono.repositories.dto.DuplicazioniGiornoDto;
 import it.sincrono.repositories.dto.GiornoDto;
 import it.sincrono.repositories.dto.RapportinoDto;
@@ -25,6 +27,9 @@ public class RapportinoValidator {
 
 	@Autowired
 	AnagraficaRepository anagraficaRepository;
+	
+	@Autowired
+	RapportinoInviatoRepository rapportinoInviatoRepository;
 
 	public String validateFieldsForPath(RapportinoDto rapportinoDto) {
 		String msg = null;
@@ -88,6 +93,13 @@ public class RapportinoValidator {
 			boolean checkWeekend = (giornoDto.getNomeGiorno().equals("sabato")
 					|| giornoDto.getNomeGiorno().equals("domenica"));
 			boolean checkEmptyDay = false;
+			
+			if(!validateCheckInviato(rapportinoDto)) {
+				msg = "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
+				
+			}
 
 			if (giornoDto.getNumeroGiorno() != null) {
 				if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null
@@ -258,21 +270,38 @@ public class RapportinoValidator {
 
 	public String validateNote(RapportinoDto rapportinoDto) {
 		String msg = null;
+		
+		
 
 		if ((msg = validateFieldsForPath(rapportinoDto)) != null) {
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
+	
 		if (rapportinoDto.getNote() == null || rapportinoDto.getNote().equals("")) {
 			msg = " Le note non sono state inserte correttamente";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
+		
+		if(validateCheckInviato(rapportinoDto)) {
+			msg = "il rapportino non è stato inviato quindi le note non possono essere modificate";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+			
+		}
 
 		return msg;
 
 	}
-
+	
+	private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
+		
+		return !(rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().getCodiceFiscale()
+				,rapportinoDto.getAnnoRequest(),rapportinoDto.getMeseRequest()));
+		
+	}
+	
 	public String validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
 		String msg = null;
 		if (rapportinoInviato.getId() == null) {
