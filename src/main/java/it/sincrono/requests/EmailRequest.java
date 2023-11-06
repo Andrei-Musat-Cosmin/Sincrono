@@ -11,14 +11,19 @@ public class EmailRequest extends GenericRequest {
 	private String[] cc;
 	private String subject;
 	private String body;
+	private String[] toRapportini;
 
-	public EmailRequest(MultipartFile[] file, String to, String[] cc, String subject, String body) {
+
+
+	public EmailRequest(MultipartFile[] file, String to, String[] cc, String subject, String body,
+			String[] toRapportini) {
 		super();
 		this.file = file;
 		this.to = to;
 		this.cc = cc;
 		this.subject = subject;
 		this.body = body;
+		this.toRapportini = toRapportini;
 	}
 
 	public EmailRequest() {
@@ -64,6 +69,17 @@ public class EmailRequest extends GenericRequest {
 
 	public void setBody(String body) {
 		this.body = body;
+	}
+	
+	
+	
+
+	public String[] getToRapportini() {
+		return toRapportini;
+	}
+
+	public void setToRapportini(String[] toRapportini) {
+		this.toRapportini = toRapportini;
 	}
 
 	@Override

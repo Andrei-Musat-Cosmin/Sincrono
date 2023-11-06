@@ -34,13 +34,75 @@ public class EmailServiceImpl implements EmailService {
 				LOGGER.log(Level.ERROR, "Destinatario dell'email non valido }");
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 			}
-			if (cc != null) {
+			if (cc != null && cc.length>0) {
 				for (int i = 0; i < cc.length; i++)
 					if (cc[i] != "") {
 						LOGGER.log(Level.ERROR, "Copie carbone non valide }");
 						throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 					}
+			}else {
+				
+				LOGGER.log(Level.ERROR, "Copie carbone non valide }");
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 			}
+			
+			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+
+			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+			mimeMessageHelper.setFrom(fromEmail);
+			mimeMessageHelper.setTo(to);
+			mimeMessageHelper.setCc(cc != null ? cc : new String[0]);
+			mimeMessageHelper.setSubject(subject);
+			mimeMessageHelper.setText(body);
+
+			if (file != null) {
+
+				for (int i = 0; i < file.length; i++) {
+					mimeMessageHelper.addAttachment(file[i].getOriginalFilename(),
+							new ByteArrayResource(file[i].getBytes()));
+				}
+
+			}
+			javaMailSender.send(mimeMessage);
+			return "mail sent";
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+	}
+	
+	@Override
+	public String sendMail(MultipartFile[] file, String[] to, String[] cc, String subject, String body)
+			throws ServiceException {
+		try {
+			if (to != null && to.length>0) {
+				for (int i = 0; i < to.length; i++)
+					if (to[i] != "") {
+						LOGGER.log(Level.ERROR, "Destinatario dell'email non valido }");
+						throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+					}
+			}else {
+				
+				LOGGER.log(Level.ERROR, "Destinatario dell'email non valido }");
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+				
+				
+			}
+			if (cc != null && cc.length>0) {
+				for (int i = 0; i < cc.length; i++)
+					if (cc[i] != "") {
+						LOGGER.log(Level.ERROR, "Copie carbone non valide }");
+						throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+					}
+			}else {
+				
+				LOGGER.log(Level.ERROR, "Copie carbone non valide }");
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+			}
+			
+			
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
 			MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);

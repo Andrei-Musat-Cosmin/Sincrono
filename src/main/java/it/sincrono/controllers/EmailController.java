@@ -40,5 +40,27 @@ public class EmailController {
 		}
 		return httpEntity;
 	}
+	
+	@PostMapping("/send-rapportini")
+	public @ResponseBody HttpEntity<GenericResponse> sendMailRapportini(@RequestBody EmailRequest emailRequest) {
+		HttpEntity<GenericResponse> httpEntity;
+		GenericResponse genericResponse = new GenericResponse();
+		try {
+
+			emailService.sendMail(emailRequest.getFile(), emailRequest.getToRapportini(), emailRequest.getCc(),
+					emailRequest.getSubject(), emailRequest.getBody());
+
+			genericResponse.setEsito(
+					new Esito(200, "Email inviata correttamente all'indirizzo: " + emailRequest.getTo() + "."));
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		} catch (Exception e) {
+			genericResponse.setEsito(new Esito(500, e.getMessage(), new String[] { null }));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		return httpEntity;
+	}
+	
+	
 
 }
