@@ -468,7 +468,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	public boolean getCheckRapportinoInviato(RapportinoRequest rapportinoRequest) throws ServiceException {
 		try {
 			return rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
-					rapportinoRequest.getAnno(), rapportinoRequest.getMese());
+					rapportinoRequest.getAnno(), rapportinoRequest.getMese()) == null ? false
+							: rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
+									rapportinoRequest.getAnno(), rapportinoRequest.getMese());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);

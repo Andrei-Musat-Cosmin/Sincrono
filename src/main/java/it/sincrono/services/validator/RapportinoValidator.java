@@ -27,7 +27,7 @@ public class RapportinoValidator {
 
 	@Autowired
 	AnagraficaRepository anagraficaRepository;
-	
+
 	@Autowired
 	RapportinoInviatoRepository rapportinoInviatoRepository;
 
@@ -93,12 +93,12 @@ public class RapportinoValidator {
 			boolean checkWeekend = (giornoDto.getNomeGiorno().equals("sabato")
 					|| giornoDto.getNomeGiorno().equals("domenica"));
 			boolean checkEmptyDay = false;
-			
-			if(!validateCheckInviato(rapportinoDto)) {
+
+			if (!validateCheckInviato(rapportinoDto)) {
 				msg = "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
-				
+
 			}
 
 			if (giornoDto.getNumeroGiorno() != null) {
@@ -270,38 +270,38 @@ public class RapportinoValidator {
 
 	public String validateNote(RapportinoDto rapportinoDto) {
 		String msg = null;
-		
-		
 
 		if ((msg = validateFieldsForPath(rapportinoDto)) != null) {
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
-	
+
 		if (rapportinoDto.getNote() == null || rapportinoDto.getNote().equals("")) {
 			msg = " Le note non sono state inserte correttamente";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
-		
-		if(validateCheckInviato(rapportinoDto)) {
+
+		if (validateCheckInviato(rapportinoDto)) {
 			msg = "il rapportino non è stato inviato quindi le note non possono essere modificate";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
-			
+
 		}
 
 		return msg;
 
 	}
-	
+
 	private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
-		
-		return !(rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().getCodiceFiscale()
-				,rapportinoDto.getAnnoRequest(),rapportinoDto.getMeseRequest()));
-		
+
+		return !(rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().getCodiceFiscale(),
+				rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest()) == null ? false
+						: rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().getCodiceFiscale(),
+								rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest()));
+
 	}
-	
+
 	public String validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
 		String msg = null;
 		if (rapportinoInviato.getId() == null) {
