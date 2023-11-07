@@ -19,13 +19,13 @@ import it.sincrono.services.validator.DocumentValidator;
 public class DocumentServiceImpl extends BaseServiceImpl implements DocumentService {
 
 	@Value("${anagrafiche-profili.path-prefix}")
-	private static String PREFIX;
+	private String PREFIX;
 
-	@Value("${anagrafica-profili.destinazione}")
-	private static String DESTINAZIONE;
+	@Value("${anagrafiche-profili.destinazione}")
+	private String DESTINAZIONE;
 
 	@Value("${anagrafiche-profili.anagrafiche-profili-documenti.path-prefix-documenti}")
-	private static String DOCUMENT;
+	private String DOCUMENT;
 
 	private static final Logger LOGGER = LogManager.getLogger(DocumentServiceImpl.class);
 

@@ -56,13 +56,13 @@ import jakarta.transaction.Transactional;
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
 
 	@Value("${anagrafiche-profili.path-prefix}")
-	private static String PREFIX;
+	private String PREFIX;
 
-	@Value("${anagrafica-profili.destinazione}")
-	private static String DESTINAZIONE;
+	@Value("${anagrafiche-profili.destinazione}")
+	private String DESTINAZIONE;
 
 	@Value("${anagrafiche-profili.anagrafiche-profili-rapportini.path-prefix-rapportini}")
-	private static String RAPPORTINI;
+	private String RAPPORTINI;
 
 	private static final Logger LOGGER = LogManager.getLogger(AnagraficaServiceImpl.class);
 
@@ -246,12 +246,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			fileUtil.creatFolder(PREFIX + DESTINAZIONE + anagraficaDto.getAnagrafica().getCodiceFiscale() + RAPPORTINI
 					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
 
-			/*
-			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),
-			 * null, "CREAZIONE UTENZA", "username: " +
-			 * anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
-			 * + passwordUtente);
-			 */
+			emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null, "CREAZIONE UTENZA",
+					"username: " + anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
+							+ passwordUtente);
 
 			LOGGER.log(Level.INFO, "Password " + passwordUtente);
 

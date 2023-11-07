@@ -36,14 +36,10 @@ public class EmailServiceImpl implements EmailService {
 			}
 			if (cc != null && cc.length>0) {
 				for (int i = 0; i < cc.length; i++)
-					if (cc[i] != "") {
+					if (cc[i] == "") {
 						LOGGER.log(Level.ERROR, "Copie carbone non valide }");
 						throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 					}
-			}else {
-				
-				LOGGER.log(Level.ERROR, "Copie carbone non valide }");
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 			}
 			
 			MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -79,7 +75,7 @@ public class EmailServiceImpl implements EmailService {
 		try {
 			if (to != null && to.length>0) {
 				for (int i = 0; i < to.length; i++)
-					if (to[i] != "") {
+					if (to[i] == "") {
 						LOGGER.log(Level.ERROR, "Destinatario dell'email non valido }");
 						throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 					}
@@ -92,14 +88,10 @@ public class EmailServiceImpl implements EmailService {
 			}
 			if (cc != null && cc.length>0) {
 				for (int i = 0; i < cc.length; i++)
-					if (cc[i] != "") {
+					if (cc[i] == "") {
 						LOGGER.log(Level.ERROR, "Copie carbone non valide }");
 						throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 					}
-			}else {
-				
-				LOGGER.log(Level.ERROR, "Copie carbone non valide }");
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 			}
 			
 			
