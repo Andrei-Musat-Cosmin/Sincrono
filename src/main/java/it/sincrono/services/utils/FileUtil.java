@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -287,10 +288,25 @@ public class FileUtil {
 	public void appendNote(String path, String note) throws Exception {
 		if (note != null) {
 			try {
-				Path filePath = Path.of(path);
+				/*Path filePath = Path.of(path);
 				try (FileWriter writer = new FileWriter(filePath.toFile(), true)) {
 					writer.append("\n" + note);
-				}
+				}*/
+				
+				Path filePath = Path.of(path);
+	            List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+
+	            if (lines.size() >= 2) {
+	                lines.set(1, note);
+	            } else if (lines.size() == 1) {
+	                lines.add(note);
+	            } else {
+	                LOGGER.log(Level.ERROR, "Il file non ha righe valide.");
+	                throw new IOException("Il file non ha righe valide.");
+	            }
+
+	            Files.write(filePath, lines, StandardCharsets.UTF_8);
+	            LOGGER.log(Level.INFO, "Operazione completata con successo.");
 			} catch (HttpMessageNotReadableException e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
 				// throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
