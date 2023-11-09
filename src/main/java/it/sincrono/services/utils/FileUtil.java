@@ -259,7 +259,7 @@ public class FileUtil {
 							dati += "," + giornoDto.getPermessi();
 						} else
 							dati += ",null";
-						if (giornoDto.getNote() != null) {
+						if (giornoDto.getNote() != null && !giornoDto.equals("")) {
 							dati += "," + giornoDto.getNote() + ";";
 						} else
 							dati += ",null;";
