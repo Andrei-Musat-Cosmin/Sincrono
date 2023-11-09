@@ -23,6 +23,6 @@ public interface RapportinoInviatoRepository
 	public List<RapportinoInviato> getRapportiniFreeze(Integer mese, Integer anno);
 
 	@Query("SELECT CASE WHEN r.anno = ?2 AND r.mese = ?3 AND r.codiceFiscale = ?1 THEN true ELSE false END FROM RapportinoInviato r")
-	public Boolean checkInviato(String codiceFiscale, Integer anno, Integer mese);
+	public List<Boolean> checkInviato(String codiceFiscale, Integer anno, Integer mese);
 
 }

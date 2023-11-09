@@ -467,10 +467,26 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 	@Override
 	public boolean getCheckRapportinoInviato(RapportinoRequest rapportinoRequest) throws ServiceException {
 		try {
-			return rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
-					rapportinoRequest.getAnno(), rapportinoRequest.getMese()) == null ? false
-							: rapportinoInviatoRepository.checkInviato(rapportinoRequest.getCodiceFiscale(),
-									rapportinoRequest.getAnno(), rapportinoRequest.getMese());
+
+			List<Boolean> listCheckInviato = rapportinoInviatoRepository.checkInviato(
+					rapportinoRequest.getCodiceFiscale(), rapportinoRequest.getAnno(), rapportinoRequest.getMese());
+
+			Boolean check=false;
+
+			if (listCheckInviato != null && listCheckInviato.size() > 0) {
+
+				check = listCheckInviato.stream().filter(elem -> elem == true).collect(Collectors.toList()).size() > 0
+						? true
+						: false;
+
+			} else {
+
+				check = false;
+
+			}
+
+			return check;
+
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
