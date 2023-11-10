@@ -17,9 +17,16 @@ public class GiornoDto {
 	private Integer numeroGiorno;
 	
 	private String nomeGiorno;
+	
+	private Boolean checkSmartWorking;
+	
+	private Boolean checkOnSite;
+
+
 
 	public GiornoDto(List<DuplicazioniGiornoDto> duplicazioniGiornoDto, Boolean ferie, Boolean malattie,
-			Double permessi, String note, Integer numeroGiorno, String nomeGiorno) {
+			Double permessi, String note, Integer numeroGiorno, String nomeGiorno, Boolean checkSmartWorking,
+			Boolean checkOnSite) {
 		super();
 		this.duplicazioniGiornoDto = duplicazioniGiornoDto;
 		this.ferie = ferie;
@@ -28,6 +35,8 @@ public class GiornoDto {
 		this.note = note;
 		this.numeroGiorno = numeroGiorno;
 		this.nomeGiorno = nomeGiorno;
+		this.checkSmartWorking = checkSmartWorking;
+		this.checkOnSite = checkOnSite;
 	}
 
 	public GiornoDto() {
@@ -88,6 +97,22 @@ public class GiornoDto {
 
 	public void setNomeGiorno(String nomeGiorno) {
 		this.nomeGiorno = nomeGiorno;
+	}
+
+	public Boolean getCheckSmartWorking() {
+		return checkSmartWorking;
+	}
+
+	public void setCheckSmartWorking(Boolean checkSmartWorking) {
+		this.checkSmartWorking = checkSmartWorking;
+	}
+
+	public Boolean getCheckOnSite() {
+		return checkOnSite;
+	}
+
+	public void setCheckOnSite(Boolean checkOnSite) {
+		this.checkOnSite = checkOnSite;
 	}
 	
 	

@@ -11,10 +11,14 @@ public class RapportinoDto {
 	private Double giorniLavorati;
 	private Integer annoRequest;
 	private Integer meseRequest;
-
+	
 	public RapportinoDto() {
 		super();
 	}
+
+
+
+
 
 	public RapportinoDto(MeseDto mese, String note, Anagrafica anagrafica, Integer giorniUtili, Double giorniLavorati,
 			Integer annoRequest, Integer meseRequest) {
@@ -27,6 +31,10 @@ public class RapportinoDto {
 		this.annoRequest = annoRequest;
 		this.meseRequest = meseRequest;
 	}
+
+
+
+
 
 	public MeseDto getMese() {
 		return mese;
@@ -83,5 +91,9 @@ public class RapportinoDto {
 	public void setMeseRequest(Integer meseRequest) {
 		this.meseRequest = meseRequest;
 	}
+
+
+	
+	
 
 }

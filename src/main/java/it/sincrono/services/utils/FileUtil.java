@@ -144,6 +144,12 @@ public class FileUtil {
 
 				if (giornoSplit[4] != null && !giornoSplit[4].isEmpty() && !giornoSplit[4].equals("null"))
 					giornoDto.setNote(giornoSplit[4]);
+				
+				if (giornoSplit[5] != null && !giornoSplit[5].isEmpty() && !giornoSplit[5].equals("null"))
+					giornoDto.setCheckSmartWorking(Boolean.parseBoolean(giornoSplit[5]));
+				
+				if (giornoSplit[6] != null && !giornoSplit[6].isEmpty() && !giornoSplit[6].equals("null"))
+					giornoDto.setCheckOnSite(Boolean.parseBoolean(giornoSplit[6]));
 
 				mese.add(giornoDto);
 
@@ -252,7 +258,7 @@ public class FileUtil {
 						} else
 							dati += ",null";
 						if (giornoDto.getMalattie() != null) {
-							dati += "," + giornoDto.getMalattie() + ",";
+							dati += "," + giornoDto.getMalattie();
 						} else
 							dati += ",null";
 						if (giornoDto.getPermessi() != null) {
@@ -262,7 +268,18 @@ public class FileUtil {
 						if (giornoDto.getNote() != null && !giornoDto.equals("")) {
 							dati += "," + giornoDto.getNote() + ";";
 						} else
+							dati += ",null";
+						
+						if (giornoDto.getCheckSmartWorking()!=null) {
+							dati += "," + giornoDto.getCheckSmartWorking();
+						} else
+							dati += ",null";
+						
+						if (giornoDto.getCheckOnSite()!=null) {
+							dati += "," + giornoDto.getCheckOnSite() + ";";
+						} else
 							dati += ",null;";
+
 
 					}
 					writer.write(dati);
