@@ -4,11 +4,18 @@ import java.time.DayOfWeek;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.MonthDay;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import it.sincrono.repositories.dto.GiornoDto;
+import it.sincrono.repositories.dto.MeseDto;
+import it.sincrono.repositories.dto.RapportinoDto;
 
 public class DateUtil {
-	
+
 	public static Boolean dateCompare(Date date, Date otherDate) {
 
 		if (date == null && otherDate == null) {
@@ -134,4 +141,34 @@ public class DateUtil {
 
 	}
 
+	public static Boolean checkFestivitàNazionale(RapportinoDto rapportinoDto) {
+
+		final List<MonthDay> GIORNI_FESTIVI = Arrays.asList(MonthDay.of(1, 1), // Capodanno
+				MonthDay.of(1, 6), // Epifania
+				MonthDay.of(4, 25), // Festa della Liberazione
+				MonthDay.of(5, 1), // Festa dei lavoratori
+				MonthDay.of(6, 2), // Festa della Repubblica
+				MonthDay.of(8, 15), // Assunzione di Maria Vergine (Ferragosto)
+				MonthDay.of(11, 1), // Tutti i Santi
+				MonthDay.of(12, 8), // Immacolata Concezione
+				MonthDay.of(12, 25), // Natale
+				MonthDay.of(12, 26) // Santo Stefano
+		);
+
+		Integer mese = rapportinoDto.getMeseRequest();
+		List<GiornoDto> listGiorni = rapportinoDto.getMese().getGiorni();
+
+		for (GiornoDto giorno : listGiorni) {
+			int numeroGiorno = giorno.getNumeroGiorno();
+
+			if (GIORNI_FESTIVI.contains(MonthDay.of(mese, numeroGiorno))) {
+				System.out.println("Festività rilevata");
+				return true;
+				
+			}
+		}
+
+		return false;
+
+	}
 }

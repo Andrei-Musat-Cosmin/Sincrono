@@ -13,16 +13,16 @@ public class GiornoDto {
 	private Double permessi;
 
 	private String note;
-	
+
 	private Integer numeroGiorno;
-	
+
 	private String nomeGiorno;
-	
+
 	private Boolean checkSmartWorking;
-	
+
 	private Boolean checkOnSite;
 
-
+	private Boolean festivitàNazionale;
 
 	public GiornoDto(List<DuplicazioniGiornoDto> duplicazioniGiornoDto, Boolean ferie, Boolean malattie,
 			Double permessi, String note, Integer numeroGiorno, String nomeGiorno, Boolean checkSmartWorking,
@@ -114,9 +114,13 @@ public class GiornoDto {
 	public void setCheckOnSite(Boolean checkOnSite) {
 		this.checkOnSite = checkOnSite;
 	}
-	
-	
 
-	
+	public Boolean getFestivitàNazionale() {
+		return festivitàNazionale;
+	}
+
+	public void setFestivitàNazionale(Boolean festivitàNazionale) {
+		this.festivitàNazionale = festivitàNazionale;
+	}
 
 }
