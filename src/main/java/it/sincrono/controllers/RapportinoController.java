@@ -156,7 +156,7 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo aggiungiNote");
 			RapportinoInviato rapportinoInviato = rapportinoService.findByData(rapportinoRequestDto.getRapportinoDto());
-			if (rapportinoInviato != null) {
+			if (rapportinoInviato == null) {
 				rapportinoService.aggiungiNote(rapportinoRequestDto);
 				deleteRapportinoInviato(rapportinoInviato.getId());
 			}
