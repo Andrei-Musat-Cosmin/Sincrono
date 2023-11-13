@@ -141,15 +141,23 @@ public class FileUtil {
 
 				if (giornoSplit[3] != null && !giornoSplit[3].isEmpty() && !giornoSplit[3].equals("null"))
 					giornoDto.setPermessi(Double.parseDouble(giornoSplit[3]));
+				
 
 				if (giornoSplit[4] != null && !giornoSplit[4].isEmpty() && !giornoSplit[4].equals("null"))
-					giornoDto.setNote(giornoSplit[4]);
+					giornoDto.setPermessiExfestivita(Double.parseDouble(giornoSplit[4]));
 				
+
 				if (giornoSplit[5] != null && !giornoSplit[5].isEmpty() && !giornoSplit[5].equals("null"))
-					giornoDto.setCheckSmartWorking(Boolean.parseBoolean(giornoSplit[5]));
-				
+					giornoDto.setPermessiRole(Double.parseDouble(giornoSplit[5]));
+
 				if (giornoSplit[6] != null && !giornoSplit[6].isEmpty() && !giornoSplit[6].equals("null"))
-					giornoDto.setCheckOnSite(Boolean.parseBoolean(giornoSplit[6]));
+					giornoDto.setNote(giornoSplit[6]);
+				
+				if (giornoSplit[7] != null && !giornoSplit[7].isEmpty() && !giornoSplit[7].equals("null"))
+					giornoDto.setCheckSmartWorking(Boolean.parseBoolean(giornoSplit[7]));
+				
+				if (giornoSplit[8] != null && !giornoSplit[8].isEmpty() && !giornoSplit[8].equals("null"))
+					giornoDto.setCheckOnSite(Boolean.parseBoolean(giornoSplit[8]));
 
 				mese.add(giornoDto);
 
@@ -257,15 +265,28 @@ public class FileUtil {
 							dati += "," + giornoDto.getFerie();
 						} else
 							dati += ",null";
+						
 						if (giornoDto.getMalattie() != null) {
 							dati += "," + giornoDto.getMalattie();
 						} else
 							dati += ",null";
+						
 						if (giornoDto.getPermessi() != null) {
 							dati += "," + giornoDto.getPermessi();
 						} else
 							dati += ",null";
-						if (giornoDto.getNote() != null && !giornoDto.equals("")) {
+						
+						if (giornoDto.getPermessiExfestivita() != null) {
+							dati += "," + giornoDto.getPermessiExfestivita();
+						} else
+							dati += ",null";
+						
+						if (giornoDto.getPermessiRole() != null) {
+							dati += "," + giornoDto.getPermessiRole();
+						} else
+							dati += ",null";
+						
+						if (giornoDto.getNote() != null && !giornoDto.getNote().equals("")) {
 							dati += "," + giornoDto.getNote();
 						} else
 							dati += ",null";
@@ -279,6 +300,8 @@ public class FileUtil {
 							dati += "," + giornoDto.getCheckOnSite() + ";";
 						} else
 							dati += ",null;";
+						
+						
 
 
 					}

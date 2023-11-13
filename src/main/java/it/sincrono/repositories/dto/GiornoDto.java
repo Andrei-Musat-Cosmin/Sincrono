@@ -11,6 +11,10 @@ public class GiornoDto {
 	private Boolean malattie;
 
 	private Double permessi;
+	
+	private Double permessiRole;
+	
+	private Double permessiExfestivita;
 
 	private String note;
 
@@ -24,19 +28,24 @@ public class GiornoDto {
 
 	private Boolean festivitàNazionale;
 
+
+
 	public GiornoDto(List<DuplicazioniGiornoDto> duplicazioniGiornoDto, Boolean ferie, Boolean malattie,
-			Double permessi, String note, Integer numeroGiorno, String nomeGiorno, Boolean checkSmartWorking,
-			Boolean checkOnSite) {
+			Double permessi, Double permessiRole, Double permessiExfestivita, String note, Integer numeroGiorno,
+			String nomeGiorno, Boolean checkSmartWorking, Boolean checkOnSite, Boolean festivitàNazionale) {
 		super();
 		this.duplicazioniGiornoDto = duplicazioniGiornoDto;
 		this.ferie = ferie;
 		this.malattie = malattie;
 		this.permessi = permessi;
+		this.permessiRole = permessiRole;
+		this.permessiExfestivita = permessiExfestivita;
 		this.note = note;
 		this.numeroGiorno = numeroGiorno;
 		this.nomeGiorno = nomeGiorno;
 		this.checkSmartWorking = checkSmartWorking;
 		this.checkOnSite = checkOnSite;
+		this.festivitàNazionale = festivitàNazionale;
 	}
 
 	public GiornoDto() {
@@ -122,5 +131,23 @@ public class GiornoDto {
 	public void setFestivitàNazionale(Boolean festivitàNazionale) {
 		this.festivitàNazionale = festivitàNazionale;
 	}
+
+	public Double getPermessiRole() {
+		return permessiRole;
+	}
+
+	public void setPermessiRole(Double permessiRole) {
+		this.permessiRole = permessiRole;
+	}
+
+	public Double getPermessiExfestivita() {
+		return permessiExfestivita;
+	}
+
+	public void setPermessiExfestivita(Double permessiExfestivita) {
+		this.permessiExfestivita = permessiExfestivita;
+	}
+	
+	
 
 }
