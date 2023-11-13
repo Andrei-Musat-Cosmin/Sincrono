@@ -362,8 +362,8 @@ public class RapportinoValidator {
 
 		
 		  if (validateCheckInviato(rapportinoDto)) { msg =
-		  "il rapportino non è stato inviato quindi le note non possono essere modificate"
-		  ; LOGGER.log(Level.ERROR, msg); return msg;
+		  "il rapportino è stato inviato quindi le note non possono essere modificate";
+		  LOGGER.log(Level.ERROR, msg); return msg;
 		  
 		  }
 		 
