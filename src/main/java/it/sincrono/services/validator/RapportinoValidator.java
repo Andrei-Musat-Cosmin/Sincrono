@@ -1,5 +1,8 @@
 package it.sincrono.services.validator;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -94,13 +97,13 @@ public class RapportinoValidator {
 					|| giornoDto.getNomeGiorno().equals("domenica"));
 			boolean checkEmptyDay = false;
 
-			/*
-			 * if (!validateCheckInviato(rapportinoDto)) { msg =
-			 * "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto"
-			 * ; LOGGER.log(Level.ERROR, msg); return msg;
-			 * 
-			 * }
-			 */
+			
+			  if (!validateCheckInviato(rapportinoDto)) { msg =
+			  "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto"
+			  ; LOGGER.log(Level.ERROR, msg); return msg;
+			  
+			  }
+			 
 
 			if (giornoDto.getNumeroGiorno() != null) {
 				if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null && giornoDto.getPermessi() == null
@@ -330,13 +333,13 @@ public class RapportinoValidator {
 			return msg;
 		}
 
-		/*
-		 * if (validateCheckInviato(rapportinoDto)) { msg =
-		 * "il rapportino non è stato inviato quindi le note non possono essere modificate"
-		 * ; LOGGER.log(Level.ERROR, msg); return msg;
-		 * 
-		 * }
-		 */
+		
+		  if (validateCheckInviato(rapportinoDto)) { msg =
+		  "il rapportino non è stato inviato quindi le note non possono essere modificate"
+		  ; LOGGER.log(Level.ERROR, msg); return msg;
+		  
+		  }
+		 
 
 		return msg;
 
@@ -357,31 +360,42 @@ public class RapportinoValidator {
 		 * msg); return msg; }
 		 */
 
-		/*
-		 * if (validateCheckInviato(rapportinoDto)) { msg =
-		 * "il rapportino non è stato inviato quindi le note non possono essere modificate"
-		 * ; LOGGER.log(Level.ERROR, msg); return msg;
-		 * 
-		 * }
-		 */
+		
+		  if (validateCheckInviato(rapportinoDto)) { msg =
+		  "il rapportino non è stato inviato quindi le note non possono essere modificate"
+		  ; LOGGER.log(Level.ERROR, msg); return msg;
+		  
+		  }
+		 
 
 		return msg;
 
 	}
 
-	/*
-	 * private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
-	 * 
-	 * return
-	 * !(rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().
-	 * getCodiceFiscale(), rapportinoDto.getAnnoRequest(),
-	 * rapportinoDto.getMeseRequest()) == null ? false :
-	 * rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().
-	 * getCodiceFiscale(), rapportinoDto.getAnnoRequest(),
-	 * rapportinoDto.getMeseRequest()));
-	 * 
-	 * }
-	 */
+	
+	  private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
+	  
+		  List<Boolean> listCheckInviato = rapportinoInviatoRepository.checkInviato(
+				  rapportinoDto.getAnagrafica().getCodiceFiscale(), rapportinoDto.getAnnoRequest(), 
+				  rapportinoDto.getMeseRequest());
+
+			Boolean check=false;
+
+			if (listCheckInviato != null && listCheckInviato.size() > 0) {
+
+				check = listCheckInviato.stream().filter(elem -> elem == true).collect(Collectors.toList()).size() > 0
+						? true
+						: false;
+
+			} else {
+
+				check = false;
+
+			}
+
+			return check;
+	  }
+	 
 
 	public String validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
 		String msg = null;
