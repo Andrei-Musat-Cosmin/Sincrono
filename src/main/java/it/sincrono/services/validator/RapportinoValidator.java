@@ -303,6 +303,31 @@ public class RapportinoValidator {
 		return msg;
 
 	}
+	
+	public String validateNoteDipendente(RapportinoDto rapportinoDto) {
+		String msg = null;
+
+		if ((msg = validateFieldsForPath(rapportinoDto)) != null) {
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+		}
+
+		/*if (rapportinoDto.getNoteDipendente() == null || rapportinoDto.getNoteDipendente().equals("")) {
+			msg = " Le note non sono state inserte correttamente";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+		}*/
+
+		/*if (validateCheckInviato(rapportinoDto)) {
+			msg = "il rapportino non è stato inviato quindi le note non possono essere modificate";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+
+		}*/
+
+		return msg;
+
+	}
 
 	/*private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
 

@@ -26,6 +26,8 @@ public interface RapportinoService {
 	public void delete(Integer id) throws ServiceException;
 
 	public Boolean aggiungiNote(RapportinoRequestDto rapportinoRequestDto) throws ServiceException;
+	
+	public Boolean aggiungiNoteDipendente(RapportinoRequestDto rapportinoRequestDto) throws ServiceException;
 
 	public List<AnagraficaDto> getRapportiniNotFreeze(AnagraficaFilterRequestDto anagraficaFilterRequestDto) throws ServiceException;
 

@@ -340,6 +340,45 @@ public class FileUtil {
 		}
 		LOGGER.log(Level.INFO, "Note salvate con successo.");
 	}
+	
+	public void appendNoteDipendente(String path, String note) throws Exception {
+		
+		if (note != null) {
+		    try {
+		        Path filePath = Path.of(path);
+		        List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+
+		        if (lines.isEmpty()) {
+		            lines.add("");
+		            lines.add("");
+		            lines.add(note);
+		        } else if (lines.size() >= 3) {
+		            lines.set(2, note);
+		        } else if (lines.size() == 2) {
+		            lines.add(note);
+		        } else if (lines.size() == 1) {
+		            lines.add("");
+		            lines.add(note);
+		        } else {
+		            LOGGER.log(Level.ERROR, "Il file non ha righe valide.");
+		            throw new IOException("Il file non ha righe valide.");
+		        }
+
+		        Files.write(filePath, lines, StandardCharsets.UTF_8);
+		        LOGGER.log(Level.INFO, "Operazione completata con successo.");
+		    } catch (HttpMessageNotReadableException e) {
+		        LOGGER.log(Level.ERROR, e.getMessage());
+		        throw new HttpMessageNotReadableException(e.getMessage());
+		    } catch (IOException e) {
+		        LOGGER.log(Level.ERROR, e.getMessage());
+		        throw new IOException(e.getMessage());
+		    } catch (Exception e) {
+		        LOGGER.log(Level.ERROR, e.getMessage());
+		        throw new Exception(e.getMessage());
+		    }
+		}
+		LOGGER.log(Level.INFO, "Note salvate con successo.");
+	}
 
 	// metodi per la lettura e scrittura di un image in base64 nel file
 

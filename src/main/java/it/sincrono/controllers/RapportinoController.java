@@ -146,6 +146,34 @@ public class RapportinoController {
 		return httpEntity;
 	}
 
+	@PostMapping("/aggiungi-note-dipendente")
+	public @ResponseBody HttpEntity<GenericResponse> aggiungiNoteDipendente(
+			@RequestBody RapportinoRequestDto rapportinoRequestDto) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo aggiungiNote");
+			RapportinoInviato rapportinoInviato = rapportinoService.findByData(rapportinoRequestDto.getRapportinoDto());
+			if (rapportinoInviato != null) {
+				rapportinoService.aggiungiNote(rapportinoRequestDto);
+				deleteRapportinoInviato(rapportinoInviato.getId());
+			}
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo aggiungiNote\n");
+
+		return httpEntity;
+	}
+	
 	@PutMapping("/invia-rapportino")
 	public @ResponseBody HttpEntity<GenericResponse> inviaRapportino(
 			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequestDto) {

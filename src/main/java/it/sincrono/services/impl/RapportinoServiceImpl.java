@@ -177,6 +177,40 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		return true;
 	}
+	
+	
+
+	@Override
+	public Boolean aggiungiNoteDipendente(RapportinoRequestDto rapportinoRequestDto) throws ServiceException {
+		
+		String msg = null;
+
+		if ((msg = rapportinoValidator.validateNoteDipendente(rapportinoRequestDto.getRapportinoDto())) != null) {
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
+		}
+
+		String filePath = PREFIX + DESTINAZIONE
+				+ rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale() + RAPPORTINI
+				+ rapportinoRequestDto.getRapportinoDto().getAnnoRequest() + "/"
+				+ rapportinoRequestDto.getRapportinoDto().getMeseRequest() + ".txt";
+
+		try {
+
+			fileUtil.appendNoteDipendente(filePath, rapportinoRequestDto.getRapportinoDto().getNoteDipendente());
+
+		} catch (HttpMessageNotReadableException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
+		} catch (IOException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_SALVATAGGIO_FILE);
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getCause());
+			throw new ServiceException(e.getMessage());
+		}
+
+		return true;
+	}
 
 	@Override
 	public void inviaRapportino(RapportinoInviato rapportinoInviato) throws ServiceException {
@@ -492,5 +526,6 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
+
 
 }
