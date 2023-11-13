@@ -146,6 +146,7 @@ public class RapportinoController {
 		return httpEntity;
 	}
 
+	@SuppressWarnings("unused")
 	@PostMapping("/aggiungi-note-dipendente")
 	public @ResponseBody HttpEntity<GenericResponse> aggiungiNoteDipendente(
 			@RequestBody RapportinoRequestDto rapportinoRequestDto) {
@@ -157,8 +158,14 @@ public class RapportinoController {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo aggiungiNote");
 			RapportinoInviato rapportinoInviato = rapportinoService.findByData(rapportinoRequestDto.getRapportinoDto());
 			if (rapportinoInviato == null) {
-				rapportinoService.aggiungiNote(rapportinoRequestDto);
-				deleteRapportinoInviato(rapportinoInviato.getId());
+				rapportinoInviato= new RapportinoInviato();
+				rapportinoService.aggiungiNoteDipendente(rapportinoRequestDto);
+
+				rapportinoInviato.setCodiceFiscale(
+						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale());
+				rapportinoInviato.setMese(rapportinoRequestDto.getRapportinoDto().getMeseRequest());
+				rapportinoInviato.setAnno(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
+				rapportinoService.inviaRapportino(rapportinoInviato);
 			}
 			genericResponse.setEsito(new Esito());
 
