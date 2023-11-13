@@ -94,16 +94,17 @@ public class RapportinoValidator {
 					|| giornoDto.getNomeGiorno().equals("domenica"));
 			boolean checkEmptyDay = false;
 
-			/*if (!validateCheckInviato(rapportinoDto)) {
-				msg = "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto";
-				LOGGER.log(Level.ERROR, msg);
-				return msg;
-
-			}*/
+			/*
+			 * if (!validateCheckInviato(rapportinoDto)) { msg =
+			 * "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto"
+			 * ; LOGGER.log(Level.ERROR, msg); return msg;
+			 * 
+			 * }
+			 */
 
 			if (giornoDto.getNumeroGiorno() != null) {
-				if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null
-						&& giornoDto.getPermessi() == null) {
+				if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null && giornoDto.getPermessi() == null
+						&& giornoDto.getPermessiExfestivita() == null && giornoDto.getPermessiRole() == null) {
 
 					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
 						if (giornoDuplicato.getOreOrdinarie() != null) {
@@ -112,21 +113,30 @@ public class RapportinoValidator {
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
-							if (giornoDto.getCheckSmartWorking() == null && giornoDto.getCheckOnSite()==null) {
-								msg = " non hai selezionato per  Il giorno: " + giornoDto.getNumeroGiorno() 
-								+ " se sei stato on site o in smart working";
+							if (giornoDto.getCheckSmartWorking() == null && giornoDto.getCheckOnSite() == null) {
+								msg = " non hai selezionato per  Il giorno: " + giornoDto.getNumeroGiorno()
+										+ " se sei stato on site o in smart working";
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
-							
-							if (giornoDto.getCheckSmartWorking() != null && giornoDto.getCheckOnSite()!=null) {
-								msg = " per  Il giorno: " + giornoDto.getNumeroGiorno() 
-								+ " tra smart working e on site puoi selezionare solo uno dei due";
+
+							if (giornoDto.getCheckSmartWorking() != null && giornoDto.getCheckOnSite() != null) {
+								msg = " per  Il giorno: " + giornoDto.getNumeroGiorno()
+										+ " tra smart working e on site puoi selezionare solo uno dei due";
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
-							
-							
+
+							if (contratto.getTipoContratto().getId() == 1) {
+								if (giornoDuplicato.getFascia1() != null || giornoDuplicato.getFascia2() != null
+										|| giornoDuplicato.getFascia3() != null) {
+									msg = " Non sono previsti straordinari per un contratto: "
+											+ contratto.getTipoContratto().getDescrizione();
+									LOGGER.log(Level.ERROR, msg);
+									return msg;
+								}
+							}
+
 							totOre += giornoDuplicato.getOreOrdinarie();
 							if (giornoDuplicato.getFascia1() != null)
 								totStraordinario1 += giornoDuplicato.getFascia1();
@@ -153,11 +163,20 @@ public class RapportinoValidator {
 					}
 
 				} else if ((giornoDto.getFerie() != null && giornoDto.getMalattie() == null
-						&& giornoDto.getPermessi() == null)
+						&& giornoDto.getPermessi() == null && giornoDto.getPermessiExfestivita() == null
+						&& giornoDto.getPermessiRole() == null)
 						|| (giornoDto.getMalattie() != null && giornoDto.getFerie() == null
-								&& giornoDto.getPermessi() == null)
+								&& giornoDto.getPermessi() == null && giornoDto.getPermessiExfestivita() == null
+								&& giornoDto.getPermessiRole() == null)
 						|| (giornoDto.getPermessi() != null && giornoDto.getFerie() == null
-								&& giornoDto.getMalattie() == null)) {
+								&& giornoDto.getMalattie() == null && giornoDto.getPermessiExfestivita() == null
+								&& giornoDto.getPermessiRole() == null)
+						|| (giornoDto.getPermessiExfestivita() != null && giornoDto.getFerie() == null
+								&& giornoDto.getMalattie() == null && giornoDto.getPermessi() == null
+								&& giornoDto.getPermessiRole() == null)
+						|| (giornoDto.getPermessiRole() != null && giornoDto.getFerie() == null
+								&& giornoDto.getMalattie() == null && giornoDto.getPermessi() == null
+								&& giornoDto.getPermessiExfestivita() == null)) {
 
 					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
 
@@ -172,12 +191,24 @@ public class RapportinoValidator {
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
-							/*if (giornoDto.getCheckSmartWorking() == null && giornoDto.getCheckOnSite()==null) {
-								msg = "non hai selezionato per  Il giorno: " + giornoDto.getNumeroGiorno() 
-								+ " ne se sei stato on site o in smart working";
-								LOGGER.log(Level.ERROR, msg);
-								return msg;
-							}*/
+							/*
+							 * if (giornoDto.getCheckSmartWorking() == null &&
+							 * giornoDto.getCheckOnSite()==null) { msg =
+							 * "non hai selezionato per  Il giorno: " + giornoDto.getNumeroGiorno() +
+							 * " ne se sei stato on site o in smart working"; LOGGER.log(Level.ERROR, msg);
+							 * return msg; }
+							 */
+
+							if (contratto.getTipoContratto().getId() == 1) {
+								if (giornoDuplicato.getFascia1() != null || giornoDuplicato.getFascia2() != null
+										|| giornoDuplicato.getFascia3() != null) {
+									msg = " Non sono previsti straordinari per un contratto: "
+											+ contratto.getTipoContratto().getDescrizione();
+									LOGGER.log(Level.ERROR, msg);
+									return msg;
+								}
+							}
+
 							totOre += giornoDuplicato.getOreOrdinarie();
 							if (giornoDuplicato.getFascia1() != null)
 								totStraordinario1 += giornoDuplicato.getFascia1();
@@ -186,7 +217,12 @@ public class RapportinoValidator {
 							if (giornoDuplicato.getFascia3() != null)
 								totStraordinario3 += giornoDuplicato.getFascia3();
 							if (giornoDto.getPermessi() != null)
-								permessi = giornoDto.getPermessi();
+								permessi += giornoDto.getPermessi();
+							if (giornoDto.getPermessiExfestivita() != null)
+								permessi += giornoDto.getPermessiExfestivita();
+							if (giornoDto.getPermessiRole() != null)
+								permessi += giornoDto.getPermessiRole();
+							
 						} else {
 							if (giornoDuplicato.getCliente() != null) {
 								msg = " Nel giorno " + giornoDto.getNumeroGiorno() + " e' stato inserito il cliente";
@@ -231,6 +267,7 @@ public class RapportinoValidator {
 						return msg;
 					}
 				}
+
 			}
 			if (!ferieOrMalattie && !checkEmptyDay) {
 				if (checkWeekend) {
@@ -293,17 +330,18 @@ public class RapportinoValidator {
 			return msg;
 		}
 
-		/*if (validateCheckInviato(rapportinoDto)) {
-			msg = "il rapportino non è stato inviato quindi le note non possono essere modificate";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-
-		}*/
+		/*
+		 * if (validateCheckInviato(rapportinoDto)) { msg =
+		 * "il rapportino non è stato inviato quindi le note non possono essere modificate"
+		 * ; LOGGER.log(Level.ERROR, msg); return msg;
+		 * 
+		 * }
+		 */
 
 		return msg;
 
 	}
-	
+
 	public String validateNoteDipendente(RapportinoDto rapportinoDto) {
 		String msg = null;
 
@@ -312,31 +350,38 @@ public class RapportinoValidator {
 			return msg;
 		}
 
-		/*if (rapportinoDto.getNoteDipendente() == null || rapportinoDto.getNoteDipendente().equals("")) {
-			msg = " Le note non sono state inserte correttamente";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-		}*/
+		/*
+		 * if (rapportinoDto.getNoteDipendente() == null ||
+		 * rapportinoDto.getNoteDipendente().equals("")) { msg =
+		 * " Le note non sono state inserte correttamente"; LOGGER.log(Level.ERROR,
+		 * msg); return msg; }
+		 */
 
-		/*if (validateCheckInviato(rapportinoDto)) {
-			msg = "il rapportino non è stato inviato quindi le note non possono essere modificate";
-			LOGGER.log(Level.ERROR, msg);
-			return msg;
-
-		}*/
+		/*
+		 * if (validateCheckInviato(rapportinoDto)) { msg =
+		 * "il rapportino non è stato inviato quindi le note non possono essere modificate"
+		 * ; LOGGER.log(Level.ERROR, msg); return msg;
+		 * 
+		 * }
+		 */
 
 		return msg;
 
 	}
 
-	/*private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
-
-		return !(rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().getCodiceFiscale(),
-				rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest()) == null ? false
-						: rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().getCodiceFiscale(),
-								rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest()));
-
-	}*/
+	/*
+	 * private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
+	 * 
+	 * return
+	 * !(rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().
+	 * getCodiceFiscale(), rapportinoDto.getAnnoRequest(),
+	 * rapportinoDto.getMeseRequest()) == null ? false :
+	 * rapportinoInviatoRepository.checkInviato(rapportinoDto.getAnagrafica().
+	 * getCodiceFiscale(), rapportinoDto.getAnnoRequest(),
+	 * rapportinoDto.getMeseRequest()));
+	 * 
+	 * }
+	 */
 
 	public String validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
 		String msg = null;
