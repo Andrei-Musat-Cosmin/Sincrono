@@ -98,7 +98,7 @@ public class RapportinoValidator {
 			boolean checkEmptyDay = false;
 
 			
-			  if (!validateCheckInviato(rapportinoDto)) { msg =
+			  if (validateCheckInviato(rapportinoDto)) { msg =
 			  "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto"
 			  ; LOGGER.log(Level.ERROR, msg); return msg;
 			  
@@ -334,7 +334,7 @@ public class RapportinoValidator {
 		}
 
 		
-		  if (validateCheckInviato(rapportinoDto)) { msg =
+		  if (!validateCheckInviato(rapportinoDto)) { msg =
 		  "il rapportino non è stato inviato quindi le note non possono essere modificate"
 		  ; LOGGER.log(Level.ERROR, msg); return msg;
 		  
