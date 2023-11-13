@@ -112,11 +112,21 @@ public class RapportinoValidator {
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
-							if (giornoDto.getNote() == null || giornoDto.getNote().equals("")) {
-								msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente le note";
+							if (giornoDto.getCheckSmartWorking() == null && giornoDto.getCheckOnSite()==null) {
+								msg = " non hai selezionato per  Il giorno: " + giornoDto.getNumeroGiorno() 
+								+ " se sei stato on site o in smart working";
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
+							
+							if (giornoDto.getCheckSmartWorking() != null && giornoDto.getCheckOnSite()!=null) {
+								msg = " per  Il giorno: " + giornoDto.getNumeroGiorno() 
+								+ " tra smart working e on site puoi selezionare solo uno dei due";
+								LOGGER.log(Level.ERROR, msg);
+								return msg;
+							}
+							
+							
 							totOre += giornoDuplicato.getOreOrdinarie();
 							if (giornoDuplicato.getFascia1() != null)
 								totStraordinario1 += giornoDuplicato.getFascia1();
@@ -162,11 +172,12 @@ public class RapportinoValidator {
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
 							}
-							if (giornoDto.getNote() == null || giornoDto.getNote().equals("")) {
-								msg = " Il giorno: " + giornoDto.getNumeroGiorno() + " non contiente le note";
+							/*if (giornoDto.getCheckSmartWorking() == null && giornoDto.getCheckOnSite()==null) {
+								msg = "non hai selezionato per  Il giorno: " + giornoDto.getNumeroGiorno() 
+								+ " ne se sei stato on site o in smart working";
 								LOGGER.log(Level.ERROR, msg);
 								return msg;
-							}
+							}*/
 							totOre += giornoDuplicato.getOreOrdinarie();
 							if (giornoDuplicato.getFascia1() != null)
 								totStraordinario1 += giornoDuplicato.getFascia1();
