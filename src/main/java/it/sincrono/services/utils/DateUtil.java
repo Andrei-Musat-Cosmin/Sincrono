@@ -141,7 +141,7 @@ public class DateUtil {
 
 	}
 
-	public static Boolean checkFestivitàNazionale(RapportinoDto rapportinoDto) {
+	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto) {
 
 		final List<MonthDay> GIORNI_FESTIVI = Arrays.asList(MonthDay.of(1, 1), // Capodanno
 				MonthDay.of(1, 6), // Epifania
@@ -163,12 +163,12 @@ public class DateUtil {
 
 			if (GIORNI_FESTIVI.contains(MonthDay.of(mese, numeroGiorno))) {
 				System.out.println("Festività rilevata");
-				return true;
+				
+				giorno.setFestivitàNazionale(true);
 				
 			}
 		}
-
-		return false;
+	
 
 	}
 }
