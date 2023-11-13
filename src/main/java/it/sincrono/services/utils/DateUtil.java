@@ -141,7 +141,7 @@ public class DateUtil {
 
 	}
 
-	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto) {
+	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto,Integer mese) {
 
 		final List<MonthDay> GIORNI_FESTIVI = Arrays.asList(MonthDay.of(1, 1), // Capodanno
 				MonthDay.of(1, 6), // Epifania
@@ -155,7 +155,6 @@ public class DateUtil {
 				MonthDay.of(12, 26) // Santo Stefano
 		);
 
-		Integer mese = rapportinoDto.getMeseRequest();
 		List<GiornoDto> listGiorni = rapportinoDto.getMese().getGiorni();
 
 		for (GiornoDto giorno : listGiorni) {

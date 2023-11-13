@@ -48,6 +48,8 @@ public class FileUtil {
 			rapportinoDto = covertStringInRapportinoDto(reader.readLine(), percorso);
 
 			insertDayInRapportino(rapportinoDto, percorso);
+			
+			DateUtil.checkFestivitàNazionale(rapportinoDto,Integer.valueOf(percorso.split("/")[8].split("\\.")[0]));
 
 			rapportinoDto.setNote(reader.readLine());
 
@@ -141,21 +143,19 @@ public class FileUtil {
 
 				if (giornoSplit[3] != null && !giornoSplit[3].isEmpty() && !giornoSplit[3].equals("null"))
 					giornoDto.setPermessi(Double.parseDouble(giornoSplit[3]));
-				
 
 				if (giornoSplit[4] != null && !giornoSplit[4].isEmpty() && !giornoSplit[4].equals("null"))
 					giornoDto.setPermessiExfestivita(Double.parseDouble(giornoSplit[4]));
-				
 
 				if (giornoSplit[5] != null && !giornoSplit[5].isEmpty() && !giornoSplit[5].equals("null"))
 					giornoDto.setPermessiRole(Double.parseDouble(giornoSplit[5]));
 
 				if (giornoSplit[6] != null && !giornoSplit[6].isEmpty() && !giornoSplit[6].equals("null"))
 					giornoDto.setNote(giornoSplit[6]);
-				
+
 				if (giornoSplit[7] != null && !giornoSplit[7].isEmpty() && !giornoSplit[7].equals("null"))
 					giornoDto.setCheckSmartWorking(Boolean.parseBoolean(giornoSplit[7]));
-				
+
 				if (giornoSplit[8] != null && !giornoSplit[8].isEmpty() && !giornoSplit[8].equals("null"))
 					giornoDto.setCheckOnSite(Boolean.parseBoolean(giornoSplit[8]));
 
@@ -216,6 +216,8 @@ public class FileUtil {
 
 		rapportinoDto.getMese().setGiorni(mese);
 
+		//DateUtil.checkFestivitàNazionale(rapportinoDto);
+
 	}
 
 	public void saveFile(String path, RapportinoRequestDto rapportino) throws Exception {
@@ -265,44 +267,41 @@ public class FileUtil {
 							dati += "," + giornoDto.getFerie();
 						} else
 							dati += ",null";
-						
+
 						if (giornoDto.getMalattie() != null) {
 							dati += "," + giornoDto.getMalattie();
 						} else
 							dati += ",null";
-						
+
 						if (giornoDto.getPermessi() != null) {
 							dati += "," + giornoDto.getPermessi();
 						} else
 							dati += ",null";
-						
+
 						if (giornoDto.getPermessiExfestivita() != null) {
 							dati += "," + giornoDto.getPermessiExfestivita();
 						} else
 							dati += ",null";
-						
+
 						if (giornoDto.getPermessiRole() != null) {
 							dati += "," + giornoDto.getPermessiRole();
 						} else
 							dati += ",null";
-						
+
 						if (giornoDto.getNote() != null && !giornoDto.getNote().equals("")) {
 							dati += "," + giornoDto.getNote();
 						} else
 							dati += ",null";
-						
-						if (giornoDto.getCheckSmartWorking()!=null) {
+
+						if (giornoDto.getCheckSmartWorking() != null) {
 							dati += "," + giornoDto.getCheckSmartWorking();
 						} else
 							dati += ",null";
-						
-						if (giornoDto.getCheckOnSite()!=null) {
+
+						if (giornoDto.getCheckOnSite() != null) {
 							dati += "," + giornoDto.getCheckOnSite() + ";";
 						} else
 							dati += ",null;";
-						
-						
-
 
 					}
 					writer.write(dati);
@@ -328,25 +327,25 @@ public class FileUtil {
 	public void appendNote(String path, String note) throws Exception {
 		if (note != null) {
 			try {
-				/*Path filePath = Path.of(path);
-				try (FileWriter writer = new FileWriter(filePath.toFile(), true)) {
-					writer.append("\n" + note);
-				}*/
-				
+				/*
+				 * Path filePath = Path.of(path); try (FileWriter writer = new
+				 * FileWriter(filePath.toFile(), true)) { writer.append("\n" + note); }
+				 */
+
 				Path filePath = Path.of(path);
-	            List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+				List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
 
-	            if (lines.size() >= 2) {
-	                lines.set(1, note);
-	            } else if (lines.size() == 1) {
-	                lines.add(note);
-	            } else {
-	                LOGGER.log(Level.ERROR, "Il file non ha righe valide.");
-	                throw new IOException("Il file non ha righe valide.");
-	            }
+				if (lines.size() >= 2) {
+					lines.set(1, note);
+				} else if (lines.size() == 1) {
+					lines.add(note);
+				} else {
+					LOGGER.log(Level.ERROR, "Il file non ha righe valide.");
+					throw new IOException("Il file non ha righe valide.");
+				}
 
-	            Files.write(filePath, lines, StandardCharsets.UTF_8);
-	            LOGGER.log(Level.INFO, "Operazione completata con successo.");
+				Files.write(filePath, lines, StandardCharsets.UTF_8);
+				LOGGER.log(Level.INFO, "Operazione completata con successo.");
 			} catch (HttpMessageNotReadableException e) {
 				LOGGER.log(Level.ERROR, e.getMessage());
 				// throw new ServiceException(ServiceMessages.FORMATO_INCORRETTO);
@@ -363,42 +362,42 @@ public class FileUtil {
 		}
 		LOGGER.log(Level.INFO, "Note salvate con successo.");
 	}
-	
+
 	public void appendNoteDipendente(String path, String note) throws Exception {
-		
+
 		if (note != null) {
-		    try {
-		        Path filePath = Path.of(path);
-		        List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
+			try {
+				Path filePath = Path.of(path);
+				List<String> lines = Files.readAllLines(filePath, StandardCharsets.UTF_8);
 
-		        if (lines.isEmpty()) {
-		            lines.add("");
-		            lines.add("");
-		            lines.add(note);
-		        } else if (lines.size() >= 3) {
-		            lines.set(2, note);
-		        } else if (lines.size() == 2) {
-		            lines.add(note);
-		        } else if (lines.size() == 1) {
-		            lines.add("");
-		            lines.add(note);
-		        } else {
-		            LOGGER.log(Level.ERROR, "Il file non ha righe valide.");
-		            throw new IOException("Il file non ha righe valide.");
-		        }
+				if (lines.isEmpty()) {
+					lines.add("");
+					lines.add("");
+					lines.add(note);
+				} else if (lines.size() >= 3) {
+					lines.set(2, note);
+				} else if (lines.size() == 2) {
+					lines.add(note);
+				} else if (lines.size() == 1) {
+					lines.add("");
+					lines.add(note);
+				} else {
+					LOGGER.log(Level.ERROR, "Il file non ha righe valide.");
+					throw new IOException("Il file non ha righe valide.");
+				}
 
-		        Files.write(filePath, lines, StandardCharsets.UTF_8);
-		        LOGGER.log(Level.INFO, "Operazione completata con successo.");
-		    } catch (HttpMessageNotReadableException e) {
-		        LOGGER.log(Level.ERROR, e.getMessage());
-		        throw new HttpMessageNotReadableException(e.getMessage());
-		    } catch (IOException e) {
-		        LOGGER.log(Level.ERROR, e.getMessage());
-		        throw new IOException(e.getMessage());
-		    } catch (Exception e) {
-		        LOGGER.log(Level.ERROR, e.getMessage());
-		        throw new Exception(e.getMessage());
-		    }
+				Files.write(filePath, lines, StandardCharsets.UTF_8);
+				LOGGER.log(Level.INFO, "Operazione completata con successo.");
+			} catch (HttpMessageNotReadableException e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new HttpMessageNotReadableException(e.getMessage());
+			} catch (IOException e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new IOException(e.getMessage());
+			} catch (Exception e) {
+				LOGGER.log(Level.ERROR, e.getMessage());
+				throw new Exception(e.getMessage());
+			}
 		}
 		LOGGER.log(Level.INFO, "Note salvate con successo.");
 	}
