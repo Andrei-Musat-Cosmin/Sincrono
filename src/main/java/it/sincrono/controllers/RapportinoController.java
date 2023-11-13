@@ -165,6 +165,11 @@ public class RapportinoController {
 						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale());
 				rapportinoInviato.setMese(rapportinoRequestDto.getRapportinoDto().getMeseRequest());
 				rapportinoInviato.setAnno(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
+				rapportinoInviato.setNome(
+						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getNome());
+				rapportinoInviato.setCognome(
+						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCognome());
+				
 				rapportinoService.inviaRapportino(rapportinoInviato);
 			}
 			genericResponse.setEsito(new Esito());
