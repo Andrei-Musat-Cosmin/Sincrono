@@ -266,7 +266,7 @@ public class FileUtil {
 						} else
 							dati += ",null";
 						if (giornoDto.getNote() != null && !giornoDto.equals("")) {
-							dati += "," + giornoDto.getNote() + ";";
+							dati += "," + giornoDto.getNote();
 						} else
 							dati += ",null";
 						
