@@ -141,7 +141,7 @@ public class DateUtil {
 
 	}
 
-	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto,Integer mese) {
+	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto, Integer mese) {
 
 		final List<MonthDay> GIORNI_FESTIVI = Arrays.asList(MonthDay.of(1, 1), // Capodanno
 				MonthDay.of(1, 6), // Epifania
@@ -152,7 +152,9 @@ public class DateUtil {
 				MonthDay.of(11, 1), // Tutti i Santi
 				MonthDay.of(12, 8), // Immacolata Concezione
 				MonthDay.of(12, 25), // Natale
-				MonthDay.of(12, 26) // Santo Stefano
+				MonthDay.of(12, 26), // Santo Stefano
+				calcolaPasquetta(LocalDate.now().getYear()) //Pasquetta
+
 		);
 
 		List<GiornoDto> listGiorni = rapportinoDto.getMese().getGiorni();
@@ -162,12 +164,36 @@ public class DateUtil {
 
 			if (GIORNI_FESTIVI.contains(MonthDay.of(mese, numeroGiorno))) {
 				System.out.println("Festività rilevata");
-				
+
 				giorno.setFestivitàNazionale(true);
-				
+
 			}
 		}
-	
 
+	}
+
+	public static LocalDate calcolaPasqua(int year) {
+
+		int a = year % 19;
+		int b = year / 100;
+		int c = year % 100;
+		int d = b / 4;
+		int e = b % 4;
+		int f = (b + 8) / 25;
+		int g = (b - f + 1) / 3;
+		int h = (19 * a + b - d - g + 15) % 30;
+		int i = c / 4;
+		int k = c % 4;
+		int l = (32 + 2 * e + 2 * i - h - k) % 7;
+		int m = (a + 11 * h + 22 * l) / 451;
+		int month = (h + l - 7 * m + 114) / 31;
+		int day = ((h + l - 7 * m + 114) % 31) + 1;
+
+		return LocalDate.of(year, month, day);
+	}
+
+	public static MonthDay calcolaPasquetta(int year) {
+		LocalDate pasqua = calcolaPasqua(year);
+		return MonthDay.from(pasqua.plusDays(1));
 	}
 }
