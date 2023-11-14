@@ -142,7 +142,8 @@ public class DateUtil {
 	}
 
 	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto, Integer mese) {
-
+		LocalDate datePasqua = calcolaPasqua(rapportinoDto.getAnnoRequest());
+		LocalDate datePasquetta = calcolaPasquetta(datePasqua);
 		final List<MonthDay> GIORNI_FESTIVI = Arrays.asList(MonthDay.of(1, 1), // Capodanno
 				MonthDay.of(1, 6), // Epifania
 				MonthDay.of(4, 25), // Festa della Liberazione
@@ -153,8 +154,9 @@ public class DateUtil {
 				MonthDay.of(12, 8), // Immacolata Concezione
 				MonthDay.of(12, 25), // Natale
 				MonthDay.of(12, 26), // Santo Stefano
-				calcolaPasquetta(LocalDate.now().getYear()) //Pasquetta
-
+				MonthDay.of(datePasqua.getMonth(), datePasqua.getDayOfMonth()), // Pasqua
+				MonthDay.of(datePasquetta.getMonth(),datePasquetta.getDayOfMonth()) // Pasquetta
+				
 		);
 
 		List<GiornoDto> listGiorni = rapportinoDto.getMese().getGiorni();
@@ -192,8 +194,8 @@ public class DateUtil {
 		return LocalDate.of(year, month, day);
 	}
 
-	public static MonthDay calcolaPasquetta(int year) {
-		LocalDate pasqua = calcolaPasqua(year);
-		return MonthDay.from(pasqua.plusDays(1));
+	public static LocalDate calcolaPasquetta(LocalDate date) {
+
+		return LocalDate.from(date.plusDays(1));
 	}
 }
