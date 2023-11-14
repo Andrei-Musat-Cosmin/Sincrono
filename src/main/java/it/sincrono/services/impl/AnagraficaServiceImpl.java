@@ -40,6 +40,7 @@ import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
+import it.sincrono.services.utils.ExcelUtilAnagrafica;
 import it.sincrono.services.utils.FileUtil;
 import it.sincrono.services.utils.FilterCustom;
 import it.sincrono.services.utils.MapperCustom;
@@ -115,6 +116,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	@Autowired
 	FileUtil fileUtil;
+	
+	@Autowired
+	ExcelUtilAnagrafica excelUtilAnagrafica;
 
 	@Override
 	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaRequestDto anagraficaRequestDto)
@@ -629,6 +633,39 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		}
 	}
+	
+	
+
+	@Override
+	@Transactional(rollbackOn = ServiceException.class)
+	public void insertAnagraficaDtoExcel(String base64) throws ServiceException {
+		
+		try {
+			
+			for(AnagraficaDto anagraficadto : excelUtilAnagrafica.createAnagraficaDtoExcel(base64))
+			
+			insertAnagraficaDto(anagraficadto);
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+
+		
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/*
 	 * 

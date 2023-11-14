@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import it.sincrono.beans.Esito;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.requests.AnagraficaRequestDto;
+import it.sincrono.requests.ExcelDtoRequest;
 import it.sincrono.responses.AnagraficaDtoListResponse;
 import it.sincrono.responses.AnagraficaDtoResponse;
 import it.sincrono.responses.GenericResponse;
@@ -245,6 +246,32 @@ public class AnagraficaController {
 			LOGGER.log(Level.INFO, "Inizio chiamata al metodo insertAnagrafica");
 
 			anagraficaService.insertAnagraficaDto(anagraficaRequestDto.getAnagraficaDto());
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo inserAnagrafica\n");
+
+		return httpEntity;
+	}
+	
+	@PostMapping("/inserisci-excel")
+	public @ResponseBody HttpEntity<GenericResponse> insertAnagraficaDtoExcel(
+			@RequestBody ExcelDtoRequest excelDtoRequest) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo insertAnagrafica");
+
+			anagraficaService.insertAnagraficaDtoExcel(excelDtoRequest.getBase64());
 
 			genericResponse.setEsito(new Esito());
 
