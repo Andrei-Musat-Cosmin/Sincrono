@@ -116,7 +116,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	@Autowired
 	FileUtil fileUtil;
-	
+
 	@Autowired
 	ExcelUtilAnagrafica excelUtilAnagrafica;
 
@@ -633,18 +633,27 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		}
 	}
-	
-	
 
 	@Override
 	@Transactional(rollbackOn = ServiceException.class)
 	public void insertAnagraficaDtoExcel(String base64) throws ServiceException {
-		
+
 		try {
-			
-			for(AnagraficaDto anagraficadto : excelUtilAnagrafica.createAnagraficaDtoExcel(base64))
-			
-			insertAnagraficaDto(anagraficadto);
+
+			for (AnagraficaDto anagraficaDto : excelUtilAnagrafica.createAnagraficaDtoExcel(base64)) {
+
+				/*if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)
+						&& !contrattoValidator.validate(anagraficaDto.getContratto(), true)
+						&& !commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)) {
+
+					insertAnagraficaDto(anagraficaDto);
+
+				}*/
+				
+				System.out.println("Anagrafica: "+anagraficaDto);
+
+			}
+
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
@@ -653,19 +662,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			throw new ServiceException(e);
 		}
 
-		
-
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	/*
 	 * 
