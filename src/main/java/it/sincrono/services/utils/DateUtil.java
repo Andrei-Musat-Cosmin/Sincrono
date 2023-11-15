@@ -155,8 +155,8 @@ public class DateUtil {
 				MonthDay.of(12, 25), // Natale
 				MonthDay.of(12, 26), // Santo Stefano
 				MonthDay.of(datePasqua.getMonth(), datePasqua.getDayOfMonth()), // Pasqua
-				MonthDay.of(datePasquetta.getMonth(),datePasquetta.getDayOfMonth()) // Pasquetta
-				
+				MonthDay.of(datePasquetta.getMonth(), datePasquetta.getDayOfMonth()) // Pasquetta
+
 		);
 
 		List<GiornoDto> listGiorni = rapportinoDto.getMese().getGiorni();
@@ -167,7 +167,7 @@ public class DateUtil {
 			if (GIORNI_FESTIVI.contains(MonthDay.of(mese, numeroGiorno))) {
 				System.out.println("Festività rilevata");
 
-				giorno.setFestivitàNazionale(true);
+				giorno.setFestivitaNazionale(true);
 
 			}
 		}

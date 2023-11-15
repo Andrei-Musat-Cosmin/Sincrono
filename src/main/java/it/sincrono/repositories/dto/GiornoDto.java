@@ -11,9 +11,9 @@ public class GiornoDto {
 	private Boolean malattie;
 
 	private Double permessi;
-	
+
 	private Double permessiRole;
-	
+
 	private Double permessiExfestivita;
 
 	private String note;
@@ -26,9 +26,7 @@ public class GiornoDto {
 
 	private Boolean checkOnSite;
 
-	private Boolean festivitàNazionale;
-
-
+	private Boolean festivitaNazionale;
 
 	public GiornoDto(List<DuplicazioniGiornoDto> duplicazioniGiornoDto, Boolean ferie, Boolean malattie,
 			Double permessi, Double permessiRole, Double permessiExfestivita, String note, Integer numeroGiorno,
@@ -45,7 +43,7 @@ public class GiornoDto {
 		this.nomeGiorno = nomeGiorno;
 		this.checkSmartWorking = checkSmartWorking;
 		this.checkOnSite = checkOnSite;
-		this.festivitàNazionale = festivitàNazionale;
+		this.festivitaNazionale = festivitàNazionale;
 	}
 
 	public GiornoDto() {
@@ -124,12 +122,12 @@ public class GiornoDto {
 		this.checkOnSite = checkOnSite;
 	}
 
-	public Boolean getFestivitàNazionale() {
-		return festivitàNazionale;
+	public Boolean getFestivitaNazionale() {
+		return festivitaNazionale;
 	}
 
-	public void setFestivitàNazionale(Boolean festivitàNazionale) {
-		this.festivitàNazionale = festivitàNazionale;
+	public void setFestivitaNazionale(Boolean festivitàNazionale) {
+		this.festivitaNazionale = festivitàNazionale;
 	}
 
 	public Double getPermessiRole() {
@@ -147,7 +145,5 @@ public class GiornoDto {
 	public void setPermessiExfestivita(Double permessiExfestivita) {
 		this.permessiExfestivita = permessiExfestivita;
 	}
-	
-	
 
 }
