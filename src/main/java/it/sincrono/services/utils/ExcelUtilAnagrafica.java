@@ -141,17 +141,17 @@ public class ExcelUtilAnagrafica {
 
 		}
 
-		if (row.getCell(7) != null) {
+		/*if (row.getCell(7) != null) {
 
-			commessa.setDataInizio(DateUtil.convertorStringInDate(row.getCell(7).getStringCellValue()));
+			commessa.setDataInizio(row.getCell(7).getDateCellValue());
 
 		}
 
 		if (row.getCell(8) != null) {
 
-			commessa.setDataFine(DateUtil.convertorStringInDate(row.getCell(8).getStringCellValue()));
+			commessa.setDataFine(row.getCell(8).getDateCellValue());
 
-		}
+		}*/
 
 		if (row.getCell(9) != null) {
 

@@ -199,18 +199,5 @@ public class DateUtil {
 		return LocalDate.from(date.plusDays(1));
 	}
 	
-	public static Date convertorStringInDate(String Date) {
 
-		if (Date != null && !Date.equals("")) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                return dateFormat.parse(Date);
-            } catch (Exception e) {
-                System.err.println("Formato data non valido!");
-                e.printStackTrace();
-            }
-        }
-        return null; 
-
-	}
 }
