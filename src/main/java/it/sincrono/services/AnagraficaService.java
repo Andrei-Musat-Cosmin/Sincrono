@@ -41,5 +41,7 @@ public interface AnagraficaService {
 	public AnagraficaDto getAnagraficaDtoByToken(String token) throws ServiceException;
 
 	public void retainAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
+	
+	public void insertAnagraficaDtoExcel(String base64) throws ServiceException;
 
 }

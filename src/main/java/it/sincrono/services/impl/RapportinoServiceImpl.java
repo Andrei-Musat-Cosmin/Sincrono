@@ -526,6 +526,9 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 	}
+	
+	
+	
 
 
 }
