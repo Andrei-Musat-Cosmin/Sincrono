@@ -37,21 +37,13 @@ public class ExcelUtilAnagrafica {
 
 		List<AnagraficaDto> listAnagrafiche = new ArrayList<>();
 
-		try {
+		byte[] decodedBytes = Base64.decodeBase64(base64);
 
-			byte[] decodedBytes = Base64.decodeBase64(base64);
+		Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(decodedBytes));
 
-			Workbook workbook = new XSSFWorkbook(new ByteArrayInputStream(decodedBytes));
+		listAnagrafiche = createAnagraficaDto(workbook);
 
-			listAnagrafiche = createAnagraficaDto(workbook);
-
-			workbook.close();
-
-		} catch (Exception e) {
-
-			System.out.println(e);
-
-		}
+		workbook.close();
 
 		return listAnagrafiche;
 
@@ -85,17 +77,21 @@ public class ExcelUtilAnagrafica {
 
 		Sheet commesseSheet = workbook.getSheet("Commesse");
 
+		List<Commessa> listCommesse = new ArrayList<>();
+
 		if (commesseSheet != null) {
 
-			Integer i = 0;
+			Commessa commessa;
 
-			for (int rowIndex = 2; rowIndex <= commesseSheet.getLastRowNum(); rowIndex++) {
+			for (int rowIndex = 1; rowIndex <= commesseSheet.getLastRowNum(); rowIndex++) {
 				Row row = commesseSheet.getRow(rowIndex);
 				if (row != null) {
 
-					createCommessa(row, listAnagrafiche.get(i));
+					commessa = new Commessa();
 
-					i++;
+					createCommessa(row, commessa);
+
+					listCommesse.add(commessa);
 
 				}
 
@@ -103,17 +99,23 @@ public class ExcelUtilAnagrafica {
 
 		}
 
+		raggruppaCommessa(listAnagrafiche, listCommesse);
+
 		return listAnagrafiche;
 
 	}
 
-	private void createCommessa(Row row, AnagraficaDto anagraficaDto) throws Exception {
-
-		Commessa commessa = new Commessa();
+	private void createCommessa(Row row, Commessa commessa) throws Exception {
 
 		if (row.getCell(0) != null) {
 
 			commessa.setAttivo(((int) row.getCell(0).getNumericCellValue()) == 1 ? true : false);
+
+		}
+
+		if (row.getCell(1) != null) {
+
+			excelUtilAnagraficaCreate.convertNominativo(commessa, row.getCell(1).getStringCellValue());
 
 		}
 
@@ -123,47 +125,67 @@ public class ExcelUtilAnagrafica {
 
 		}
 
-		if (row.getCell(4) != null) {
-
-			excelUtilAnagraficaCreate.getTipoAziendaCliente(commessa, row.getCell(4).getStringCellValue());
-
-		}
-
 		if (row.getCell(5) != null) {
 
-			commessa.setClienteFinale(row.getCell(5).getStringCellValue());
+			excelUtilAnagraficaCreate.getTipoAziendaCliente(commessa, row.getCell(5).getStringCellValue());
 
 		}
 
 		if (row.getCell(6) != null) {
 
-			commessa.setTitoloPosizione(row.getCell(6).getStringCellValue());
+			commessa.setClienteFinale(row.getCell(6).getStringCellValue());
 
 		}
 
-		/*if (row.getCell(7) != null) {
+		if (row.getCell(7) != null) {
 
-			commessa.setDataInizio(row.getCell(7).getDateCellValue());
+			commessa.setTitoloPosizione(row.getCell(7).getStringCellValue());
 
 		}
 
 		if (row.getCell(8) != null) {
 
-			commessa.setDataFine(row.getCell(8).getDateCellValue());
-
-		}*/
-
-		if (row.getCell(9) != null) {
-
-			commessa.setTariffaGiornaliera(row.getCell(9).getStringCellValue());
+			commessa.setDataInizio(row.getCell(8).getDateCellValue());
 
 		}
-		
-		List<Commessa> list = new ArrayList<>();
-		
-		list.add(commessa);
-		
-		anagraficaDto.setCommesse(list);
+
+		/*
+		 * if (row.getCell(9) != null) {
+		 * 
+		 * commessa.setDataFine(row.getCell(9).getDateCellValue());
+		 * 
+		 * }
+		 */
+
+		if (row.getCell(10) != null) {
+
+			commessa.setTariffaGiornaliera(Double.toString(row.getCell(10).getNumericCellValue()));
+
+		}
+
+	}
+
+	private void raggruppaCommessa(List<AnagraficaDto> listAnagrafiche, List<Commessa> listCommesse) throws Exception {
+
+		for (AnagraficaDto anagraficaDto : listAnagrafiche) {
+
+			anagraficaDto.setCommesse(new ArrayList<>());
+
+			for (Commessa commessa : listCommesse) {
+
+				if (((anagraficaDto.getAnagrafica().getCognome() + anagraficaDto.getAnagrafica().getNome())
+						.toLowerCase().replaceAll("\\s", "")
+						.equals((commessa.getNome() + commessa.getCognome()).toLowerCase().replaceAll("\\s", "")))
+						|| ((anagraficaDto.getAnagrafica().getNome() + anagraficaDto.getAnagrafica().getCognome())
+								.toLowerCase().replaceAll("\\s", "").equals((commessa.getNome() + commessa.getCognome())
+										.toLowerCase().replaceAll("\\s", "")))) {
+
+					anagraficaDto.getCommesse().add(commessa);
+
+				}
+			}
+
+		}
 
 	}
 
@@ -268,7 +290,7 @@ public class ExcelUtilAnagrafica {
 			anagrafica.setFigliACarico(row.getCell(16).getStringCellValue().equals("si") ? true : false);
 
 		}
-		
+
 		anagraficaDto.setAnagrafica(anagrafica);
 
 	}
@@ -301,7 +323,9 @@ public class ExcelUtilAnagrafica {
 
 		if (row.getCell(23) != null) {
 
-			contratto.setMesiDurata(((int) row.getCell(23).getNumericCellValue()));
+			contratto.setMesiDurata(
+					((int) row.getCell(23).getNumericCellValue()) > 0 ? ((int) row.getCell(23).getNumericCellValue())
+							: null);
 
 		}
 
@@ -434,8 +458,7 @@ public class ExcelUtilAnagrafica {
 			contratto.setDiariaAnnua(row.getCell(51).getNumericCellValue());
 
 		}
-		
-		
+
 		anagraficaDto.setContratto(contratto);
 
 	}

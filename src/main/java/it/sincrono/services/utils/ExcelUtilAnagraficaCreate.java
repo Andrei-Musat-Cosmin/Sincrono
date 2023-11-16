@@ -56,13 +56,31 @@ public class ExcelUtilAnagraficaCreate {
 
 	}
 
+	public void convertNominativo(Commessa commessa, String nominativo) throws Exception {
+
+		if (nominativo != null && !nominativo.equals("")) {
+
+			String[] nomeAndCognome = nominativo.split(" ");
+
+			commessa.setNome(nomeAndCognome[1]);
+
+			commessa.setCognome(nomeAndCognome[0]);
+
+		}
+
+	}
+
 	public void getTipoAzienda(Anagrafica anagrafica, String azienda) throws Exception {
 
 		List<TipoAzienda> list = tipologicheRepository.getTipoAziendaMap();
 
-		anagrafica.setTipoAzienda(list.stream().filter(elem -> elem.getDescrizione().equals(azienda))
+		anagrafica.setTipoAzienda(list.stream()
+				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+						.equals(azienda.toLowerCase().replaceAll("\\s", "")))
 				.collect(Collectors.toList()).size() > 0
-						? list.stream().filter(elem -> elem.getDescrizione().equals(azienda))
+						? list.stream()
+								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+										.equals(azienda.toLowerCase().replaceAll("\\s", "")))
 								.collect(Collectors.toList()).get(0)
 						: null);
 
@@ -72,10 +90,14 @@ public class ExcelUtilAnagraficaCreate {
 
 		List<TipoCcnl> list = tipologicheRepository.getTipoCcnlMap();
 
-		contratto.setTipoCcnl(
-				list.stream().filter(elem -> elem.getDescrizione().equals(ccnl)).collect(Collectors.toList()).size() > 0
-						? list.stream().filter(elem -> elem.getDescrizione().equals(ccnl)).collect(Collectors.toList())
-								.get(0)
+		contratto.setTipoCcnl(list.stream()
+				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+						.equals(ccnl.toLowerCase().replaceAll("\\s", "")))
+				.collect(Collectors.toList()).size() > 0
+						? list.stream()
+								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+										.equals(ccnl.toLowerCase().replaceAll("\\s", "")))
+								.collect(Collectors.toList()).get(0)
 						: null);
 
 	}
@@ -84,9 +106,13 @@ public class ExcelUtilAnagraficaCreate {
 
 		List<TipoContratto> list = tipologicheRepository.getTipoContrattoMap();
 
-		contratto.setTipoContratto(list.stream().filter(elem -> elem.getDescrizione().equals(tipoContratto))
+		contratto.setTipoContratto(list.stream()
+				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+						.equals(tipoContratto.toLowerCase().replaceAll("\\s", "")))
 				.collect(Collectors.toList()).size() > 0
-						? list.stream().filter(elem -> elem.getDescrizione().equals(tipoContratto))
+						? list.stream()
+								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+										.equals(tipoContratto.toLowerCase().replaceAll("\\s", "")))
 								.collect(Collectors.toList()).get(0)
 						: null);
 
@@ -96,27 +122,35 @@ public class ExcelUtilAnagraficaCreate {
 
 		List<TipoCausaFineRapporto> list = tipologicheRepository.getTipoCausaFineRapportoMap();
 
-		contratto.setTipoCausaFineRapporto(list.stream().filter(elem -> elem.getDescrizione().equals(causaFineRapporto))
+		contratto.setTipoCausaFineRapporto(list.stream()
+				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+						.equals(causaFineRapporto.toLowerCase().replaceAll("\\s", "")))
 				.collect(Collectors.toList()).size() > 0
-						? list.stream().filter(elem -> elem.getDescrizione().equals(causaFineRapporto))
+						? list.stream()
+								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+										.equals(causaFineRapporto.toLowerCase().replaceAll("\\s", "")))
 								.collect(Collectors.toList()).get(0)
 						: null);
 
 	}
 
 	public void getLivelloContratto(Contratto contratto, String livelloContratto) throws Exception {
-		
-		if(contratto.getTipoContratto()!=null) {
 
-		List<TipoLivelloContratto> list = tipologicheRepository
-				.getTipoLivelloContrattoMap(contratto.getTipoContratto().getDescrizione());
+		if (contratto.getTipoContratto() != null) {
 
-		contratto.setTipoLivelloContratto(list.stream().filter(elem -> elem.getLivello().equals(livelloContratto))
-				.collect(Collectors.toList()).size() > 0
-						? list.stream().filter(elem -> elem.getLivello().equals(livelloContratto))
-								.collect(Collectors.toList()).get(0)
-						: null);
-		
+			List<TipoLivelloContratto> list = tipologicheRepository.getTipoLivelloContrattoMap(
+					contratto.getTipoCcnl().getDescrizione().toUpperCase());
+
+			contratto.setTipoLivelloContratto(list.stream()
+					.filter(elem -> elem.getLivello().toLowerCase().replaceAll("\\s", "")
+							.equals(livelloContratto.toLowerCase().replaceAll("\\s", "")))
+					.collect(Collectors.toList()).size() > 0
+							? list.stream()
+									.filter(elem -> elem.getLivello().toLowerCase().replaceAll("\\s", "")
+											.equals(livelloContratto.toLowerCase().replaceAll("\\s", "")))
+									.collect(Collectors.toList()).get(0)
+							: null);
+
 		}
 
 	}
@@ -125,9 +159,13 @@ public class ExcelUtilAnagraficaCreate {
 
 		List<TipoAziendaCliente> list = tipologicheRepository.getTipoAziendaClienteMap();
 
-		commessa.setTipoAziendaCliente(list.stream().filter(elem -> elem.getDescrizione().equals(AziendaCliente))
+		commessa.setTipoAziendaCliente(list.stream()
+				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+						.equals(AziendaCliente.toLowerCase().replaceAll("\\s", "")))
 				.collect(Collectors.toList()).size() > 0
-						? list.stream().filter(elem -> elem.getDescrizione().equals(AziendaCliente))
+						? list.stream()
+								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+										.equals(AziendaCliente.toLowerCase().replaceAll("\\s", "")))
 								.collect(Collectors.toList()).get(0)
 						: null);
 

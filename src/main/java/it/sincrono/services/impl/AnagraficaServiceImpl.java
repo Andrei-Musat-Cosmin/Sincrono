@@ -23,6 +23,7 @@ import it.sincrono.entities.Profilo;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.entities.StoricoContratti;
+import it.sincrono.entities.TipoCanaleReclutamento;
 import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.Utente;
@@ -206,7 +207,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						.saveAndFlush(new Profilo(new Ruolo(anagraficaDto.getRuolo().getId()), new Utente(idUtente)));
 			} else {
 
-				profiloRepository.saveAndFlush(new Profilo(new Ruolo(2), new Utente(idUtente)));
+				profiloRepository.saveAndFlush(new Profilo(new Ruolo(3), new Utente(idUtente)));
 
 			}
 
@@ -250,9 +251,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			fileUtil.creatFolder(PREFIX + DESTINAZIONE + anagraficaDto.getAnagrafica().getCodiceFiscale() + RAPPORTINI
 					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
 
-			emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null, "CREAZIONE UTENZA",
-					"username: " + anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
-							+ passwordUtente);
+			/*
+			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),
+			 * null, "CREAZIONE UTENZA", "username: " +
+			 * anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
+			 * + passwordUtente);
+			 */
 
 			LOGGER.log(Level.INFO, "Password " + passwordUtente);
 
@@ -640,17 +644,21 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		try {
 
+			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
+
+			tipoCanaleReclutamento.setId(1);
+
 			for (AnagraficaDto anagraficaDto : excelUtilAnagrafica.createAnagraficaDtoExcel(base64)) {
 
-				/*if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)
-						&& !contrattoValidator.validate(anagraficaDto.getContratto(), true)
-						&& !commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)) {
+				anagraficaDto.getContratto().setTipoCanaleReclutamento(tipoCanaleReclutamento);
+
+				if (anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)
+						&& contrattoValidator.validate(anagraficaDto.getContratto(), true)
+						&& commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)) {
 
 					insertAnagraficaDto(anagraficaDto);
 
-				}*/
-				
-				System.out.println("Anagrafica: "+anagraficaDto);
+				}
 
 			}
 
