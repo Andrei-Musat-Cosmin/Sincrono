@@ -644,33 +644,63 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	public List<AnagraficaDto> insertAnagraficaDtoExcel(String base64) throws ServiceException {
 
 		try {
+
+			List<AnagraficaDto> listAnagrafiche = excelUtilAnagrafica.createAnagraficaDtoExcel(base64);
 			
-			List<AnagraficaDto> listAnagrafiche = new ArrayList<>();
+			List<AnagraficaDto> listAnagraficheInDatabase = listAnagraficaDto();
+
 
 			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
 
 			tipoCanaleReclutamento.setId(1);
 
-			for (AnagraficaDto anagraficaDto : excelUtilAnagrafica.createAnagraficaDtoExcel(base64)) {
+			Boolean checkIsInDatabase = false;
+
+			for (AnagraficaDto anagraficaDto : listAnagrafiche) {
+
+				checkIsInDatabase = listAnagraficheInDatabase.stream()
+						.filter(elem -> elem.getAnagrafica().getCodiceFiscale()
+								.equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
+						.collect(Collectors.toList()).size() > 0 ? true : false;
 
 				anagraficaDto.getContratto().setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 				if (anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)
 						&& contrattoValidator.validate(anagraficaDto.getContratto(), true)
-						&& commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)) {
+						&& commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)
+						&& !checkIsInDatabase) {
 
 					insertAnagraficaDto(anagraficaDto);
 
-				}else {
-					
-					listAnagrafiche.add(anagraficaDto);
-					
 				}
 
 			}
-			
-			
-			return listAnagrafiche;
+
+			List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
+
+			Boolean check = false;
+
+			for (AnagraficaDto anagraficaDtoExcel : listAnagrafiche) {
+
+				for (AnagraficaDto anagraficaDto : listAnagraficheInDatabase) {
+
+					if (anagraficaDtoExcel.getAnagrafica().getCodiceFiscale()
+							.equals(anagraficaDto.getAnagrafica().getCodiceFiscale())) {
+
+						check = true;
+
+					}
+
+				}
+
+				if (!check)
+					listAnagraficheNotInsert.add(anagraficaDtoExcel);
+				
+				check=false;
+
+			}
+
+			return listAnagraficheNotInsert;
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());

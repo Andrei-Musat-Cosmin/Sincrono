@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import it.sincrono.entities.Anagrafica;
+import it.sincrono.repositories.dto.AnagraficaDto;
 
 public interface AnagraficaRepository extends JpaRepository<Anagrafica, Integer>, AnagraficaCustomRepository {
 
@@ -30,5 +31,6 @@ public interface AnagraficaRepository extends JpaRepository<Anagrafica, Integer>
 
 	@Query("SELECT a.id FROM Anagrafica a where a.codiceFiscale=?1")
 	Anagrafica findByCodiceFiscale(String codiceFiscale);
+	
 
 }
