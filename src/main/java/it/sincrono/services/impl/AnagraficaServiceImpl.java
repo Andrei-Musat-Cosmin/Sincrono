@@ -1,6 +1,7 @@
 package it.sincrono.services.impl;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -640,9 +641,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	@Override
 	@Transactional(rollbackOn = ServiceException.class)
-	public void insertAnagraficaDtoExcel(String base64) throws ServiceException {
+	public List<AnagraficaDto> insertAnagraficaDtoExcel(String base64) throws ServiceException {
 
 		try {
+			
+			List<AnagraficaDto> listAnagrafiche = new ArrayList<>();
 
 			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
 
@@ -658,9 +661,16 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 					insertAnagraficaDto(anagraficaDto);
 
+				}else {
+					
+					listAnagrafiche.add(anagraficaDto);
+					
 				}
 
 			}
+			
+			
+			return listAnagrafiche;
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());

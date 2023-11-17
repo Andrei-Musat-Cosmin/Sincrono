@@ -42,6 +42,6 @@ public interface AnagraficaService {
 
 	public void retainAnagraficaDto(AnagraficaDto anagraficaDto) throws ServiceException;
 	
-	public void insertAnagraficaDtoExcel(String base64) throws ServiceException;
+	public List<AnagraficaDto> insertAnagraficaDtoExcel(String base64) throws ServiceException;
 
 }

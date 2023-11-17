@@ -260,27 +260,28 @@ public class AnagraficaController {
 
 		return httpEntity;
 	}
-	
+
 	@PostMapping("/inserisci-excel")
-	public @ResponseBody HttpEntity<GenericResponse> insertAnagraficaDtoExcel(
+	public @ResponseBody HttpEntity<AnagraficaDtoListResponse> insertAnagraficaDtoExcel(
 			@RequestBody ExcelDtoRequest excelDtoRequest) {
 
-		HttpEntity<GenericResponse> httpEntity = null;
+		HttpEntity<AnagraficaDtoListResponse> httpEntity = null;
 
-		GenericResponse genericResponse = new GenericResponse();
+		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al metodo insertAnagrafica");
 
-			anagraficaService.insertAnagraficaDtoExcel(excelDtoRequest.getBase64());
+			anagraficaDtoListResponse.setList(
+					anagraficaService.insertAnagraficaDtoExcel(excelDtoRequest.getBase64()));
 
-			genericResponse.setEsito(new Esito());
+			anagraficaDtoListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
-			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
 		LOGGER.log(Level.INFO, "Fine chiamata al metodo inserAnagrafica\n");
 
