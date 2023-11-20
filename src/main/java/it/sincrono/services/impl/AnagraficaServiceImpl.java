@@ -646,37 +646,42 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		try {
 
 			List<AnagraficaDto> listAnagrafiche = excelUtilAnagrafica.createAnagraficaDtoExcel(base64);
+			List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
 			
-			List<AnagraficaDto> listAnagraficheInDatabase = listAnagraficaDto();
+			//List<AnagraficaDto> listAnagraficheInDatabase = listAnagraficaDto();
 
 
 			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
 
 			tipoCanaleReclutamento.setId(1);
 
-			Boolean checkIsInDatabase = false;
+			//Boolean checkIsInDatabase = false;
 
 			for (AnagraficaDto anagraficaDto : listAnagrafiche) {
 
-				checkIsInDatabase = listAnagraficheInDatabase.stream()
+				/*checkIsInDatabase = listAnagraficheInDatabase.stream()
 						.filter(elem -> elem.getAnagrafica().getCodiceFiscale()
 								.equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
-						.collect(Collectors.toList()).size() > 0 ? true : false;
+						.collect(Collectors.toList()).size() > 0 ? true : false;*/
 
 				anagraficaDto.getContratto().setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 				if (anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)
 						&& contrattoValidator.validate(anagraficaDto.getContratto(), true)
 						&& commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)
-						&& !checkIsInDatabase) {
+						/*&& !checkIsInDatabase*/) {
 
 					insertAnagraficaDto(anagraficaDto);
 
+				}else {
+					
+					listAnagraficheNotInsert.add(anagraficaDto);
+					
 				}
 
 			}
 
-			List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
+			/*List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
 
 			Boolean check = false;
 
@@ -698,7 +703,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				
 				check=false;
 
-			}
+			}*/
 
 			return listAnagraficheNotInsert;
 
@@ -709,6 +714,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
+		
+	
 
 	}
 
