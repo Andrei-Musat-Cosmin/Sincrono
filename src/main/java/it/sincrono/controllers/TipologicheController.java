@@ -17,6 +17,7 @@ import it.sincrono.beans.Esito;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
+import it.sincrono.entities.TipoCausaFineContratto;
 import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
@@ -244,6 +245,34 @@ public class TipologicheController {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			livelloContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<TipologicheListResponse<TipoLivelloContratto>>(livelloContrattoListResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoLivelloContrattoMap\n");
+
+		return httpEntity;
+	}
+	
+	@GetMapping("/tipo-causa-fine-contratto-map")
+	public @ResponseBody HttpEntity<TipologicheListResponse<TipoCausaFineContratto>> getTipoCausaFineContratto()
+			 {
+
+		HttpEntity<TipologicheListResponse<TipoCausaFineContratto>> httpEntity = null;
+
+		TipologicheListResponse<TipoCausaFineContratto> tipoCausaFineContrattoListResponse = new TipologicheListResponse<TipoCausaFineContratto>();
+
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getTipoLivelloContrattoMap");
+
+			List<TipoCausaFineContratto> list = tipologicheService.getTipoCausaFineContratto();
+
+			tipoCausaFineContrattoListResponse.setList(list);
+			tipoCausaFineContrattoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineContratto>>(tipoCausaFineContrattoListResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			tipoCausaFineContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineContratto>>(tipoCausaFineContrattoListResponse);
 		}
 		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoLivelloContrattoMap\n");
 

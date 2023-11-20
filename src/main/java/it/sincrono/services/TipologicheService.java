@@ -5,6 +5,7 @@ import java.util.List;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
+import it.sincrono.entities.TipoCausaFineContratto;
 import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
@@ -28,5 +29,7 @@ public interface TipologicheService {
 	public List<TipoCanaleReclutamento> getTipoCanaleReclutamentoMap() throws ServiceException;
 
 	public List<TipoCausaFineRapporto> getTipoCausaFineRapportoMap() throws ServiceException;
+
+	public List<TipoCausaFineContratto> getTipoCausaFineContratto() throws ServiceException;
 
 }

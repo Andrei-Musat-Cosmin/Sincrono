@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
+import it.sincrono.entities.TipoCausaFineContratto;
 import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
@@ -119,6 +120,19 @@ public class TipologicheServiceImpl extends BaseServiceImpl implements Tipologic
 		}
 
 		return list;
+	}
+
+	@Override
+	public List<TipoCausaFineContratto> getTipoCausaFineContratto() throws ServiceException {
+		List<TipoCausaFineContratto> list = null;
+		try {
+			list = tipologicheRepository.getTipoCausaFineContratto();
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+
 	}
 
 }
