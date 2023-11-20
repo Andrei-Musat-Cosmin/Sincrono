@@ -27,6 +27,10 @@ public class Contratto {
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_causa_fine_rapporto")
 	private TipoCausaFineRapporto tipoCausaFineRapporto;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_tipo_causa_fine_contratto")
+	private TipoCausaFineContratto tipoCausaFineContratto;
 
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_canale_reclutamento")
@@ -68,6 +72,9 @@ public class Contratto {
 
 	@Column(name = "data_fine_rapporto")
 	private Date dataFineRapporto;
+	
+	@Column(name = "data_fine_contratto")
+	private Date dataFineContratto;
 
 	@Column(name = "mesi_durata")
 	private Integer mesiDurata;
@@ -150,20 +157,25 @@ public class Contratto {
 	@Transient
 	private Double RalPartTime;
 
+	
+	
+
 	public Contratto(Integer id, TipoCausaFineRapporto tipoCausaFineRapporto,
-			TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
-			TipoLivelloContratto tipoLivelloContratto, TipoAzienda tipoAzienda, TipoCcnl tipoCcnl, Boolean attivo,
-			String qualifica, String sedeAssunzione, Date dataAssunzione, Date dataInizioProva, Date dataFineProva,
-			Date dataFineRapporto, Integer mesiDurata, String livelloAttuale, String livelloFinale, Boolean partTime,
-			Double percentualePartTime, Double retribuzioneMensileLorda, Double superminimoMensile, Double ralAnnua,
-			Double superminimoRal, Double diariaMensile, Double diariaGiornaliera, Boolean ticket, Double valoreTicket,
-			String tutor, Boolean pfi, Boolean corsoSicurezza, Date dataCorsoSicurezza, Boolean pc,
-			Boolean visitaMedica, Date dataVisitaMedica, Double scattiAnzianita, Double tariffaPartitaIva,
-			Boolean assicurazioneObbligatoria, Double retribuzioneNettaGiornaliera, Double retribuzioneNettaMensile,
-			Double diariaAnnua) {
+			TipoCausaFineContratto tipoCausaFineContratto, TipoCanaleReclutamento tipoCanaleReclutamento,
+			TipoContratto tipoContratto, TipoLivelloContratto tipoLivelloContratto, TipoAzienda tipoAzienda,
+			TipoCcnl tipoCcnl, Boolean attivo, String qualifica, String sedeAssunzione, Date dataAssunzione,
+			Date dataInizioProva, Date dataFineProva, Date dataFineRapporto, Date dataFineContratto, Integer mesiDurata,
+			String livelloAttuale, String livelloFinale, Boolean partTime, Double percentualePartTime,
+			Double retribuzioneMensileLorda, Double superminimoMensile, Double ralAnnua, Double superminimoRal,
+			Double diariaMensile, Double diariaGiornaliera, Boolean ticket, Double valoreTicket, String tutor,
+			Boolean pfi, Boolean corsoSicurezza, Date dataCorsoSicurezza, Boolean pc, Boolean visitaMedica,
+			Date dataVisitaMedica, Double scattiAnzianita, Double tariffaPartitaIva, Boolean assicurazioneObbligatoria,
+			Double retribuzioneNettaGiornaliera, Double retribuzioneNettaMensile, Double diariaAnnua,
+			Double ralPartTime) {
 		super();
 		this.id = id;
 		this.tipoCausaFineRapporto = tipoCausaFineRapporto;
+		this.tipoCausaFineContratto = tipoCausaFineContratto;
 		this.tipoCanaleReclutamento = tipoCanaleReclutamento;
 		this.tipoContratto = tipoContratto;
 		this.tipoLivelloContratto = tipoLivelloContratto;
@@ -176,6 +188,7 @@ public class Contratto {
 		this.dataInizioProva = dataInizioProva;
 		this.dataFineProva = dataFineProva;
 		this.dataFineRapporto = dataFineRapporto;
+		this.dataFineContratto = dataFineContratto;
 		this.mesiDurata = mesiDurata;
 		this.livelloAttuale = livelloAttuale;
 		this.livelloFinale = livelloFinale;
@@ -202,6 +215,7 @@ public class Contratto {
 		this.retribuzioneNettaGiornaliera = retribuzioneNettaGiornaliera;
 		this.retribuzioneNettaMensile = retribuzioneNettaMensile;
 		this.diariaAnnua = diariaAnnua;
+		RalPartTime = ralPartTime;
 	}
 
 	public Contratto(TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
@@ -590,5 +604,23 @@ public class Contratto {
 		this.RalPartTime = ralPartTime;
 
 	}
+
+	public TipoCausaFineContratto getTipoCausaFineContratto() {
+		return tipoCausaFineContratto;
+	}
+
+	public void setTipoCausaFineContratto(TipoCausaFineContratto tipoCausaFineContratto) {
+		this.tipoCausaFineContratto = tipoCausaFineContratto;
+	}
+
+	public Date getDataFineContratto() {
+		return dataFineContratto;
+	}
+
+	public void setDataFineContratto(Date dataFineContratto) {
+		this.dataFineContratto = dataFineContratto;
+	}
+	
+	
 
 }
