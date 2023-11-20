@@ -388,10 +388,24 @@ public class ExcelUtilAnagrafica {
 		 * }
 		 */
 
+		/*
+		 * if (row.getCell(33) != null) {
+		 * 
+		 * excelUtilAnagraficaCreate.getCausaFineRapporto(contratto,
+		 * row.getCell(33).getStringCellValue());
+		 * 
+		 * }
+		 */
+
+		if (row.getCell(34) != null) {
+
+			contratto.setDataFineContratto(row.getCell(34).getDateCellValue());
+
+		}
+
 		if (row.getCell(35) != null) {
 
-			excelUtilAnagraficaCreate.getCausaFineRapporto(contratto, row.getCell(35).getStringCellValue());
-
+			excelUtilAnagraficaCreate.getCausaFineContratto(contratto, row.getCell(35).getStringCellValue());
 		}
 
 		if (row.getCell(36) != null) {
@@ -458,6 +472,11 @@ public class ExcelUtilAnagrafica {
 			contratto.setDiariaAnnua(row.getCell(51).getNumericCellValue());
 
 		}
+		/*if (row.getCell(64) != null) {
+
+			excelUtilAnagraficaCreate.getTipoCanaleReclutamento(contratto, row.getCell(64).getStringCellValue());
+
+		}*/
 
 		anagraficaDto.setContratto(contratto);
 

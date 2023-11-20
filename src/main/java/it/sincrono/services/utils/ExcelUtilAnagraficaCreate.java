@@ -1,6 +1,6 @@
 package it.sincrono.services.utils;
 
-import java.io.IOException;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,8 @@ import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
 import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.TipoAziendaCliente;
+import it.sincrono.entities.TipoCanaleReclutamento;
+import it.sincrono.entities.TipoCausaFineContratto;
 
 @Component
 public class ExcelUtilAnagraficaCreate {
@@ -133,6 +135,23 @@ public class ExcelUtilAnagraficaCreate {
 						: null);
 
 	}
+	
+	
+	public void getCausaFineContratto(Contratto contratto, String causaFineContratto) throws Exception {
+
+		List<TipoCausaFineContratto> list = tipologicheRepository.getTipoCausaFineContratto();
+
+		contratto.setTipoCausaFineContratto(list.stream()
+				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+						.equals(causaFineContratto.toLowerCase().replaceAll("\\s", "")))
+				.collect(Collectors.toList()).size() > 0
+						? list.stream()
+								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+										.equals(causaFineContratto.toLowerCase().replaceAll("\\s", "")))
+								.collect(Collectors.toList()).get(0)
+						: null);
+
+	}
 
 	public void getLivelloContratto(Contratto contratto, String livelloContratto) throws Exception {
 
@@ -166,6 +185,23 @@ public class ExcelUtilAnagraficaCreate {
 						? list.stream()
 								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
 										.equals(AziendaCliente.toLowerCase().replaceAll("\\s", "")))
+								.collect(Collectors.toList()).get(0)
+						: null);
+
+	}
+	
+	
+	public void getTipoCanaleReclutamento(Contratto contratto, String tipoCanaleReclutamento) throws Exception {
+
+		List<TipoCanaleReclutamento> list = tipologicheRepository.getTipoCanaleReclutamentoMap();
+
+		contratto.setTipoCanaleReclutamento(list.stream()
+				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+						.equals(tipoCanaleReclutamento.toLowerCase().replaceAll("\\s", "")))
+				.collect(Collectors.toList()).size() > 0
+						? list.stream()
+								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+										.equals(tipoCanaleReclutamento.toLowerCase().replaceAll("\\s", "")))
 								.collect(Collectors.toList()).get(0)
 						: null);
 
