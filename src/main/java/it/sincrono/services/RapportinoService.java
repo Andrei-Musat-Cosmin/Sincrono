@@ -6,7 +6,6 @@ import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RapportinoDto;
 import it.sincrono.requests.AnagraficaFilterRequestDto;
-import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.requests.RapportinoRequest;
 import it.sincrono.requests.RapportinoRequestDto;
 import it.sincrono.services.exceptions.ServiceException;

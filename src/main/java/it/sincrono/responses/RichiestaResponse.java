@@ -3,16 +3,16 @@ package it.sincrono.responses;
 import it.sincrono.beans.Esito;
 import it.sincrono.repositories.dto.RichiestaDto;
 
-public class RichiestaListResponse extends GenericResponse {
+public class RichiestaResponse extends GenericResponse {
 
 	private RichiestaDto richiestaDto;
 
-	public RichiestaListResponse(Esito esito, RichiestaDto richiestaDto) {
+	public RichiestaResponse(Esito esito, RichiestaDto richiestaDto) {
 		super(esito);
 		this.richiestaDto = richiestaDto;
 	}
 
-	public RichiestaListResponse() {
+	public RichiestaResponse() {
 	}
 
 	public RichiestaDto getRichiestaDto() {
