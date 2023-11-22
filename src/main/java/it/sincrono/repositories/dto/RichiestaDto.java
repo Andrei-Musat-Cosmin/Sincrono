@@ -4,6 +4,8 @@ import java.util.List;
 
 public class RichiestaDto {
 
+	private Integer id;
+
 	private Integer anno;
 
 	private Integer mese;
@@ -19,13 +21,14 @@ public class RichiestaDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RichiestaDto(Integer anno, Integer mese, String codiceFiscale, String stato,
+	public RichiestaDto(Integer id, Integer anno, Integer mese, String codiceFiscale, String stato,
 			List<DuplicazioniRichiestaDto> list) {
 		super();
+		this.id = id;
 		this.anno = anno;
 		this.mese = mese;
 		this.codiceFiscale = codiceFiscale;
-		this.Stato = stato;
+		Stato = stato;
 		this.list = list;
 	}
 
@@ -67,6 +70,14 @@ public class RichiestaDto {
 
 	public void setList(List<DuplicazioniRichiestaDto> list) {
 		this.list = list;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

@@ -38,6 +38,8 @@ public class ConvertInDto {
 			duplicazioniRichiestaDto = new DuplicazioniRichiestaDto();
 
 		}
+		
+		richiestaDto.setId(tipoRichieste.get(0).getRichiesta().getId());
 
 		richiestaDto.setList(list);
 
