@@ -13,7 +13,9 @@ public interface RichiestaService {
 	
 	public void insertRichiesta(RichiestaDto richiestaDto) throws ServiceException;
 
-	public List<RichiestaDto> listRichiesteDto(RichiestaDto richiestaDto) throws ServiceException;;
+	public List<RichiestaDto> listRichiesteDto(RichiestaDto richiestaDto) throws ServiceException;
+	
+	public void changeStato(RichiestaDto richiestaDto)throws ServiceException;
 
 
 }

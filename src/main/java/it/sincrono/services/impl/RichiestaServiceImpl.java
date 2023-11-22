@@ -1,8 +1,6 @@
 package it.sincrono.services.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -16,9 +14,7 @@ import it.sincrono.entities.TipoRichieste;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.RichiestaRepository;
 import it.sincrono.repositories.TipoRichiestaRepository;
-import it.sincrono.repositories.dto.DuplicazioniRichiestaDto;
 import it.sincrono.repositories.dto.RichiestaDto;
-import it.sincrono.requests.RichiestaRequest;
 import it.sincrono.services.RichiestaService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
@@ -107,4 +103,21 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 	}
 
+	@Override
+	public void changeStato(RichiestaDto richiestaDto) throws ServiceException {
+
+		try {
+
+			richiestaRepository.saveAndFlush(new Richieste(richiestaDto.getId(),
+					anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()), richiestaDto.getAnno(),
+					richiestaDto.getMese(), richiestaDto.getStato()));
+
+		} catch (Exception e) {
+			
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+			
+		}
+
+	}
 }

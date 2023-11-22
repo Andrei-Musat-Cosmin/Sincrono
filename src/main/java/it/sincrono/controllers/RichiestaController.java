@@ -3,7 +3,6 @@ package it.sincrono.controllers;
 import java.util.List;
 
 import org.apache.logging.log4j.Level;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +11,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.repositories.dto.RichiestaDto;
-import it.sincrono.requests.AnagraficaRequestDto;
 import it.sincrono.requests.RichiestaRequest;
-import it.sincrono.responses.AnagraficaDtoListResponse;
 import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.RichiestaResponse;
 import it.sincrono.responses.RichiesteDtoListResponse;
@@ -114,4 +111,34 @@ public class RichiestaController {
 
 		return httpEntity;
 	}
+	
+	@PutMapping("/cambia-stato")
+	public @ResponseBody HttpEntity<GenericResponse> changeStatus(
+			@RequestBody RichiestaRequest richiestaRequest) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo cambia stato richiesta");
+
+			richiestaService.changeStato(richiestaRequest.getRichiestaDto());
+
+			
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo cambia stato richiesta \n");
+
+		return httpEntity;
+	}
+	
+	
+	
 }
