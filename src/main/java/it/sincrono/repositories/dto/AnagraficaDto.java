@@ -2,6 +2,7 @@ package it.sincrono.repositories.dto;
 
 import java.util.List;
 
+
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;

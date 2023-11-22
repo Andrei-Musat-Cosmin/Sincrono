@@ -4,21 +4,25 @@ public class DuplicazioniRichiestaDto {
 
 	private Boolean ferie;
 	private Boolean permessi;
-	private Integer daGiorno;
-	private Integer aGiorno;
-
+	private String daOra;
+	private String aOra;
+	private Integer nGiorno;
+	
 	public DuplicazioniRichiestaDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public DuplicazioniRichiestaDto(Boolean ferie, Boolean permessi, Integer daGiorno, Integer aGiorno) {
+
+	public DuplicazioniRichiestaDto(Boolean ferie, Boolean permessi, String daOra, String aOra, Integer nGiorno) {
 		super();
 		this.ferie = ferie;
 		this.permessi = permessi;
-		this.daGiorno = daGiorno;
-		this.aGiorno = aGiorno;
+		this.daOra = daOra;
+		this.aOra = aOra;
+		this.nGiorno = nGiorno;
 	}
+
 
 	public Boolean getFerie() {
 		return ferie;
@@ -36,20 +40,38 @@ public class DuplicazioniRichiestaDto {
 		this.permessi = permessi;
 	}
 
-	public Integer getDaGiorno() {
-		return daGiorno;
+
+
+	public String getDaOra() {
+		return daOra;
 	}
 
-	public void setDaGiorno(Integer daGiorno) {
-		this.daGiorno = daGiorno;
+
+	public void setDaOra(String daOra) {
+		this.daOra = daOra;
 	}
 
-	public Integer getaGiorno() {
-		return aGiorno;
+
+	public String getaOra() {
+		return aOra;
 	}
 
-	public void setaGiorno(Integer aGiorno) {
-		this.aGiorno = aGiorno;
+
+	public void setaOra(String aOra) {
+		this.aOra = aOra;
 	}
 
+
+	public Integer getnGiorno() {
+		return nGiorno;
+	}
+
+	public void setnGiorno(Integer nGiorno) {
+		this.nGiorno = nGiorno;
+	}
+
+	
+	
+
+	
 }

@@ -25,7 +25,7 @@ public class RichiestaDto {
 		this.anno = anno;
 		this.mese = mese;
 		this.codiceFiscale = codiceFiscale;
-		Stato = stato;
+		this.Stato = stato;
 		this.list = list;
 	}
 

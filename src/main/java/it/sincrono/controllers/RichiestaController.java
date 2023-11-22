@@ -1,11 +1,14 @@
 package it.sincrono.controllers;
 
 import org.apache.logging.log4j.Level;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,8 +30,8 @@ public class RichiestaController {
 	@Autowired
 	RichiestaService richiestaService;
 
-	@PostMapping("/get-richiesta")
-	public @ResponseBody HttpEntity<RichiestaResponse> getRichiesta(@RequestBody RichiestaRequest richiestaRequest) {
+	@GetMapping("/get-richiesta/{id}")
+	public @ResponseBody HttpEntity<RichiestaResponse> getRichiesta(@PathVariable("id") Integer id) {
 
 		HttpEntity<RichiestaResponse> httpEntity = null;
 
@@ -36,7 +39,7 @@ public class RichiestaController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRichiesta");
 
-			RichiestaDto richiestaDto = richiestaService.getRichiesta(richiestaRequest);
+			RichiestaDto richiestaDto = richiestaService.getRichiesta(id);
 
 			richiestaResponse.setRichiestaDto(richiestaDto);
 			richiestaResponse.setEsito(new Esito());

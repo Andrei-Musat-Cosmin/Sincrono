@@ -6,6 +6,6 @@ import it.sincrono.services.exceptions.ServiceException;
 
 public interface RichiestaService {
 
-	public RichiestaDto getRichiesta(RichiestaRequest richiestaRequest) throws ServiceException;
+	public RichiestaDto getRichiesta(Integer id) throws ServiceException;
 
 }
