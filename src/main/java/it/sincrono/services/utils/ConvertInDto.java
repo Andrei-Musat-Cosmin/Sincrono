@@ -38,10 +38,17 @@ public class ConvertInDto {
 			duplicazioniRichiestaDto = new DuplicazioniRichiestaDto();
 
 		}
-		
+
 		richiestaDto.setId(tipoRichieste.get(0).getRichiesta().getId());
-		
+
 		richiestaDto.setStato(tipoRichieste.get(0).getRichiesta().getStato());
+
+		richiestaDto.setMese(tipoRichieste.get(0).getRichiesta().getMese());
+
+		richiestaDto.setAnno(tipoRichieste.get(0).getRichiesta().getAnno());
+
+		richiestaDto.setCodiceFiscale(tipoRichieste.get(0).getRichiesta().getAnagrafica()
+				.getCodiceFiscale());
 
 		richiestaDto.setList(list);
 
@@ -83,7 +90,6 @@ public class ConvertInDto {
 
 	public List<RichiestaDto> convertInDifferentRichiestaDto(List<TipoRichieste> tipoRichieste) {
 
-
 		Map<Integer, List<Integer>> raggruppamento = tipoRichieste.stream().map(elem -> elem.getRichiesta().getId())
 				.collect(Collectors.groupingBy(id -> id));
 
@@ -96,8 +102,8 @@ public class ConvertInDto {
 			convertInRichiestaDto(richiestaDto, getTipoRichiesteById(key, tipoRichieste));
 
 			listRichiestaDto.add(richiestaDto);
-			
-			richiestaDto=new RichiestaDto();
+
+			richiestaDto = new RichiestaDto();
 
 		}
 
