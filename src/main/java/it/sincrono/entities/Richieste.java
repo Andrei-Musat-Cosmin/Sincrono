@@ -30,20 +30,28 @@ public class Richieste {
 
 	@Column(name = "stato")
 	private Boolean stato;
+	
+	@Column(name = "note")
+	private String note;
 
 	public Richieste() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Richieste(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Boolean stato) {
+	
+
+	public Richieste(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Boolean stato, String note) {
 		super();
 		this.id = id;
 		this.anagrafica = anagrafica;
 		this.anno = anno;
 		this.mese = mese;
 		this.stato = stato;
+		this.note = note;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -83,6 +91,18 @@ public class Richieste {
 
 	public void setStato(Boolean stato) {
 		this.stato = stato;
+	}
+
+
+
+	public String getNote() {
+		return note;
+	}
+
+
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 	
 	

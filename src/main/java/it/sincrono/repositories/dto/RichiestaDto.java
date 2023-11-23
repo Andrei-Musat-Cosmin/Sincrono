@@ -13,6 +13,8 @@ public class RichiestaDto {
 	private String codiceFiscale;
 
 	private Boolean Stato;
+	
+	private String note;
 
 	private List<DuplicazioniRichiestaDto> list;
 
@@ -21,7 +23,13 @@ public class RichiestaDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public RichiestaDto(Integer id, Integer anno, Integer mese, String codiceFiscale, Boolean stato,
+	
+
+	
+
+
+
+	public RichiestaDto(Integer id, Integer anno, Integer mese, String codiceFiscale, Boolean stato, String note,
 			List<DuplicazioniRichiestaDto> list) {
 		super();
 		this.id = id;
@@ -29,8 +37,15 @@ public class RichiestaDto {
 		this.mese = mese;
 		this.codiceFiscale = codiceFiscale;
 		Stato = stato;
+		this.note = note;
 		this.list = list;
 	}
+
+
+
+
+
+
 
 	public Integer getAnno() {
 		return anno;
@@ -79,5 +94,29 @@ public class RichiestaDto {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+
+
+
+
+
+	public String getNote() {
+		return note;
+	}
+
+
+
+
+
+
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
+
+	
+	
 
 }

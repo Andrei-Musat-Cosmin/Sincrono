@@ -2,6 +2,7 @@ package it.sincrono.services.impl;
 
 import java.util.List;
 
+
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -75,7 +76,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 					.findByCodiceFiscaleAllAnagrafica(richiestaDto.getCodiceFiscale());
 
 			Integer idRichiesta = richiestaRepository
-					.saveAndFlush(new Richieste(null, anagrafica, richiestaDto.getAnno(), richiestaDto.getMese(), null))
+					.saveAndFlush(new Richieste(null, anagrafica, richiestaDto.getAnno(), richiestaDto.getMese(), null,null))
 					.getId();
 
 			tipoRichiestaRepository.saveAllAndFlush(convertInDto.convertInTipoRichieste(richiestaDto, idRichiesta));
@@ -151,7 +152,10 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			richiestaRepository.saveAndFlush(new Richieste(richiestaDto.getId(),
 					anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()), richiestaDto.getAnno(),
-					richiestaDto.getMese(), richiestaDto.getStato()));
+					richiestaDto.getMese(), richiestaDto.getStato(),richiestaDto.getNote()));
+			
+			
+			
 
 		} catch (Exception e) {
 
