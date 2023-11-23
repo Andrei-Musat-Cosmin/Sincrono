@@ -117,6 +117,32 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 		}
 
 	}
+	
+	
+	@Override
+	public List<RichiestaDto> listRichiesteDtoAccettate(RichiestaDto richiestaDto) throws ServiceException {
+
+		try {
+
+			List<RichiestaDto> listRichiestaDto = null;
+
+			Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale());
+
+			List<TipoRichieste> tipoRichieste = tipoRichiestaRepository.getRichiesteAccettate(richiestaDto.getAnno(),
+					richiestaDto.getMese(), anagrafica.getId());
+
+			if (tipoRichieste != null && tipoRichieste.size() > 0)
+				listRichiestaDto = convertInDto.convertInDifferentRichiestaDto(tipoRichieste);
+
+			return listRichiestaDto;
+
+		} catch (Exception e) {
+
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+	}
 
 	@Override
 	public void changeStato(RichiestaDto richiestaDto) throws ServiceException {

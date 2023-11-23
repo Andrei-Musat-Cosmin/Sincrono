@@ -112,6 +112,34 @@ public class RichiestaController {
 		return httpEntity;
 	}
 	
+	
+	@PostMapping("/list-richieste-accettate")
+	public @ResponseBody HttpEntity<RichiesteDtoListResponse> listRichiesteDtoAccettate(
+			@RequestBody RichiestaRequest richiestaRequest) {
+
+		HttpEntity<RichiesteDtoListResponse> httpEntity = null;
+
+		RichiesteDtoListResponse richiesteDtoListResponse = new RichiesteDtoListResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo listRichiesteDto");
+
+			List<RichiestaDto> richiesteDto = richiestaService.listRichiesteDtoAccettate(richiestaRequest.getRichiestaDto());
+
+			richiesteDtoListResponse.setList(richiesteDto);
+			richiesteDtoListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<RichiesteDtoListResponse>(richiesteDtoListResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			richiesteDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<RichiesteDtoListResponse>(richiesteDtoListResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo listRichiesteDto\n");
+
+		return httpEntity;
+	}
+	
 	@PutMapping("/cambia-stato")
 	public @ResponseBody HttpEntity<GenericResponse> changeStatus(
 			@RequestBody RichiestaRequest richiestaRequest) {

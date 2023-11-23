@@ -17,5 +17,7 @@ public interface RichiestaService {
 	
 	public void changeStato(RichiestaDto richiestaDto)throws ServiceException;
 
+	List<RichiestaDto> listRichiesteDtoAccettate(RichiestaDto richiestaDto) throws ServiceException;
+
 
 }

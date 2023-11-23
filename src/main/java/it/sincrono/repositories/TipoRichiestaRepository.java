@@ -15,6 +15,9 @@ public interface TipoRichiestaRepository extends JpaRepository<TipoRichieste, In
 
 	@Query("SELECT a FROM TipoRichieste a WHERE a.richiesta.anno=?1 and a.richiesta.mese=?2 and a.richiesta.anagrafica.id=?3")
 	public List<TipoRichieste> getRichieste(Integer anno,Integer mese,Integer idAnagrafica);
+	
+	@Query("SELECT a FROM TipoRichieste a WHERE a.richiesta.anno=?1 and a.richiesta.mese=?2 and a.richiesta.anagrafica.id=?3 and a.richiesta.stato=true")
+	public List<TipoRichieste> getRichiesteAccettate(Integer anno,Integer mese,Integer idAnagrafica);
 
 
 
