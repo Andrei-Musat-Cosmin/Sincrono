@@ -71,7 +71,8 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 		try {
 
-			Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale());
+			Anagrafica anagrafica = anagraficaRepository
+					.findByCodiceFiscaleAllAnagrafica(richiestaDto.getCodiceFiscale());
 
 			Integer idRichiesta = richiestaRepository
 					.saveAndFlush(new Richieste(null, anagrafica, richiestaDto.getAnno(), richiestaDto.getMese(), null))
@@ -117,8 +118,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 		}
 
 	}
-	
-	
+
 	@Override
 	public List<RichiestaDto> listRichiesteDtoAccettate(RichiestaDto richiestaDto) throws ServiceException {
 

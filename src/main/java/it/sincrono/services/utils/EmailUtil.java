@@ -21,13 +21,13 @@ public class EmailUtil {
 		String ferieOrPermesso = richiestaDto.getList().get(0).getFerie() == true ? "ferie" : "permesso";
 
 		String unoOrPiuGiorni = richiestaDto.getList().size() > 1
-				? " è da: " + richiestaDto.getList().get(0).getnGiorno() + " a"
+				? " è da: " + richiestaDto.getList().get(0).getnGiorno() + " a: "
 						+ richiestaDto.getList().get(richiestaDto.getList().size() - 1).getnGiorno()
 				: " è per il giorno: " + richiestaDto.getList().get(0).getnGiorno();
 
 		String link = "http://localhost:4200/richieste/:" + richiestaDto.getId();
 
-		return "la Richiesta di " + ferieOrPermesso + unoOrPiuGiorni + "per visualizzare la richiesta: " + "<a href=\""
+		return "la richiesta di " + ferieOrPermesso + unoOrPiuGiorni + " per visualizzare la richiesta: " + "<a href=\""
 				+ link + "\">clicca qui</a>";
 
 	}
@@ -36,7 +36,7 @@ public class EmailUtil {
 
 		String ferieOrPermesso = richiestaDto.getList().get(0).getFerie() == true ? "ferie" : "permesso";
 
-		return "Richiesta di " + ferieOrPermesso + " dal dipendente: " + anagrafica.getNome() + " "
+		return "richiesta di " + ferieOrPermesso + " dal dipendente: " + anagrafica.getNome() + " "
 				+ anagrafica.getCognome() + " codice fiscale: " + anagrafica.getCodiceFiscale();
 
 	}
