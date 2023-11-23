@@ -40,6 +40,8 @@ public class ConvertInDto {
 		}
 		
 		richiestaDto.setId(tipoRichieste.get(0).getRichiesta().getId());
+		
+		richiestaDto.setStato(tipoRichieste.get(0).getRichiesta().getStato());
 
 		richiestaDto.setList(list);
 
