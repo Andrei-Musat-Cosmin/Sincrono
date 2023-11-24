@@ -180,7 +180,9 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 	public void changeStato(RichiestaDto richiestaDto) throws ServiceException {
 
 		try {
-
+			if (!richiesteValidator.validateCambiaStato(richiestaDto)) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " id,stato o note di richiesta non possono essere nulli");
+			}
 			richiestaRepository.saveAndFlush(new Richieste(richiestaDto.getId(),
 					anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()), richiestaDto.getAnno(),
 					richiestaDto.getMese(), richiestaDto.getStato(), richiestaDto.getNote()));

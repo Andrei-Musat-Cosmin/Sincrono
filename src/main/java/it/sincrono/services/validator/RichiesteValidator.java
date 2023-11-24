@@ -35,8 +35,6 @@ public class RichiesteValidator {
 
 	public Boolean validateInsert(RichiestaDto richiestaDto) {
 
-		
-
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
 
 		if (richiestaDto == null || richiestaDto.getId() != null) {
@@ -68,16 +66,15 @@ public class RichiesteValidator {
 					LOGGER.log(Level.ERROR,
 							"nella richiesta se ferie o permessi sono valorizzati, nGiorno deve essere valorizzato");
 					return false;
-					
-				}else {
-					
-					if(!(duplicazioniRichiestaDto.getnGiorno()>0 && duplicazioniRichiestaDto.getnGiorno()<=31)) {
-						
-						LOGGER.log(Level.ERROR,
-								"nella richiesta il numero giorno e fuori dal range");
+
+				} else {
+
+					if (!(duplicazioniRichiestaDto.getnGiorno() > 0 && duplicazioniRichiestaDto.getnGiorno() <= 31)) {
+
+						LOGGER.log(Level.ERROR, "nella richiesta il numero giorno e fuori dal range");
 						return false;
 					}
-					
+
 				}
 
 				if (duplicazioniRichiestaDto.getPermessi() != null) {
@@ -107,8 +104,7 @@ public class RichiesteValidator {
 				return false;
 			}
 		}
-		
-		
+
 		if (isExist(richiestaDto)) {
 
 			LOGGER.log(Level.ERROR, "richiesta già esistente");
@@ -138,6 +134,31 @@ public class RichiesteValidator {
 			return false;
 		}
 
+		return true;
+
+	}
+
+	public Boolean validateCambiaStato(RichiestaDto richiestaDto) {
+		if (richiestaDto.getId() == null) {
+			LOGGER.log(Level.ERROR, "l'id della richiesta deve essere valorizzato");
+			return false;
+		}
+		
+		if (richiestaDto.getStato() == null) {
+			LOGGER.log(Level.ERROR, "lo stato della richiesta deve essere valorizzato");
+			return false;
+		}
+		
+		if (richiestaDto.getNote() == null) {
+			LOGGER.log(Level.ERROR, "le note della richiesta devono essere valorizzate");
+			return false;
+		}
+		
+		if (richiestaDto.getStato() == true) {
+			LOGGER.log(Level.ERROR, "Note disattivate");
+			 richiestaDto.setNote("false");
+		}
+		
 		return true;
 
 	}
