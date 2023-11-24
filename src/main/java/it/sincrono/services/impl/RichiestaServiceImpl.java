@@ -2,11 +2,11 @@ package it.sincrono.services.impl;
 
 import java.util.List;
 
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import it.sincrono.entities.Anagrafica;
@@ -22,6 +22,8 @@ import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
 import it.sincrono.services.utils.ConvertInDto;
 import it.sincrono.services.utils.EmailUtil;
+import it.sincrono.services.validator.RichiesteValidator;
+import jakarta.transaction.Transactional;
 
 @Service
 public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaService {
@@ -40,6 +42,9 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 	@Autowired
 	ConvertInDto convertInDto;
+
+	@Autowired
+	RichiesteValidator richiesteValidator;
 
 	@Autowired
 	EmailUtil emailUtil;
@@ -68,15 +73,21 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 	}
 
 	@Override
+	@Transactional(rollbackOn = ServiceException.class)
 	public void insertRichiesta(RichiestaDto richiestaDto) throws ServiceException {
 
 		try {
+
+			if (!richiesteValidator.validateInsert(richiestaDto)) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di richiesta");
+			}
 
 			Anagrafica anagrafica = anagraficaRepository
 					.findByCodiceFiscaleAllAnagrafica(richiestaDto.getCodiceFiscale());
 
 			Integer idRichiesta = richiestaRepository
-					.saveAndFlush(new Richieste(null, anagrafica, richiestaDto.getAnno(), richiestaDto.getMese(), null,null))
+					.saveAndFlush(
+							new Richieste(null, anagrafica, richiestaDto.getAnno(), richiestaDto.getMese(), null, null))
 					.getId();
 
 			tipoRichiestaRepository.saveAllAndFlush(convertInDto.convertInTipoRichieste(richiestaDto, idRichiesta));
@@ -87,10 +98,15 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 					emailUtil.createSubjectRichiesta(richiestaDto, anagrafica),
 					emailUtil.createBodyRichiesta(richiestaDto, anagrafica));
 
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_INTEGRITA_DATI);
+			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
-
 			LOGGER.log(Level.ERROR, e.getMessage());
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+			throw new ServiceException(e.getMessage());
 		}
 
 	}
@@ -99,6 +115,10 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 	public List<RichiestaDto> listRichiesteDto(RichiestaDto richiestaDto) throws ServiceException {
 
 		try {
+
+			if (!richiesteValidator.validateListRichieste(richiestaDto)) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di richiesta");
+			}
 
 			List<RichiestaDto> listRichiestaDto = null;
 
@@ -112,6 +132,9 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			return listRichiestaDto;
 
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -125,6 +148,10 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 		try {
 
+			if (!richiesteValidator.validateListRichieste(richiestaDto)) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di richiesta");
+			}
+
 			List<RichiestaDto> listRichiestaDto = null;
 
 			Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale());
@@ -137,6 +164,9 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			return listRichiestaDto;
 
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -146,16 +176,14 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 	}
 
 	@Override
+	@Transactional(rollbackOn = ServiceException.class)
 	public void changeStato(RichiestaDto richiestaDto) throws ServiceException {
 
 		try {
 
 			richiestaRepository.saveAndFlush(new Richieste(richiestaDto.getId(),
 					anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()), richiestaDto.getAnno(),
-					richiestaDto.getMese(), richiestaDto.getStato(),richiestaDto.getNote()));
-			
-			
-			
+					richiestaDto.getMese(), richiestaDto.getStato(), richiestaDto.getNote()));
 
 		} catch (Exception e) {
 

@@ -18,7 +18,8 @@ public class EmailUtil {
 
 	public String createBodyRichiesta(RichiestaDto richiestaDto, Anagrafica anagrafica) {
 
-		String ferieOrPermesso = richiestaDto.getList().get(0).getFerie() == true ? "ferie" : "permesso";
+		String ferieOrPermesso = richiestaDto.getList().get(0).getFerie() != null
+				&& richiestaDto.getList().get(0).getFerie() == true ? "ferie" : "permesso";
 
 		String unoOrPiuGiorni = richiestaDto.getList().size() > 1
 				? " è da: " + richiestaDto.getList().get(0).getnGiorno() + " a: "
@@ -34,7 +35,9 @@ public class EmailUtil {
 
 	public String createSubjectRichiesta(RichiestaDto richiestaDto, Anagrafica anagrafica) {
 
-		String ferieOrPermesso = richiestaDto.getList().get(0).getFerie() == true ? "ferie" : "permesso";
+		String ferieOrPermesso = richiestaDto.getList().get(0).getFerie() != null
+				&& richiestaDto.getList().get(0).getFerie() == true ? "ferie" : "permesso";
+
 
 		return "richiesta di " + ferieOrPermesso + " dal dipendente: " + anagrafica.getNome() + " "
 				+ anagrafica.getCognome() + " codice fiscale: " + anagrafica.getCodiceFiscale();
