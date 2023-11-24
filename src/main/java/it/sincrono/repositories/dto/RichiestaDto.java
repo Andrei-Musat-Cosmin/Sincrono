@@ -1,6 +1,7 @@
 package it.sincrono.repositories.dto;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RichiestaDto {
 
@@ -23,10 +24,21 @@ public class RichiestaDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	
 
-	
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RichiestaDto other = (RichiestaDto) obj;
+		return   Objects.equals(anno, other.anno)
+				&& Objects.equals(codiceFiscale, other.codiceFiscale)
+				&& Objects.equals(list, other.list) && Objects.equals(mese, other.mese);
+				
+	}
 
 
 	public RichiestaDto(Integer id, Integer anno, Integer mese, String codiceFiscale, Boolean stato, String note,

@@ -25,6 +25,9 @@ public class EmailUtil {
 				? " è da: " + richiestaDto.getList().get(0).getnGiorno() + " a: "
 						+ richiestaDto.getList().get(richiestaDto.getList().size() - 1).getnGiorno()
 				: " è per il giorno: " + richiestaDto.getList().get(0).getnGiorno();
+		
+		
+		unoOrPiuGiorni+=" per il mese: "+richiestaDto.getMese()+" per l'anno: "+richiestaDto.getAnno();
 
 		String link = "http://localhost:4200/richieste/:" + richiestaDto.getId();
 

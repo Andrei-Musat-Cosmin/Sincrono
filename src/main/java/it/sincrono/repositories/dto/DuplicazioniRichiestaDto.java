@@ -1,5 +1,7 @@
 package it.sincrono.repositories.dto;
 
+import java.util.Objects;
+
 public class DuplicazioniRichiestaDto {
 
 	private Boolean ferie;
@@ -21,6 +23,21 @@ public class DuplicazioniRichiestaDto {
 		this.daOra = daOra;
 		this.aOra = aOra;
 		this.nGiorno = nGiorno;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DuplicazioniRichiestaDto other = (DuplicazioniRichiestaDto) obj;
+		return Objects.equals(aOra, other.aOra) && Objects.equals(daOra, other.daOra)
+				&& Objects.equals(ferie, other.ferie) && Objects.equals(nGiorno, other.nGiorno)
+				&& Objects.equals(permessi, other.permessi);
 	}
 
 
