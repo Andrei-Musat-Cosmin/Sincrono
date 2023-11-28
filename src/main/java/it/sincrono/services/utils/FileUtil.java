@@ -48,8 +48,9 @@ public class FileUtil {
 			rapportinoDto = covertStringInRapportinoDto(reader.readLine(), percorso);
 
 			insertDayInRapportino(rapportinoDto, percorso);
-			
-			DateUtil.checkFestivitàNazionale(rapportinoDto,Integer.valueOf(percorso.split("/")[8].split("\\.")[0]));
+
+			DateUtil.checkFestivitàNazionale(rapportinoDto, Integer.valueOf(percorso.split("/")[8].split("\\.")[0]),
+					Integer.valueOf(percorso.split("/")[7]));
 
 			rapportinoDto.setNote(reader.readLine());
 
@@ -216,7 +217,7 @@ public class FileUtil {
 
 		rapportinoDto.getMese().setGiorni(mese);
 
-		//DateUtil.checkFestivitàNazionale(rapportinoDto);
+		// DateUtil.checkFestivitàNazionale(rapportinoDto);
 
 	}
 

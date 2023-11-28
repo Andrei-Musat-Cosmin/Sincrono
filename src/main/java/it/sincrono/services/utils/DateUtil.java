@@ -141,8 +141,8 @@ public class DateUtil {
 
 	}
 
-	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto, Integer mese) {
-		/*LocalDate datePasqua = calcolaPasqua(rapportinoDto.getAnnoRequest());
+	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto, Integer mese,Integer anno) {
+		LocalDate datePasqua = calcolaPasqua(anno);
 		LocalDate datePasquetta = calcolaPasquetta(datePasqua);
 		final List<MonthDay> GIORNI_FESTIVI = Arrays.asList(MonthDay.of(1, 1), // Capodanno
 				MonthDay.of(1, 6), // Epifania
@@ -170,7 +170,7 @@ public class DateUtil {
 				giorno.setFestivitaNazionale(true);
 
 			}
-		}*/
+		}
 
 	}
 
