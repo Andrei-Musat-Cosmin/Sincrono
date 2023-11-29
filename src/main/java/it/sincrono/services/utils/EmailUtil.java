@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import it.sincrono.entities.Anagrafica;
@@ -15,6 +16,10 @@ import it.sincrono.repositories.dto.RichiestaDto;
 
 @Component
 public class EmailUtil {
+	
+	
+	@Value("${path-frontend.path}")
+	private String pathFrontEnd;
 
 	public String createBodyRichiesta(RichiestaDto richiestaDto, Anagrafica anagrafica) {
 
@@ -29,7 +34,7 @@ public class EmailUtil {
 		
 		unoOrPiuGiorni+=" per il mese: "+richiestaDto.getMese()+" per l'anno: "+richiestaDto.getAnno();
 
-		String link = "http://localhost:4200/richieste/:" + richiestaDto.getId();
+		String link = pathFrontEnd +":" +richiestaDto.getId();
 
 		return "la richiesta di " + ferieOrPermesso + unoOrPiuGiorni + " per visualizzare la richiesta: " + "<a href=\""
 				+ link + "\">clicca qui</a>";
