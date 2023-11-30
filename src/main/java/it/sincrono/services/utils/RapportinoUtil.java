@@ -12,7 +12,7 @@ public class RapportinoUtil {
 	public void calcoloRapportinoGiorniUtiliLavoro(RapportinoDto rapportinoDto) {
 
 		rapportinoDto.setGiorniUtili(
-				DateUtil.calcolaGiorniUtiliLavoro(rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest()));
+				DateUtil.calcolaGiorniUtiliLavoro(rapportinoDto));
 
 	}
 

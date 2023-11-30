@@ -73,30 +73,22 @@ public class DateUtil {
 		return mese1 == dateSecondCompare;
 	}
 
-	public static int calcolaGiorniUtiliLavoro(int anno, int meseIntero) {
+	public static int calcolaGiorniUtiliLavoro(RapportinoDto rapportinoDto) {
+		
+		int giorniLavorati=0;
 
-		Month mese = null;
-
-		mese = convertIntInMonth(meseIntero);
-
-		int giorniLavorativi = 0;
-
-		LocalDate dataInizio = LocalDate.of(anno, mese, 1);
-		LocalDate dataFine = LocalDate.of(anno, mese, dataInizio.lengthOfMonth());
-
-		LocalDate dataCorrente = dataInizio;
-		while (!dataCorrente.isAfter(dataFine)) {
-			DayOfWeek giornoSettimana = dataCorrente.getDayOfWeek();
-
-			if (giornoSettimana != DayOfWeek.SATURDAY && giornoSettimana != DayOfWeek.SUNDAY) {
-
-				giorniLavorativi++;
+		
+		for(GiornoDto giornoDto: rapportinoDto.getMese().getGiorni()) {
+			
+			if(!(giornoDto.getNomeGiorno().equals("sabato") || giornoDto.equals("domenica") || giornoDto.getFestivitaNazionale()==true)) {
+				
+				giorniLavorati++;
+				
 			}
-
-			dataCorrente = dataCorrente.plusDays(1);
+			
 		}
-
-		return giorniLavorativi;
+		
+		return giorniLavorati;
 	}
 
 	private static Month convertIntInMonth(int numeroMese) {
