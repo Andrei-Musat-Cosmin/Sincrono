@@ -74,20 +74,20 @@ public class DateUtil {
 	}
 
 	public static int calcolaGiorniUtiliLavoro(RapportinoDto rapportinoDto) {
-		
-		int giorniLavorati=0;
 
-		
-		for(GiornoDto giornoDto: rapportinoDto.getMese().getGiorni()) {
-			
-			if(!(giornoDto.getNomeGiorno().equals("sabato") || giornoDto.equals("domenica") || giornoDto.getFestivitaNazionale()==true)) {
-				
+		int giorniLavorati = 0;
+
+		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
+
+			if (!(giornoDto.getNomeGiorno().equals("sabato") || giornoDto.getNomeGiorno().equals("domenica")
+					|| (giornoDto.getFestivitaNazionale() != null && giornoDto.getFestivitaNazionale() == true))) {
+
 				giorniLavorati++;
-				
+
 			}
-			
+
 		}
-		
+
 		return giorniLavorati;
 	}
 
@@ -133,7 +133,7 @@ public class DateUtil {
 
 	}
 
-	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto, Integer mese,Integer anno) {
+	public static void checkFestivitàNazionale(RapportinoDto rapportinoDto, Integer mese, Integer anno) {
 		LocalDate datePasqua = calcolaPasqua(anno);
 		LocalDate datePasquetta = calcolaPasquetta(datePasqua);
 		final List<MonthDay> GIORNI_FESTIVI = Arrays.asList(MonthDay.of(1, 1), // Capodanno
@@ -190,6 +190,5 @@ public class DateUtil {
 
 		return LocalDate.from(date.plusDays(1));
 	}
-	
 
 }
