@@ -1,5 +1,8 @@
 package it.sincrono.controllers;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,6 +23,7 @@ import it.sincrono.services.exceptions.ServiceException;
 @RestController
 @CrossOrigin
 public class CommessaController {
+	private static final Logger LOGGER = LogManager.getLogger(CommessaController.class);
 
 	@Autowired
 	private CommessaService commessaService;
@@ -31,7 +35,7 @@ public class CommessaController {
 		CommessaDtoListResponse commessaDtoListResponse = new CommessaDtoListResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al meotodo dashboard");
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo dashboard");
 			commessaDtoListResponse.setEsito(new Esito());
 			commessaDtoListResponse.setList(commessaService.dashboard());
 			httpEntity = new HttpEntity<CommessaDtoListResponse>(commessaDtoListResponse);
@@ -39,7 +43,7 @@ public class CommessaController {
 			commessaDtoListResponse.setEsito(new Esito(501, e.getMessage(), null));
 			httpEntity = new HttpEntity<CommessaDtoListResponse>(commessaDtoListResponse);
 		}
-		System.out.println("\nFine chiamata al meotodo dashboard");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo dashboard");
 		return httpEntity;
 	}
 
@@ -50,7 +54,7 @@ public class CommessaController {
 		GenericResponse genericResponse = new GenericResponse();
 
 		try {
-			System.out.println("Inizio chiamata al meotodo updateCommessa\n");
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo updateCommessa\n");
 
 			commessaService.update(commessaRequest.getCommessa());
 			genericResponse.setEsito(new Esito());
@@ -58,10 +62,11 @@ public class CommessaController {
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 
 		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			genericResponse.setEsito(new Esito(501, e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		System.out.println("\nFine chiamata al meotodo updateCommessa");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo updateCommessa");
 		return httpEntity;
 	}
 
@@ -73,7 +78,7 @@ public class CommessaController {
 
 		GenericResponse genericResponse = new GenericResponse();
 		try {
-			System.out.println("\nInizio chiamata al meotodo retainCommessa");
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo retainCommessa");
 
 			commessaService.retainCommessa(anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getId());
 
@@ -85,7 +90,7 @@ public class CommessaController {
 			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
 		}
-		System.out.println("Fine chiamata al meotodo retainCommessa\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo retainCommessa\n");
 
 		return httpEntity;
 	}

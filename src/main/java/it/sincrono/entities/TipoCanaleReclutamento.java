@@ -31,7 +31,7 @@ public class TipoCanaleReclutamento {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -41,7 +41,7 @@ public class TipoCanaleReclutamento {
 		if (getClass() != obj.getClass())
 			return false;
 		TipoCanaleReclutamento other = (TipoCanaleReclutamento) obj;
-		return  Objects.equals(id, other.id);
+		return Objects.equals(id, other.id);
 	}
 
 	public Integer getId() {

@@ -4,12 +4,16 @@ import java.util.Date;
 import java.util.Objects;
 
 import it.sincrono.services.utils.DateUtil;
+import it.sincrono.services.utils.TipologicheCompareCommessa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "commessa")
@@ -20,8 +24,9 @@ public class Commessa {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "azienda_cliente")
-	private String aziendaCliente;
+	@ManyToOne
+	@JoinColumn(name = "id_tipo_azienda_cliente")
+	private TipoAziendaCliente tipoAziendaCliente;
 
 	@Column(name = "cliente_finale")
 	private String clienteFinale;
@@ -52,14 +57,22 @@ public class Commessa {
 
 	@Column(name = "attivo")
 	private Boolean attivo;
+	
+	@Transient
+    private  String nome;
+	
+	@Transient
+    private  String cognome;
 
+	
 
-	public Commessa(Integer id, String aziendaCliente, String clienteFinale, String titoloPosizione, Boolean distacco,
-			Date distaccoData, String distaccoAzienda, Date dataInizio, Date dataFine, String tariffaGiornaliera,
-			String aziendaDiFatturazioneInterna, Boolean attivo) {
+	public Commessa(Integer id, TipoAziendaCliente tipoAziendaCliente, String clienteFinale, String titoloPosizione,
+			Boolean distacco, String distaccoAzienda, Date distaccoData, Date dataInizio, Date dataFine,
+			String tariffaGiornaliera, String aziendaDiFatturazioneInterna, Boolean attivo, String nome,
+			String cognome) {
 		super();
 		this.id = id;
-		this.aziendaCliente = aziendaCliente;
+		this.tipoAziendaCliente = tipoAziendaCliente;
 		this.clienteFinale = clienteFinale;
 		this.titoloPosizione = titoloPosizione;
 		this.distacco = distacco;
@@ -70,14 +83,9 @@ public class Commessa {
 		this.tariffaGiornaliera = tariffaGiornaliera;
 		this.aziendaDiFatturazioneInterna = aziendaDiFatturazioneInterna;
 		this.attivo = attivo;
-
+		this.nome = nome;
+		this.cognome = cognome;
 	}
-
-	public Commessa() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -88,7 +96,7 @@ public class Commessa {
 		if (getClass() != obj.getClass())
 			return false;
 		Commessa other = (Commessa) obj;
-		return  Objects.equals(aziendaCliente, other.aziendaCliente)
+		return TipologicheCompareCommessa.tipologicheCompare(this, other)
 				&& Objects.equals(aziendaDiFatturazioneInterna, other.aziendaDiFatturazioneInterna)
 				&& Objects.equals(clienteFinale, other.clienteFinale) && DateUtil.dateCompare(dataFine, other.dataFine)
 				&& DateUtil.dateCompare(dataInizio, other.dataInizio) && Objects.equals(distacco, other.distacco)
@@ -96,6 +104,11 @@ public class Commessa {
 				&& DateUtil.dateCompare(distaccoData, other.distaccoData) && Objects.equals(id, other.id)
 				&& Objects.equals(tariffaGiornaliera, other.tariffaGiornaliera)
 				&& Objects.equals(titoloPosizione, other.titoloPosizione);
+	}
+
+	public Commessa() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Commessa(Integer id) {
@@ -111,12 +124,12 @@ public class Commessa {
 		this.id = id;
 	}
 
-	public String getAziendaCliente() {
-		return aziendaCliente;
+	public TipoAziendaCliente getTipoAziendaCliente() {
+		return tipoAziendaCliente;
 	}
 
-	public void setAziendaCliente(String aziendaCliente) {
-		this.aziendaCliente = aziendaCliente;
+	public void setTipoAziendaCliente(TipoAziendaCliente tipoAziendaCliente) {
+		this.tipoAziendaCliente = tipoAziendaCliente;
 	}
 
 	public String getClienteFinale() {
@@ -198,5 +211,24 @@ public class Commessa {
 	public void setAttivo(Boolean attivo) {
 		this.attivo = attivo;
 	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getCognome() {
+		return cognome;
+	}
+
+	public void setCognome(String cognome) {
+		this.cognome = cognome;
+	}
+	
+	
+	
 
 }

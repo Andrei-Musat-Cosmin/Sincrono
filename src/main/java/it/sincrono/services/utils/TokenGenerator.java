@@ -3,7 +3,6 @@ package it.sincrono.services.utils;
 import java.security.SecureRandom;
 
 public class TokenGenerator {
-	
 
 	public static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	public static final int SECURE_TOKEN_LENGTH = 60;

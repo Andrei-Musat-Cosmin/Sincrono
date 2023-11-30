@@ -11,6 +11,7 @@ import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
 import it.sincrono.entities.TipoCausaFineRapporto;
 import it.sincrono.entities.TipoCcnl;
@@ -129,9 +130,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				}
 			}
 		}
-		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente() != null)
+		if (anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAziendaCliente() != null)
 			listAnagraficaDto = CheckForFilterCommessa(listAnagraficaDto,
-					anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getAziendaCliente());
+					anagraficaRequestDto.getAnagraficaDto().getCommesse().get(0).getTipoAziendaCliente().getId());
 		return listAnagraficaDto;
 	}
 
@@ -217,8 +218,6 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				String queryString = SqlStrings.SQL_ANAGRAFICA_DTO_CONTRATTI;
 
 				queryString = queryString.replace("{0}", idContratti);
-
-				System.out.println("daje" + idContratti != null && !idContratti.isEmpty() ? idContratti : "");
 
 				Query query = entityManager.createNativeQuery(queryString);
 
@@ -503,9 +502,9 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				if (result[47] != null)
 					contratto.setValoreTicket((Double.valueOf(((BigDecimal) result[47]).toString())));
 				if (result[48] != null)
-					contratto.setCategoriaProtetta((Boolean) result[48]);
-				if (result[49] != null)
-					contratto.setTutor((String) result[49]);
+					// contratto.setCategoriaProtetta((Boolean) result[48]);
+					if (result[49] != null)
+						contratto.setTutor((String) result[49]);
 				if (result[50] != null)
 					contratto.setPfi((Boolean) result[50]);
 				if (result[51] != null)
@@ -546,8 +545,8 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 
 				if (anagraficaDto.getCommesse().get(0) != null) {
 					Commessa commessa = anagraficaDto.getCommesse().get(0);
-					if (commessa.getAziendaCliente() != null && commessa.getAziendaCliente() != "") {
-						subString += " AND c.azienda_cliente LIKE '" + commessa.getAziendaCliente() + "'";
+					if (commessa.getTipoAziendaCliente() != null && commessa.getTipoAziendaCliente().getId() != null) {
+						subString += " AND c.azienda_cliente = " + commessa.getTipoAziendaCliente().getId() + "";
 					}
 
 				}
@@ -574,8 +573,12 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					Commessa commessa = new Commessa();
 					if (currentCommessa[0] != null)
 						commessa.setId((Integer) currentCommessa[0]);
-					if (currentCommessa[1] != null)
-						commessa.setAziendaCliente((String) currentCommessa[1]);
+					TipoAziendaCliente tipoAziendaCliente = new TipoAziendaCliente();
+					if (currentCommessa[1] != null) {
+						tipoAziendaCliente.setId((Integer) currentCommessa[1]);
+						tipoAziendaCliente.setDescrizione((String) currentCommessa[12]);
+					}
+					commessa.setTipoAziendaCliente(tipoAziendaCliente);
 					if (currentCommessa[2] != null)
 						commessa.setClienteFinale((String) currentCommessa[2]);
 					if (currentCommessa[3] != null)
@@ -605,7 +608,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		return listaCommesse;
 	}
 
-	private List<AnagraficaDto> CheckForFilterCommessa(List<AnagraficaDto> listAnagraficaDto, String aziendaCliente) {
+	private List<AnagraficaDto> CheckForFilterCommessa(List<AnagraficaDto> listAnagraficaDto, Integer idTipoAzienda) {
 
 		Integer currentId = 0;
 		boolean flag;
@@ -616,7 +619,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 			flag = false;
 
 			for (Commessa commessa : currentAnagraficaDto.getCommesse()) {
-				if (commessa.getAziendaCliente().toLowerCase().equals(aziendaCliente.toLowerCase())) {
+				if (commessa.getTipoAziendaCliente().getId() == idTipoAzienda) {
 					flag = true;
 					break;
 				}

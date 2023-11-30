@@ -2,35 +2,26 @@ package it.sincrono.controllers;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Ruolo;
-import it.sincrono.requests.RuoloRequest;
-import it.sincrono.responses.GenericResponse;
 import it.sincrono.responses.RuoloListResponse;
-import it.sincrono.responses.RuoloResponse;
 import it.sincrono.services.RuoloService;
 import it.sincrono.services.exceptions.ServiceException;
-
-
-/**
- * POSSIBILE CANCELLAZIONE
- */
 
 @RestController
 @CrossOrigin
 public class RuoloController {
+	private static final Logger LOGGER = LogManager.getLogger(RuoloController.class);
 
 	@Autowired
 	private RuoloService ruoloService;
@@ -177,7 +168,7 @@ public class RuoloController {
 //
 //		return httpEntity;
 //	}
-//
+	
 	@GetMapping("/ruoli-map")
 	public @ResponseBody HttpEntity<RuoloListResponse> map() {
 
@@ -186,7 +177,7 @@ public class RuoloController {
 		RuoloListResponse ruoloListResponse = new RuoloListResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo map");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo map");
 
 			List<Ruolo> ruoli = ruoloService.map();
 
@@ -199,7 +190,7 @@ public class RuoloController {
 			ruoloListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<RuoloListResponse>(ruoloListResponse);
 		}
-		System.out.println("Fine chiamata al metodo map\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo map\n");
 
 		return httpEntity;
 	}

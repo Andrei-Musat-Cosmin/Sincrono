@@ -2,6 +2,9 @@ package it.sincrono.controllers;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +21,7 @@ import it.sincrono.services.StoricoCommesseService;
 @RestController
 @CrossOrigin
 public class StoricoCommesseController {
+	private static final Logger LOGGER = LogManager.getLogger(StoricoCommesseController.class);
 
 	@Autowired
 	private StoricoCommesseService storicoCommesseService;
@@ -30,7 +34,7 @@ public class StoricoCommesseController {
 		CommessaListResponse commessaListResponse = new CommessaListResponse();
 
 		try {
-			System.out.println("\nInizio chiamata al metodo getStoricoCommesseByAnagrafica");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo getStoricoCommesseByAnagrafica");
 
 			List<Commessa> storicoCommesse = storicoCommesseService.getStoricoCommesseByAnagrafica(id);
 
@@ -40,10 +44,11 @@ public class StoricoCommesseController {
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 
 		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			commessaListResponse.setEsito(new Esito(501, e.getMessage(), null));
 			httpEntity = new HttpEntity<CommessaListResponse>(commessaListResponse);
 		}
-		System.out.println("Fine chiamata al metodo getStoricoCommesseByAnagrafica\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo getStoricoCommesseByAnagrafica\n");
 
 		return httpEntity;
 	}

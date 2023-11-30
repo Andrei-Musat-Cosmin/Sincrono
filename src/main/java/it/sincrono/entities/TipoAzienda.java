@@ -31,7 +31,6 @@ public class TipoAzienda {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -42,7 +41,7 @@ public class TipoAzienda {
 		if (getClass() != obj.getClass())
 			return false;
 		TipoAzienda other = (TipoAzienda) obj;
-		return  Objects.equals(id, other.id);
+		return Objects.equals(id, other.id);
 	}
 
 	public Integer getId() {

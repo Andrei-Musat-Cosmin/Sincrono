@@ -1,62 +1,53 @@
 package it.sincrono.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
-import org.mindrot.jbcrypt.BCrypt;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
 
-import it.sincrono.entities.Anagrafica;
-import it.sincrono.entities.Commessa;
-import it.sincrono.entities.Contratto;
-import it.sincrono.entities.Profilo;
-import it.sincrono.entities.Ruolo;
-import it.sincrono.entities.StoricoCommesse;
-import it.sincrono.entities.StoricoContratti;
-import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
-import it.sincrono.repositories.CommessaRepository;
-import it.sincrono.repositories.ContrattoRepository;
-import it.sincrono.repositories.DashboardRepository;
-import it.sincrono.repositories.ProfiloRepository;
-import it.sincrono.repositories.StoricoCommesseRepository;
-import it.sincrono.repositories.StoricoContrattiRepository;
-import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
-import it.sincrono.repositories.exceptions.RepositoryException;
 import it.sincrono.requests.AnagraficaRequestDto;
-import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.DashboardService;
-import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
-import it.sincrono.services.utils.ObjectCompare;
-import it.sincrono.services.utils.TokenGenerator;
-import it.sincrono.services.validator.AnagraficaValidator;
-import it.sincrono.services.validator.CommessaValidator;
-import it.sincrono.services.validator.CommessaValidatorList;
-import it.sincrono.services.validator.ContrattoValidator;
-import it.sincrono.services.validator.RuoloValidator;
-import jakarta.transaction.Transactional;
+import it.sincrono.services.utils.FilterCustom;
+import it.sincrono.services.utils.MapperCustom;
 
 @Service
 public class DashboardServiceImpl extends BaseServiceImpl implements DashboardService {
+	private static final Logger LOGGER = LogManager.getLogger(DashboardServiceImpl.class);
 
 	@Autowired
-	private DashboardRepository dashboardRepository;
+	private AnagraficaRepository anagraficaRepository;
+	@Autowired
+	private MapperCustom mapper;
+	@Autowired
+	private FilterCustom filter;
 
 	@Override
 	public List<AnagraficaDto> getCommesseInscadenza() throws ServiceException {
 
-		List<AnagraficaDto> list = null;
+		List<AnagraficaDto> list = new ArrayList<AnagraficaDto>();
 
 		try {
-			list = dashboardRepository.listCommesseInScadenza();
+
+			for (AnagraficaDto anagraficaDto : anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto)
+					.collect(Collectors.toList())) {
+
+				anagraficaDto.setCommesse(anagraficaDto.getCommesse().stream()
+						.filter(commessa -> filter.checkCommesseInScadenza(commessa)).collect(Collectors.toList()));
+
+				list.add(anagraficaDto);
+			}
+
 		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -68,9 +59,11 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = dashboardRepository.listContrattiInScadenza();
+			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList())
+					.stream().filter(anagraficaDto -> filter.checkContrattiInScadenza(anagraficaDto.getContratto()))
+					.collect(Collectors.toList());
 		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -82,9 +75,15 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = dashboardRepository.listCommesse(anagraficaRequestDto);
+			list = this.listAllCommesse().stream()
+					.filter(anagraficaDto -> filter.toFilterAnagraficaDto(anagraficaDto, anagraficaRequestDto))
+					.collect(Collectors.toList());
+			for (AnagraficaDto anagraficaDto : list)
+				anagraficaDto.setCommesse(anagraficaDto.getCommesse().stream()
+						.filter(commessa -> filter.toFilterCommesse(commessa, anagraficaRequestDto))
+						.collect(Collectors.toList()));
 		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -93,12 +92,19 @@ public class DashboardServiceImpl extends BaseServiceImpl implements DashboardSe
 
 	@Override
 	public List<AnagraficaDto> listAllCommesse() throws ServiceException {
-		List<AnagraficaDto> list = null;
+		List<AnagraficaDto> list = new ArrayList<AnagraficaDto>();
 
 		try {
-			list = dashboardRepository.listAllCommesse();
+			for (AnagraficaDto anagraficaDto : anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto)
+					.collect(Collectors.toList())) {
+
+				anagraficaDto.setCommesse(anagraficaDto.getCommesse().stream()
+						.filter(commessa -> filter.checkScaduta(commessa)).collect(Collectors.toList()));
+
+				list.add(anagraficaDto);
+			}
 		} catch (Exception e) {
-			System.out.println("Exception occurs {}");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 

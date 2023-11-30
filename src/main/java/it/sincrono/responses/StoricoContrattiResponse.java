@@ -3,7 +3,7 @@ package it.sincrono.responses;
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.StoricoContratti;
 
-public class StoricoContrattiResponse extends GenericResponse{
+public class StoricoContrattiResponse extends GenericResponse {
 
 	private StoricoContratti storicoContratti;
 
@@ -29,6 +29,5 @@ public class StoricoContrattiResponse extends GenericResponse{
 	public void setStoricoContratti(StoricoContratti storicoContratti) {
 		this.storicoContratti = storicoContratti;
 	}
-
 
 }

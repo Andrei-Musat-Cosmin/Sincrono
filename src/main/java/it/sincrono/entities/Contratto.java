@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import it.sincrono.services.utils.DateUtil;
-import it.sincrono.services.utils.TipologicheCompare;
+import it.sincrono.services.utils.TipologicheCompareContratto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +27,10 @@ public class Contratto {
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_causa_fine_rapporto")
 	private TipoCausaFineRapporto tipoCausaFineRapporto;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_tipo_causa_fine_contratto")
+	private TipoCausaFineContratto tipoCausaFineContratto;
 
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_canale_reclutamento")
@@ -68,6 +72,9 @@ public class Contratto {
 
 	@Column(name = "data_fine_rapporto")
 	private Date dataFineRapporto;
+	
+	@Column(name = "data_fine_contratto")
+	private Date dataFineContratto;
 
 	@Column(name = "mesi_durata")
 	private Integer mesiDurata;
@@ -107,9 +114,6 @@ public class Contratto {
 
 	@Column(name = "valore_ticket")
 	private Double valoreTicket;
-
-	@Column(name = "categoria_protetta")
-	private Boolean categoriaProtetta;
 
 	@Column(name = "tutor")
 	private String tutor;
@@ -153,20 +157,25 @@ public class Contratto {
 	@Transient
 	private Double RalPartTime;
 
+	
+	
+
 	public Contratto(Integer id, TipoCausaFineRapporto tipoCausaFineRapporto,
-			TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
-			TipoLivelloContratto tipoLivelloContratto, TipoAzienda tipoAzienda, TipoCcnl tipoCcnl, Boolean attivo,
-			String qualifica, String sedeAssunzione, Date dataAssunzione, Date dataInizioProva, Date dataFineProva,
-			Date dataFineRapporto, Integer mesiDurata, String livelloAttuale, String livelloFinale, Boolean partTime,
-			Double percentualePartTime, Double retribuzioneMensileLorda, Double superminimoMensile, Double ralAnnua,
-			Double superminimoRal, Double diariaMensile, Double diariaGiornaliera, Boolean ticket, Double valoreTicket,
-			Boolean categoriaProtetta, String tutor, Boolean pfi, Boolean corsoSicurezza, Date dataCorsoSicurezza,
-			Boolean pc, Boolean visitaMedica, Date dataVisitaMedica, Double scattiAnzianita, Double tariffaPartitaIva,
-			Boolean assicurazioneObbligatoria, Double retribuzioneNettaGiornaliera, Double retribuzioneNettaMensile,
-			Double diariaAnnua) {
+			TipoCausaFineContratto tipoCausaFineContratto, TipoCanaleReclutamento tipoCanaleReclutamento,
+			TipoContratto tipoContratto, TipoLivelloContratto tipoLivelloContratto, TipoAzienda tipoAzienda,
+			TipoCcnl tipoCcnl, Boolean attivo, String qualifica, String sedeAssunzione, Date dataAssunzione,
+			Date dataInizioProva, Date dataFineProva, Date dataFineRapporto, Date dataFineContratto, Integer mesiDurata,
+			String livelloAttuale, String livelloFinale, Boolean partTime, Double percentualePartTime,
+			Double retribuzioneMensileLorda, Double superminimoMensile, Double ralAnnua, Double superminimoRal,
+			Double diariaMensile, Double diariaGiornaliera, Boolean ticket, Double valoreTicket, String tutor,
+			Boolean pfi, Boolean corsoSicurezza, Date dataCorsoSicurezza, Boolean pc, Boolean visitaMedica,
+			Date dataVisitaMedica, Double scattiAnzianita, Double tariffaPartitaIva, Boolean assicurazioneObbligatoria,
+			Double retribuzioneNettaGiornaliera, Double retribuzioneNettaMensile, Double diariaAnnua,
+			Double ralPartTime) {
 		super();
 		this.id = id;
 		this.tipoCausaFineRapporto = tipoCausaFineRapporto;
+		this.tipoCausaFineContratto = tipoCausaFineContratto;
 		this.tipoCanaleReclutamento = tipoCanaleReclutamento;
 		this.tipoContratto = tipoContratto;
 		this.tipoLivelloContratto = tipoLivelloContratto;
@@ -179,6 +188,7 @@ public class Contratto {
 		this.dataInizioProva = dataInizioProva;
 		this.dataFineProva = dataFineProva;
 		this.dataFineRapporto = dataFineRapporto;
+		this.dataFineContratto = dataFineContratto;
 		this.mesiDurata = mesiDurata;
 		this.livelloAttuale = livelloAttuale;
 		this.livelloFinale = livelloFinale;
@@ -192,7 +202,6 @@ public class Contratto {
 		this.diariaGiornaliera = diariaGiornaliera;
 		this.ticket = ticket;
 		this.valoreTicket = valoreTicket;
-		this.categoriaProtetta = categoriaProtetta;
 		this.tutor = tutor;
 		this.pfi = pfi;
 		this.corsoSicurezza = corsoSicurezza;
@@ -206,6 +215,7 @@ public class Contratto {
 		this.retribuzioneNettaGiornaliera = retribuzioneNettaGiornaliera;
 		this.retribuzioneNettaMensile = retribuzioneNettaMensile;
 		this.diariaAnnua = diariaAnnua;
+		RalPartTime = ralPartTime;
 	}
 
 	public Contratto(TipoCanaleReclutamento tipoCanaleReclutamento, TipoContratto tipoContratto,
@@ -226,7 +236,6 @@ public class Contratto {
 		// TODO Auto-generated constructor stub
 	}
 
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -236,9 +245,7 @@ public class Contratto {
 		if (getClass() != obj.getClass())
 			return false;
 		Contratto other = (Contratto) obj;
-		return 
-				 Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
-				 && Objects.equals(categoriaProtetta, other.categoriaProtetta)
+		return Objects.equals(assicurazioneObbligatoria, other.assicurazioneObbligatoria)
 				&& Objects.equals(corsoSicurezza, other.corsoSicurezza)
 				&& DateUtil.dateCompare(dataAssunzione, other.dataAssunzione)
 				&& DateUtil.dateCompare(dataCorsoSicurezza, other.dataCorsoSicurezza)
@@ -262,9 +269,8 @@ public class Contratto {
 				&& Objects.equals(superminimoMensile, other.superminimoMensile)
 				&& Objects.equals(superminimoRal, other.superminimoRal)
 				&& Objects.equals(tariffaPartitaIva, other.tariffaPartitaIva) && Objects.equals(ticket, other.ticket)
-				&& TipologicheCompare.tipologicheCompare(this,other)
-				&& Objects.equals(tutor, other.tutor) && Objects.equals(valoreTicket, other.valoreTicket)
-				&& Objects.equals(visitaMedica, other.visitaMedica);
+				&& TipologicheCompareContratto.tipologicheCompare(this, other) && Objects.equals(tutor, other.tutor)
+				&& Objects.equals(valoreTicket, other.valoreTicket) && Objects.equals(visitaMedica, other.visitaMedica);
 	}
 
 	public Integer getId() {
@@ -483,14 +489,6 @@ public class Contratto {
 		this.valoreTicket = valoreTicket;
 	}
 
-	public Boolean getCategoriaProtetta() {
-		return categoriaProtetta;
-	}
-
-	public void setCategoriaProtetta(Boolean categoriaProtetta) {
-		this.categoriaProtetta = categoriaProtetta;
-	}
-
 	public String getTutor() {
 		return tutor;
 	}
@@ -605,6 +603,22 @@ public class Contratto {
 
 		this.RalPartTime = ralPartTime;
 
+	}
+
+	public TipoCausaFineContratto getTipoCausaFineContratto() {
+		return tipoCausaFineContratto;
+	}
+
+	public void setTipoCausaFineContratto(TipoCausaFineContratto tipoCausaFineContratto) {
+		this.tipoCausaFineContratto = tipoCausaFineContratto;
+	}
+
+	public Date getDataFineContratto() {
+		return dataFineContratto;
+	}
+
+	public void setDataFineContratto(Date dataFineContratto) {
+		this.dataFineContratto = dataFineContratto;
 	}
 	
 	

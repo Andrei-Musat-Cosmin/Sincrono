@@ -1,7 +1,6 @@
 package it.sincrono.responses;
 
 import java.util.List;
-import java.util.Objects;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Contratto;

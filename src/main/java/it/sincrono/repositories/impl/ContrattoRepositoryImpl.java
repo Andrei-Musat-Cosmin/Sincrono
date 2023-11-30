@@ -1,7 +1,6 @@
 package it.sincrono.repositories.impl;
 
 import java.math.BigDecimal;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -71,18 +70,17 @@ public class ContrattoRepositoryImpl extends BaseRepositoryImpl implements Contr
 			throw new RepositoryException(e);
 		}
 	}
-	
+
 	public Contratto currentContratto(Integer id) throws RepositoryException {
 		try {
-			
+
 			String queryString = SqlStrings.SQL_CURRENT_CONTRATTO;
 
 			Query query = entityManager.createNativeQuery(queryString);
-			
+
 			Contratto contratto = (Contratto) query.getSingleResult();
-			
+
 			return contratto;
-			
 
 		} catch (Exception e) {
 			throw new RepositoryException(e);

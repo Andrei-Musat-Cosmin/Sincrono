@@ -2,6 +2,9 @@ package it.sincrono.controllers;
 
 import java.util.List;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +24,7 @@ import it.sincrono.services.exceptions.ServiceException;
 @RestController
 @CrossOrigin
 public class DashboardController {
+	private static final Logger LOGGER = LogManager.getLogger(DashboardController.class);
 
 	@Autowired
 	private DashboardService dashboardService;
@@ -32,7 +36,7 @@ public class DashboardController {
 
 		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
-			System.out.println("\nInizio chiamata al metodo getCommesseInscadenza\n");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo getCommesseInscadenza\n");
 
 			List<AnagraficaDto> anagrafiche = dashboardService.getCommesseInscadenza();
 
@@ -42,10 +46,11 @@ public class DashboardController {
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
-		System.out.println("Fine chiamata al metodo getCommesseInscadenza\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo getCommesseInscadenza\n");
 
 		return httpEntity;
 	}
@@ -57,7 +62,7 @@ public class DashboardController {
 
 		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
-			System.out.println("\nInizio chiamata al metodo getContrattiInscadenza");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo getContrattiInscadenza");
 
 			List<AnagraficaDto> anagrafiche = dashboardService.getContrattiInscadenza();
 
@@ -67,10 +72,11 @@ public class DashboardController {
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
-		System.out.println("Fine chiamata al metodo getContrattiInscadenza\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo getContrattiInscadenza\n");
 
 		return httpEntity;
 	}
@@ -83,7 +89,7 @@ public class DashboardController {
 
 		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
-			System.out.println("\nInizio chiamata al metodo listCommesse");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo listCommesse");
 
 			List<AnagraficaDto> anagrafiche = dashboardService.listCommesse(anagraficaRequestDto);
 
@@ -93,10 +99,11 @@ public class DashboardController {
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
-		System.out.println("Fine chiamata al metodo listCommesse\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo listCommesse\n");
 
 		return httpEntity;
 	}
@@ -108,7 +115,7 @@ public class DashboardController {
 
 		AnagraficaDtoListResponse anagraficaDtoListResponse = new AnagraficaDtoListResponse();
 		try {
-			System.out.println("\nInizio chiamata al metodo listAllCommesse");
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo listAllCommesse");
 
 			List<AnagraficaDto> anagrafiche = dashboardService.listAllCommesse();
 
@@ -118,10 +125,11 @@ public class DashboardController {
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 
 		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			anagraficaDtoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
 			httpEntity = new HttpEntity<AnagraficaDtoListResponse>(anagraficaDtoListResponse);
 		}
-		System.out.println("Fine chiamata al metodo listAllCommesse\n");
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo listAllCommesse\n");
 
 		return httpEntity;
 	}

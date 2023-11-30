@@ -1,7 +1,5 @@
 package it.sincrono.entities;
 
-import java.util.Date;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "operazioni")
 public class Operazione {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -73,8 +71,5 @@ public class Operazione {
 	public void setMetodo(String metodo) {
 		this.metodo = metodo;
 	}
-	
-	
-
 
 }

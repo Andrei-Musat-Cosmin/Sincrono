@@ -15,17 +15,17 @@ public class PrivilegioValidator {
 
 		boolean result = true;
 
-		if(privilegio != null) {
+		if (privilegio != null) {
 
-			if(privilegio.getId() != null) {
+			if (privilegio.getId() != null) {
 				result = false;
 			}
 
 			/*
 			 * Mandatory fields
 			 */
-			if(	privilegio.getRuolo() == null || privilegio.getRuolo().getId() == null ||
-				privilegio.getFunzione() == null || privilegio.getFunzione().getId() == null) {
+			if (privilegio.getRuolo() == null || privilegio.getRuolo().getId() == null
+					|| privilegio.getFunzione() == null || privilegio.getFunzione().getId() == null) {
 				result = false;
 			}
 

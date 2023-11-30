@@ -31,5 +31,4 @@ public class ProfiliDtoListResponse extends GenericResponse {
 		this.list = list;
 	}
 
-	
 }

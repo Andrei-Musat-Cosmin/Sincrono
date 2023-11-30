@@ -41,7 +41,7 @@ public class TipoCausaFineRapporto {
 		if (getClass() != obj.getClass())
 			return false;
 		TipoCausaFineRapporto other = (TipoCausaFineRapporto) obj;
-		return  Objects.equals(id, other.id);
+		return Objects.equals(id, other.id);
 	}
 
 	public Integer getId() {

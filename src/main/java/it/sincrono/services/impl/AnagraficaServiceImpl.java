@@ -1,11 +1,18 @@
 package it.sincrono.services.impl;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -17,7 +24,9 @@ import it.sincrono.entities.Profilo;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.entities.StoricoContratti;
+import it.sincrono.entities.TipoCanaleReclutamento;
 import it.sincrono.entities.TipoCcnl;
+import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
@@ -25,7 +34,7 @@ import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.repositories.StoricoContrattiRepository;
-import it.sincrono.repositories.TipologicheContrattoRepository;
+import it.sincrono.repositories.TipologicheRepository;
 import it.sincrono.repositories.UtenteRepository;
 import it.sincrono.repositories.dto.AnagraficaDto;
 import it.sincrono.requests.AnagraficaRequestDto;
@@ -33,6 +42,10 @@ import it.sincrono.services.AnagraficaService;
 import it.sincrono.services.EmailService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
+import it.sincrono.services.utils.ExcelUtilAnagrafica;
+import it.sincrono.services.utils.FileUtil;
+import it.sincrono.services.utils.FilterCustom;
+import it.sincrono.services.utils.MapperCustom;
 import it.sincrono.services.utils.ObjectCompare;
 import it.sincrono.services.utils.TokenGenerator;
 import it.sincrono.services.validator.AnagraficaValidator;
@@ -44,6 +57,17 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class AnagraficaServiceImpl extends BaseServiceImpl implements AnagraficaService {
+
+	@Value("${anagrafiche-profili.path-prefix}")
+	private String PREFIX;
+
+	@Value("${anagrafiche-profili.destinazione}")
+	private String DESTINAZIONE;
+
+	@Value("${anagrafiche-profili.anagrafiche-profili-rapportini.path-prefix-rapportini}")
+	private String RAPPORTINI;
+
+	private static final Logger LOGGER = LogManager.getLogger(AnagraficaServiceImpl.class);
 
 	@Autowired
 	private AnagraficaRepository anagraficaRepository;
@@ -60,7 +84,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private ProfiloRepository profiloRepository;
 	@Autowired
-	private TipologicheContrattoRepository TipologicheContrattoRepository;
+	private TipologicheRepository tipologicheContrattoRepository;
 
 	@Autowired
 	private EmailService emailService;
@@ -86,119 +110,17 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private CommessaValidatorList commessaValidatorList;
 
-//	@Override
-//	public List<Anagrafica> list() throws ServiceException {
-//
-//		List<Anagrafica> list = null;
-//
-//		try {
-//			list = anagraficaRepository.findAll();
-//		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-//		}
-//
-//		return list;
-//	}
-//
-//	@Override
-//	public Anagrafica getById(Integer ID) throws ServiceException {
-//		Anagrafica anagrafica = null;
-//
-//		try {
-//			anagrafica = anagraficaRepository.findById(ID).get();
-//		} catch (NoSuchElementException ne) {
-//			System.out.println("Exception occurs {}, ID {}");
-//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-//		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-//		}
-//
-//		return anagrafica;
-//	}
-//
-//	@Override
-//	public void insert(Anagrafica anagrafica) throws ServiceException {
-//
-//		if (!anagraficaValidator.validate(anagrafica, true)) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
-//		}
-//
-//		try {
-//			anagraficaRepository.saveAndFlush(anagrafica);
-//		} catch (DataIntegrityViolationException de) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-//		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-//		}
-//
-//	}
-//
-//	@Override
-//	public void update(Anagrafica anagrafica) throws ServiceException {
-//		if (!anagraficaValidator.validate(anagrafica, false)) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
-//		}
-//
-//		try {
-//			Anagrafica Currentanagrafica = anagraficaRepository.findById(anagrafica.getId()).get();
-////			Currentanagrafica.setId(anagrafica.getId());
-//			Currentanagrafica.setAltriTitoli(anagrafica.getAltriTitoli());
-//			Currentanagrafica.setCellulareAziendale(anagrafica.getCellulareAziendale());
-//			Currentanagrafica.setCellularePrivato(anagrafica.getCellularePrivato());
-//			Currentanagrafica.setCodiceFiscale(anagrafica.getCodiceFiscale());
-//			Currentanagrafica.setCognome(anagrafica.getCognome());
-//			Currentanagrafica.setComuneDiNascita(anagrafica.getComuneDiNascita());
-//			Currentanagrafica.setConiugato(anagrafica.getConiugato());
-//			Currentanagrafica.setDataDiNascita(anagrafica.getDataDiNascita());
-//			Currentanagrafica.setDomicilio(anagrafica.getDomicilio());
-//			Currentanagrafica.setFigliACarico(anagrafica.getFigliACarico());
-//			Currentanagrafica.setMailAziendale(anagrafica.getMailAziendale());
-//			Currentanagrafica.setMailPec(anagrafica.getMailPec());
-//			Currentanagrafica.setMailPrivata(anagrafica.getMailPrivata());
-//			Currentanagrafica.setNome(anagrafica.getNome());
-//			Currentanagrafica.setResidenza(anagrafica.getResidenza());
-//			Currentanagrafica.setTitoliDiStudio(anagrafica.getTitoliDiStudio());
-//
-//			anagraficaRepository.saveAndFlush(Currentanagrafica);
-//
-//		} catch (NoSuchElementException ne) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-//		} catch (DataIntegrityViolationException de) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-//		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-//		}
-//
-//	}
-//
-//	@Override
-//	public void delete(Integer ID) throws ServiceException {
-//		try {
-//			Anagrafica anagrafica = anagraficaRepository.findById(ID).get();
-//
-//			anagraficaRepository.delete(anagrafica);
-//			anagraficaRepository.flush();
-//
-//		} catch (NoSuchElementException ne) {
-//			System.out.println("Exception occurs {}, id {}");
-//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-//		} catch (DataIntegrityViolationException de) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
-//		} catch (Exception e) {
-//			System.out.println("Exception occurs {}");
-//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-//		}
-//	}
+	@Autowired
+	private MapperCustom mapper;
+
+	@Autowired
+	private FilterCustom filter;
+
+	@Autowired
+	FileUtil fileUtil;
+
+	@Autowired
+	ExcelUtilAnagrafica excelUtilAnagrafica;
 
 	@Override
 	public List<AnagraficaDto> filterListAnagraficaDto(AnagraficaRequestDto anagraficaRequestDto)
@@ -207,44 +129,28 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.filterListAnagraficaDto(anagraficaRequestDto);
+
+			list = anagraficaRepository.findAllId().stream().map(mapper::toAnagraficaDto).collect(Collectors.toList())
+					.stream().filter(anagraficaDto -> filter.toFilter(anagraficaDto, anagraficaRequestDto))
+					.collect(Collectors.toList());
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return list;
 	}
 
-	/*
-	 * 
-	 * List<AnagraficaDto> list = new ArrayList<>(); try { List<Anagrafica>
-	 * listaAnagrafiche = anagraficaRepository.getAllActive(); for (Anagrafica
-	 * currentAnagrafica : listaAnagrafiche) {
-	 * 
-	 * List<Commessa> listaCommesse= new ArrayList<>(); AnagraficaDto
-	 * currentAnagraficaDto = new AnagraficaDto();
-	 * currentAnagraficaDto.setAnagrafica(currentAnagrafica);
-	 * currentAnagraficaDto.setContratto(contrattoRepository.getById(
-	 * currentAnagrafica.getId()));
-	 * 
-	 * for() {
-	 * 
-	 * listaCommesse.add(commessaRepository.getById()); } list.add(anagraficaDto); }
-	 * } catch (Exception e) { System.out.println("Exception occurs {}"); throw new
-	 * ServiceException(ServiceMessages.ERRORE_GENERICO); }
-	 * 
-	 * return list;
-	 */
 	@Override
 	public List<AnagraficaDto> listAnagraficaDto() throws ServiceException {
 
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.listAnagraficaDto();
+			list = anagraficaRepository.findAllactiveId().stream().map(mapper::toAnagraficaDto)
+					.collect(Collectors.toList());
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -256,13 +162,14 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		AnagraficaDto anagraficaDto = null;
 
 		try {
-			anagraficaDto = anagraficaRepository.getAnagraficaDto(id);
+			anagraficaDto = mapper.toAnagraficaDto(id);
 			calcoloRalPartTime(anagraficaDto);
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs { RECORD_NON_TROVATO }");
+			calcoloTipoLivello(anagraficaDto);
+		} catch (NoSuchElementException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -275,8 +182,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		try {
 			if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)) {
-				System.out.println("Exception occurs { ERRORE_VALIDAZIONE per i dati di anagrafica}");
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " dei dati di anagrafica");
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di anagrafica");
 			}
 
 			String passwordUtente = new TokenGenerator().nextToken();
@@ -295,23 +201,21 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getRuolo() != null) {
 
 				if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
-					System.out.println("Exception occurs { ERRORE_VALIDAZIONE per i dati di ruolo}");
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di ruolo");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di ruolo");
 				}
 
 				profiloRepository
 						.saveAndFlush(new Profilo(new Ruolo(anagraficaDto.getRuolo().getId()), new Utente(idUtente)));
 			} else {
 
-				profiloRepository.saveAndFlush(new Profilo(new Ruolo(2), new Utente(idUtente)));
+				profiloRepository.saveAndFlush(new Profilo(new Ruolo(3), new Utente(idUtente)));
 
 			}
 
 			if (anagraficaDto.getCommesse() != null && anagraficaDto.getCommesse().size() != 0) {
 
 				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)) {
-					System.out.println("Exception occurs { ERRORE_VALIDAZIONE per i dati di commesse}");
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di commesse");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di commesse");
 				}
 
 				for (Commessa commessa : anagraficaDto.getCommesse()) {
@@ -326,11 +230,13 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			if (anagraficaDto.getContratto() != null) {
 				if (!contrattoValidator.validate(anagraficaDto.getContratto(), true)) {
-					System.out.println("Exception occurs {ERRORE VALIDAZIONE per i dati di contratto}");
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di contratto");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di contratto");
 				}
+
 				CalcoloDataFineRapporto(anagraficaDto, true);
 				CalcoloTipoCcnl(anagraficaDto);
+				calcoloTipoLivello(anagraficaDto);
+
 				anagraficaDto.getContratto()
 						.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
 								? anagraficaDto.getAnagrafica().getTipoAzienda()
@@ -341,54 +247,32 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 						.saveAndFlush(new StoricoContratti(new Anagrafica(idAnagrafica), new Contratto(idContratto)));
 			}
 
-			/*emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null, "CREAZIONE UTENZA",
-					"username: " + anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
-							+ passwordUtente);*/
+			LocalDate oggi = LocalDate.now();
 
-			System.out.println("Password " + passwordUtente);
+			fileUtil.creatFolder(PREFIX + DESTINAZIONE + anagraficaDto.getAnagrafica().getCodiceFiscale() + RAPPORTINI
+					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
 
-		} catch (DataIntegrityViolationException de) {
-			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
+			/*
+			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),
+			 * null, "CREAZIONE UTENZA", "username: " +
+			 * anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
+			 * + passwordUtente);
+			 */
+
+			LOGGER.log(Level.INFO, "Password " + passwordUtente);
+
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_INTEGRITA_DATI);
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 
 	}
-
-	/*
-	 * @Override public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws
-	 * ServiceException { if
-	 * (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), false)) {
-	 * System.out.println("Exception occurs {}"); throw new
-	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); } if
-	 * (!commessaValidator.validate(anagraficaDto.getCommessa(), false)) {
-	 * System.out.println("Exception occurs {}"); throw new
-	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); } if
-	 * (!contrattoValidator.validate(anagraficaDto.getContratto(), false)) {
-	 * System.out.println("Exception occurs {}"); throw new
-	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); }
-	 * 
-	 * try {
-	 * anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get();
-	 * anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica());
-	 * contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
-	 * contrattoRepository.saveAndFlush(anagraficaDto.getContratto());
-	 * commesseRepository.findById(anagraficaDto.getCommessa().getId()).get();
-	 * commesseRepository.saveAndFlush(anagraficaDto.getCommessa());
-	 * 
-	 * } catch (NoSuchElementException ne) {
-	 * System.out.println("Exception occurs {}"); throw new
-	 * ServiceException(ServiceMessages.RECORD_NON_TROVATO); } catch
-	 * (DataIntegrityViolationException de) {
-	 * System.out.println("Exception occurs {}"); throw new
-	 * ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI); } catch (Exception
-	 * e) { System.out.println("Exception occurs {}"); throw new
-	 * ServiceException(ServiceMessages.ERRORE_GENERICO); }
-	 * 
-	 * }
-	 */
 
 	@Override
 	@Transactional(rollbackOn = ServiceException.class)
@@ -402,8 +286,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			// DefaultTransactionDefinition());
 
 			if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), false)) {
-				System.out.println("Exception occurs { ERRORE_VALIDAZIONE per i dati di anagrafica }");
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di anagrafica");
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di anagrafica");
 			}
 
 			anagraficaDto.getAnagrafica().setAttivo(true);
@@ -415,8 +298,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getRuolo() != null) {
 
 				if (!ruoloValidator.validate(anagraficaDto.getRuolo(), false)) {
-					System.out.println("Exception occurs { ERRORE_VALIDAZIONE per i dati di ruolo }");
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di ruolo");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di ruolo");
 				}
 
 				Integer idProfilo = profiloRepository.getidProfilo(idAnagrafica);
@@ -428,8 +310,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getCommesse() != null && anagraficaDto.getCommesse().size() != 0) {
 
 				if (!commessaValidatorList.validate(anagraficaDto.getCommesse(), true, false)) {
-					System.out.println("Exception occurs { ERRORE_VALIDAZIONE, per i dati di commesse }");
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di commesse");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di commesse");
 				}
 
 				for (Commessa commessa : anagraficaDto.getCommesse()) {
@@ -463,8 +344,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (anagraficaDto.getContratto() != null) {
 
 				if (!contrattoValidator.validateUpdate(anagraficaDto.getContratto())) {
-					System.out.println("Exception occurs { ERRORE_VALIDAZIONE, per i dati di contratto }");
-					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, "per i dati di contratto");
+					throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di contratto");
 				}
 
 				if (anagraficaDto.getContratto().getId() != null) {
@@ -472,13 +352,17 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 					Contratto contratto = contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
 					if (!objectCompare.Compare(anagraficaDto.getContratto(), contratto)) {
 
-						if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null)
+						if (anagraficaDto.getContratto().getTipoCausaFineRapporto() == null) {
+
 							CalcoloDataFineRapporto(anagraficaDto, true);
+
+						}
 						anagraficaDto.getContratto()
 								.setTipoAzienda(anagraficaDto.getAnagrafica().getTipoAzienda() != null
 										? anagraficaDto.getAnagrafica().getTipoAzienda()
 										: null);
 						CalcoloTipoCcnl(anagraficaDto);
+						calcoloTipoLivello(anagraficaDto);
 						anagraficaDto.getContratto().setId(null);
 						anagraficaDto.getContratto().setAttivo(true);
 						Integer idContratto = contrattoRepository.saveAndFlush(anagraficaDto.getContratto()).getId();
@@ -518,18 +402,22 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			// transactionManager.commit(status);
 
-		} catch (DataIntegrityViolationException de) {
+		} catch (DataIntegrityViolationException e) {
 			/*
 			 * if (status != null) { transactionManager.rollback(status); }
 			 */
-			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 
 		} catch (Exception e) {
 			/*
 			 * if (status != null) { transactionManager.rollback(status); }
 			 */
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -573,14 +461,14 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			utente.setAttivo(false);
 			utenteRepository.saveAndFlush(utente);
 
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs { RECORD_NON_TROVATO }");
+		} catch (NoSuchElementException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -591,7 +479,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		List<AnagraficaDto> list = null;
 
 		try {
-			list = anagraficaRepository.listAnagraficaDtoContratti();
+			list = anagraficaRepository.findAnagraficaByContrattoId(anagraficaRepository.getIdContrattiScattiLivello())
+					.stream().map(mapper::toAnagraficaDto).collect(Collectors.toList());
+
 		} catch (Exception e) {
 			System.out.println("Exception occurs { ERRORE_GENERICO }");
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
@@ -606,7 +496,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		try {
 			anagraficaRepository.deleteScattoContratti();
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -617,12 +507,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 		AnagraficaDto anagraficaDto = null;
 
 		try {
-			anagraficaDto = anagraficaRepository.getAnagraficaDtoByToken(token);
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs { RECORD_NON_TROVATO }");
+			anagraficaDto = mapper.toAnagraficaDto(token);
+		} catch (NoSuchElementException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -651,14 +541,14 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			utente.setAttivo(true);
 			utenteRepository.saveAndFlush(utente);
 
-		} catch (NoSuchElementException ne) {
-			System.out.println("Exception occurs { RECORD_NON_TROVATO }");
+		} catch (NoSuchElementException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
-		} catch (DataIntegrityViolationException de) {
-			System.out.println("Exception occurs { ERRORE_INTEGRITA_DATI }");
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
 		} catch (Exception e) {
-			System.out.println("Exception occurs { ERRORE_GENERICO }");
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
@@ -670,29 +560,17 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		if (contratto.getTipoContratto().getId() != 1) {
 
-			if ((contratto.getRetribuzioneMensileLorda() != null && contratto.getRalAnnua() == null)
-					|| (contratto.getRetribuzioneMensileLorda() == null && contratto.getRalAnnua() != null)) {
+			TipoCcnl tipoCcnl = tipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
 
-				TipoCcnl tipoCcnl = TipologicheContrattoRepository.getCcnlMapById(contratto.getTipoCcnl().getId());
+			if (contratto.getRetribuzioneMensileLorda() != null) {
 
-				if (contratto.getRetribuzioneMensileLorda() != null) {
+				Double superMinimoMensile = contratto.getSuperminimoMensile() == null ? 0
+						: contratto.getSuperminimoMensile();
 
-					Double superMinimoMensile = contratto.getSuperminimoMensile() == null ? 0
-							: contratto.getSuperminimoMensile();
+				Double scattiAnzianita = contratto.getScattiAnzianita() == null ? 0 : contratto.getScattiAnzianita();
 
-					Double scattiAnzianita = contratto.getScattiAnzianita() == null ? 0
-							: contratto.getScattiAnzianita();
-
-					contratto.setRalAnnua(
-							(contratto.getRetribuzioneMensileLorda() + superMinimoMensile + scattiAnzianita)
-									* tipoCcnl.getNumeroMensilita());
-				} else {
-
-					Double superMinimoRal = contratto.getSuperminimoRal() == null ? 0 : contratto.getSuperminimoRal();
-
-					contratto.setRetribuzioneMensileLorda(
-							(contratto.getRalAnnua() + superMinimoRal) / tipoCcnl.getNumeroMensilita());
-				}
+				contratto.setRalAnnua((contratto.getRetribuzioneMensileLorda() + superMinimoMensile + scattiAnzianita)
+						* tipoCcnl.getNumeroMensilita());
 			}
 
 		}
@@ -710,8 +588,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 		Contratto contratto = anagraficaDto.getContratto();
 
-		if (contratto.getPercentualePartTime() != null && contratto.getRalAnnua() != null) {
-			contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
+		if (contratto != null) {
+
+			if (contratto.getPercentualePartTime() != null && contratto.getRalAnnua() != null) {
+				contratto.setRalPartTime((contratto.getPercentualePartTime() / 100) * contratto.getRalAnnua());
+			}
+
 		}
 
 		anagraficaDto.setContratto(contratto);
@@ -744,4 +626,242 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 	}
 
+	private void calcoloTipoLivello(AnagraficaDto anagraficaDto) throws Exception {
+
+		if (anagraficaDto.getContratto() != null) {
+
+			List<TipoLivelloContratto> listLivelli = tipologicheContrattoRepository.getTipoLivelloContrattoMap();
+
+			anagraficaDto.getContratto().setLivelloAttuale(listLivelli.stream().filter(
+					livello -> livello.getId() == anagraficaDto.getContratto().getTipoLivelloContratto().getId())
+					.toList().get(0).getLivello());
+
+		}
+	}
+
+	@Override
+	@Transactional(rollbackOn = ServiceException.class)
+	public List<AnagraficaDto> insertAnagraficaDtoExcel(String base64) throws ServiceException {
+
+		try {
+
+			List<AnagraficaDto> listAnagrafiche = excelUtilAnagrafica.createAnagraficaDtoExcel(base64);
+			List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
+			
+			//List<AnagraficaDto> listAnagraficheInDatabase = listAnagraficaDto();
+
+
+			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
+
+			tipoCanaleReclutamento.setId(1);
+
+			//Boolean checkIsInDatabase = false;
+
+			for (AnagraficaDto anagraficaDto : listAnagrafiche) {
+
+				/*checkIsInDatabase = listAnagraficheInDatabase.stream()
+						.filter(elem -> elem.getAnagrafica().getCodiceFiscale()
+								.equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
+						.collect(Collectors.toList()).size() > 0 ? true : false;*/
+
+				anagraficaDto.getContratto().setTipoCanaleReclutamento(tipoCanaleReclutamento);
+
+				if (anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)
+						&& contrattoValidator.validate(anagraficaDto.getContratto(), true)
+						&& commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)
+						/*&& !checkIsInDatabase*/) {
+
+					insertAnagraficaDto(anagraficaDto);
+
+				}else {
+					
+					listAnagraficheNotInsert.add(anagraficaDto);
+					
+				}
+
+			}
+
+			/*List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
+
+			Boolean check = false;
+
+			for (AnagraficaDto anagraficaDtoExcel : listAnagrafiche) {
+
+				for (AnagraficaDto anagraficaDto : listAnagraficheInDatabase) {
+
+					if (anagraficaDtoExcel.getAnagrafica().getCodiceFiscale()
+							.equals(anagraficaDto.getAnagrafica().getCodiceFiscale())) {
+
+						check = true;
+
+					}
+
+				}
+
+				if (!check)
+					listAnagraficheNotInsert.add(anagraficaDtoExcel);
+				
+				check=false;
+
+			}*/
+
+			return listAnagraficheNotInsert;
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e);
+		}
+		
+	
+
+	}
+
+	/*
+	 * 
+	 * List<AnagraficaDto> list = new ArrayList<>(); try { List<Anagrafica>
+	 * listaAnagrafiche = anagraficaRepository.getAllActive(); for (Anagrafica
+	 * currentAnagrafica : listaAnagrafiche) {
+	 * 
+	 * List<Commessa> listaCommesse= new ArrayList<>(); AnagraficaDto
+	 * currentAnagraficaDto = new AnagraficaDto();
+	 * currentAnagraficaDto.setAnagrafica(currentAnagrafica);
+	 * currentAnagraficaDto.setContratto(contrattoRepository.getById(
+	 * currentAnagrafica.getId()));
+	 * 
+	 * for() {
+	 * 
+	 * listaCommesse.add(commessaRepository.getById()); } list.add(anagraficaDto); }
+	 * ServiceException(ServiceMessages.ERRORE_GENERICO); }
+	 * 
+	 * return list;
+	 */
+	/*
+	 * @Override public void updateAnagraficaDto(AnagraficaDto anagraficaDto) throws
+	 * ServiceException { if
+	 * (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), false)) {
+	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); } if
+	 * (!commessaValidator.validate(anagraficaDto.getCommessa(), false)) {
+	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); } if
+	 * (!contrattoValidator.validate(anagraficaDto.getContratto(), false)) {
+	 * ServiceException(ServiceMessages.ERRORE_VALIDAZIONE); }
+	 * 
+	 * try {
+	 * anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get();
+	 * anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica());
+	 * contrattoRepository.findById(anagraficaDto.getContratto().getId()).get();
+	 * contrattoRepository.saveAndFlush(anagraficaDto.getContratto());
+	 * commesseRepository.findById(anagraficaDto.getCommessa().getId()).get();
+	 * commesseRepository.saveAndFlush(anagraficaDto.getCommessa());
+	 * 
+	 * } catch (NoSuchElementException ne) {
+	 * ServiceException(ServiceMessages.RECORD_NON_TROVATO); } catch
+	 * (DataIntegrityViolationException de) {
+	 * ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI); } catch (Exception
+	 * ServiceException(ServiceMessages.ERRORE_GENERICO); }
+	 * 
+	 * }
+	 */
+//	@Override
+//	public List<Anagrafica> list() throws ServiceException {
+//
+//		List<Anagrafica> list = null;
+//
+//		try {
+//			list = anagraficaRepository.findAll();
+//		} catch (Exception e) {
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//		return list;
+//	}
+//
+//	@Override
+//	public Anagrafica getById(Integer ID) throws ServiceException {
+//		Anagrafica anagrafica = null;
+//
+//		try {
+//			anagrafica = anagraficaRepository.findById(ID).get();
+//		} catch (NoSuchElementException ne) {
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (Exception e) {
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//		return anagrafica;
+//	}
+//
+//	@Override
+//	public void insert(Anagrafica anagrafica) throws ServiceException {
+//
+//		if (!anagraficaValidator.validate(anagrafica, true)) {
+//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+//		}
+//
+//		try {
+//			anagraficaRepository.saveAndFlush(anagrafica);
+//		} catch (DataIntegrityViolationException de) {
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//	}
+//
+//	@Override
+//	public void update(Anagrafica anagrafica) throws ServiceException {
+//		if (!anagraficaValidator.validate(anagrafica, false)) {
+//			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+//		}
+//
+//		try {
+//			Anagrafica Currentanagrafica = anagraficaRepository.findById(anagrafica.getId()).get();
+////			Currentanagrafica.setId(anagrafica.getId());
+//			Currentanagrafica.setAltriTitoli(anagrafica.getAltriTitoli());
+//			Currentanagrafica.setCellulareAziendale(anagrafica.getCellulareAziendale());
+//			Currentanagrafica.setCellularePrivato(anagrafica.getCellularePrivato());
+//			Currentanagrafica.setCodiceFiscale(anagrafica.getCodiceFiscale());
+//			Currentanagrafica.setCognome(anagrafica.getCognome());
+//			Currentanagrafica.setComuneDiNascita(anagrafica.getComuneDiNascita());
+//			Currentanagrafica.setConiugato(anagrafica.getConiugato());
+//			Currentanagrafica.setDataDiNascita(anagrafica.getDataDiNascita());
+//			Currentanagrafica.setDomicilio(anagrafica.getDomicilio());
+//			Currentanagrafica.setFigliACarico(anagrafica.getFigliACarico());
+//			Currentanagrafica.setMailAziendale(anagrafica.getMailAziendale());
+//			Currentanagrafica.setMailPec(anagrafica.getMailPec());
+//			Currentanagrafica.setMailPrivata(anagrafica.getMailPrivata());
+//			Currentanagrafica.setNome(anagrafica.getNome());
+//			Currentanagrafica.setResidenza(anagrafica.getResidenza());
+//			Currentanagrafica.setTitoliDiStudio(anagrafica.getTitoliDiStudio());
+//
+//			anagraficaRepository.saveAndFlush(Currentanagrafica);
+//
+//		} catch (NoSuchElementException ne) {
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (DataIntegrityViolationException de) {
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//
+//	}
+//
+//	@Override
+//	public void delete(Integer ID) throws ServiceException {
+//		try {
+//			Anagrafica anagrafica = anagraficaRepository.findById(ID).get();
+//
+//			anagraficaRepository.delete(anagrafica);
+//			anagraficaRepository.flush();
+//
+//		} catch (NoSuchElementException ne) {
+//			throw new ServiceException(ServiceMessages.RECORD_NON_TROVATO);
+//		} catch (DataIntegrityViolationException de) {
+//			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+//		} catch (Exception e) {
+//			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+//		}
+//	}
 }

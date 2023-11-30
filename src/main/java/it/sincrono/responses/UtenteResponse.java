@@ -1,7 +1,6 @@
 package it.sincrono.responses;
 
 import it.sincrono.beans.Esito;
-import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Utente;
 
 public class UtenteResponse extends GenericResponse {

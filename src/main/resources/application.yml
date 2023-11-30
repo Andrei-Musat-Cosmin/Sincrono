@@ -10,3 +10,16 @@ spring:
           starttls:
             enable: true
           auth: true
+
+anagrafiche-profili:
+  path-prefix: C:/Users/ruame/Desktop/
+  destinazione: profili-anagrafiche/
+  
+  anagrafiche-profili-rapportini:
+    path-prefix-rapportini: /rapportini/
+  
+  
+  anagrafiche-profili-documenti:
+   path-prefix-documenti: /documenti/image-profile.txt
+  
+ 

@@ -31,5 +31,4 @@ public class RuoloListResponse extends GenericResponse {
 		this.list = list;
 	}
 
-	
 }

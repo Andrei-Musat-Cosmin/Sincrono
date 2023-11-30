@@ -9,44 +9,42 @@ public class CommessaValidator {
 
 	public Boolean validate(Commessa commessa, Boolean isNew) {
 
-		boolean result = true;
-
 		if (commessa != null) {
 
 			if (isNew) {
 
 				if (commessa.getId() == null) {
 
-					if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
+					if (commessa.getTipoAziendaCliente() == null || commessa.getTipoAziendaCliente().getId() == null
 							|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
-						result = false;
+						return false;
 
 				} else {
 
-					result = false;
+					return false;
 				}
 
 			} else {
 
 				if (commessa.getId() != null) {
 
-					if (commessa.getAziendaCliente() == null && commessa.getAziendaCliente().equals("")
+					if (commessa.getTipoAziendaCliente() == null || commessa.getTipoAziendaCliente().getId() == null
 							|| commessa.getClienteFinale() == null || commessa.getDataInizio() == null)
-						result = false;
+						return false;
 
 				} else {
 
-					result = false;
+					return false;
 				}
 
 			}
 
 		} else {
 
-			result = false;
+			return false;
 		}
 
-		return result;
+		return true;
 
 	}
 
