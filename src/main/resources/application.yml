@@ -2,60 +2,23 @@
 
 #---------------prod--------------------
 
-spring:
-  mail:
-    host: smtps.aruba.it
-    username: comunicazioni@sincrono.it
-    password: x9$!4Eu48G
-    port: 465
-    properties:
-      mail:
-        smtp:
-          auth: true
-          ssl:
-            enable: true
-            required: true
-
-anagrafiche-profili:
-  #path-prefix: C:/Users/SINCRONO/Desktop/
-  path-prefix: /bitnami/userdata/
-  destinazione: profili-anagrafiche/
-  
-  anagrafiche-profili-rapportini:
-    path-prefix-rapportini: /rapportini/
-  
-  
-  anagrafiche-profili-documenti:
-   path-prefix-documenti: /documenti/image-profile.txt
-   
-path-frontend:
-
-  path: http://192.168.58.196:8083/richieste/
-
-
-   
-   
-   
-
-#---------------local---------------------------------
-
-#
 #spring:
 #  mail:
-#    host: smtp.gmail.com
-#    username: andreimusat2000@gmail.com
-#    password: vmja jqtg jpqn uryk
-#    port: 587
+#    host: smtps.aruba.it
+#    username: comunicazioni@sincrono.it
+#    password: x9$!4Eu48G
+#    port: 465
 #    properties:
 #      mail:
 #        smtp:
-#          starttls:
-#            enable: true
 #          auth: true
+#          ssl:
+#            enable: true
+#            required: true
 #
 #anagrafiche-profili:
 #  #path-prefix: C:/Users/SINCRONO/Desktop/
-#  path-prefix: C:/Users/david/Desktop/
+#  path-prefix: /bitnami/userdata/
 #  destinazione: profili-anagrafiche/
 #  
 #  anagrafiche-profili-rapportini:
@@ -65,10 +28,47 @@ path-frontend:
 #  anagrafiche-profili-documenti:
 #   path-prefix-documenti: /documenti/image-profile.txt
 #   
-#   
-#   
 #path-frontend:
 #
-#  path: http://localhost:4200/richieste/
-#  
+#  path: http://192.168.58.196:8083/richieste/
+
+
+   
+   
+   
+
+#---------------local---------------------------------
+
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    username: andreimusat2000@gmail.com
+    password: vmja jqtg jpqn uryk
+    port: 587
+    properties:
+     mail:
+        smtp:
+          starttls:
+           enable: true
+          auth: true
+
+anagrafiche-profili:
+  #path-prefix: C:/Users/SINCRONO/Desktop/
+  path-prefix: C:/Users/david/Desktop/
+  destinazione: profili-anagrafiche/
+  
+  anagrafiche-profili-rapportini:
+    path-prefix-rapportini: /rapportini/
+  
+  
+  anagrafiche-profili-documenti:
+   path-prefix-documenti: /documenti/image-profile.txt
+   
+   
+   
+path-frontend:
+
+  path: http://localhost:4200/richieste/
+  
  
