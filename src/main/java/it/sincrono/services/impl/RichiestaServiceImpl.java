@@ -61,6 +61,8 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 			List<TipoRichieste> tipoRichieste = richiestaRepository.getRichiesta(id);
 
 			convertInDto.convertInRichiestaDto(richiestaDto, tipoRichieste);
+			
+			convertInDto.addNote(richiestaDto,id);
 
 			return richiestaDto;
 
@@ -129,6 +131,8 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			if (tipoRichieste != null && tipoRichieste.size() > 0)
 				listRichiestaDto = convertInDto.convertInDifferentRichiestaDto(tipoRichieste);
+			
+			convertInDto.addNote(listRichiestaDto);
 
 			return listRichiestaDto;
 

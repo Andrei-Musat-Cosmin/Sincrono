@@ -5,15 +5,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.sincrono.entities.Richieste;
 import it.sincrono.entities.TipoRichieste;
+import it.sincrono.repositories.RichiestaRepository;
 import it.sincrono.repositories.dto.DuplicazioniRichiestaDto;
 import it.sincrono.repositories.dto.RichiestaDto;
 
 @Component
 public class ConvertInDto {
+
+	@Autowired
+	RichiestaRepository richiestaRepository;
 
 	public void convertInRichiestaDto(RichiestaDto richiestaDto, List<TipoRichieste> tipoRichieste) {
 
@@ -47,8 +52,7 @@ public class ConvertInDto {
 
 		richiestaDto.setAnno(tipoRichieste.get(0).getRichiesta().getAnno());
 
-		richiestaDto.setCodiceFiscale(tipoRichieste.get(0).getRichiesta().getAnagrafica()
-				.getCodiceFiscale());
+		richiestaDto.setCodiceFiscale(tipoRichieste.get(0).getRichiesta().getAnagrafica().getCodiceFiscale());
 
 		richiestaDto.setList(list);
 
@@ -115,6 +119,21 @@ public class ConvertInDto {
 
 		return tipoRichieste.stream().filter(elem -> elem.getRichiesta().getId() == idRichiesta)
 				.collect(Collectors.toList());
+
+	}
+
+	public void addNote(RichiestaDto richiestaDto, Integer id) {
+
+		richiestaDto.setNote(richiestaRepository.getNoteRichiesta(id).getNote());
+
+	}
+
+	public void addNote(List<RichiestaDto> richiesteDto) {
+
+		for (RichiestaDto richiestaDto : richiesteDto) {
+
+			richiestaDto.setNote(richiestaRepository.getNoteRichiesta(richiestaDto.getId()).getNote());
+		}
 
 	}
 

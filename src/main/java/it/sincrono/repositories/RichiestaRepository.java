@@ -14,6 +14,9 @@ public interface RichiestaRepository extends JpaRepository<Richieste, Integer> {
 
 	@Query("SELECT a FROM TipoRichieste a WHERE a.richiesta.id=?1")
 	public List<TipoRichieste> getRichiesta(Integer id);
+	
+	@Query("SELECT a FROM Richieste a WHERE a.id=?1")
+	public Richieste getNoteRichiesta(Integer id);
 
 	
 	
