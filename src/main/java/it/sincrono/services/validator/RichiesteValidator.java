@@ -149,15 +149,15 @@ public class RichiesteValidator {
 			return false;
 		}
 		
-		if (richiestaDto.getNote() == null) {
-			LOGGER.log(Level.ERROR, "le note della richiesta devono essere valorizzate");
+		/*if (richiestaDto.getStato()==false &&  richiestaDto.getNote() == null) {
+			LOGGER.log(Level.ERROR, "le note della richiesta devono essere valorizzate nel rifiuto");
 			return false;
-		}
+		}*/
 		
-		if (richiestaDto.getStato() == true) {
+		/*if (richiestaDto.getStato() == true) {
 			LOGGER.log(Level.ERROR, "Note disattivate");
 			 richiestaDto.setNote("false");
-		}
+		}*/
 		
 		return true;
 
