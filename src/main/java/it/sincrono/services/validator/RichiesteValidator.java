@@ -1,5 +1,6 @@
 package it.sincrono.services.validator;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -56,6 +57,18 @@ public class RichiesteValidator {
 		if (codiceFiscale == null || codiceFiscale.isEmpty()) {
 			LOGGER.log(Level.ERROR, "il codice fiscale della richiesta deve essere valorizzato");
 			return false;
+		}
+		
+		
+		LocalDate dataDaControllare = 
+				LocalDate.of(richiestaDto.getAnno(),richiestaDto.getMese(),richiestaDto.getList().get(0).getnGiorno());
+		
+		if(dataDaControllare.isBefore(LocalDate.now())) {
+			LOGGER.log(Level.ERROR, "la data deve essere o uguale o maggiore della data odierna");
+			return false;
+			
+			
+			
 		}
 
 		for (DuplicazioniRichiestaDto duplicazioniRichiestaDto : richiestaDto.getList()) {

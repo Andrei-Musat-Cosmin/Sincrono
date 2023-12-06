@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,10 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaService {
+	
+	
+	@Value("${email-richieste.email}")
+	private String EMAIL;
 
 	@Autowired
 	RichiestaRepository richiestaRepository;
@@ -96,7 +101,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			richiestaDto.setId(idRichiesta);
 
-			emailService.sendMailRichieste(null, "d.saltarelli@sincrono.it", null,
+			emailService.sendMailRichieste(null,EMAIL, null,
 					emailUtil.createSubjectRichiesta(richiestaDto, anagrafica),
 					emailUtil.createBodyRichiesta(richiestaDto, anagrafica));
 
