@@ -86,6 +86,15 @@ public class RapportinoValidator {
 			return msg;
 		}
 
+		if (rapportinoDto.getMese().getGiorni().stream()
+				.filter(elem -> (elem.getCheckFestivita() != null && elem.getCheckFestivita() == true)).count() > 0) {
+
+			msg = "puoi selezionare san pietro solo per un giorno";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+
+		}
+
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 			double totOre = 0.0;
 			double totStraordinario1 = 0.0;
@@ -97,13 +106,12 @@ public class RapportinoValidator {
 					|| giornoDto.getNomeGiorno().equals("domenica"));
 			boolean checkEmptyDay = false;
 
-			
-			  if (validateCheckInviato(rapportinoDto)) { msg =
-			  "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto"
-			  ; LOGGER.log(Level.ERROR, msg); return msg;
-			  
-			  }
-			 
+			if (validateCheckInviato(rapportinoDto)) {
+				msg = "il rapportino è stato inviato quindi il rapportino non puo essere modificato o aggiunto";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
+
+			}
 
 			if (giornoDto.getNumeroGiorno() != null) {
 				if (giornoDto.getFerie() == null && giornoDto.getMalattie() == null && giornoDto.getPermessi() == null
@@ -225,7 +233,7 @@ public class RapportinoValidator {
 								permessi += giornoDto.getPermessiExfestivita();
 							if (giornoDto.getPermessiRole() != null)
 								permessi += giornoDto.getPermessiRole();
-							
+
 						} else {
 							if (giornoDuplicato.getCliente() != null) {
 								msg = " Nel giorno " + giornoDto.getNumeroGiorno() + " e' stato inserito il cliente";
@@ -333,13 +341,12 @@ public class RapportinoValidator {
 			return msg;
 		}
 
-		
-		  if (!validateCheckInviato(rapportinoDto)) { msg =
-		  "il rapportino non è stato inviato quindi le note non possono essere modificate"
-		  ; LOGGER.log(Level.ERROR, msg); return msg;
-		  
-		  }
-		 
+		if (!validateCheckInviato(rapportinoDto)) {
+			msg = "il rapportino non è stato inviato quindi le note non possono essere modificate";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+
+		}
 
 		return msg;
 
@@ -360,42 +367,39 @@ public class RapportinoValidator {
 		 * msg); return msg; }
 		 */
 
-		
-		  if (validateCheckInviato(rapportinoDto)) { msg =
-		  "il rapportino è stato inviato quindi le note non possono essere modificate";
-		  LOGGER.log(Level.ERROR, msg); return msg;
-		  
-		  }
-		 
+		if (validateCheckInviato(rapportinoDto)) {
+			msg = "il rapportino è stato inviato quindi le note non possono essere modificate";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+
+		}
 
 		return msg;
 
 	}
 
-	
-	  private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
-	  
-		  List<Boolean> listCheckInviato = rapportinoInviatoRepository.checkInviato(
-				  rapportinoDto.getAnagrafica().getCodiceFiscale(), rapportinoDto.getAnnoRequest(), 
-				  rapportinoDto.getMeseRequest());
+	private Boolean validateCheckInviato(RapportinoDto rapportinoDto) {
 
-			Boolean check=false;
+		List<Boolean> listCheckInviato = rapportinoInviatoRepository.checkInviato(
+				rapportinoDto.getAnagrafica().getCodiceFiscale(), rapportinoDto.getAnnoRequest(),
+				rapportinoDto.getMeseRequest());
 
-			if (listCheckInviato != null && listCheckInviato.size() > 0) {
+		Boolean check = false;
 
-				check = listCheckInviato.stream().filter(elem -> elem == true).collect(Collectors.toList()).size() > 0
-						? true
-						: false;
+		if (listCheckInviato != null && listCheckInviato.size() > 0) {
 
-			} else {
+			check = listCheckInviato.stream().filter(elem -> elem == true).collect(Collectors.toList()).size() > 0
+					? true
+					: false;
 
-				check = false;
+		} else {
 
-			}
+			check = false;
 
-			return check;
-	  }
-	 
+		}
+
+		return check;
+	}
 
 	public String validateRapportiniInviati(RapportinoInviato rapportinoInviato) {
 		String msg = null;
