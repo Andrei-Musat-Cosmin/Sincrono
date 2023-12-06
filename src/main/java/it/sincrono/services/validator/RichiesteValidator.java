@@ -175,7 +175,7 @@ public class RichiesteValidator {
 		if (tipoRichieste != null && tipoRichieste.size() > 0)
 			listRichiestaDto = convertInDto.convertInDifferentRichiestaDto(tipoRichieste);
 
-		return listRichiestaDto.stream().filter(elem -> elem.equals(richiestaDto)).collect(Collectors.toList())
+		return tipoRichieste==null || tipoRichieste.size()==0?false:listRichiestaDto.stream().filter(elem -> elem.equals(richiestaDto)).collect(Collectors.toList())
 				.size() > 0 ? true : false;
 
 	}
