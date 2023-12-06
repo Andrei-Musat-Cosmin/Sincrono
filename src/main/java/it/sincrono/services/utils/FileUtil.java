@@ -156,9 +156,12 @@ public class FileUtil {
 
 				if (giornoSplit[7] != null && !giornoSplit[7].isEmpty() && !giornoSplit[7].equals("null"))
 					giornoDto.setCheckSmartWorking(Boolean.parseBoolean(giornoSplit[7]));
-
+				
 				if (giornoSplit[8] != null && !giornoSplit[8].isEmpty() && !giornoSplit[8].equals("null"))
-					giornoDto.setCheckOnSite(Boolean.parseBoolean(giornoSplit[8]));
+					giornoDto.setCheckFestivita(Boolean.parseBoolean(giornoSplit[8]));
+
+				if (giornoSplit[9] != null && !giornoSplit[9].isEmpty() && !giornoSplit[9].equals("null"))
+					giornoDto.setCheckOnSite(Boolean.parseBoolean(giornoSplit[9]));
 
 				mese.add(giornoDto);
 
@@ -296,6 +299,11 @@ public class FileUtil {
 
 						if (giornoDto.getCheckSmartWorking() != null) {
 							dati += "," + giornoDto.getCheckSmartWorking();
+						} else
+							dati += ",null";
+						
+						if (giornoDto.getCheckFestivita() != null) {
+							dati += "," + giornoDto.getCheckFestivita();
 						} else
 							dati += ",null";
 
