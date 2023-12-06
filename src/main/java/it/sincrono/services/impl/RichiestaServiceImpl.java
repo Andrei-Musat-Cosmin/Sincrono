@@ -191,6 +191,10 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 			richiestaRepository.saveAndFlush(new Richieste(richiestaDto.getId(),
 					anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()), richiestaDto.getAnno(),
 					richiestaDto.getMese(), richiestaDto.getStato(), richiestaDto.getNote()));
+			
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 
 			LOGGER.log(Level.ERROR, e.getMessage());

@@ -149,6 +149,36 @@ public class RichiesteValidator {
 			return false;
 		}
 		
+		/*if (richiestaDto.getStato() == true && richiestaDto.getNote()!=null) {
+			LOGGER.log(Level.ERROR, "quando lo stato della richiesta è positivo le note non devono essere valorizzate");
+			return false;
+		}*/
+		
+		if (richiestaDto.getAnno() == null) {
+			LOGGER.log(Level.ERROR, "l'anno della richiesta deve essere valorizzato");
+			return false;
+		}
+		
+		
+		if (richiestaDto.getMese() == null) {
+			LOGGER.log(Level.ERROR, "il mese della richiesta deve essere valorizzato");
+			return false;
+		}
+		
+		
+		if (richiestaDto.getCodiceFiscale() == null) {
+			LOGGER.log(Level.ERROR, "il codice fiscale della richiesta deve essere valorizzato");
+			return false;
+		}
+		
+		Anagrafica anagrafica=anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale());
+		
+		if(anagrafica==null) {
+			LOGGER.log(Level.ERROR, "il codice fiscale deve appartenere a una anagrafica esistente");
+			return false;
+			
+		}
+		
 		/*if (richiestaDto.getStato()==false &&  richiestaDto.getNote() == null) {
 			LOGGER.log(Level.ERROR, "le note della richiesta devono essere valorizzate nel rifiuto");
 			return false;
