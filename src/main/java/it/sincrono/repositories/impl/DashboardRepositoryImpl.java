@@ -430,7 +430,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 					tipoCanaleReclutamento.setId((Integer) result[71]);
 				if (result[72] != null)
 					tipoCanaleReclutamento.setDescrizione((String) result[72]);
-				contratto.setTipoCanaleReclutamento(tipoCanaleReclutamento);
+				anagrafica.setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 				TipoCausaFineRapporto tipoCausaFineRapporto = new TipoCausaFineRapporto();
 				if (result[73] != null)

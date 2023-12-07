@@ -662,7 +662,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				 * .collect(Collectors.toList()).size() > 0 ? true : false;
 				 */
 
-				anagraficaDto.getContratto().setTipoCanaleReclutamento(tipoCanaleReclutamento);
+				anagraficaDto.getAnagrafica().setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 				if (anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)
 						&& contrattoValidator.validate(anagraficaDto.getContratto(), true)

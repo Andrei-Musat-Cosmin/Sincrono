@@ -103,10 +103,10 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						subString += " AND f.id = " + anagraficaRequestDto.getAnagraficaDto().getContratto()
 								.getTipoCcnl().getId().toString();
 					}
-					if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCanaleReclutamento() != null
-							&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCanaleReclutamento()
+					if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoCanaleReclutamento() != null
+							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoCanaleReclutamento()
 									.getId() != null) {
-						subString += " AND h.id = " + anagraficaRequestDto.getAnagraficaDto().getContratto()
+						subString += " AND h.id = " + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
 								.getTipoCanaleReclutamento().getId().toString();
 					}
 					if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCausaFineRapporto() != null
@@ -452,7 +452,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					tipoCanaleReclutamento.setId((Integer) result[73]);
 				if (result[74] != null)
 					tipoCanaleReclutamento.setDescrizione((String) result[74]);
-				contratto.setTipoCanaleReclutamento(tipoCanaleReclutamento);
+				anagrafica.setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 				TipoCausaFineRapporto tipoCausaFineRapporto = new TipoCausaFineRapporto();
 				if (result[75] != null)

@@ -30,6 +30,10 @@ public class Anagrafica {
 	@JoinColumn(name = "id_tipo_azienda")
 	private TipoAzienda tipoAzienda;
 
+	@ManyToOne
+	@JoinColumn(name = "id_tipo_canale_reclutamento")
+	private TipoCanaleReclutamento tipoCanaleReclutamento;
+
 	@Column(name = "nome")
 	private String nome;
 
@@ -95,16 +99,16 @@ public class Anagrafica {
 
 	@Column(name = "categoria_protetta")
 	private Boolean categoriaProtetta;
-	
+
 	@Transient
-    private  Boolean checkInviato; 
-	
+	private Boolean checkInviato;
+
 	@Transient
-    private  Integer anno;
-	
+	private Integer anno;
+
 	@Transient
-    private  Integer mese;
-	
+	private Integer mese;
+
 	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, String nome, String cognome,
 			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
@@ -137,6 +141,7 @@ public class Anagrafica {
 		this.statoDiNascita = statoDiNascita;
 		this.provinciaDiNascita = provinciaDiNascita;
 		this.categoriaProtetta = categoriaProtetta;
+
 	}
 
 	public Anagrafica(String codiceFiscale) {
@@ -266,6 +271,14 @@ public class Anagrafica {
 		this.mailAziendale = mailAziendale;
 	}
 
+	public TipoCanaleReclutamento getTipoCanaleReclutamento() {
+		return tipoCanaleReclutamento;
+	}
+
+	public void setTipoCanaleReclutamento(TipoCanaleReclutamento tipoCanaleReclutamento) {
+		this.tipoCanaleReclutamento = tipoCanaleReclutamento;
+	}
+
 	public String getMailPec() {
 		return mailPec;
 	}
@@ -377,9 +390,5 @@ public class Anagrafica {
 	public void setMese(Integer mese) {
 		this.mese = mese;
 	}
-	
-	
-	
-	
 
 }
