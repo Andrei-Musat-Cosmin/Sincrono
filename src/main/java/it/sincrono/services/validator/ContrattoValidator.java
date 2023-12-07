@@ -120,10 +120,7 @@ public class ContrattoValidator {
 			LOGGER.log(Level.ERROR, "Dato \"CCNL\" non è stato inserito");
 			return false;
 		}
-		if (contratto.getTipoCanaleReclutamento() == null || contratto.getTipoCanaleReclutamento().getId() == null) {
-			LOGGER.log(Level.ERROR, "Dato \"Canale Reclutamento\" non è stato inserito");
-			return false;
-		}
+		
 		return true;
 	}
 }

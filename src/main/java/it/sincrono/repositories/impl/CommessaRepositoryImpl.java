@@ -35,7 +35,7 @@ public class CommessaRepositoryImpl extends BaseRepositoryImpl implements Commes
 
 				CommessaDto commessaDto = new CommessaDto();
 				commessaDto.setCommessa(new Commessa());
-				commessaDto.setContratto(new Contratto(new TipoCanaleReclutamento(), new TipoContratto(),
+				commessaDto.setContratto(new Contratto(new TipoContratto(),
 						new TipoAzienda(), new TipoCcnl()));
 
 				if (object[1] != null)

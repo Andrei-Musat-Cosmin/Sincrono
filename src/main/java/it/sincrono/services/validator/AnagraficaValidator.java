@@ -37,6 +37,12 @@ public class AnagraficaValidator {
 						LOGGER.log(Level.ERROR, "Nome Azienda dell'anagrafica non è valorizzato");
 						return false;
 					}
+					
+					if (anagrafica.getTipoCanaleReclutamento() == null
+							|| anagrafica.getTipoCanaleReclutamento().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Canale Reclutamento\" non è stato inserito");
+						return false;
+					}
 
 				} else {
 					LOGGER.log(Level.ERROR, "Id dell'anagrafica non deve essere valorizzato");
@@ -64,11 +70,17 @@ public class AnagraficaValidator {
 						LOGGER.log(Level.ERROR, "Nome Azienda dell'anagrafica non è valorizzato");
 						return false;
 					}
+					if (anagrafica.getTipoCanaleReclutamento() == null
+							|| anagrafica.getTipoCanaleReclutamento().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Canale Reclutamento\" non è stato inserito");
+						return false;
+					}
 
 				} else {
 					LOGGER.log(Level.ERROR, "Id dell'anagrafica deve essere valorizzato");
 					return false;
 				}
+
 			}
 			return true;
 

@@ -191,20 +191,20 @@ public class ExcelUtilAnagraficaCreate {
 	}
 	
 	
-	public void getTipoCanaleReclutamento(Contratto contratto, String tipoCanaleReclutamento) throws Exception {
-
-		List<TipoCanaleReclutamento> list = tipologicheRepository.getTipoCanaleReclutamentoMap();
-
-		contratto.setTipoCanaleReclutamento(list.stream()
-				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
-						.equals(tipoCanaleReclutamento.toLowerCase().replaceAll("\\s", "")))
-				.collect(Collectors.toList()).size() > 0
-						? list.stream()
-								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
-										.equals(tipoCanaleReclutamento.toLowerCase().replaceAll("\\s", "")))
-								.collect(Collectors.toList()).get(0)
-						: null);
-
-	}
+//	public void getTipoCanaleReclutamento(Contratto contratto, String tipoCanaleReclutamento) throws Exception {
+//
+//		List<TipoCanaleReclutamento> list = tipologicheRepository.getTipoCanaleReclutamentoMap();
+//
+//		contratto.setTipoCanaleReclutamento(list.stream()
+//				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+//						.equals(tipoCanaleReclutamento.toLowerCase().replaceAll("\\s", "")))
+//				.collect(Collectors.toList()).size() > 0
+//						? list.stream()
+//								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+//										.equals(tipoCanaleReclutamento.toLowerCase().replaceAll("\\s", "")))
+//								.collect(Collectors.toList()).get(0)
+//						: null);
+//
+//	}
 
 }
