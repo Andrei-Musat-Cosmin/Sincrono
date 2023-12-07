@@ -85,8 +85,10 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 		try {
 
-			if (!richiesteValidator.validateInsert(richiestaDto)) {
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di richiesta");
+			String msg=null;
+			
+			if ((msg =richiesteValidator.validateInsert(richiestaDto))!=null) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 			}
 
 			Anagrafica anagrafica = anagraficaRepository

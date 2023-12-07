@@ -34,41 +34,78 @@ public class RichiesteValidator {
 	@Autowired
 	ConvertInDto convertInDto;
 
-	public Boolean validateInsert(RichiestaDto richiestaDto) {
+	public String validateInsert(RichiestaDto richiestaDto) {
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
 
+		String msg = null;
+
 		if (richiestaDto == null || richiestaDto.getId() != null) {
-			LOGGER.log(Level.ERROR, "Id della richiestaDto non deve essere valorizzato");
-			return false;
+			msg = "Id della richiestaDto non deve essere valorizzato";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
 
 		if (richiestaDto.getMese() == null) {
-			LOGGER.log(Level.ERROR, "il mese della richiesta deve essere valorizzato");
-			return false;
+			msg = "il mese della richiesta deve essere valorizzato";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
 
 		if (richiestaDto.getAnno() == null) {
-			LOGGER.log(Level.ERROR, "l'anno della richiesta deve essere valorizzato");
-			return false;
+			msg = "l'anno della richiesta deve essere valorizzato";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
 
 		String codiceFiscale = richiestaDto.getCodiceFiscale();
 		if (codiceFiscale == null || codiceFiscale.isEmpty()) {
-			LOGGER.log(Level.ERROR, "il codice fiscale della richiesta deve essere valorizzato");
-			return false;
+			
+			msg = "il codice fiscale della richiesta deve essere valorizzato";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 		}
-		
-		
-		LocalDate dataDaControllare = 
-				LocalDate.of(richiestaDto.getAnno(),richiestaDto.getMese(),richiestaDto.getList().get(0).getnGiorno());
-		
-		if(dataDaControllare.isBefore(LocalDate.now())) {
-			LOGGER.log(Level.ERROR, "la data deve essere o uguale o maggiore della data odierna");
-			return false;
-			
-			
-			
+
+		if (richiestaDto.getList().stream().filter(elem -> (elem.getPermessi() != null && elem.getPermessi() == true))
+				.count() > 1) {
+
+			msg = "puoi in inserire solo un permesso per volta";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+		}
+
+		if (richiestaDto.getList().stream().map(DuplicazioniRichiestaDto::getnGiorno).distinct().count() == richiestaDto
+				.getList().size()) {
+
+			msg = "in una richiesta di ferie ci può essere solo un giorno univoco per mese";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+		}
+
+		LocalDate dataDaControllare = LocalDate.of(richiestaDto.getAnno(), richiestaDto.getMese(),
+				richiestaDto.getList().get(0).getnGiorno());
+
+		if (richiestaDto.getList().get(0).getPermessi() == true) {
+
+			if (dataDaControllare.isBefore(LocalDate.now())) {
+				msg = "per i permessi la data deve essere o uguale o maggiore della data odierna";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
+
+			}
+
+		}
+
+		if (richiestaDto.getList().get(0).getFerie() == true) {
+
+			if (dataDaControllare.isBefore(LocalDate.now()) && !dataDaControllare.isEqual(LocalDate.now())) {
+				msg = "per le ferie la data deve essere maggiore della data odierna";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
+
+
+			}
+
 		}
 
 		for (DuplicazioniRichiestaDto duplicazioniRichiestaDto : richiestaDto.getList()) {
@@ -76,16 +113,18 @@ public class RichiesteValidator {
 					|| (duplicazioniRichiestaDto.getFerie() == null
 							&& duplicazioniRichiestaDto.getPermessi() == null)) {
 				if (duplicazioniRichiestaDto.getnGiorno() == null) {
-					LOGGER.log(Level.ERROR,
-							"nella richiesta se ferie o permessi sono valorizzati, nGiorno deve essere valorizzato");
-					return false;
+				
+					msg = "nella richiesta se ferie o permessi sono valorizzati, nGiorno deve essere valorizzato";
+					LOGGER.log(Level.ERROR, msg);
+					return msg;
 
 				} else {
 
 					if (!(duplicazioniRichiestaDto.getnGiorno() > 0 && duplicazioniRichiestaDto.getnGiorno() <= 31)) {
 
-						LOGGER.log(Level.ERROR, "nella richiesta il numero giorno e fuori dal range");
-						return false;
+						msg = "nella richiesta il numero giorno e fuori dal range";
+						LOGGER.log(Level.ERROR, msg);
+						return msg;
 					}
 
 				}
@@ -94,9 +133,9 @@ public class RichiesteValidator {
 					String daOra = duplicazioniRichiestaDto.getDaOra();
 					String aOra = duplicazioniRichiestaDto.getaOra();
 					if (daOra == null || aOra == null || daOra.isEmpty() || aOra.isEmpty()) {
-						LOGGER.log(Level.ERROR,
-								"nella richiesta se permessi sono valorizzati, daOra e aOra devono essere valorizzati");
-						return false;
+						msg = "nella richiesta se permessi sono valorizzati, daOra e aOra devono essere valorizzati";
+						LOGGER.log(Level.ERROR, msg);
+						return msg;
 					} else {
 
 						LocalTime time1 = LocalTime.parse(daOra, formatter);
@@ -104,8 +143,9 @@ public class RichiesteValidator {
 
 						if (time2.isBefore(time1)) {
 
-							LOGGER.log(Level.ERROR, "nella richiesta daOra deve essere minore di aOra");
-							return false;
+							msg = "nella richiesta daOra deve essere minore di aOra";
+							LOGGER.log(Level.ERROR, msg);
+							return msg;
 
 						}
 
@@ -113,19 +153,21 @@ public class RichiesteValidator {
 
 				}
 			} else {
-				LOGGER.log(Level.ERROR, "nella richiesta deve essere valorizzato o ferie o permessi");
-				return false;
+				msg = "nella richiesta deve essere valorizzato o ferie o permessi";
+				LOGGER.log(Level.ERROR, msg);
+				return msg;
 			}
 		}
 
 		if (isExist(richiestaDto)) {
 
-			LOGGER.log(Level.ERROR, "richiesta già esistente");
-			return false;
+			msg = "richiesta già esistente";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
 
 		}
 
-		return true;
+		return msg;
 
 	}
 
@@ -156,56 +198,59 @@ public class RichiesteValidator {
 			LOGGER.log(Level.ERROR, "l'id della richiesta deve essere valorizzato");
 			return false;
 		}
-		
+
 		if (richiestaDto.getStato() == null) {
 			LOGGER.log(Level.ERROR, "lo stato della richiesta deve essere valorizzato");
 			return false;
 		}
-		
-		/*if (richiestaDto.getStato() == true && richiestaDto.getNote()!=null) {
-			LOGGER.log(Level.ERROR, "quando lo stato della richiesta è positivo le note non devono essere valorizzate");
-			return false;
-		}*/
-		
+
+		/*
+		 * if (richiestaDto.getStato() == true && richiestaDto.getNote()!=null) {
+		 * LOGGER.log(Level.ERROR,
+		 * "quando lo stato della richiesta è positivo le note non devono essere valorizzate"
+		 * ); return false; }
+		 */
+
 		if (richiestaDto.getAnno() == null) {
 			LOGGER.log(Level.ERROR, "l'anno della richiesta deve essere valorizzato");
 			return false;
 		}
-		
-		
+
 		if (richiestaDto.getMese() == null) {
 			LOGGER.log(Level.ERROR, "il mese della richiesta deve essere valorizzato");
 			return false;
 		}
-		
-		
+
 		if (richiestaDto.getCodiceFiscale() == null) {
 			LOGGER.log(Level.ERROR, "il codice fiscale della richiesta deve essere valorizzato");
 			return false;
 		}
-		
-		Anagrafica anagrafica=anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale());
-		
-		if(anagrafica==null) {
+
+		Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale());
+
+		if (anagrafica == null) {
 			LOGGER.log(Level.ERROR, "il codice fiscale deve appartenere a una anagrafica esistente");
 			return false;
-			
+
 		}
-		
-		/*if (richiestaDto.getStato()==false &&  richiestaDto.getNote() == null) {
-			LOGGER.log(Level.ERROR, "le note della richiesta devono essere valorizzate nel rifiuto");
-			return false;
-		}*/
-		
-		/*if (richiestaDto.getStato() == true) {
-			LOGGER.log(Level.ERROR, "Note disattivate");
-			 richiestaDto.setNote("false");
-		}*/
-		
+
+		/*
+		 * if (richiestaDto.getStato()==false && richiestaDto.getNote() == null) {
+		 * LOGGER.log(Level.ERROR,
+		 * "le note della richiesta devono essere valorizzate nel rifiuto"); return
+		 * false; }
+		 */
+
+		/*
+		 * if (richiestaDto.getStato() == true) { LOGGER.log(Level.ERROR,
+		 * "Note disattivate"); richiestaDto.setNote("false"); }
+		 */
+
 		return true;
 
 	}
 
+	// diventa controllo intersecazione
 	public Boolean isExist(RichiestaDto richiestaDto) {
 
 		List<RichiestaDto> listRichiestaDto = null;
@@ -218,8 +263,9 @@ public class RichiesteValidator {
 		if (tipoRichieste != null && tipoRichieste.size() > 0)
 			listRichiestaDto = convertInDto.convertInDifferentRichiestaDto(tipoRichieste);
 
-		return tipoRichieste==null || tipoRichieste.size()==0?false:listRichiestaDto.stream().filter(elem -> elem.equals(richiestaDto)).collect(Collectors.toList())
-				.size() > 0 ? true : false;
+		return tipoRichieste == null || tipoRichieste.size() == 0 ? false
+				: listRichiestaDto.stream().filter(elem -> elem.equals(richiestaDto)).collect(Collectors.toList())
+						.size() > 0 ? true : false;
 
 	}
 }
