@@ -87,7 +87,7 @@ public class RapportinoValidator {
 		}
 
 		if (rapportinoDto.getMese().getGiorni().stream()
-				.filter(elem -> (elem.getCheckFestivita() != null && elem.getCheckFestivita() == true)).count() > 0) {
+				.filter(elem -> (elem.getCheckFestivita() != null && elem.getCheckFestivita() == true)).count() > 1) {
 
 			msg = "puoi selezionare san pietro solo per un giorno";
 			LOGGER.log(Level.ERROR, msg);
