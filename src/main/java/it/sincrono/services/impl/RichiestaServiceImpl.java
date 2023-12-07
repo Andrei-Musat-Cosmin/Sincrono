@@ -108,11 +108,11 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 					emailUtil.createBodyRichiesta(richiestaDto, anagrafica));
 
 		} catch (DataIntegrityViolationException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_INTEGRITA_DATI);
-			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
 		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+			LOGGER.log(Level.ERROR,e.getMessage());
+			throw new ServiceException(e.getMessage());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e.getMessage());

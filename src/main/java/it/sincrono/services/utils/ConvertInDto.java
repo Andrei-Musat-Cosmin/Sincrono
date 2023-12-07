@@ -130,9 +130,12 @@ public class ConvertInDto {
 
 	public void addNote(List<RichiestaDto> richiesteDto) {
 
-		for (RichiestaDto richiestaDto : richiesteDto) {
+		if (richiesteDto != null) {
 
-			richiestaDto.setNote(richiestaRepository.getNoteRichiesta(richiestaDto.getId()).getNote());
+			for (RichiestaDto richiestaDto : richiesteDto) {
+
+				richiestaDto.setNote(richiestaRepository.getNoteRichiesta(richiestaDto.getId()).getNote());
+			}
 		}
 
 	}

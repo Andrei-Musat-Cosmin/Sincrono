@@ -41,27 +41,27 @@ public class RichiesteValidator {
 		String msg = null;
 
 		if (richiestaDto == null || richiestaDto.getId() != null) {
-			msg = "Id della richiestaDto non deve essere valorizzato";
+			msg = " Id della richiestaDto non deve essere valorizzato";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
 
 		if (richiestaDto.getMese() == null) {
-			msg = "il mese della richiesta deve essere valorizzato";
+			msg = " il mese della richiesta deve essere valorizzato";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
 
 		if (richiestaDto.getAnno() == null) {
-			msg = "l'anno della richiesta deve essere valorizzato";
+			msg = " l'anno della richiesta deve essere valorizzato";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
 
 		String codiceFiscale = richiestaDto.getCodiceFiscale();
 		if (codiceFiscale == null || codiceFiscale.isEmpty()) {
-			
-			msg = "il codice fiscale della richiesta deve essere valorizzato";
+
+			msg = " il codice fiscale della richiesta deve essere valorizzato";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
@@ -69,15 +69,15 @@ public class RichiesteValidator {
 		if (richiestaDto.getList().stream().filter(elem -> (elem.getPermessi() != null && elem.getPermessi() == true))
 				.count() > 1) {
 
-			msg = "puoi in inserire solo un permesso per volta";
+			msg = " puoi in inserire solo un permesso per volta";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
 
-		if (richiestaDto.getList().stream().map(DuplicazioniRichiestaDto::getnGiorno).distinct().count() == richiestaDto
-				.getList().size()) {
+		if (!(richiestaDto.getList().stream().map(DuplicazioniRichiestaDto::getnGiorno).distinct().count() == richiestaDto
+				.getList().size())) {
 
-			msg = "in una richiesta di ferie ci può essere solo un giorno univoco per mese";
+			msg = " in una richiesta di ferie ci può essere solo un giorno univoco per mese";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 		}
@@ -85,10 +85,10 @@ public class RichiesteValidator {
 		LocalDate dataDaControllare = LocalDate.of(richiestaDto.getAnno(), richiestaDto.getMese(),
 				richiestaDto.getList().get(0).getnGiorno());
 
-		if (richiestaDto.getList().get(0).getPermessi() == true) {
+		if (richiestaDto.getList().get(0).getPermessi() != null && richiestaDto.getList().get(0).getPermessi() == true) {
 
 			if (dataDaControllare.isBefore(LocalDate.now())) {
-				msg = "per i permessi la data deve essere o uguale o maggiore della data odierna";
+				msg = " per i permessi la data deve essere o uguale o maggiore della data odierna";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 
@@ -96,13 +96,12 @@ public class RichiesteValidator {
 
 		}
 
-		if (richiestaDto.getList().get(0).getFerie() == true) {
+		if (richiestaDto.getList().get(0).getFerie() != null && richiestaDto.getList().get(0).getFerie() == true) {
 
 			if (dataDaControllare.isBefore(LocalDate.now()) && !dataDaControllare.isEqual(LocalDate.now())) {
-				msg = "per le ferie la data deve essere maggiore della data odierna";
+				msg = " per le ferie la data deve essere maggiore della data odierna";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
-
 
 			}
 
@@ -113,8 +112,8 @@ public class RichiesteValidator {
 					|| (duplicazioniRichiestaDto.getFerie() == null
 							&& duplicazioniRichiestaDto.getPermessi() == null)) {
 				if (duplicazioniRichiestaDto.getnGiorno() == null) {
-				
-					msg = "nella richiesta se ferie o permessi sono valorizzati, nGiorno deve essere valorizzato";
+
+					msg = " nella richiesta se ferie o permessi sono valorizzati, nGiorno deve essere valorizzato";
 					LOGGER.log(Level.ERROR, msg);
 					return msg;
 
@@ -122,7 +121,7 @@ public class RichiesteValidator {
 
 					if (!(duplicazioniRichiestaDto.getnGiorno() > 0 && duplicazioniRichiestaDto.getnGiorno() <= 31)) {
 
-						msg = "nella richiesta il numero giorno e fuori dal range";
+						msg = " nella richiesta il numero giorno e fuori dal range";
 						LOGGER.log(Level.ERROR, msg);
 						return msg;
 					}
@@ -133,7 +132,7 @@ public class RichiesteValidator {
 					String daOra = duplicazioniRichiestaDto.getDaOra();
 					String aOra = duplicazioniRichiestaDto.getaOra();
 					if (daOra == null || aOra == null || daOra.isEmpty() || aOra.isEmpty()) {
-						msg = "nella richiesta se permessi sono valorizzati, daOra e aOra devono essere valorizzati";
+						msg = " nella richiesta se permessi sono valorizzati, daOra e aOra devono essere valorizzati";
 						LOGGER.log(Level.ERROR, msg);
 						return msg;
 					} else {
@@ -143,7 +142,7 @@ public class RichiesteValidator {
 
 						if (time2.isBefore(time1)) {
 
-							msg = "nella richiesta daOra deve essere minore di aOra";
+							msg = " nella richiesta daOra deve essere minore di aOra";
 							LOGGER.log(Level.ERROR, msg);
 							return msg;
 
@@ -153,7 +152,7 @@ public class RichiesteValidator {
 
 				}
 			} else {
-				msg = "nella richiesta deve essere valorizzato o ferie o permessi";
+				msg = " nella richiesta deve essere valorizzato o ferie o permessi";
 				LOGGER.log(Level.ERROR, msg);
 				return msg;
 			}
@@ -161,7 +160,7 @@ public class RichiesteValidator {
 
 		if (isExist(richiestaDto)) {
 
-			msg = "richiesta già esistente";
+			msg = " richiesta già esistente";
 			LOGGER.log(Level.ERROR, msg);
 			return msg;
 
