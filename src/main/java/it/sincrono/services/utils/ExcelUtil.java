@@ -52,7 +52,8 @@ public class ExcelUtil {
 			Workbook workbook = (append ? new XSSFWorkbook(fileInputStream) : new XSSFWorkbook());
 			Sheet sheet = (append ? workbook.getSheet("Dati Excel") : workbook.createSheet("Dati Excel"));
 			RichTextString str = null;
-
+			int giornoprecedente=0;
+			int giornofinaleprecendnte=0;
 			/** SETUP CALENDAR PER I CONTROLLI SU SABATI E DOMENICHE **/
 			Calendar calendar = Calendar.getInstance();
 			int anno = rapportini.get(0).getAnno();
@@ -84,17 +85,18 @@ public class ExcelUtil {
 			CellStyle cellStyleDefault = createCellStyle(workbook, IndexedColors.WHITE, false);
 			CellStyle cellStyleAnnoMese = createCellStyle(workbook, IndexedColors.GOLD, false);
 			CellStyle cellStyleGiorni = createCellStyle(workbook, IndexedColors.GREEN, false);
-
+			CellStyle cellStyleGiorniFinali = createCellStyle(workbook, IndexedColors.GREY_80_PERCENT, false);
+			//CellStyle cellStyleGiorniFestivi = createCellStyle(workbook, IndexedColors.RED, false);
 			CellStyle cellStyleFerieLabel = createCellStyle(workbook, IndexedColors.YELLOW, false);
-			cellStyleFerieLabel.setRotation((short) -45);
+			//cellStyleFerieLabel.setRotation((short) -45);
 			CellStyle cellStyleTotaleLabel = createCellStyle(workbook, IndexedColors.YELLOW, false);
-			cellStyleTotaleLabel.setRotation((short) -45);
+		//	cellStyleTotaleLabel.setRotation((short) -45);
 			CellStyle cellStyleMalattiaLabel = createCellStyle(workbook, IndexedColors.LIGHT_GREEN, false);
-			cellStyleMalattiaLabel.setRotation((short) -45);
+			//cellStyleMalattiaLabel.setRotation((short) -45);
 			CellStyle cellStylePermessiLabel = createCellStyle(workbook, IndexedColors.LIGHT_ORANGE, false);
-			cellStylePermessiLabel.setRotation((short) -45);
+			//cellStylePermessiLabel.setRotation((short) -45);
 			CellStyle cellStyleRolLabel = createCellStyle(workbook, IndexedColors.LIGHT_TURQUOISE, false);
-			cellStyleRolLabel.setRotation((short) -45);
+			//cellStyleRolLabel.setRotation((short) -45);
 
 			CellStyle cellStyleFerie = createCellStyle(workbook, IndexedColors.YELLOW, false);
 			CellStyle cellStyleTotale = createCellStyle(workbook, IndexedColors.YELLOW, false);
@@ -102,7 +104,7 @@ public class ExcelUtil {
 //			CellStyle cellStylePermessi = createCellStyle(workbook, IndexedColors.LIGHT_ORANGE, false);
 //			CellStyle cellStyleRol = createCellStyle(workbook, IndexedColors.LIGHT_TURQUOISE, false);
 
-			CellStyle cellStyleSABDOM = createCellStyle(workbook, IndexedColors.GREEN, false);
+			CellStyle cellStyleSABDOM = createCellStyle(workbook, IndexedColors.RED, false);
 			CellStyle cellStyleNODAY = createCellStyle(workbook, IndexedColors.LIGHT_CORNFLOWER_BLUE, false);
 
 			int cellNum = 0;
@@ -132,7 +134,8 @@ public class ExcelUtil {
 			cell = row.createCell(34);
 			cell.setCellStyle(cellStyleMalattiaLabel);
 			cell.setCellValue("MALATTIE");
-
+		
+			
 			cell = row.createCell(35);
 			cell.setCellStyle(cellStylePermessiLabel);
 			cell.setCellValue("EX-FS");
@@ -148,7 +151,22 @@ public class ExcelUtil {
 			for (int i = 1; i < 32; i++) {
 				cell = row.createCell(i);
 				cell.setCellValue(i);
-				cell.setCellStyle(cellStyleGiorni);
+				calendar.set(anno, mese - 1, i);
+				int giornoweek = calendar.get(Calendar.DAY_OF_WEEK);
+				if(giornoweek==1 || giornoweek==7 ) {
+				cell.setCellStyle(cellStyleSABDOM);
+				}else {
+					cell.setCellStyle(cellStyleGiorni);
+				}
+				int giornofinale = calendar.get(Calendar.DAY_OF_MONTH);
+				System.out.println("giornofinale"+giornofinale);
+				
+				if(giornofinale>giornoprecedente) {
+					giornoprecedente=giornofinale;
+				}else {
+					cell.setCellStyle(cellStyleGiorniFinali);
+					giornofinaleprecendnte=giornoprecedente;
+				}
 				if (i == 31) {
 					cell = null;
 					cell = row.createCell(++i);
@@ -190,14 +208,16 @@ public class ExcelUtil {
 					cell.setCellValue(nomeCognomePrecedente);
 
 				}
-
-				cell = row.createCell(++cellNum);
+				
+				cell = row.createCell(rapportino.getGiorno());
+				
 				calendar.set(anno, mese - 1, cellNum);
 				int giorno = calendar.get(Calendar.DAY_OF_WEEK);
 				/**
 				 * CONTROLLO SE IL GIORNO ATTUALE E' PIU GRANDE DELL'ULTIMO GIORNO DEL MESE
 				 * SELEZIONATO
 				 **/
+				
 				if (giorno > numeroGiorniNelMese) {
 					// SE CI SONO GIORNI INESISTENTI NEL MESE CORRENTE
 					cell.setCellStyle(cellStyleNODAY);
@@ -290,7 +310,7 @@ public class ExcelUtil {
 										cell.setCellStyle(cellStyleDefault);
 										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
 										if (rapportino.getOre() + f1_f2_f3 < 8.0)
-											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
+											tot +=  ((rapportino.getOre() + f1_f2_f3) / 8.0);
 										else
 											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
 									}
@@ -332,29 +352,29 @@ public class ExcelUtil {
 				straordinariSum += f1_f2_f3;
 				f1_f2_f3 = 0.0; // RICOMINCIA A CONTARE LE ORE DI STRAORDINARIO DELLA GIORNATA
 
-				if (cellNum == 31) {
+				if (rapportino.getGiorno() == giornofinaleprecendnte) {
 					str = new XSSFRichTextString("Di cui " + straordinariSum + " ore di straordinari.");
 					Comment comment = sheet.createDrawingPatriarch().createCellComment(new XSSFClientAnchor());
 					comment.setString(str);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(32);
 					cell.setCellStyle(cellStyleTotale);
 					cell.setCellValue(tot);
 					cell.setCellComment(comment);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(33);
 					cell.setCellStyle(cellStyleDefault);
 					cell.setCellValue(ferie);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(34);
 					cell.setCellStyle(cellStyleDefault);
 					cell.setCellValue(malattie);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(35);
 					cell.setCellStyle(cellStyleDefault);
 					cell.setCellValue(ex_fs);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(36);
 					cell.setCellStyle(cellStyleDefault);
 					cell.setCellValue(rol);
 
@@ -366,6 +386,9 @@ public class ExcelUtil {
 					ex_fs = 0;
 					rol = 0;
 				}
+			/*	cell = row.createCell(32);
+				cell.setCellStyle(cellStyleTotale);
+				cell.setCellValue(tot);*/
 			}
 			try (FileOutputStream outputStream = new FileOutputStream(EXCELPATH)) {
 				workbook.write(outputStream);

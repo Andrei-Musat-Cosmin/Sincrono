@@ -472,7 +472,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		return listAnagrafiche;
 	}
-
+//prende tutti i rapportini da oggi a 3 mesi fa 
 	@Override
 	public String getRapportinoB64(Integer anno, Integer mese) throws ServiceException {
 		int valAnno = anno.intValue();
