@@ -290,13 +290,13 @@ public class RichiesteValidator {
 				richiestaDto.getList().get(0).getnGiorno(), richiestaDto.getList().get(0).getaOra(),
 				richiestaDto.getList().get(0).getDaOra());
 
-		return tipoRichiesteList == null ? false : true;
+		return tipoRichiesteList == null || tipoRichiesteList.size()==0 ? false : true;
 
 	}
 
 	public Boolean validateExistferie(RichiestaDto richiestaDto) {
 
-		Boolean checkExistFerie = null;
+		Boolean checkExistFerie = false;
 
 		List<TipoRichieste> tipoRichiesteList = tipoRichiestaRepository.getRichieste(richiestaDto.getAnno(),
 				richiestaDto.getMese(),
