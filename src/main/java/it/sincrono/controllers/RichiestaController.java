@@ -188,5 +188,30 @@ public class RichiestaController {
 
 		return httpEntity;
 	}
+	
+	@PutMapping("/modifiica-richiesta")
+	public @ResponseBody HttpEntity<GenericResponse> updateRichiesta(@RequestBody RichiestaRequest richiestaRequest) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo modificaRichiesta");
+
+			richiestaService.modificaRichiesta(richiestaRequest);
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo modificaRichiesta\n");
+
+		return httpEntity;
+	}
 
 }

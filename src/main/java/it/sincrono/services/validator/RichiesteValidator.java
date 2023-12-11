@@ -74,8 +74,8 @@ public class RichiesteValidator {
 			return msg;
 		}
 
-		if (!(richiestaDto.getList().stream().map(DuplicazioniRichiestaDto::getnGiorno).distinct().count() == richiestaDto
-				.getList().size())) {
+		if (!(richiestaDto.getList().stream().map(DuplicazioniRichiestaDto::getnGiorno).distinct()
+				.count() == richiestaDto.getList().size())) {
 
 			msg = " in una richiesta di ferie ci può essere solo un giorno univoco per mese";
 			LOGGER.log(Level.ERROR, msg);
@@ -85,7 +85,8 @@ public class RichiesteValidator {
 		LocalDate dataDaControllare = LocalDate.of(richiestaDto.getAnno(), richiestaDto.getMese(),
 				richiestaDto.getList().get(0).getnGiorno());
 
-		if (richiestaDto.getList().get(0).getPermessi() != null && richiestaDto.getList().get(0).getPermessi() == true) {
+		if (richiestaDto.getList().get(0).getPermessi() != null
+				&& richiestaDto.getList().get(0).getPermessi() == true) {
 
 			if (dataDaControllare.isBefore(LocalDate.now())) {
 				msg = " per i permessi la data deve essere o uguale o maggiore della data odierna";
@@ -250,21 +251,89 @@ public class RichiesteValidator {
 	}
 
 	// diventa controllo intersecazione
+	/*
+	 * public Boolean isExist(RichiestaDto richiestaDto) {
+	 * 
+	 * List<RichiestaDto> listRichiestaDto = null;
+	 * 
+	 * Anagrafica anagrafica =
+	 * anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale());
+	 * 
+	 * List<TipoRichieste> tipoRichieste =
+	 * tipoRichiestaRepository.getRichieste(richiestaDto.getAnno(),
+	 * richiestaDto.getMese(), anagrafica.getId());
+	 * 
+	 * if (tipoRichieste != null && tipoRichieste.size() > 0) listRichiestaDto =
+	 * convertInDto.convertInDifferentRichiestaDto(tipoRichieste);
+	 * 
+	 * return tipoRichieste == null || tipoRichieste.size() == 0 ? false :
+	 * listRichiestaDto.stream().filter(elem ->
+	 * elem.equals(richiestaDto)).collect(Collectors.toList()) .size() > 0 ? true :
+	 * false;
+	 * 
+	 * }
+	 */
+
 	public Boolean isExist(RichiestaDto richiestaDto) {
 
-		List<RichiestaDto> listRichiestaDto = null;
-
-		Anagrafica anagrafica = anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale());
-
-		List<TipoRichieste> tipoRichieste = tipoRichiestaRepository.getRichieste(richiestaDto.getAnno(),
-				richiestaDto.getMese(), anagrafica.getId());
-
-		if (tipoRichieste != null && tipoRichieste.size() > 0)
-			listRichiestaDto = convertInDto.convertInDifferentRichiestaDto(tipoRichieste);
-
-		return tipoRichieste == null || tipoRichieste.size() == 0 ? false
-				: listRichiestaDto.stream().filter(elem -> elem.equals(richiestaDto)).collect(Collectors.toList())
-						.size() > 0 ? true : false;
+		return richiestaDto.getList().get(0).getPermessi() != null
+				&& richiestaDto.getList().get(0).getPermessi() == true ? validateExistPermesso(richiestaDto)
+						: validateExistferie(richiestaDto);
 
 	}
+
+	public Boolean validateExistPermesso(RichiestaDto richiestaDto) {
+
+		List<TipoRichieste> tipoRichiesteList = tipoRichiestaRepository.getRichiesteValidate(richiestaDto.getAnno(),
+				richiestaDto.getMese(),
+				anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()).getId(),
+				richiestaDto.getList().get(0).getnGiorno(), richiestaDto.getList().get(0).getaOra(),
+				richiestaDto.getList().get(0).getDaOra());
+
+		return tipoRichiesteList == null ? false : true;
+
+	}
+
+	public Boolean validateExistferie(RichiestaDto richiestaDto) {
+
+		Boolean checkExistFerie = null;
+
+		List<TipoRichieste> tipoRichiesteList = tipoRichiestaRepository.getRichieste(richiestaDto.getAnno(),
+				richiestaDto.getMese(),
+				anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()).getId());
+
+		for (DuplicazioniRichiestaDto duplicazioniRichiesteDto : richiestaDto.getList()) {
+
+			for (TipoRichieste tipoRichieste : tipoRichiesteList) {
+
+				if (duplicazioniRichiesteDto.getnGiorno() == tipoRichieste.getnGiorno()) {
+
+					checkExistFerie = true;
+
+				}
+
+			}
+
+		}
+
+		return checkExistFerie;
+
+	}
+
+	public String validateUpdate(RichiestaDto richiestaDto) {
+
+		String msg = null;
+
+		if (richiestaDto == null || richiestaDto.getId() != null) {
+
+			msg = " Id della richiestaDto deve essere valorizzato";
+			LOGGER.log(Level.ERROR, msg);
+			return msg;
+
+		}
+
+		return msg;
+
+	}
+
 }

@@ -214,7 +214,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 	@Override
 	@Transactional(rollbackOn = ServiceException.class)
 	public boolean checkElaborazione(RichiestaRequest richiestaRequest) throws ServiceException {
-		
+
 		Richieste richiesta = richiestaRepository.findById(richiestaRequest.getRichiestaDto().getId()).get();
 
 		if (richiesta.getStato() == null) {
@@ -224,6 +224,47 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			return false;
 		}
+	}
+
+	@Override
+	@Transactional(rollbackOn = ServiceException.class)
+	public void modificaRichiesta(RichiestaRequest richiestaRequest) throws ServiceException {
+
+		try {
+
+			String msg = null;
+
+			if ((msg = richiesteValidator.validateUpdate(richiestaRequest.getRichiestaDto())) != null) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
+			}
+
+			if (checkElaborazione(richiestaRequest) == true) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE,
+						"non puoi modificare una richiesta in fase di elaborazione");
+			}
+
+			Richieste richiesta = richiestaRepository.findById(richiestaRequest.getRichiestaDto().getId()).get();
+
+			List<TipoRichieste> tipoRichiesteList = tipoRichiestaRepository
+					.getTipoRichiesteByIdRichieste(richiesta.getId());
+
+			tipoRichiestaRepository.deleteAll(tipoRichiesteList);
+
+			richiestaRepository.delete(richiesta);
+
+			insertRichiesta(richiestaRequest.getRichiestaDto());
+
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
+		}
+
 	}
 
 }

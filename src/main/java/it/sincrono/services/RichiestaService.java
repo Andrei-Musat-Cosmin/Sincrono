@@ -20,6 +20,8 @@ public interface RichiestaService {
 	List<RichiestaDto> listRichiesteDtoAccettate(RichiestaDto richiestaDto) throws ServiceException;
 
 	public boolean checkElaborazione(RichiestaRequest richiestaRequest) throws ServiceException;
+	
+	public void modificaRichiesta(RichiestaRequest richiestaRequest) throws ServiceException;
 
 
 }
