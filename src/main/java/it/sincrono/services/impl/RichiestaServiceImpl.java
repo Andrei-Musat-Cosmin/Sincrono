@@ -17,6 +17,7 @@ import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.RichiestaRepository;
 import it.sincrono.repositories.TipoRichiestaRepository;
 import it.sincrono.repositories.dto.RichiestaDto;
+import it.sincrono.requests.RichiestaRequest;
 import it.sincrono.services.EmailService;
 import it.sincrono.services.RichiestaService;
 import it.sincrono.services.costants.ServiceMessages;
@@ -28,8 +29,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaService {
-	
-	
+
 	@Value("${email-richieste.email}")
 	private String EMAIL;
 
@@ -66,8 +66,8 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 			List<TipoRichieste> tipoRichieste = richiestaRepository.getRichiesta(id);
 
 			convertInDto.convertInRichiestaDto(richiestaDto, tipoRichieste);
-			
-			convertInDto.addNote(richiestaDto,id);
+
+			convertInDto.addNote(richiestaDto, id);
 
 			return richiestaDto;
 
@@ -85,9 +85,9 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 		try {
 
-			String msg=null;
-			
-			if ((msg =richiesteValidator.validateInsert(richiestaDto))!=null) {
+			String msg = null;
+
+			if ((msg = richiesteValidator.validateInsert(richiestaDto)) != null) {
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 			}
 
@@ -103,7 +103,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			richiestaDto.setId(idRichiesta);
 
-			emailService.sendMailRichieste(null,EMAIL, null,
+			emailService.sendMailRichieste(null, EMAIL, null,
 					emailUtil.createSubjectRichiesta(richiestaDto, anagrafica),
 					emailUtil.createBodyRichiesta(richiestaDto, anagrafica));
 
@@ -111,7 +111,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e.getMessage());
 		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR,e.getMessage());
+			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e.getMessage());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -138,7 +138,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			if (tipoRichieste != null && tipoRichieste.size() > 0)
 				listRichiestaDto = convertInDto.convertInDifferentRichiestaDto(tipoRichieste);
-			
+
 			convertInDto.addNote(listRichiestaDto);
 
 			return listRichiestaDto;
@@ -198,7 +198,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 			richiestaRepository.saveAndFlush(new Richieste(richiestaDto.getId(),
 					anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()), richiestaDto.getAnno(),
 					richiestaDto.getMese(), richiestaDto.getStato(), richiestaDto.getNote()));
-			
+
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
 			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
@@ -210,4 +210,20 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 		}
 
 	}
+
+	@Override
+	@Transactional(rollbackOn = ServiceException.class)
+	public boolean checkElaborazione(RichiestaRequest richiestaRequest) throws ServiceException {
+		
+		Richieste richiesta = richiestaRepository.findById(richiestaRequest.getRichiestaDto().getId()).get();
+
+		if (richiesta.getStato() == null) {
+			return true;
+
+		} else {
+
+			return false;
+		}
+	}
+
 }
