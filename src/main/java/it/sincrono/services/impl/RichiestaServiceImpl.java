@@ -238,7 +238,7 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 			}
 
-			if (checkElaborazione(richiestaRequest) == true) {
+			if (!checkElaborazione(richiestaRequest)) {
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE,
 						"non puoi modificare una richiesta in fase di elaborazione");
 			}
@@ -251,6 +251,8 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 			tipoRichiestaRepository.deleteAll(tipoRichiesteList);
 
 			richiestaRepository.delete(richiesta);
+			
+			richiestaRequest.getRichiestaDto().setId(null);
 
 			insertRichiesta(richiestaRequest.getRichiestaDto());
 

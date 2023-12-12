@@ -324,7 +324,7 @@ public class RichiesteValidator {
 
 		String msg = null;
 
-		if (richiestaDto == null || richiestaDto.getId() != null) {
+		if (richiestaDto == null || richiestaDto.getId() == null) {
 
 			msg = " Id della richiestaDto deve essere valorizzato";
 			LOGGER.log(Level.ERROR, msg);

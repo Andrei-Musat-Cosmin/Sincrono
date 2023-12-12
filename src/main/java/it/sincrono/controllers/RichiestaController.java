@@ -189,7 +189,7 @@ public class RichiestaController {
 		return httpEntity;
 	}
 	
-	@PutMapping("/modifiica-richiesta")
+	@PutMapping("/modifica-richiesta")
 	public @ResponseBody HttpEntity<GenericResponse> updateRichiesta(@RequestBody RichiestaRequest richiestaRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
