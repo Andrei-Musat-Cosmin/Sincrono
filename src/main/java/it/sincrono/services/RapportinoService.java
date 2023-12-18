@@ -16,6 +16,8 @@ public interface RapportinoService {
 
 	public RapportinoDto getRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException;
 
+	
+	
 	public void updateRapportino(RapportinoRequestDto rapportinoRequestDto) throws ServiceException;
 
 	public void inviaRapportino(RapportinoInviato rapportinoInviato) throws ServiceException;
