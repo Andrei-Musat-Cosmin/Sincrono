@@ -271,6 +271,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 				rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest());
 	}
 
+	
+
 	@Override
 	public List<AnagraficaDto> getRapportiniNotFreeze(AnagraficaFilterRequestDto anagraficaFilterRequestDto)
 			throws ServiceException {
@@ -338,7 +340,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
 
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
-
+System.out.println("conteggio"+giornoDto.getNumeroGiorno());
 				Rapportino rapportino = new Rapportino();
 
 				if (giornoDto.getDuplicazioniGiornoDto() != null && giornoDto.getDuplicazioniGiornoDto().size() > 0) {
