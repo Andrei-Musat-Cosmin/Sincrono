@@ -604,19 +604,19 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			if (anagraficaDto.getContratto().getDataAssunzione() != null
 					&& anagraficaDto.getContratto().getMesiDurata() != null
-					&& anagraficaDto.getContratto().getDataFineRapporto() == null) {
+					&& anagraficaDto.getContratto().getDataFineContratto() == null) {
 
 				calendar.setTime(anagraficaDto.getContratto().getDataAssunzione());
 				calendar.add(Calendar.MONTH, anagraficaDto.getContratto().getMesiDurata());
-				anagraficaDto.getContratto().setDataFineRapporto(calendar.getTime());
+				anagraficaDto.getContratto().setDataFineContratto(calendar.getTime());
 
 			}
 
 		} else {
 
-			if (anagraficaDto.getContratto().getDataFineRapporto() == null) {
+			if (anagraficaDto.getContratto().getDataFineContratto() == null) {
 
-				anagraficaDto.getContratto().setDataFineRapporto(calendar.getTime());
+				anagraficaDto.getContratto().setDataFineContratto(calendar.getTime());
 
 			}
 		}

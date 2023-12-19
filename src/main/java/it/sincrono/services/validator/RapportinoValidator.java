@@ -191,7 +191,9 @@ public class RapportinoValidator {
 
 					for (DuplicazioniGiornoDto giornoDuplicato : giornoDto.getDuplicazioniGiornoDto()) {
 
-						if (giornoDto.getPermessi() != null) {
+						if (giornoDto.getPermessi() != null || giornoDto.getPermessiRole()!=null || 
+								giornoDto.getPermessiExfestivita()!=null ) {
+							
 							if (giornoDuplicato.getCliente() == null) {
 								msg = " Il giorno " + giornoDto.getNumeroGiorno() + " non conitente il cliente";
 								LOGGER.log(Level.ERROR, msg);
