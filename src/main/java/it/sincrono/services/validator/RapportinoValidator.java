@@ -231,8 +231,6 @@ public class RapportinoValidator {
 								totStraordinario3 += giornoDuplicato.getFascia3();
 							if (giornoDto.getPermessi() != null)
 								permessi += giornoDto.getPermessi();
-							if (giornoDto.getPermessiExfestivita() != null)
-								permessi += giornoDto.getPermessiExfestivita();
 							if (giornoDto.getPermessiRole() != null)
 								permessi += giornoDto.getPermessiRole();
 

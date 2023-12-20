@@ -46,6 +46,12 @@ public class Rapportino {
 	@Column(name = "permessi")
 	private Double permessi;
 
+	@Column(name = "permessiRole")
+	private Double permessiRole;
+	
+	@Column(name = "permessiExfestivita")
+	private Boolean permessiExfestivita;
+	
 	@Column(name = "ferie")
 	private Boolean ferie;
 
@@ -53,7 +59,7 @@ public class Rapportino {
 	private Boolean malattie;
 
 	public Rapportino(Integer id, Anagrafica anagrafica, Integer anno, Integer mese, Integer giorno, Double fascia1,
-			Double fascia2, Double fascia3, Double ore, Double permessi, Boolean ferie, Boolean malattie) {
+			Double fascia2, Double fascia3, Double ore, Double permessi, Boolean ferie, Boolean malattie,Double permessiRole,Boolean permessiExfestivita) {
 		super();
 		this.id = id;
 		this.anagrafica = anagrafica;
@@ -67,11 +73,29 @@ public class Rapportino {
 		this.permessi = permessi;
 		this.ferie = ferie;
 		this.malattie = malattie;
+		this.permessiRole = permessiRole;
+		this.permessiExfestivita = permessiExfestivita;
 	}
 
 	public Rapportino() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Double getPermessiRole() {
+		return permessiRole;
+	}
+
+	public void setPermessiRole(Double permessiRole) {
+		this.permessiRole = permessiRole;
+	}
+
+	public Boolean getPermessiExfestivita() {
+		return permessiExfestivita;
+	}
+
+	public void setPermessiExfestivita(Boolean permessiExfestivita) {
+		this.permessiExfestivita = permessiExfestivita;
 	}
 
 	public Integer getId() {

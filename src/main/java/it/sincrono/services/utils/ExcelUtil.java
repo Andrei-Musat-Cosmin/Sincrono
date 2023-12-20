@@ -160,6 +160,7 @@ public class ExcelUtil {
 				if(giornoweek==1 || giornoweek==7 || DateUtil.checkFestivitàNazionaleRapportino(mese,anno,i)) {
 				cell.setCellStyle(cellStyleSABDOM);
 				}else {
+					
 					cell.setCellStyle(cellStyleGiorni);
 					conttotalesenzafeste++;
 				}
@@ -242,12 +243,27 @@ public class ExcelUtil {
 						calendar.set(anno, mese - 1, rapportino.getGiorno());
 						int giornoweek = calendar.get(Calendar.DAY_OF_WEEK);
 						if(giornoweek==1 || giornoweek==7 || DateUtil.checkFestivitàNazionaleRapportino(mese,anno,rapportino.getGiorno()) ) {
+							if(rapportino.getOre() !=null ) {
 							cell.setCellValue(rapportino.getOre() );
+							}else {
+								cell.setCellValue(rapportino.getPermessiRole() );
+								rol+=rapportino.getPermessiRole();
+								cell.setCellStyle(cellStyleRolLabel);
+							}
 							f1_f2_f3+=rapportino.getOre();
 							cell.setCellStyle(cellStyleSABDOM);
+							
+						
 							}else {
 								cell.setCellStyle(cellStyleDefault);
-								cell.setCellValue(rapportino.getOre() );
+								if(rapportino.getOre() !=null ) {
+									cell.setCellValue(rapportino.getOre() );
+									}else {
+										cell.setCellValue(rapportino.getPermessiRole() );
+										rol+=rapportino.getPermessiRole();
+										cell.setCellStyle(cellStyleRolLabel);
+									}
+								
 								
 								System.out.println("malattioe"+rapportino.getFerie());
 								if(rapportino.getMalattie()!=null) {
@@ -260,6 +276,11 @@ public class ExcelUtil {
 									ferie++;
 								}
 								}
+								if(rapportino.getPermessiExfestivita()!=null) {
+									if(rapportino.getPermessiExfestivita()==true ) {
+										ex_fs++;
+									}
+									}
 								if(rapportino.getOre()<=8) {
 								totale+=rapportino.getOre();
 								contpieno+=1;

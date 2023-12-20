@@ -151,7 +151,7 @@ public class FileUtil {
 					giornoDto.setPermessi(Double.parseDouble(giornoSplit[3]));
 
 				if (giornoSplit[4] != null && !giornoSplit[4].isEmpty() && !giornoSplit[4].equals("null"))
-					giornoDto.setPermessiExfestivita(Double.parseDouble(giornoSplit[4]));
+					giornoDto.setPermessiExfestivita(Boolean.parseBoolean(giornoSplit[4]));
 
 				if (giornoSplit[5] != null && !giornoSplit[5].isEmpty() && !giornoSplit[5].equals("null"))
 					giornoDto.setPermessiRole(Double.parseDouble(giornoSplit[5]));
