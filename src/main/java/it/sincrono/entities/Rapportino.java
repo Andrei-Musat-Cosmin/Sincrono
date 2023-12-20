@@ -46,10 +46,10 @@ public class Rapportino {
 	@Column(name = "permessi")
 	private Double permessi;
 
-	@Column(name = "permessiRole")
+	@Column(name = "permessi_role")
 	private Double permessiRole;
 	
-	@Column(name = "permessiExfestivita")
+	@Column(name = "permessi_exfestivita")
 	private Boolean permessiExfestivita;
 	
 	@Column(name = "ferie")

@@ -70,7 +70,7 @@ public class ExcelUtil {
 			int ferie = 0;
 			int malattie = 0;
 			int ex_fs = 0;
-			int rol = 0;
+			double rol = 0;
 			double f1_f2_f3 = 0.0;
 			double straordinariSum = 0.0;
 
@@ -239,33 +239,40 @@ public class ExcelUtil {
 					if (rapportino.getFascia3() != null) {
 						f1_f2_f3 += rapportino.getFascia3();
 					}
-					if (rapportino.getOre() != null) {
+					
 						calendar.set(anno, mese - 1, rapportino.getGiorno());
 						int giornoweek = calendar.get(Calendar.DAY_OF_WEEK);
 						if(giornoweek==1 || giornoweek==7 || DateUtil.checkFestivitàNazionaleRapportino(mese,anno,rapportino.getGiorno()) ) {
 							if(rapportino.getOre() !=null ) {
 							cell.setCellValue(rapportino.getOre() );
-							}else {
+							}
+							if(rapportino.getPermessiRole() !=null) {
+								System.out.println("role"+rapportino.getPermessiRole());
 								cell.setCellValue(rapportino.getPermessiRole() );
 								rol+=rapportino.getPermessiRole();
 								cell.setCellStyle(cellStyleRolLabel);
 							}
+							if(rapportino.getOre() !=null ) {
 							f1_f2_f3+=rapportino.getOre();
+							}
 							cell.setCellStyle(cellStyleSABDOM);
 							
-						
+						System.out.println("1");
 							}else {
 								cell.setCellStyle(cellStyleDefault);
+								System.out.println("2");
 								if(rapportino.getOre() !=null ) {
 									cell.setCellValue(rapportino.getOre() );
-									}else {
+									System.out.println("3");
+									}
+								if(rapportino.getPermessiRole() !=null) {
 										cell.setCellValue(rapportino.getPermessiRole() );
 										rol+=rapportino.getPermessiRole();
 										cell.setCellStyle(cellStyleRolLabel);
-									}
+									
+								}
 								
-								
-								System.out.println("malattioe"+rapportino.getFerie());
+								System.out.println("4");
 								if(rapportino.getMalattie()!=null) {
 								if(rapportino.getMalattie()==true ) {
 									malattie++;
@@ -281,21 +288,24 @@ public class ExcelUtil {
 										ex_fs++;
 									}
 									}
+								if(rapportino.getOre() !=null ) {
 								if(rapportino.getOre()<=8) {
 								totale+=rapportino.getOre();
 								contpieno+=1;
+								}
 								}
 								if(rapportino.getOre()==null) {
 								contvuoto+=1;
 								}
 							}
 			
-					}
+					
 				}
 					tot=contvuoto +conttotalesenzafeste-(totale/8);
 				straordinariSum += f1_f2_f3;
 				f1_f2_f3 = 0.0; // RICOMINCIA A CONTARE LE ORE DI STRAORDINARIO DELLA GIORNATA
-
+				contvuoto=0;
+				contpieno=0;
 			//	if (rapportino.getGiorno() == 31) {
 					str = new XSSFRichTextString("Di cui " + straordinariSum + " ore di straordinari.");
 					Comment comment = sheet.createDrawingPatriarch().createCellComment(new XSSFClientAnchor());
@@ -324,11 +334,11 @@ public class ExcelUtil {
 
 					/** RESET DELLE VARIABILI **/
 					cellNum = 0;
-					//tot = 0.0;
+					tot = 0.0;
 				//	ferie = 0;
-				//	malattie = 0;
-				//	ex_fs = 0;
-				//	rol = 0;
+					//malattie = 0;
+				//ex_fs = 0;
+					//rol = 0;
 				//}
 			/*	cell = row.createCell(32);
 				cell.setCellStyle(cellStyleTotale);
