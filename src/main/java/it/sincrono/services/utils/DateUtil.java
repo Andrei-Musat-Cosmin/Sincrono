@@ -150,8 +150,6 @@ public class DateUtil {
 				MonthDay.of(datePasquetta.getMonth(), datePasquetta.getDayOfMonth()) // Pasquetta
 
 		);
-		
-		
 
 		List<GiornoDto> listGiorni = rapportinoDto.getMese().getGiorni();
 
@@ -167,23 +165,18 @@ public class DateUtil {
 		}
 
 	}
-	public static boolean checkFestivitàNazionaleRapportino(Integer mese, Integer anno,Integer giorno) {
+
+	public static boolean checkFestivitàNazionaleRapportino(Integer mese, Integer anno, Integer giorno) {
 		LocalDate datePasqua = calcolaPasqua(anno);
 		LocalDate datePasquetta = calcolaPasquetta(datePasqua);
-			     if((mese==1 && giorno==6)  || 
-					(mese==4 && giorno==25) ||
-					(mese==5 && giorno==1)  || 
-					(mese==6 && giorno==2)  || 
-					(mese==8 && giorno==15) ||
-			        (mese==11 && giorno==1)  || 
-			        (mese==12 && giorno==8)  ||
-			        (mese==12 && giorno==25) ||
-                    (mese==12 && giorno==26)  || 
-                    (mese==datePasqua.getMonthValue() && giorno==datePasqua.getDayOfMonth())  || 
-                    (mese==datePasquetta.getMonthValue() && giorno==datePasqua.getDayOfMonth()) ) {
-				return true;
-			}
-return false;
+		if ((mese == 1 && giorno == 6) || (mese == 4 && giorno == 25) || (mese == 5 && giorno == 1)
+				|| (mese == 6 && giorno == 2) || (mese == 8 && giorno == 15) || (mese == 11 && giorno == 1)
+				|| (mese == 12 && giorno == 8) || (mese == 12 && giorno == 25) || (mese == 12 && giorno == 26)
+				|| (mese == datePasqua.getMonthValue() && giorno == datePasqua.getDayOfMonth())
+				|| (mese == datePasquetta.getMonthValue() && giorno == datePasqua.getDayOfMonth())) {
+			return true;
+		}
+		return false;
 	}
 
 	public static LocalDate calcolaPasqua(int year) {
@@ -209,6 +202,32 @@ return false;
 	public static LocalDate calcolaPasquetta(LocalDate date) {
 
 		return LocalDate.from(date.plusDays(1));
+	}
+
+	
+
+	public static Boolean isDateGreaterThan(Date date1, Date date2) {
+		if (date1 == null || date2 == null) {
+
+			return true;
+		}
+
+		Calendar calendarDate1 = Calendar.getInstance();
+		calendarDate1.setTime(date1);
+
+		Calendar calendarDate2 = Calendar.getInstance();
+		calendarDate2.setTime(date2);
+
+		if (calendarDate1.get(Calendar.YEAR) > calendarDate2.get(Calendar.YEAR)
+				|| (calendarDate1.get(Calendar.YEAR) == calendarDate2.get(Calendar.YEAR)
+						&& calendarDate1.get(Calendar.MONTH) > calendarDate2.get(Calendar.MONTH))
+				|| (calendarDate1.get(Calendar.YEAR) == calendarDate2.get(Calendar.YEAR)
+						&& calendarDate1.get(Calendar.MONTH) == calendarDate2.get(Calendar.MONTH)
+						&& calendarDate1.get(Calendar.DAY_OF_MONTH) >= calendarDate2.get(Calendar.DAY_OF_MONTH))) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
