@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
+
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.RapportinoInviato;
 import it.sincrono.repositories.RapportinoRepository;
@@ -43,7 +45,7 @@ public class RapportinoController {
 
 	@Autowired
 	RapportinoRepository rapportinoRepository;
-	
+
 	@PostMapping("/export-rapportino")
 	public @ResponseBody HttpEntity<RapportinoB64Response> getRapportinoB64(@RequestBody RapportinoRequest rapportino) {
 		HttpEntity<RapportinoB64Response> httpEntity = null;
@@ -79,8 +81,12 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportino");
 
+			Gson gson = new Gson();
+
+			LOGGER.info("getRapportino: " + gson.toJson(rapportinoRequestDto));
+
 			RapportinoDto rapportinoDto = rapportinoService.getRapportino(rapportinoRequestDto);
-		
+
 			rapportinoDtoResponse.setRapportinoDto(rapportinoDto);
 			rapportinoDtoResponse.setEsito(new Esito());
 
@@ -95,9 +101,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
 
-	
 	@PostMapping("/rapportino-dbdelete")
 	public @ResponseBody HttpEntity<GenericResponse> RapportinoDelete(
 			@RequestBody RapportinoRequestDto rapportinoRequestDto) {
@@ -108,11 +112,11 @@ public class RapportinoController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getRapportino");
 
-			
-			RapportinoRequest rapportinoRequest=new RapportinoRequest();
+			RapportinoRequest rapportinoRequest = new RapportinoRequest();
 			rapportinoRequest.setAnno(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
 			rapportinoRequest.setMese(rapportinoRequestDto.getRapportinoDto().getMeseRequest());
-			rapportinoRequest.setCodiceFiscale(rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale());
+			rapportinoRequest
+					.setCodiceFiscale(rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale());
 			rapportinoService.deleteRapportinoInDatabase(rapportinoRequest);
 			genericResponse.setEsito(new Esito());
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -192,18 +196,16 @@ public class RapportinoController {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo aggiungiNote");
 			RapportinoInviato rapportinoInviato = rapportinoService.findByData(rapportinoRequestDto.getRapportinoDto());
 			if (rapportinoInviato == null) {
-				rapportinoInviato= new RapportinoInviato();
+				rapportinoInviato = new RapportinoInviato();
 				rapportinoService.aggiungiNoteDipendente(rapportinoRequestDto);
 
-				rapportinoInviato.setCodiceFiscale(
-						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale());
+				rapportinoInviato
+						.setCodiceFiscale(rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCodiceFiscale());
 				rapportinoInviato.setMese(rapportinoRequestDto.getRapportinoDto().getMeseRequest());
 				rapportinoInviato.setAnno(rapportinoRequestDto.getRapportinoDto().getAnnoRequest());
-				rapportinoInviato.setNome(
-						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getNome());
-				rapportinoInviato.setCognome(
-						rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCognome());
-				
+				rapportinoInviato.setNome(rapportinoRequestDto.getRapportinoDto().getAnagrafica().getNome());
+				rapportinoInviato.setCognome(rapportinoRequestDto.getRapportinoDto().getAnagrafica().getCognome());
+
 				rapportinoService.inviaRapportino(rapportinoInviato);
 			}
 			genericResponse.setEsito(new Esito());
@@ -219,7 +221,7 @@ public class RapportinoController {
 
 		return httpEntity;
 	}
-	
+
 	@PutMapping("/invia-rapportino")
 	public @ResponseBody HttpEntity<GenericResponse> inviaRapportino(
 			@RequestBody RapportinoInviatoRequest rapportinoInviatoRequestDto) {

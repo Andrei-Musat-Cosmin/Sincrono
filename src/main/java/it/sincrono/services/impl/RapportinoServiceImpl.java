@@ -105,6 +105,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			rapportinoUtil.calcoloRapportinoGiorniUtiliLavoro(rapportinoDto);
 
 			rapportinoUtil.calcoloRapportinoDtoGiorniLavorati(rapportinoDto);
+			
+			rapportinoUtil.calcoloCommesseRapportino(rapportinoDto);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
