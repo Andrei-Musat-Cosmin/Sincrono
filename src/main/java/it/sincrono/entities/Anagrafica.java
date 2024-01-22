@@ -49,11 +49,11 @@ public class Anagrafica {
 	@Column(name = "data_di_nascita")
 	private Date dataDiNascita;
 
-	@Column(name = "residenza")
-	private String residenza;
+	@Column(name = "indirizzo_residenza")
+	private String indirizzoResidenza;
 
-	@Column(name = "domicilio")
-	private String domicilio;
+	@Column(name = "indirizzo_domicilio")
+	private String indirizzoDomicilio;
 
 	@Column(name = "cellulare_privato")
 	private String cellularePrivato;
@@ -110,7 +110,7 @@ public class Anagrafica {
 	private Integer mese;
 
 	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, String nome, String cognome,
-			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String residenza, String domicilio,
+			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String indirizzoResidenza, String indirizzoDomicilio,
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
 			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico,
 			Boolean attivo, Boolean attesaLavori, String cittadinanza, String statoDiNascita, String provinciaDiNascita,
@@ -124,8 +124,8 @@ public class Anagrafica {
 		this.codiceFiscale = codiceFiscale;
 		this.comuneDiNascita = comuneDiNascita;
 		this.dataDiNascita = dataDiNascita;
-		this.residenza = residenza;
-		this.domicilio = domicilio;
+		this.indirizzoResidenza = indirizzoResidenza;
+		this.indirizzoDomicilio = indirizzoDomicilio;
 		this.cellularePrivato = cellularePrivato;
 		this.cellulareAziendale = cellulareAziendale;
 		this.mailPrivata = mailPrivata;
@@ -223,20 +223,20 @@ public class Anagrafica {
 		this.dataDiNascita = dataDiNascita;
 	}
 
-	public String getResidenza() {
-		return residenza;
+	public String getIndirizzoResidenza() {
+		return indirizzoResidenza;
 	}
 
-	public void setResidenza(String residenza) {
-		this.residenza = residenza;
+	public void setIndirizzoResidenza(String indirizzoResidenza) {
+		this.indirizzoResidenza = indirizzoResidenza;
 	}
 
-	public String getDomicilio() {
-		return domicilio;
+	public String getIndirizzoDomicilio() {
+		return indirizzoDomicilio;
 	}
 
-	public void setDomicilio(String domicilio) {
-		this.domicilio = domicilio;
+	public void setIndirizzoDomicilio(String indirizzoDomicilio) {
+		this.indirizzoDomicilio = indirizzoDomicilio;
 	}
 
 	public String getCellularePrivato() {

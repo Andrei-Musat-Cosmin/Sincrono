@@ -361,9 +361,9 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				if (result[7] != null)
 					anagrafica.setDataDiNascita((Date) result[7]);
 				if (result[8] != null)
-					anagrafica.setResidenza((String) result[8]);
+					anagrafica.setIndirizzoResidenza((String) result[8]);
 				if (result[9] != null)
-					anagrafica.setDomicilio((String) result[9]);
+					anagrafica.setIndirizzoDomicilio((String) result[9]);
 				if (result[10] != null)
 					anagrafica.setCellularePrivato((String) result[10]);
 				if (result[11] != null)

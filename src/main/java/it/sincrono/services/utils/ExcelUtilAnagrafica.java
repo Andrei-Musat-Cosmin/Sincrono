@@ -233,13 +233,13 @@ public class ExcelUtilAnagrafica {
 
 		if (row.getCell(7) != null) {
 
-			anagrafica.setResidenza(row.getCell(7).getStringCellValue());
+			anagrafica.setIndirizzoResidenza(row.getCell(7).getStringCellValue());
 
 		}
 
 		if (row.getCell(8) != null) {
 
-			anagrafica.setDomicilio(row.getCell(8).getStringCellValue());
+			anagrafica.setIndirizzoDomicilio(row.getCell(8).getStringCellValue());
 
 		}
 
