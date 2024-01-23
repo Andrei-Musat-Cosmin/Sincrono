@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.sincrono.entities.Comune;
+import it.sincrono.entities.Provincia;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
@@ -123,16 +125,35 @@ public class TipologicheServiceImpl extends BaseServiceImpl implements Tipologic
 	}
 
 	@Override
-	public List<TipoCausaFineContratto> getTipoCausaFineContratto() throws ServiceException {
-		List<TipoCausaFineContratto> list = null;
+	public List<Comune> getComuniMap() throws ServiceException {
+		List<Comune> list = null;
 		try {
-			list = tipologicheRepository.getTipoCausaFineContratto();
+			list = tipologicheRepository.getComuniMap();
 		} catch (Exception e) {
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}
 
 		return list;
 
+	}
+
+	@Override
+	public List<Provincia> getProvinceMap() throws ServiceException {
+		List<Provincia> list = null;
+		try {
+			list = tipologicheRepository.getProvinceMap();
+		} catch (Exception e) {
+			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
+		}
+
+		return list;
+
+	}
+
+	@Override
+	public List<TipoCausaFineContratto> getTipoCausaFineContratto() throws ServiceException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

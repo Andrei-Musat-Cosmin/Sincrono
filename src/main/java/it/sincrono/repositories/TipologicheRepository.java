@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import it.sincrono.entities.Comune;
+import it.sincrono.entities.Provincia;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
@@ -43,8 +45,13 @@ public interface TipologicheRepository extends JpaRepository<TipoAzienda, Intege
 
 	@Query(value = "SELECT a FROM TipoCcnl a WHERE a.id=?1")
 	public TipoCcnl getCcnlMapById(Integer id) throws RepositoryException;
-	
+
 	@Query(value = "SELECT a FROM TipoCausaFineContratto a WHERE a.id!=0 ORDER BY a.id")
 	public List<TipoCausaFineContratto> getTipoCausaFineContratto() throws RepositoryException;
 
+	@Query(value = "SELECT a FROM Comune a ORDER BY a.id")
+	public List<Comune> getComuniMap() throws RepositoryException;
+
+	@Query(value = "SELECT a FROM Provincia a ORDER BY a.id")
+	public List<Provincia> getProvinceMap() throws RepositoryException;
 }

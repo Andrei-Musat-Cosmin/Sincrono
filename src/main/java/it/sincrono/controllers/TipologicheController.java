@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
+import it.sincrono.entities.Comune;
+import it.sincrono.entities.Provincia;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
@@ -250,10 +252,9 @@ public class TipologicheController {
 
 		return httpEntity;
 	}
-	
+
 	@GetMapping("/tipo-causa-fine-contratto-map")
-	public @ResponseBody HttpEntity<TipologicheListResponse<TipoCausaFineContratto>> getTipoCausaFineContratto()
-			 {
+	public @ResponseBody HttpEntity<TipologicheListResponse<TipoCausaFineContratto>> getTipoCausaFineContratto() {
 
 		HttpEntity<TipologicheListResponse<TipoCausaFineContratto>> httpEntity = null;
 
@@ -267,16 +268,76 @@ public class TipologicheController {
 			tipoCausaFineContrattoListResponse.setList(list);
 			tipoCausaFineContrattoListResponse.setEsito(new Esito());
 
-			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineContratto>>(tipoCausaFineContrattoListResponse);
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineContratto>>(
+					tipoCausaFineContrattoListResponse);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			tipoCausaFineContrattoListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineContratto>>(tipoCausaFineContrattoListResponse);
+			httpEntity = new HttpEntity<TipologicheListResponse<TipoCausaFineContratto>>(
+					tipoCausaFineContrattoListResponse);
 		}
 		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getTipoLivelloContrattoMap\n");
 
 		return httpEntity;
+	}
+
+	@GetMapping("/comuni-map")
+	public @ResponseBody HttpEntity<TipologicheListResponse<Comune>> getComuniMap() {
+
+		HttpEntity<TipologicheListResponse<Comune>> httpEntity = null;
+
+		TipologicheListResponse<Comune> comuniListResponse = new TipologicheListResponse<Comune>();
+
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getComuniMap");
+
+			List<Comune> list = tipologicheService.getComuniMap();
+
+			comuniListResponse.setList(list);
+			comuniListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<TipologicheListResponse<Comune>>(comuniListResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			comuniListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<TipologicheListResponse<Comune>>(comuniListResponse);
+
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getComuniMap\n");
+
+		return httpEntity;
+
+	}
+
+	@GetMapping("/province-map")
+	public @ResponseBody HttpEntity<TipologicheListResponse<Provincia>> getProvinceMap() {
+
+		HttpEntity<TipologicheListResponse<Provincia>> httpEntity = null;
+
+		TipologicheListResponse<Provincia> comuniListResponse = new TipologicheListResponse<Provincia>();
+
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getComuniMap");
+
+			List<Provincia> list = tipologicheService.getProvinceMap();
+
+			comuniListResponse.setList(list);
+			comuniListResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<TipologicheListResponse<Provincia>>(comuniListResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			comuniListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<TipologicheListResponse<Provincia>>(comuniListResponse);
+
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getComuniMap\n");
+
+		return httpEntity;
+
 	}
 
 }
