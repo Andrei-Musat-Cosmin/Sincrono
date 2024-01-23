@@ -34,6 +34,30 @@ public class Anagrafica {
 	@JoinColumn(name = "id_tipo_canale_reclutamento")
 	private TipoCanaleReclutamento tipoCanaleReclutamento;
 
+	@ManyToOne
+	@JoinColumn(name = "id_comune_residenza")
+	private Comune comuneResidenza;
+
+	@ManyToOne
+	@JoinColumn(name = "id_comune_di_nascita")
+	private Comune comuneDiNascita;
+
+	@ManyToOne
+	@JoinColumn(name = "id_comune_domicilio")
+	private Comune comuneDomicilio;
+
+	@ManyToOne
+	@JoinColumn(name = "id_provincia_residenza")
+	private Provincia provinciaResidenza;
+
+	@ManyToOne
+	@JoinColumn(name = "id_provincia_di_nascita")
+	private Provincia provinciaDiNascita;
+
+	@ManyToOne
+	@JoinColumn(name = "id_provincia_domicilio")
+	private Provincia provinciaDomicilio;
+
 	@Column(name = "nome")
 	private String nome;
 
@@ -42,9 +66,6 @@ public class Anagrafica {
 
 	@Column(name = "codice_fiscale")
 	private String codiceFiscale;
-
-	@Column(name = "comune_di_nascita")
-	private String comuneDiNascita;
 
 	@Column(name = "data_di_nascita")
 	private Date dataDiNascita;
@@ -94,9 +115,6 @@ public class Anagrafica {
 	@Column(name = "stato_di_nascita")
 	private String statoDiNascita;
 
-	@Column(name = "provincia_di_nascita")
-	private String provinciaDiNascita;
-
 	@Column(name = "categoria_protetta")
 	private Boolean categoriaProtetta;
 
@@ -109,20 +127,28 @@ public class Anagrafica {
 	@Transient
 	private Integer mese;
 
-	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, String nome, String cognome,
-			String codiceFiscale, String comuneDiNascita, Date dataDiNascita, String indirizzoResidenza, String indirizzoDomicilio,
+	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, TipoCanaleReclutamento tipoCanaleReclutamento,
+			Comune comuneResidenza, Comune comuneDiNascita, Comune comuneDomicilio, Provincia provinciaResidenza,
+			Provincia provinciaDiNascita, Provincia provinciaDomicilio, String nome, String cognome,
+			String codiceFiscale, Date dataDiNascita, String indirizzoResidenza, String indirizzoDomicilio,
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
 			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico,
-			Boolean attivo, Boolean attesaLavori, String cittadinanza, String statoDiNascita, String provinciaDiNascita,
-			Boolean categoriaProtetta) {
+			Boolean attivo, Boolean attesaLavori, String cittadinanza, String statoDiNascita, Boolean categoriaProtetta,
+			Boolean checkInviato, Integer anno, Integer mese) {
 		super();
 		this.id = id;
 		this.utente = utente;
 		this.tipoAzienda = tipoAzienda;
+		this.tipoCanaleReclutamento = tipoCanaleReclutamento;
+		this.comuneResidenza = comuneResidenza;
+		this.comuneDiNascita = comuneDiNascita;
+		this.comuneDomicilio = comuneDomicilio;
+		this.provinciaResidenza = provinciaResidenza;
+		this.provinciaDiNascita = provinciaDiNascita;
+		this.provinciaDomicilio = provinciaDomicilio;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.codiceFiscale = codiceFiscale;
-		this.comuneDiNascita = comuneDiNascita;
 		this.dataDiNascita = dataDiNascita;
 		this.indirizzoResidenza = indirizzoResidenza;
 		this.indirizzoDomicilio = indirizzoDomicilio;
@@ -139,9 +165,10 @@ public class Anagrafica {
 		this.attesaLavori = attesaLavori;
 		this.cittadinanza = cittadinanza;
 		this.statoDiNascita = statoDiNascita;
-		this.provinciaDiNascita = provinciaDiNascita;
 		this.categoriaProtetta = categoriaProtetta;
-
+		this.checkInviato = checkInviato;
+		this.anno = anno;
+		this.mese = mese;
 	}
 
 	public Anagrafica(String codiceFiscale) {
@@ -152,6 +179,38 @@ public class Anagrafica {
 	public Anagrafica() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Comune getComuneDomicilio() {
+		return comuneDomicilio;
+	}
+
+	public void setComuneDomicilio(Comune comuneDomicilio) {
+		this.comuneDomicilio = comuneDomicilio;
+	}
+
+	public Provincia getProvinciaDomicilio() {
+		return provinciaDomicilio;
+	}
+
+	public void setProvinciaDomicilio(Provincia provinciaDomicilio) {
+		this.provinciaDomicilio = provinciaDomicilio;
+	}
+
+	public Comune getComuneResidenza() {
+		return comuneResidenza;
+	}
+
+	public void setComuneResidenza(Comune comuneResidenza) {
+		this.comuneResidenza = comuneResidenza;
+	}
+
+	public Provincia getProvinciaResidenza() {
+		return provinciaResidenza;
+	}
+
+	public void setProvinciaResidenza(Provincia provinciaResidenza) {
+		this.provinciaResidenza = provinciaResidenza;
 	}
 
 	public Anagrafica(Integer id) {
@@ -207,11 +266,11 @@ public class Anagrafica {
 		this.codiceFiscale = codiceFiscale;
 	}
 
-	public String getComuneDiNascita() {
+	public Comune getComuneDiNascita() {
 		return comuneDiNascita;
 	}
 
-	public void setComuneDiNascita(String comuneDiNascita) {
+	public void setComuneDiNascita(Comune comuneDiNascita) {
 		this.comuneDiNascita = comuneDiNascita;
 	}
 
@@ -351,11 +410,11 @@ public class Anagrafica {
 		this.statoDiNascita = statoDiNascita;
 	}
 
-	public String getProvinciaDiNascita() {
+	public Provincia getProvinciaDiNascita() {
 		return provinciaDiNascita;
 	}
 
-	public void setProvinciaDiNascita(String provinciaDiNascita) {
+	public void setProvinciaDiNascita(Provincia provinciaDiNascita) {
 		this.provinciaDiNascita = provinciaDiNascita;
 	}
 

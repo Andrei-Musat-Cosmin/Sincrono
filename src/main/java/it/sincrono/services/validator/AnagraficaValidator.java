@@ -37,10 +37,43 @@ public class AnagraficaValidator {
 						LOGGER.log(Level.ERROR, "Nome Azienda dell'anagrafica non è valorizzato");
 						return false;
 					}
-					
+
 					if (anagrafica.getTipoCanaleReclutamento() == null
 							|| anagrafica.getTipoCanaleReclutamento().getId() == null) {
 						LOGGER.log(Level.ERROR, "Dato \"Canale Reclutamento\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getComuneResidenza() == null || anagrafica.getComuneResidenza().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Comune di residenza\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getComuneDiNascita() == null || anagrafica.getComuneDiNascita().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Comune di nascita\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getComuneDomicilio() == null || anagrafica.getComuneDomicilio().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Comune di domicilio\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getProvinciaResidenza() == null
+							|| anagrafica.getProvinciaResidenza().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Provincia di residenza\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getProvinciaDiNascita() == null
+							|| anagrafica.getProvinciaDiNascita().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Provincia di nascita\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getProvinciaDomicilio() == null
+							|| anagrafica.getProvinciaDomicilio().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Provincia di domicilio\" non è stato inserito");
 						return false;
 					}
 
@@ -73,6 +106,38 @@ public class AnagraficaValidator {
 					if (anagrafica.getTipoCanaleReclutamento() == null
 							|| anagrafica.getTipoCanaleReclutamento().getId() == null) {
 						LOGGER.log(Level.ERROR, "Dato \"Canale Reclutamento\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getComuneResidenza() == null || anagrafica.getComuneResidenza().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Comune di residenza\" non è stato inserito");
+						return false;
+					}
+					if (anagrafica.getComuneDiNascita() == null || anagrafica.getComuneDiNascita().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Comune di nascita\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getComuneDomicilio() == null || anagrafica.getComuneDomicilio().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Comune di domicilio\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getProvinciaResidenza() == null
+							|| anagrafica.getProvinciaResidenza().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Provincia di residenza\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getProvinciaDiNascita() == null
+							|| anagrafica.getProvinciaDiNascita().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Provincia di nascita\" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getProvinciaDomicilio() == null
+							|| anagrafica.getProvinciaDomicilio().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Provincia di domicilio\" non è stato inserito");
 						return false;
 					}
 

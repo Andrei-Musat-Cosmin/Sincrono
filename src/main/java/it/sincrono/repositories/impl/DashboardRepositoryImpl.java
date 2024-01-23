@@ -11,6 +11,7 @@ import java.util.List;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
+import it.sincrono.entities.Comune;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoAziendaCliente;
@@ -357,7 +358,7 @@ public class DashboardRepositoryImpl extends BaseRepositoryImpl implements Dashb
 				}
 				anagrafica.setTipoAzienda(tipoAzienda);
 				if (result[6] != null)
-					anagrafica.setComuneDiNascita((String) result[6]);
+					anagrafica.setComuneDiNascita((Comune) result[6]);
 				if (result[7] != null)
 					anagrafica.setDataDiNascita((Date) result[7]);
 				if (result[8] != null)

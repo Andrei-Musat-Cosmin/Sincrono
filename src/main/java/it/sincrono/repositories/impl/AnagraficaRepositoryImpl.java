@@ -8,6 +8,7 @@ import java.util.List;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
+import it.sincrono.entities.Comune;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.TipoAzienda;
@@ -66,6 +67,11 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoAzienda().getId() != null)
 						subString += " AND g.id =" + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
 								.getTipoAzienda().getId().toString();
+					if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getComuneResidenza() != null
+							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getComuneResidenza().getId() != null)
+						subString += " AND g.id =" + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
+								.getComuneResidenza().getId().toString();
+
 				}
 
 				if (anagraficaRequestDto.getAnagraficaDto().getContratto() != null) {
@@ -301,7 +307,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				anagrafica.setTipoAzienda(tipoAzienda);
 
 				if (result[6] != null)
-					anagrafica.setComuneDiNascita((String) result[6]);
+					anagrafica.setComuneDiNascita((Comune) result[6]);
 				if (result[7] != null)
 					anagrafica.setDataDiNascita((Date) result[7]);
 				if (result[8] != null)
@@ -377,7 +383,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		}
 		anagrafica.setTipoAzienda(tipoAzienda);
 		if (result[6] != null)
-			anagrafica.setComuneDiNascita((String) result[6]);
+			anagrafica.setComuneDiNascita((Comune) result[6]);
 		if (result[7] != null)
 			anagrafica.setDataDiNascita((Date) result[7]);
 		if (result[8] != null)

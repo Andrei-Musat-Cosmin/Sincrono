@@ -2,39 +2,26 @@ package it.sincrono.services.utils;
 
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hibernate.mapping.Collection;
-
-import java.io.ByteArrayInputStream;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
+import it.sincrono.entities.Comune;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.TipoAzienda;
+import it.sincrono.entities.TipoAziendaCliente;
+import it.sincrono.entities.TipoCausaFineContratto;
 import it.sincrono.entities.TipoCausaFineRapporto;
-import it.sincrono.repositories.TipologicheRepository;
-import it.sincrono.repositories.dto.AnagraficaDto;
-import it.sincrono.repositories.exceptions.RepositoryException;
-import it.sincrono.services.impl.RapportinoServiceImpl;
 import it.sincrono.entities.TipoCcnl;
 import it.sincrono.entities.TipoContratto;
 import it.sincrono.entities.TipoLivelloContratto;
-import it.sincrono.entities.TipoAziendaCliente;
-import it.sincrono.entities.TipoCanaleReclutamento;
-import it.sincrono.entities.TipoCausaFineContratto;
+import it.sincrono.repositories.TipologicheRepository;
 
 @Component
 public class ExcelUtilAnagraficaCreate {
@@ -87,6 +74,23 @@ public class ExcelUtilAnagraficaCreate {
 						: null);
 
 	}
+	
+	public void getComuneDiNascita(Anagrafica anagrafica, String comune) throws Exception {
+
+		List<TipoAzienda> list = tipologicheRepository.getTipoAziendaMap();
+
+		anagrafica.setTipoAzienda(list.stream()
+				.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+						.equals(comune.toString().toLowerCase().replaceAll("\\s", "")))
+				.collect(Collectors.toList()).size() > 0
+						? list.stream()
+								.filter(elem -> elem.getDescrizione().toLowerCase().replaceAll("\\s", "")
+										.equals(comune.toString().toLowerCase().replaceAll("\\s", "")))
+								.collect(Collectors.toList()).get(0)
+						: null);
+
+	}
+	
 
 	public void getTipoccnl(Contratto contratto, String ccnl) throws Exception {
 

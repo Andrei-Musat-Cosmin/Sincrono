@@ -221,7 +221,7 @@ public class ExcelUtilAnagrafica {
 
 		if (row.getCell(5) != null) {
 
-			anagrafica.setComuneDiNascita(row.getCell(5).getStringCellValue());
+			excelUtilAnagraficaCreate.getComuneDiNascita(anagrafica,row.getCell(5).getStringCellValue());
 
 		}
 
