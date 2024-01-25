@@ -19,6 +19,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
+import it.sincrono.entities.Comune;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.Profilo;
 import it.sincrono.entities.Ruolo;
@@ -30,6 +31,7 @@ import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
+import it.sincrono.repositories.ComuneProvinciaRepository;
 import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.ProfiloRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
@@ -85,7 +87,8 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private ProfiloRepository profiloRepository;
 	@Autowired
 	private TipologicheRepository tipologicheContrattoRepository;
-
+	@Autowired
+	private ComuneProvinciaRepository comuneProvinciaRepository;
 	@Autowired
 	private EmailService emailService;
 
@@ -184,6 +187,12 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)) {
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di anagrafica");
 			}
+			Comune comuneDiNascita = anagraficaDto.getAnagrafica().getComuneDiNascita();
+			Comune comuneResidenza = anagraficaDto.getAnagrafica().getComuneResidenza();
+			Comune comuneDomicilio = anagraficaDto.getAnagrafica().getComuneDomicilio();
+			comuneProvinciaRepository.save(comuneDiNascita);
+			comuneProvinciaRepository.save(comuneResidenza);
+			comuneProvinciaRepository.save(comuneDomicilio);
 
 			String passwordUtente = new TokenGenerator().nextToken();
 
@@ -196,6 +205,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			anagraficaDto.getAnagrafica().setComuneDiNascita(anagraficaDto.getAnagrafica().getComuneDiNascita());
 			anagraficaDto.getAnagrafica().setComuneResidenza(anagraficaDto.getAnagrafica().getComuneResidenza());
 			anagraficaDto.getAnagrafica().setComuneDomicilio(anagraficaDto.getAnagrafica().getComuneDomicilio());
+
 			Integer idAnagrafica = anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
 			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(0)));
 			storicoContrattiRepository

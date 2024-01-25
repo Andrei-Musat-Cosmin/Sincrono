@@ -124,31 +124,7 @@ public class TipologicheServiceImpl extends BaseServiceImpl implements Tipologic
 		return list;
 	}
 
-	@Override
-	public List<Comune> getComuniMap() throws ServiceException {
-		List<Comune> list = null;
-		try {
-			list = tipologicheRepository.getComuniMap();
-		} catch (Exception e) {
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-		return list;
-
-	}
-
-	@Override
-	public List<Provincia> getProvinceMap() throws ServiceException {
-		List<Provincia> list = null;
-		try {
-			list = tipologicheRepository.getProvinceMap();
-		} catch (Exception e) {
-			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
-		}
-
-		return list;
-
-	}
+	
 
 	@Override
 	public List<TipoCausaFineContratto> getTipoCausaFineContratto() throws ServiceException {

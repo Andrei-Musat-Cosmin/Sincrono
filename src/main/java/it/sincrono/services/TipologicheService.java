@@ -2,8 +2,6 @@ package it.sincrono.services;
 
 import java.util.List;
 
-import it.sincrono.entities.Comune;
-import it.sincrono.entities.Provincia;
 import it.sincrono.entities.TipoAzienda;
 import it.sincrono.entities.TipoAziendaCliente;
 import it.sincrono.entities.TipoCanaleReclutamento;
@@ -33,9 +31,5 @@ public interface TipologicheService {
 	public List<TipoCausaFineRapporto> getTipoCausaFineRapportoMap() throws ServiceException;
 
 	public List<TipoCausaFineContratto> getTipoCausaFineContratto() throws ServiceException;
-	
-	public List<Comune> getComuniMap() throws ServiceException;
-	
-	public List<Provincia> getProvinceMap() throws ServiceException;
 
 }

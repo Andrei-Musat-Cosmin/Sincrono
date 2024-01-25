@@ -49,9 +49,4 @@ public interface TipologicheRepository extends JpaRepository<TipoAzienda, Intege
 	@Query(value = "SELECT a FROM TipoCausaFineContratto a WHERE a.id!=0 ORDER BY a.id")
 	public List<TipoCausaFineContratto> getTipoCausaFineContratto() throws RepositoryException;
 
-	@Query(value = "SELECT a FROM Comune a ORDER BY a.id")
-	public List<Comune> getComuniMap() throws RepositoryException;
-
-	@Query(value = "SELECT a FROM Provincia a ORDER BY a.id")
-	public List<Provincia> getProvinceMap() throws RepositoryException;
 }
