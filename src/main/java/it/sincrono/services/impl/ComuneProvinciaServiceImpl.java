@@ -3,6 +3,7 @@ package it.sincrono.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import it.sincrono.entities.Comune;
 import it.sincrono.entities.Provincia;
@@ -10,7 +11,7 @@ import it.sincrono.repositories.ComuneProvinciaRepository;
 import it.sincrono.services.ComuneProvinciaService;
 import it.sincrono.services.costants.ServiceMessages;
 import it.sincrono.services.exceptions.ServiceException;
-
+@Service
 public class ComuneProvinciaServiceImpl extends BaseServiceImpl implements ComuneProvinciaService {
 
 	@Autowired
