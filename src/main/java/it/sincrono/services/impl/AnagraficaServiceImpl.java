@@ -22,6 +22,7 @@ import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Comune;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.Profilo;
+import it.sincrono.entities.Provincia;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.entities.StoricoContratti;
@@ -31,9 +32,10 @@ import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
-import it.sincrono.repositories.ComuneProvinciaRepository;
+import it.sincrono.repositories.ComuneRepository;
 import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.ProfiloRepository;
+import it.sincrono.repositories.ProvinciaRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.repositories.StoricoContrattiRepository;
 import it.sincrono.repositories.TipologicheRepository;
@@ -88,7 +90,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	@Autowired
 	private TipologicheRepository tipologicheContrattoRepository;
 	@Autowired
-	private ComuneProvinciaRepository comuneProvinciaRepository;
+	private ComuneRepository comuneRepository;
+	@Autowired
+	private ProvinciaRepository provinciaRepository;
 	@Autowired
 	private EmailService emailService;
 
@@ -187,24 +191,21 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)) {
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di anagrafica");
 			}
-			Comune comuneDiNascita = anagraficaDto.getAnagrafica().getComuneDiNascita();
-			Comune comuneResidenza = anagraficaDto.getAnagrafica().getComuneResidenza();
-			Comune comuneDomicilio = anagraficaDto.getAnagrafica().getComuneDomicilio();
-			comuneProvinciaRepository.save(comuneDiNascita);
-			comuneProvinciaRepository.save(comuneResidenza);
-			comuneProvinciaRepository.save(comuneDomicilio);
+
+			anagraficaDto.getAnagrafica().setComuneDiNascita(anagraficaDto.getAnagrafica().getComuneDiNascita());
+			anagraficaDto.getAnagrafica().setComuneResidenza(anagraficaDto.getAnagrafica().getComuneResidenza());
+			anagraficaDto.getAnagrafica().setComuneDomicilio(anagraficaDto.getAnagrafica().getComuneDomicilio());
+			anagraficaDto.getAnagrafica().setProvinciaDiNascita(anagraficaDto.getAnagrafica().getProvinciaDiNascita());
+			anagraficaDto.getAnagrafica().setProvinciaResidenza(anagraficaDto.getAnagrafica().getProvinciaResidenza());
+			anagraficaDto.getAnagrafica().setProvinciaDomicilio(anagraficaDto.getAnagrafica().getProvinciaDomicilio());
 
 			String passwordUtente = new TokenGenerator().nextToken();
-
 			Utente utente = new Utente(anagraficaDto.getAnagrafica().getMailAziendale(), true,
 					BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
 			anagraficaDto.getAnagrafica().setUtente(utente);
 			Integer idUtente = utenteRepository.saveAndFlush(anagraficaDto.getAnagrafica().getUtente()).getId();
 			anagraficaDto.getAnagrafica().getUtente().setId(idUtente);
 			anagraficaDto.getAnagrafica().setAttivo(true);
-			anagraficaDto.getAnagrafica().setComuneDiNascita(anagraficaDto.getAnagrafica().getComuneDiNascita());
-			anagraficaDto.getAnagrafica().setComuneResidenza(anagraficaDto.getAnagrafica().getComuneResidenza());
-			anagraficaDto.getAnagrafica().setComuneDomicilio(anagraficaDto.getAnagrafica().getComuneDomicilio());
 
 			Integer idAnagrafica = anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
 			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(0)));

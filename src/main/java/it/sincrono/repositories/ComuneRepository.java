@@ -9,12 +9,11 @@ import it.sincrono.entities.Comune;
 import it.sincrono.entities.Provincia;
 import it.sincrono.repositories.exceptions.RepositoryException;
 
-public interface ComuneProvinciaRepository extends JpaRepository<Comune, Integer>, TipologicheCustomRepository {
+public interface ComuneRepository extends JpaRepository<Comune, Integer>, TipologicheCustomRepository {
 	
 	@Query(value = "SELECT a FROM Comune a ORDER BY a.id")
 	public List<Comune> getComuniMap() throws RepositoryException;
 	
-	@Query(value = "SELECT a FROM Provincia a ORDER BY a.id")
-	public List<Provincia> getProvinceMap() throws RepositoryException;
+	
 
 }

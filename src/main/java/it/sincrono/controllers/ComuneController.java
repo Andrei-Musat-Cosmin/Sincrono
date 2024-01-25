@@ -14,18 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Comune;
-import it.sincrono.entities.Provincia;
 import it.sincrono.responses.TipologicheListResponse;
-import it.sincrono.services.ComuneProvinciaService;
+import it.sincrono.services.ComuneService;
 import it.sincrono.services.exceptions.ServiceException;
 
 @RestController
 @CrossOrigin
-public class ComuneProvinciaController {
+public class ComuneController {
 	private static final Logger LOGGER = LogManager.getLogger(TipologicheController.class);
-	
+
 	@Autowired
-	private ComuneProvinciaService comuneProvinciaService;
+	private ComuneService comuneProvinciaService;
 
 	@GetMapping("/comuni-map")
 	public @ResponseBody HttpEntity<TipologicheListResponse<Comune>> getComuniMap() {
@@ -56,32 +55,4 @@ public class ComuneProvinciaController {
 
 	}
 
-	@GetMapping("/province-map")
-	public @ResponseBody HttpEntity<TipologicheListResponse<Provincia>> getProvinceMap() {
-
-		HttpEntity<TipologicheListResponse<Provincia>> httpEntity = null;
-
-		TipologicheListResponse<Provincia> comuniListResponse = new TipologicheListResponse<Provincia>();
-
-		try {
-			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getComuniMap");
-
-			List<Provincia> list = comuneProvinciaService.getProvinceMap();
-
-			comuniListResponse.setList(list);
-			comuniListResponse.setEsito(new Esito());
-
-			httpEntity = new HttpEntity<TipologicheListResponse<Provincia>>(comuniListResponse);
-
-		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, e.getMessage());
-			comuniListResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
-			httpEntity = new HttpEntity<TipologicheListResponse<Provincia>>(comuniListResponse);
-
-		}
-		LOGGER.log(Level.INFO, "Fine chiamata al meotodo getComuniMap\n");
-
-		return httpEntity;
-
-	}
 }
