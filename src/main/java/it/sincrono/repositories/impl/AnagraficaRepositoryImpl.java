@@ -71,6 +71,10 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getComuneResidenza().getId() != null)
 						subString += " AND g.id =" + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
 								.getComuneResidenza().getId().toString();
+					if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getProvinciaResidenza() != null
+							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getProvinciaResidenza().getId() != null)
+						subString += " AND g.id =" + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
+								.getProvinciaResidenza().getId().toString();
 
 				}
 
