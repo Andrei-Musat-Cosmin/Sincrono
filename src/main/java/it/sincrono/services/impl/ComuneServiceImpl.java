@@ -30,10 +30,10 @@ public class ComuneServiceImpl extends BaseServiceImpl implements ComuneService 
 	}
 	
 	@Override
-	public List<Comune> getComuniByProvinciaMap(String inizialeProvincia) throws ServiceException {
+	public List<Comune> getComuniByProvinciaMap(String siglaProvincia) throws ServiceException {
 		List<Comune> list = null;
 		try {
-			list = comuneRepository.getComuniMap();
+			list = comuneRepository.getComuniByProvinciaMap(siglaProvincia);
 		} catch (Exception e) {
 			throw new ServiceException(ServiceMessages.ERRORE_GENERICO);
 		}

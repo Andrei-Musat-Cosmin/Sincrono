@@ -13,7 +13,8 @@ public interface ComuneRepository extends JpaRepository<Comune, Integer>, Tipolo
 	
 	@Query(value = "SELECT a FROM Comune a ORDER BY a.id")
 	public List<Comune> getComuniMap() throws RepositoryException;
-	@Query(value = "SELECT a FROM Comune aWHERE a.id!=0 AND a.siglaProvincia LIKE ?1 ORDER BY a.id")
+	
+	@Query(value = "SELECT a FROM Comune a WHERE a.id!=0 AND a.siglaProvincia LIKE ?1 ORDER BY a.id")
 	public List<Comune> getComuniByProvinciaMap(String siglaProvincia) throws RepositoryException;
 
 }

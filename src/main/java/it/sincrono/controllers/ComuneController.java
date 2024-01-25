@@ -57,7 +57,7 @@ public class ComuneController {
 
 	}
 	
-	@GetMapping("/comuni-by-provincia-map")
+	@GetMapping("/comuni-by-provincia/{sigla_provincia}")
 	public @ResponseBody HttpEntity<TipologicheListResponse<Comune>> getComuniByProvincia(@PathVariable("sigla_provincia") String siglaProvincia) {
 
 		HttpEntity<TipologicheListResponse<Comune>> httpEntity = null;
