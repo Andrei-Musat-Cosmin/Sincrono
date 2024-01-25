@@ -193,6 +193,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			Integer idUtente = utenteRepository.saveAndFlush(anagraficaDto.getAnagrafica().getUtente()).getId();
 			anagraficaDto.getAnagrafica().getUtente().setId(idUtente);
 			anagraficaDto.getAnagrafica().setAttivo(true);
+			anagraficaDto.getAnagrafica().setComuneDiNascita(anagraficaDto.getAnagrafica().getComuneDiNascita());
+			anagraficaDto.getAnagrafica().setComuneResidenza(anagraficaDto.getAnagrafica().getComuneResidenza());
+			anagraficaDto.getAnagrafica().setComuneDomicilio(anagraficaDto.getAnagrafica().getComuneDomicilio());
 			Integer idAnagrafica = anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
 			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(0)));
 			storicoContrattiRepository
