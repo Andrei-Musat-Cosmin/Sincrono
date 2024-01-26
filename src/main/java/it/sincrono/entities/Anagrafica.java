@@ -128,7 +128,7 @@ public class Anagrafica {
 	private Integer mese;
 
 	@Transient
-	private Boolean residenzaDomicilioUguali = true;
+	private Boolean residenzaDomicilioUguali;
 
 	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, TipoCanaleReclutamento tipoCanaleReclutamento,
 			Comune comuneResidenza, Comune comuneDiNascita, Comune comuneDomicilio, Provincia provinciaResidenza,
