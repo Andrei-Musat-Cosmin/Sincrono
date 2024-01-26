@@ -19,10 +19,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
-import it.sincrono.entities.Comune;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.Profilo;
-import it.sincrono.entities.Provincia;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.StoricoCommesse;
 import it.sincrono.entities.StoricoContratti;
@@ -198,7 +196,7 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			anagraficaDto.getAnagrafica().setProvinciaDiNascita(anagraficaDto.getAnagrafica().getProvinciaDiNascita());
 			anagraficaDto.getAnagrafica().setProvinciaResidenza(anagraficaDto.getAnagrafica().getProvinciaResidenza());
 			anagraficaDto.getAnagrafica().setProvinciaDomicilio(anagraficaDto.getAnagrafica().getProvinciaDomicilio());
-
+			anagraficaDto.setResidenzaDomicilioUguali(true);
 			String passwordUtente = new TokenGenerator().nextToken();
 			Utente utente = new Utente(anagraficaDto.getAnagrafica().getMailAziendale(), true,
 					BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
