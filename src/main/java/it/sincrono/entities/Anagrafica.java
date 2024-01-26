@@ -127,6 +127,9 @@ public class Anagrafica {
 	@Transient
 	private Integer mese;
 
+	@Transient
+	private Boolean residenzaDomicilioUguali = true;
+
 	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, TipoCanaleReclutamento tipoCanaleReclutamento,
 			Comune comuneResidenza, Comune comuneDiNascita, Comune comuneDomicilio, Provincia provinciaResidenza,
 			Provincia provinciaDiNascita, Provincia provinciaDomicilio, String nome, String cognome,
@@ -134,7 +137,7 @@ public class Anagrafica {
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
 			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico,
 			Boolean attivo, Boolean attesaLavori, String cittadinanza, String statoDiNascita, Boolean categoriaProtetta,
-			Boolean checkInviato, Integer anno, Integer mese) {
+			Boolean checkInviato, Integer anno, Integer mese, Boolean residenzaDomicilioUguali) {
 		super();
 		this.id = id;
 		this.utente = utente;
@@ -169,6 +172,7 @@ public class Anagrafica {
 		this.checkInviato = checkInviato;
 		this.anno = anno;
 		this.mese = mese;
+		this.residenzaDomicilioUguali = residenzaDomicilioUguali;
 	}
 
 	public Anagrafica(String codiceFiscale) {
@@ -179,6 +183,15 @@ public class Anagrafica {
 	public Anagrafica() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	
+	public Boolean getResidenzaDomicilioUguali() {
+		return residenzaDomicilioUguali;
+	}
+
+	public void setResidenzaDomicilioUguali(Boolean residenzaDomicilioUguali) {
+		this.residenzaDomicilioUguali = residenzaDomicilioUguali;
 	}
 
 	public Comune getComuneDomicilio() {

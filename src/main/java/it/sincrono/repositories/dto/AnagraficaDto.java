@@ -17,8 +17,6 @@ public class AnagraficaDto {
 
 	private Ruolo ruolo;
 
-	private Boolean residenzaDomicilioUguali = true;
-
 	public AnagraficaDto(Anagrafica anagrafica, Contratto contratto, List<Commessa> commesse, Ruolo ruolo,
 			Boolean residenzaDomicilioUguali) {
 		super();
@@ -26,20 +24,11 @@ public class AnagraficaDto {
 		this.contratto = contratto;
 		this.commesse = commesse;
 		this.ruolo = ruolo;
-		this.residenzaDomicilioUguali = residenzaDomicilioUguali;
+
 	}
 
 	public AnagraficaDto() {
 		super();
-	}
-
-	
-	public Boolean getResidenzaDomicilioUguali() {
-		return residenzaDomicilioUguali;
-	}
-
-	public void setResidenzaDomicilioUguali(Boolean residenzaDomicilioUguali) {
-		this.residenzaDomicilioUguali = residenzaDomicilioUguali;
 	}
 
 	public Anagrafica getAnagrafica() {
