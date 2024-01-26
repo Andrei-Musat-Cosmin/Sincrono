@@ -17,7 +17,7 @@ public class AnagraficaDto {
 
 	private Ruolo ruolo;
 
-	private Boolean residenzaDomicilioUguali;
+	private Boolean residenzaDomicilioUguali = true;
 
 	public AnagraficaDto(Anagrafica anagrafica, Contratto contratto, List<Commessa> commesse, Ruolo ruolo,
 			Boolean residenzaDomicilioUguali) {

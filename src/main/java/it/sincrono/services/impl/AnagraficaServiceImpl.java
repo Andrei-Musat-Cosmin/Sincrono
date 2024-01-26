@@ -196,7 +196,6 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			anagraficaDto.getAnagrafica().setProvinciaDiNascita(anagraficaDto.getAnagrafica().getProvinciaDiNascita());
 			anagraficaDto.getAnagrafica().setProvinciaResidenza(anagraficaDto.getAnagrafica().getProvinciaResidenza());
 			anagraficaDto.getAnagrafica().setProvinciaDomicilio(anagraficaDto.getAnagrafica().getProvinciaDomicilio());
-			anagraficaDto.setResidenzaDomicilioUguali(true);
 			String passwordUtente = new TokenGenerator().nextToken();
 			Utente utente = new Utente(anagraficaDto.getAnagrafica().getMailAziendale(), true,
 					BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
