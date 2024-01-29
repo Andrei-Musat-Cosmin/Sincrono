@@ -118,6 +118,18 @@ public class Anagrafica {
 	@Column(name = "categoria_protetta")
 	private Boolean categoriaProtetta;
 
+	@Column(name = "cap_residenza")
+	private String capResidenza;
+
+	@Column(name = "cap_domicilio")
+	private String capDomicilio;
+
+	@Column(name = "localita_residenza_estera")
+	private String localitaResidenzaEstera;
+
+	@Column(name = "localita_domicilio_estero")
+	private Boolean localitaDomicilioEstero;
+
 	@Transient
 	private Boolean checkInviato;
 
@@ -137,6 +149,7 @@ public class Anagrafica {
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
 			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico,
 			Boolean attivo, Boolean attesaLavori, String cittadinanza, String statoDiNascita, Boolean categoriaProtetta,
+			String capResidenza, String capDomicilio, String localitaResidenzaEstera, Boolean localitaDomicilioEstero,
 			Boolean checkInviato, Integer anno, Integer mese, Boolean residenzaDomicilioUguali) {
 		super();
 		this.id = id;
@@ -169,6 +182,10 @@ public class Anagrafica {
 		this.cittadinanza = cittadinanza;
 		this.statoDiNascita = statoDiNascita;
 		this.categoriaProtetta = categoriaProtetta;
+		this.capResidenza = capResidenza;
+		this.capDomicilio = capDomicilio;
+		this.localitaResidenzaEstera = localitaResidenzaEstera;
+		this.localitaDomicilioEstero = localitaDomicilioEstero;
 		this.checkInviato = checkInviato;
 		this.anno = anno;
 		this.mese = mese;
@@ -185,7 +202,38 @@ public class Anagrafica {
 		// TODO Auto-generated constructor stub
 	}
 
-	
+	public String getCapResidenza() {
+		return capResidenza;
+	}
+
+	public void setCapResidenza(String capResidenza) {
+		this.capResidenza = capResidenza;
+	}
+
+	public String getCapDomicilio() {
+		return capDomicilio;
+	}
+
+	public void setCapDomicilio(String capDomicilio) {
+		this.capDomicilio = capDomicilio;
+	}
+
+	public String getLocalitaResidenzaEstera() {
+		return localitaResidenzaEstera;
+	}
+
+	public void setLocalitaResidenzaEstera(String localitaResidenzaEstera) {
+		this.localitaResidenzaEstera = localitaResidenzaEstera;
+	}
+
+	public Boolean getLocalitaDomicilioEstero() {
+		return localitaDomicilioEstero;
+	}
+
+	public void setLocalitaDomicilioEstero(Boolean localitaDomicilioEstero) {
+		this.localitaDomicilioEstero = localitaDomicilioEstero;
+	}
+
 	public Boolean getResidenzaDomicilioUguali() {
 		return residenzaDomicilioUguali;
 	}
