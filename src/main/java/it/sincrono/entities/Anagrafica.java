@@ -128,7 +128,7 @@ public class Anagrafica {
 	private String localitaResidenzaEstera;
 
 	@Column(name = "localita_domicilio_estero")
-	private Boolean localitaDomicilioEstero;
+	private String localitaDomicilioEstero;
 
 	@Transient
 	private Boolean checkInviato;
@@ -149,7 +149,7 @@ public class Anagrafica {
 			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
 			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico,
 			Boolean attivo, Boolean attesaLavori, String cittadinanza, String statoDiNascita, Boolean categoriaProtetta,
-			String capResidenza, String capDomicilio, String localitaResidenzaEstera, Boolean localitaDomicilioEstero,
+			String capResidenza, String capDomicilio, String localitaResidenzaEstera, String localitaDomicilioEstero,
 			Boolean checkInviato, Integer anno, Integer mese, Boolean residenzaDomicilioUguali) {
 		super();
 		this.id = id;
@@ -226,11 +226,11 @@ public class Anagrafica {
 		this.localitaResidenzaEstera = localitaResidenzaEstera;
 	}
 
-	public Boolean getLocalitaDomicilioEstero() {
+	public String getLocalitaDomicilioEstero() {
 		return localitaDomicilioEstero;
 	}
 
-	public void setLocalitaDomicilioEstero(Boolean localitaDomicilioEstero) {
+	public void setLocalitaDomicilioEstero(String localitaDomicilioEstero) {
 		this.localitaDomicilioEstero = localitaDomicilioEstero;
 	}
 
