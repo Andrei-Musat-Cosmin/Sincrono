@@ -139,6 +139,12 @@ public class Anagrafica {
 	@Column(name = "localita_domicilio_estero")
 	private String localitaDomicilioEstero;
 
+	@Column(name = "piva")
+	private String piva;
+
+	@Column(name = "nome_azienda")
+	private String nomeAzienda;
+
 	@Transient
 	private Boolean checkInviato;
 
@@ -159,8 +165,8 @@ public class Anagrafica {
 			String mailPrivata, String mailAziendale, String mailPec, String titoliDiStudio, String altriTitoli,
 			Boolean coniugato, Boolean figliACarico, Boolean attivo, Boolean attesaLavori, Boolean categoriaProtetta,
 			String capResidenza, String capDomicilio, String localitaResidenzaEstera, String localitaNascitaEstero,
-			String localitaDomicilioEstero, Boolean checkInviato, Integer anno, Integer mese,
-			Boolean residenzaDomicilioUguali) {
+			String localitaDomicilioEstero, String piva, String nomeAzienda, Boolean checkInviato, Integer anno,
+			Integer mese, Boolean residenzaDomicilioUguali) {
 		super();
 		this.id = id;
 		this.utente = utente;
@@ -198,6 +204,8 @@ public class Anagrafica {
 		this.localitaResidenzaEstera = localitaResidenzaEstera;
 		this.localitaNascitaEstero = localitaNascitaEstero;
 		this.localitaDomicilioEstero = localitaDomicilioEstero;
+		this.piva = piva;
+		this.nomeAzienda = nomeAzienda;
 		this.checkInviato = checkInviato;
 		this.anno = anno;
 		this.mese = mese;
@@ -212,6 +220,22 @@ public class Anagrafica {
 	public Anagrafica() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public String getPiva() {
+		return piva;
+	}
+
+	public void setPiva(String piva) {
+		this.piva = piva;
+	}
+
+	public String getNomeAzienda() {
+		return nomeAzienda;
+	}
+
+	public void setNomeAzienda(String nomeAzienda) {
+		this.nomeAzienda = nomeAzienda;
 	}
 
 	public String getCapResidenza() {
