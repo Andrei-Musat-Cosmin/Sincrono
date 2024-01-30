@@ -33,15 +33,19 @@ public class Anagrafica {
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_canale_reclutamento")
 	private TipoCanaleReclutamento tipoCanaleReclutamento;
-	
+
+	@ManyToOne
+	@Column(name = "id_stato_nascita")
+	private Nazione idStatoNascita;
+
 	@ManyToOne
 	@JoinColumn(name = "id_cittadinanza_1")
-	private Nazione idCittadinanza1 ;
-	
+	private Nazione idCittadinanza1;
+
 	@ManyToOne
 	@JoinColumn(name = "id_cittadinanza_2")
 	private Nazione idCittadinanza2;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id_comune_residenza")
 	private Comune comuneResidenza;
@@ -117,9 +121,6 @@ public class Anagrafica {
 	@Column(name = "attesa_lavori")
 	private Boolean attesaLavori;
 
-	@Column(name = "stato_di_nascita")
-	private String statoDiNascita;
-
 	@Column(name = "categoria_protetta")
 	private Boolean categoriaProtetta;
 
@@ -137,7 +138,7 @@ public class Anagrafica {
 
 	@Column(name = "localita_domicilio_estero")
 	private String localitaDomicilioEstero;
-	
+
 	@Transient
 	private Boolean checkInviato;
 
@@ -150,6 +151,58 @@ public class Anagrafica {
 	@Transient
 	private Boolean residenzaDomicilioUguali;
 
+	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, TipoCanaleReclutamento tipoCanaleReclutamento,
+			Nazione idStatoNascita, Nazione idCittadinanza1, Nazione idCittadinanza2, Comune comuneResidenza,
+			Comune comuneDiNascita, Comune comuneDomicilio, Provincia provinciaResidenza, Provincia provinciaDiNascita,
+			Provincia provinciaDomicilio, String nome, String cognome, String codiceFiscale, Date dataDiNascita,
+			String indirizzoResidenza, String indirizzoDomicilio, String cellularePrivato, String cellulareAziendale,
+			String mailPrivata, String mailAziendale, String mailPec, String titoliDiStudio, String altriTitoli,
+			Boolean coniugato, Boolean figliACarico, Boolean attivo, Boolean attesaLavori, Boolean categoriaProtetta,
+			String capResidenza, String capDomicilio, String localitaResidenzaEstera, String localitaNascitaEstero,
+			String localitaDomicilioEstero, Boolean checkInviato, Integer anno, Integer mese,
+			Boolean residenzaDomicilioUguali) {
+		super();
+		this.id = id;
+		this.utente = utente;
+		this.tipoAzienda = tipoAzienda;
+		this.tipoCanaleReclutamento = tipoCanaleReclutamento;
+		this.idStatoNascita = idStatoNascita;
+		this.idCittadinanza1 = idCittadinanza1;
+		this.idCittadinanza2 = idCittadinanza2;
+		this.comuneResidenza = comuneResidenza;
+		this.comuneDiNascita = comuneDiNascita;
+		this.comuneDomicilio = comuneDomicilio;
+		this.provinciaResidenza = provinciaResidenza;
+		this.provinciaDiNascita = provinciaDiNascita;
+		this.provinciaDomicilio = provinciaDomicilio;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.codiceFiscale = codiceFiscale;
+		this.dataDiNascita = dataDiNascita;
+		this.indirizzoResidenza = indirizzoResidenza;
+		this.indirizzoDomicilio = indirizzoDomicilio;
+		this.cellularePrivato = cellularePrivato;
+		this.cellulareAziendale = cellulareAziendale;
+		this.mailPrivata = mailPrivata;
+		this.mailAziendale = mailAziendale;
+		this.mailPec = mailPec;
+		this.titoliDiStudio = titoliDiStudio;
+		this.altriTitoli = altriTitoli;
+		this.coniugato = coniugato;
+		this.figliACarico = figliACarico;
+		this.attivo = attivo;
+		this.attesaLavori = attesaLavori;
+		this.categoriaProtetta = categoriaProtetta;
+		this.capResidenza = capResidenza;
+		this.capDomicilio = capDomicilio;
+		this.localitaResidenzaEstera = localitaResidenzaEstera;
+		this.localitaNascitaEstero = localitaNascitaEstero;
+		this.localitaDomicilioEstero = localitaDomicilioEstero;
+		this.checkInviato = checkInviato;
+		this.anno = anno;
+		this.mese = mese;
+		this.residenzaDomicilioUguali = residenzaDomicilioUguali;
+	}
 
 	public Anagrafica(String codiceFiscale) {
 		super();
@@ -414,12 +467,12 @@ public class Anagrafica {
 		this.attesaLavori = attesaLavori;
 	}
 
-	public String getStatoDiNascita() {
-		return statoDiNascita;
+	public Nazione getStatoDiNascita() {
+		return idStatoNascita;
 	}
 
-	public void setStatoDiNascita(String statoDiNascita) {
-		this.statoDiNascita = statoDiNascita;
+	public void setStatoDiNascita(Nazione statoDiNascita) {
+		this.idStatoNascita = statoDiNascita;
 	}
 
 	public Provincia getProvinciaDiNascita() {
@@ -460,6 +513,38 @@ public class Anagrafica {
 
 	public void setMese(Integer mese) {
 		this.mese = mese;
+	}
+
+	public Nazione getIdStatoNascita() {
+		return idStatoNascita;
+	}
+
+	public void setIdStatoNascita(Nazione idStatoNascita) {
+		this.idStatoNascita = idStatoNascita;
+	}
+
+	public Nazione getIdCittadinanza1() {
+		return idCittadinanza1;
+	}
+
+	public void setIdCittadinanza1(Nazione idCittadinanza1) {
+		this.idCittadinanza1 = idCittadinanza1;
+	}
+
+	public Nazione getIdCittadinanza2() {
+		return idCittadinanza2;
+	}
+
+	public void setIdCittadinanza2(Nazione idCittadinanza2) {
+		this.idCittadinanza2 = idCittadinanza2;
+	}
+
+	public String getLocalitaNascitaEstero() {
+		return localitaNascitaEstero;
+	}
+
+	public void setLocalitaNascitaEstero(String localitaNascitaEstero) {
+		this.localitaNascitaEstero = localitaNascitaEstero;
 	}
 
 }
