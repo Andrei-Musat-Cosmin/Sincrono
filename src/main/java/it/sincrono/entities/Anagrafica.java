@@ -35,7 +35,7 @@ public class Anagrafica {
 	private TipoCanaleReclutamento tipoCanaleReclutamento;
 
 	@ManyToOne
-	@Column(name = "id_stato_nascita")
+	@JoinColumn(name = "id_stato_nascita")
 	private Nazione idStatoNascita;
 
 	@ManyToOne
