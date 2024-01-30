@@ -7,25 +7,24 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name="nazioni")
+@Table(name = "nazioni")
 public class Nazione {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	
+
 	@Column(name = "sigla_nazione")
 	private String siglaNazione;
-	
+
 	@Column(name = "codice_belfiore")
 	private String codiceBelfiore;
-	
+
 	@Column(name = "denominazione_nazione")
 	private String denominazioneNazione;
-	
+
 	@Column(name = "denominazione_cittadinanza")
 	private String denominazioneCittadinanza;
 
@@ -37,6 +36,11 @@ public class Nazione {
 		this.codiceBelfiore = codiceBelfiore;
 		this.denominazioneNazione = denominazioneNazione;
 		this.denominazioneCittadinanza = denominazioneCittadinanza;
+	}
+
+	public Nazione() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
@@ -78,6 +82,5 @@ public class Nazione {
 	public void setDenominazioneCittadinanza(String denominazioneCittadinanza) {
 		this.denominazioneCittadinanza = denominazioneCittadinanza;
 	}
-	
-	
+
 }

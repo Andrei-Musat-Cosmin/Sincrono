@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.sincrono.beans.Esito;
 import it.sincrono.entities.Comune;
-import it.sincrono.entities.Provincia;
 import it.sincrono.responses.TipologicheListResponse;
 import it.sincrono.services.ComuneService;
 import it.sincrono.services.exceptions.ServiceException;
@@ -26,7 +25,7 @@ public class ComuneController {
 	private static final Logger LOGGER = LogManager.getLogger(TipologicheController.class);
 
 	@Autowired
-	private ComuneService comuneProvinciaService;
+	private ComuneService comuneService;
 
 	@GetMapping("/comuni-map")
 	public @ResponseBody HttpEntity<TipologicheListResponse<Comune>> getComuniMap() {
@@ -38,7 +37,7 @@ public class ComuneController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getComuniMap");
 
-			List<Comune> list = comuneProvinciaService.getComuniMap();
+			List<Comune> list = comuneService.getComuniMap();
 
 			comuniListResponse.setList(list);
 			comuniListResponse.setEsito(new Esito());
@@ -67,7 +66,7 @@ public class ComuneController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo getComuniMap");
 
-			List<Comune> list = comuneProvinciaService.getComuniByProvinciaMap(siglaProvincia);
+			List<Comune> list = comuneService.getComuniByProvinciaMap(siglaProvincia);
 
 			comuniListResponse.setList(list);
 			comuniListResponse.setEsito(new Esito());
