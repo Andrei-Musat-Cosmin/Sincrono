@@ -198,6 +198,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			anagraficaDto.getAnagrafica().setProvinciaDomicilio(anagraficaDto.getAnagrafica().getProvinciaDomicilio());
 			anagraficaDto.getAnagrafica()
 					.setResidenzaDomicilioUguali(anagraficaDto.getAnagrafica().getResidenzaDomicilioUguali());
+			anagraficaDto.getAnagrafica().setIdStatoNascita(anagraficaDto.getAnagrafica().getIdStatoNascita());
+			anagraficaDto.getAnagrafica().setIdCittadinanza1(anagraficaDto.getAnagrafica().getIdCittadinanza1());
+			anagraficaDto.getAnagrafica().setIdCittadinanza1(anagraficaDto.getAnagrafica().getIdCittadinanza2());
 			String passwordUtente = new TokenGenerator().nextToken();
 			Utente utente = new Utente(anagraficaDto.getAnagrafica().getMailAziendale(), true,
 					BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
@@ -304,6 +307,11 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			anagraficaDto.getAnagrafica().setProvinciaDiNascita(anagraficaDto.getAnagrafica().getProvinciaDiNascita());
 			anagraficaDto.getAnagrafica().setProvinciaResidenza(anagraficaDto.getAnagrafica().getProvinciaResidenza());
 			anagraficaDto.getAnagrafica().setProvinciaDomicilio(anagraficaDto.getAnagrafica().getProvinciaDomicilio());
+			anagraficaDto.getAnagrafica()
+					.setResidenzaDomicilioUguali(anagraficaDto.getAnagrafica().getResidenzaDomicilioUguali());
+			anagraficaDto.getAnagrafica().setIdStatoNascita(anagraficaDto.getAnagrafica().getIdStatoNascita());
+			anagraficaDto.getAnagrafica().setIdCittadinanza1(anagraficaDto.getAnagrafica().getIdCittadinanza1());
+			anagraficaDto.getAnagrafica().setIdCittadinanza1(anagraficaDto.getAnagrafica().getIdCittadinanza2());
 			anagraficaDto.getAnagrafica().setAttivo(true);
 			anagraficaDto.getAnagrafica()
 					.setUtente(anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get().getUtente());
