@@ -33,7 +33,15 @@ public class Anagrafica {
 	@ManyToOne
 	@JoinColumn(name = "id_tipo_canale_reclutamento")
 	private TipoCanaleReclutamento tipoCanaleReclutamento;
-
+	
+	@ManyToOne
+	@JoinColumn(name = "id_cittadinanza_1")
+	private Nazione idCittadinanza1 ;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_cittadinanza_2")
+	private Nazione idCittadinanza2;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_comune_residenza")
 	private Comune comuneResidenza;
@@ -109,9 +117,6 @@ public class Anagrafica {
 	@Column(name = "attesa_lavori")
 	private Boolean attesaLavori;
 
-	@Column(name = "cittadinaza")
-	private String cittadinanza;
-
 	@Column(name = "stato_di_nascita")
 	private String statoDiNascita;
 
@@ -127,9 +132,12 @@ public class Anagrafica {
 	@Column(name = "localita_residenza_estera")
 	private String localitaResidenzaEstera;
 
+	@Column(name = "localita_nascita_estero")
+	private String localitaNascitaEstero;
+
 	@Column(name = "localita_domicilio_estero")
 	private String localitaDomicilioEstero;
-
+	
 	@Transient
 	private Boolean checkInviato;
 
@@ -142,55 +150,6 @@ public class Anagrafica {
 	@Transient
 	private Boolean residenzaDomicilioUguali;
 
-	public Anagrafica(Integer id, Utente utente, TipoAzienda tipoAzienda, TipoCanaleReclutamento tipoCanaleReclutamento,
-			Comune comuneResidenza, Comune comuneDiNascita, Comune comuneDomicilio, Provincia provinciaResidenza,
-			Provincia provinciaDiNascita, Provincia provinciaDomicilio, String nome, String cognome,
-			String codiceFiscale, Date dataDiNascita, String indirizzoResidenza, String indirizzoDomicilio,
-			String cellularePrivato, String cellulareAziendale, String mailPrivata, String mailAziendale,
-			String mailPec, String titoliDiStudio, String altriTitoli, Boolean coniugato, Boolean figliACarico,
-			Boolean attivo, Boolean attesaLavori, String cittadinanza, String statoDiNascita, Boolean categoriaProtetta,
-			String capResidenza, String capDomicilio, String localitaResidenzaEstera, String localitaDomicilioEstero,
-			Boolean checkInviato, Integer anno, Integer mese, Boolean residenzaDomicilioUguali) {
-		super();
-		this.id = id;
-		this.utente = utente;
-		this.tipoAzienda = tipoAzienda;
-		this.tipoCanaleReclutamento = tipoCanaleReclutamento;
-		this.comuneResidenza = comuneResidenza;
-		this.comuneDiNascita = comuneDiNascita;
-		this.comuneDomicilio = comuneDomicilio;
-		this.provinciaResidenza = provinciaResidenza;
-		this.provinciaDiNascita = provinciaDiNascita;
-		this.provinciaDomicilio = provinciaDomicilio;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.codiceFiscale = codiceFiscale;
-		this.dataDiNascita = dataDiNascita;
-		this.indirizzoResidenza = indirizzoResidenza;
-		this.indirizzoDomicilio = indirizzoDomicilio;
-		this.cellularePrivato = cellularePrivato;
-		this.cellulareAziendale = cellulareAziendale;
-		this.mailPrivata = mailPrivata;
-		this.mailAziendale = mailAziendale;
-		this.mailPec = mailPec;
-		this.titoliDiStudio = titoliDiStudio;
-		this.altriTitoli = altriTitoli;
-		this.coniugato = coniugato;
-		this.figliACarico = figliACarico;
-		this.attivo = attivo;
-		this.attesaLavori = attesaLavori;
-		this.cittadinanza = cittadinanza;
-		this.statoDiNascita = statoDiNascita;
-		this.categoriaProtetta = categoriaProtetta;
-		this.capResidenza = capResidenza;
-		this.capDomicilio = capDomicilio;
-		this.localitaResidenzaEstera = localitaResidenzaEstera;
-		this.localitaDomicilioEstero = localitaDomicilioEstero;
-		this.checkInviato = checkInviato;
-		this.anno = anno;
-		this.mese = mese;
-		this.residenzaDomicilioUguali = residenzaDomicilioUguali;
-	}
 
 	public Anagrafica(String codiceFiscale) {
 		super();
@@ -453,14 +412,6 @@ public class Anagrafica {
 
 	public void setAttesaLavori(Boolean attesaLavori) {
 		this.attesaLavori = attesaLavori;
-	}
-
-	public String getCittadinanza() {
-		return cittadinanza;
-	}
-
-	public void setCittadinanza(String cittadinanza) {
-		this.cittadinanza = cittadinanza;
 	}
 
 	public String getStatoDiNascita() {
