@@ -9,7 +9,7 @@
 		<version>3.0.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>it.sincrono</groupId>
 	<artifactId>Sincrono</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -113,6 +113,7 @@
 	</dependencies>
 
 	<build>
+        <finalName>Sincrono</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
