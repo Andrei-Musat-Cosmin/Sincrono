@@ -30,8 +30,10 @@ import it.sincrono.entities.TipoLivelloContratto;
 import it.sincrono.entities.Utente;
 import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.CommessaRepository;
+import it.sincrono.repositories.ComuneRepository;
 import it.sincrono.repositories.ContrattoRepository;
 import it.sincrono.repositories.ProfiloRepository;
+import it.sincrono.repositories.ProvinciaRepository;
 import it.sincrono.repositories.StoricoCommesseRepository;
 import it.sincrono.repositories.StoricoContrattiRepository;
 import it.sincrono.repositories.TipologicheRepository;
@@ -85,7 +87,10 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 	private ProfiloRepository profiloRepository;
 	@Autowired
 	private TipologicheRepository tipologicheContrattoRepository;
-
+	@Autowired
+	private ComuneRepository comuneRepository;
+	@Autowired
+	private ProvinciaRepository provinciaRepository;
 	@Autowired
 	private EmailService emailService;
 
@@ -185,14 +190,25 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di anagrafica");
 			}
 
+			anagraficaDto.getAnagrafica().setComuneDiNascita(anagraficaDto.getAnagrafica().getComuneDiNascita());
+			anagraficaDto.getAnagrafica().setComuneResidenza(anagraficaDto.getAnagrafica().getComuneResidenza());
+			anagraficaDto.getAnagrafica().setComuneDomicilio(anagraficaDto.getAnagrafica().getComuneDomicilio());
+			anagraficaDto.getAnagrafica().setProvinciaDiNascita(anagraficaDto.getAnagrafica().getProvinciaDiNascita());
+			anagraficaDto.getAnagrafica().setProvinciaResidenza(anagraficaDto.getAnagrafica().getProvinciaResidenza());
+			anagraficaDto.getAnagrafica().setProvinciaDomicilio(anagraficaDto.getAnagrafica().getProvinciaDomicilio());
+			anagraficaDto.getAnagrafica()
+					.setResidenzaDomicilioUguali(anagraficaDto.getAnagrafica().getResidenzaDomicilioUguali());
+			anagraficaDto.getAnagrafica().setIdStatoNascita(anagraficaDto.getAnagrafica().getIdStatoNascita());
+			anagraficaDto.getAnagrafica().setIdCittadinanza1(anagraficaDto.getAnagrafica().getIdCittadinanza1());
+			anagraficaDto.getAnagrafica().setIdCittadinanza1(anagraficaDto.getAnagrafica().getIdCittadinanza2());
 			String passwordUtente = new TokenGenerator().nextToken();
-
 			Utente utente = new Utente(anagraficaDto.getAnagrafica().getMailAziendale(), true,
 					BCrypt.hashpw(passwordUtente, BCrypt.gensalt()));
 			anagraficaDto.getAnagrafica().setUtente(utente);
 			Integer idUtente = utenteRepository.saveAndFlush(anagraficaDto.getAnagrafica().getUtente()).getId();
 			anagraficaDto.getAnagrafica().getUtente().setId(idUtente);
 			anagraficaDto.getAnagrafica().setAttivo(true);
+
 			Integer idAnagrafica = anagraficaRepository.saveAndFlush(anagraficaDto.getAnagrafica()).getId();
 			storicoCommessaRepository.saveAndFlush(new StoricoCommesse(new Anagrafica(idAnagrafica), new Commessa(0)));
 			storicoContrattiRepository
@@ -252,12 +268,9 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			fileUtil.creatFolder(PREFIX + DESTINAZIONE + anagraficaDto.getAnagrafica().getCodiceFiscale() + RAPPORTINI
 					+ oggi.getYear() + "/" + oggi.getMonthValue() + ".txt");
 
-			/*
-			 * emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(),
-			 * null, "CREAZIONE UTENZA", "username: " +
-			 * anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
-			 * + passwordUtente);
-			 */
+			emailService.sendMail(null, anagraficaDto.getAnagrafica().getMailAziendale(), null, "CREAZIONE UTENZA",
+					"username: " + anagraficaDto.getAnagrafica().getUtente().getUsername() + "\n" + "password: "
+							+ passwordUtente);
 
 			LOGGER.log(Level.INFO, "Password " + passwordUtente);
 
@@ -288,7 +301,17 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			if (!anagraficaValidator.validate(anagraficaDto.getAnagrafica(), false)) {
 				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di anagrafica");
 			}
-
+			anagraficaDto.getAnagrafica().setComuneDiNascita(anagraficaDto.getAnagrafica().getComuneDiNascita());
+			anagraficaDto.getAnagrafica().setComuneResidenza(anagraficaDto.getAnagrafica().getComuneResidenza());
+			anagraficaDto.getAnagrafica().setComuneDomicilio(anagraficaDto.getAnagrafica().getComuneDomicilio());
+			anagraficaDto.getAnagrafica().setProvinciaDiNascita(anagraficaDto.getAnagrafica().getProvinciaDiNascita());
+			anagraficaDto.getAnagrafica().setProvinciaResidenza(anagraficaDto.getAnagrafica().getProvinciaResidenza());
+			anagraficaDto.getAnagrafica().setProvinciaDomicilio(anagraficaDto.getAnagrafica().getProvinciaDomicilio());
+			anagraficaDto.getAnagrafica()
+					.setResidenzaDomicilioUguali(anagraficaDto.getAnagrafica().getResidenzaDomicilioUguali());
+			anagraficaDto.getAnagrafica().setIdStatoNascita(anagraficaDto.getAnagrafica().getIdStatoNascita());
+			anagraficaDto.getAnagrafica().setIdCittadinanza1(anagraficaDto.getAnagrafica().getIdCittadinanza1());
+			anagraficaDto.getAnagrafica().setIdCittadinanza1(anagraficaDto.getAnagrafica().getIdCittadinanza2());
 			anagraficaDto.getAnagrafica().setAttivo(true);
 			anagraficaDto.getAnagrafica()
 					.setUtente(anagraficaRepository.findById(anagraficaDto.getAnagrafica().getId()).get().getUtente());
@@ -607,19 +630,19 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			if (anagraficaDto.getContratto().getDataAssunzione() != null
 					&& anagraficaDto.getContratto().getMesiDurata() != null
-					&& anagraficaDto.getContratto().getDataFineRapporto() == null) {
+					&& anagraficaDto.getContratto().getDataFineContratto() == null) {
 
 				calendar.setTime(anagraficaDto.getContratto().getDataAssunzione());
 				calendar.add(Calendar.MONTH, anagraficaDto.getContratto().getMesiDurata());
-				anagraficaDto.getContratto().setDataFineRapporto(calendar.getTime());
+				anagraficaDto.getContratto().setDataFineContratto(calendar.getTime());
 
 			}
 
 		} else {
 
-			if (anagraficaDto.getContratto().getDataFineRapporto() == null) {
+			if (anagraficaDto.getContratto().getDataFineContratto() == null) {
 
-				anagraficaDto.getContratto().setDataFineRapporto(calendar.getTime());
+				anagraficaDto.getContratto().setDataFineContratto(calendar.getTime());
 
 			}
 		}
@@ -647,63 +670,65 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 
 			List<AnagraficaDto> listAnagrafiche = excelUtilAnagrafica.createAnagraficaDtoExcel(base64);
 			List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
-			
-			//List<AnagraficaDto> listAnagraficheInDatabase = listAnagraficaDto();
 
+			// List<AnagraficaDto> listAnagraficheInDatabase = listAnagraficaDto();
 
 			TipoCanaleReclutamento tipoCanaleReclutamento = new TipoCanaleReclutamento();
 
 			tipoCanaleReclutamento.setId(1);
 
-			//Boolean checkIsInDatabase = false;
+			// Boolean checkIsInDatabase = false;
 
 			for (AnagraficaDto anagraficaDto : listAnagrafiche) {
 
-				/*checkIsInDatabase = listAnagraficheInDatabase.stream()
-						.filter(elem -> elem.getAnagrafica().getCodiceFiscale()
-								.equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
-						.collect(Collectors.toList()).size() > 0 ? true : false;*/
+				/*
+				 * checkIsInDatabase = listAnagraficheInDatabase.stream() .filter(elem ->
+				 * elem.getAnagrafica().getCodiceFiscale()
+				 * .equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
+				 * .collect(Collectors.toList()).size() > 0 ? true : false;
+				 */
 
-				anagraficaDto.getContratto().setTipoCanaleReclutamento(tipoCanaleReclutamento);
+				anagraficaDto.getAnagrafica().setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 				if (anagraficaValidator.validate(anagraficaDto.getAnagrafica(), true)
 						&& contrattoValidator.validate(anagraficaDto.getContratto(), true)
 						&& commessaValidatorList.validate(anagraficaDto.getCommesse(), false, true)
-						/*&& !checkIsInDatabase*/) {
+				/* && !checkIsInDatabase */) {
 
 					insertAnagraficaDto(anagraficaDto);
 
-				}else {
-					
+				} else {
+
 					listAnagraficheNotInsert.add(anagraficaDto);
-					
+
 				}
 
 			}
 
-			/*List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
-
-			Boolean check = false;
-
-			for (AnagraficaDto anagraficaDtoExcel : listAnagrafiche) {
-
-				for (AnagraficaDto anagraficaDto : listAnagraficheInDatabase) {
-
-					if (anagraficaDtoExcel.getAnagrafica().getCodiceFiscale()
-							.equals(anagraficaDto.getAnagrafica().getCodiceFiscale())) {
-
-						check = true;
-
-					}
-
-				}
-
-				if (!check)
-					listAnagraficheNotInsert.add(anagraficaDtoExcel);
-				
-				check=false;
-
-			}*/
+			/*
+			 * List<AnagraficaDto> listAnagraficheNotInsert = new ArrayList<>();
+			 * 
+			 * Boolean check = false;
+			 * 
+			 * for (AnagraficaDto anagraficaDtoExcel : listAnagrafiche) {
+			 * 
+			 * for (AnagraficaDto anagraficaDto : listAnagraficheInDatabase) {
+			 * 
+			 * if (anagraficaDtoExcel.getAnagrafica().getCodiceFiscale()
+			 * .equals(anagraficaDto.getAnagrafica().getCodiceFiscale())) {
+			 * 
+			 * check = true;
+			 * 
+			 * }
+			 * 
+			 * }
+			 * 
+			 * if (!check) listAnagraficheNotInsert.add(anagraficaDtoExcel);
+			 * 
+			 * check=false;
+			 * 
+			 * }
+			 */
 
 			return listAnagraficheNotInsert;
 
@@ -714,8 +739,6 @@ public class AnagraficaServiceImpl extends BaseServiceImpl implements Anagrafica
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e);
 		}
-		
-	
 
 	}
 

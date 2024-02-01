@@ -34,7 +34,7 @@ public class MapperCustom {
 		Anagrafica anagrafica = anagraficaRepository.findById(id).get();
 
 		anagraficaDto.setRuolo(toRuolo(anagrafica.getUtente().getId()));
-
+		
 		anagrafica.getUtente().setPassword(null);
 		anagrafica.getUtente().setTokenPassword(null);
 		anagrafica.getUtente().setUsername(null);

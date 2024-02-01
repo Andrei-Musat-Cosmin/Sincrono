@@ -20,6 +20,7 @@ import it.sincrono.beans.Esito;
 import it.sincrono.repositories.dto.RichiestaDto;
 import it.sincrono.requests.RichiestaRequest;
 import it.sincrono.responses.GenericResponse;
+import it.sincrono.responses.RichiestaCheckResponse;
 import it.sincrono.responses.RichiestaResponse;
 import it.sincrono.responses.RichiesteDtoListResponse;
 import it.sincrono.services.RichiestaService;
@@ -111,8 +112,7 @@ public class RichiestaController {
 
 		return httpEntity;
 	}
-	
-	
+
 	@PostMapping("/list-richieste-accettate")
 	public @ResponseBody HttpEntity<RichiesteDtoListResponse> listRichiesteDtoAccettate(
 			@RequestBody RichiestaRequest richiestaRequest) {
@@ -123,7 +123,8 @@ public class RichiestaController {
 		try {
 			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo listRichiesteDto");
 
-			List<RichiestaDto> richiesteDto = richiestaService.listRichiesteDtoAccettate(richiestaRequest.getRichiestaDto());
+			List<RichiestaDto> richiesteDto = richiestaService
+					.listRichiesteDtoAccettate(richiestaRequest.getRichiestaDto());
 
 			richiesteDtoListResponse.setList(richiesteDto);
 			richiesteDtoListResponse.setEsito(new Esito());
@@ -139,10 +140,32 @@ public class RichiestaController {
 
 		return httpEntity;
 	}
-	
-	@PutMapping("/cambia-stato")
-	public @ResponseBody HttpEntity<GenericResponse> changeStatus(
+
+	@PostMapping("/check-elaborazione")
+	public @ResponseBody HttpEntity<RichiestaCheckResponse> checkElaborazione(
 			@RequestBody RichiestaRequest richiestaRequest) {
+
+		HttpEntity<RichiestaCheckResponse> httpEntity = null;
+		RichiestaCheckResponse richiestaCheckResponse = new RichiestaCheckResponse(null, null);
+
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al meotodo checkElaborazione");
+			richiestaCheckResponse.setCheckElaborazione(richiestaService.checkElaborazione(richiestaRequest));
+			richiestaCheckResponse.setEsito(new Esito());
+			httpEntity = new HttpEntity<RichiestaCheckResponse>(richiestaCheckResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			richiestaCheckResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<RichiestaCheckResponse>(richiestaCheckResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al meotodo checkElaborazione \n");
+		return httpEntity;
+
+	}
+
+	@PutMapping("/cambia-stato")
+	public @ResponseBody HttpEntity<GenericResponse> changeStatus(@RequestBody RichiestaRequest richiestaRequest) {
 
 		HttpEntity<GenericResponse> httpEntity = null;
 
@@ -152,7 +175,6 @@ public class RichiestaController {
 
 			richiestaService.changeStato(richiestaRequest.getRichiestaDto());
 
-			
 			genericResponse.setEsito(new Esito());
 
 			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
@@ -167,6 +189,29 @@ public class RichiestaController {
 		return httpEntity;
 	}
 	
-	
-	
+	@PutMapping("/modifica-richiesta")
+	public @ResponseBody HttpEntity<GenericResponse> updateRichiesta(@RequestBody RichiestaRequest richiestaRequest) {
+
+		HttpEntity<GenericResponse> httpEntity = null;
+
+		GenericResponse genericResponse = new GenericResponse();
+		try {
+			LOGGER.log(Level.INFO, "Inizio chiamata al metodo modificaRichiesta");
+
+			richiestaService.modificaRichiesta(richiestaRequest);
+
+			genericResponse.setEsito(new Esito());
+
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			genericResponse.setEsito(new Esito(e.getCode(), e.getMessage(), null));
+			httpEntity = new HttpEntity<GenericResponse>(genericResponse);
+		}
+		LOGGER.log(Level.INFO, "Fine chiamata al metodo modificaRichiesta\n");
+
+		return httpEntity;
+	}
+
 }

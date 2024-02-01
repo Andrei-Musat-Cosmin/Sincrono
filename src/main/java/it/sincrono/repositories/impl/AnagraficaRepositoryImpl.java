@@ -8,6 +8,7 @@ import java.util.List;
 
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
+import it.sincrono.entities.Comune;
 import it.sincrono.entities.Contratto;
 import it.sincrono.entities.Ruolo;
 import it.sincrono.entities.TipoAzienda;
@@ -66,6 +67,15 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoAzienda().getId() != null)
 						subString += " AND g.id =" + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
 								.getTipoAzienda().getId().toString();
+					if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getComuneResidenza() != null
+							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getComuneResidenza().getId() != null)
+						subString += " AND g.id =" + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
+								.getComuneResidenza().getId().toString();
+					if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getProvinciaResidenza() != null
+							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getProvinciaResidenza().getId() != null)
+						subString += " AND g.id =" + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
+								.getProvinciaResidenza().getId().toString();
+
 				}
 
 				if (anagraficaRequestDto.getAnagraficaDto().getContratto() != null) {
@@ -103,10 +113,10 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 						subString += " AND f.id = " + anagraficaRequestDto.getAnagraficaDto().getContratto()
 								.getTipoCcnl().getId().toString();
 					}
-					if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCanaleReclutamento() != null
-							&& anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCanaleReclutamento()
+					if (anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoCanaleReclutamento() != null
+							&& anagraficaRequestDto.getAnagraficaDto().getAnagrafica().getTipoCanaleReclutamento()
 									.getId() != null) {
-						subString += " AND h.id = " + anagraficaRequestDto.getAnagraficaDto().getContratto()
+						subString += " AND h.id = " + anagraficaRequestDto.getAnagraficaDto().getAnagrafica()
 								.getTipoCanaleReclutamento().getId().toString();
 					}
 					if (anagraficaRequestDto.getAnagraficaDto().getContratto().getTipoCausaFineRapporto() != null
@@ -301,13 +311,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 				anagrafica.setTipoAzienda(tipoAzienda);
 
 				if (result[6] != null)
-					anagrafica.setComuneDiNascita((String) result[6]);
+					anagrafica.setComuneDiNascita((Comune) result[6]);
 				if (result[7] != null)
 					anagrafica.setDataDiNascita((Date) result[7]);
 				if (result[8] != null)
-					anagrafica.setResidenza((String) result[8]);
+					anagrafica.setIndirizzoResidenza((String) result[8]);
 				if (result[9] != null)
-					anagrafica.setDomicilio((String) result[9]);
+					anagrafica.setIndirizzoDomicilio((String) result[9]);
 				if (result[10] != null)
 					anagrafica.setCellularePrivato((String) result[10]);
 				if (result[11] != null)
@@ -377,13 +387,13 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 		}
 		anagrafica.setTipoAzienda(tipoAzienda);
 		if (result[6] != null)
-			anagrafica.setComuneDiNascita((String) result[6]);
+			anagrafica.setComuneDiNascita((Comune) result[6]);
 		if (result[7] != null)
 			anagrafica.setDataDiNascita((Date) result[7]);
 		if (result[8] != null)
-			anagrafica.setResidenza((String) result[8]);
+			anagrafica.setIndirizzoResidenza((String) result[8]);
 		if (result[9] != null)
-			anagrafica.setDomicilio((String) result[9]);
+			anagrafica.setIndirizzoDomicilio((String) result[9]);
 		if (result[10] != null)
 			anagrafica.setCellularePrivato((String) result[10]);
 		if (result[11] != null)
@@ -452,7 +462,7 @@ public class AnagraficaRepositoryImpl extends BaseRepositoryImpl implements Anag
 					tipoCanaleReclutamento.setId((Integer) result[73]);
 				if (result[74] != null)
 					tipoCanaleReclutamento.setDescrizione((String) result[74]);
-				contratto.setTipoCanaleReclutamento(tipoCanaleReclutamento);
+				anagrafica.setTipoCanaleReclutamento(tipoCanaleReclutamento);
 
 				TipoCausaFineRapporto tipoCausaFineRapporto = new TipoCausaFineRapporto();
 				if (result[75] != null)

@@ -1,18 +1,18 @@
 
 spring:
- mail:
-   host: smtps.aruba.it
-   username: comunicazioni@sincrono.it
-   password: x9$!4Eu48G
-   port: 465
-   properties:
-    mail:
-      smtp:
+   mail:
+    host: smtps.aruba.it
+    username: comunicazioni@sincrono.it
+    password: x9$!4Eu48G
+    port: 465
+    properties:
+     mail:
+       smtp:
+         auth: true
+         ssl:
+           enable: true
+           required: true
 
-          auth: true
-          ssl:
-            enable: true
-            required: true
 
 anagrafiche-profili:
 
@@ -20,10 +20,13 @@ anagrafiche-profili:
   destinazione: profili-anagrafiche/
   
   anagrafiche-profili-rapportini:
-    path-prefix-rapportini: /rapportini/
-   
+
+   path-prefix-rapportini: /rapportini/
+  
+  
   anagrafiche-profili-documenti:
-   path-prefix-documenti: /documenti/image-profile.txt
+  path-prefix-documenti: /documenti/image-profile.txt
+
    
 path-frontend:
 
@@ -34,4 +37,6 @@ path-frontend:
 email-richieste:
 
   email: p.giardina@sincrono.it
+
+
 

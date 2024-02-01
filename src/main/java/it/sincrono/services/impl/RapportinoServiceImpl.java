@@ -105,6 +105,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 			rapportinoUtil.calcoloRapportinoGiorniUtiliLavoro(rapportinoDto);
 
 			rapportinoUtil.calcoloRapportinoDtoGiorniLavorati(rapportinoDto);
+			
+			rapportinoUtil.calcoloCommesseRapportino(rapportinoDto,rapportinoRequestDto);
 
 		} catch (ServiceException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -271,6 +273,8 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 				rapportinoDto.getAnnoRequest(), rapportinoDto.getMeseRequest());
 	}
 
+	
+
 	@Override
 	public List<AnagraficaDto> getRapportiniNotFreeze(AnagraficaFilterRequestDto anagraficaFilterRequestDto)
 			throws ServiceException {
@@ -338,7 +342,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 					+ rapportinoRequest.getAnno() + "/" + rapportinoRequest.getMese() + ".txt");
 
 			for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
-
+System.out.println("conteggio"+giornoDto.getNumeroGiorno());
 				Rapportino rapportino = new Rapportino();
 
 				if (giornoDto.getDuplicazioniGiornoDto() != null && giornoDto.getDuplicazioniGiornoDto().size() > 0) {
@@ -472,7 +476,7 @@ public class RapportinoServiceImpl extends BaseServiceImpl implements Rapportino
 
 		return listAnagrafiche;
 	}
-
+//prende tutti i rapportini da oggi a 3 mesi fa 
 	@Override
 	public String getRapportinoB64(Integer anno, Integer mese) throws ServiceException {
 		int valAnno = anno.intValue();

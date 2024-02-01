@@ -51,6 +51,16 @@ public class Richieste {
 		this.note = note;
 	}
 
+	
+	public Richieste(Integer id,Boolean stato,String note) {
+		super();
+		this.id = id;
+		this.anagrafica = anagrafica;
+		this.anno = anno;
+		this.mese = mese;
+		this.stato = stato;
+		this.note = note;
+	}
 
 
 	public Integer getId() {

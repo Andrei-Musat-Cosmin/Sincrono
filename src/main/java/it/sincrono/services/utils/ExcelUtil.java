@@ -52,7 +52,9 @@ public class ExcelUtil {
 			Workbook workbook = (append ? new XSSFWorkbook(fileInputStream) : new XSSFWorkbook());
 			Sheet sheet = (append ? workbook.getSheet("Dati Excel") : workbook.createSheet("Dati Excel"));
 			RichTextString str = null;
-
+			int giornoprecedente=0;
+			int giornofinaleprecendnte=0;
+			int conttotalesenzafeste=0;
 			/** SETUP CALENDAR PER I CONTROLLI SU SABATI E DOMENICHE **/
 			Calendar calendar = Calendar.getInstance();
 			int anno = rapportini.get(0).getAnno();
@@ -61,11 +63,14 @@ public class ExcelUtil {
 			int numeroGiorniNelMese = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
 			/** SETUP PER LE VARIABILI DEI CALCOLI PER OGNI RAPPORTINO **/
+			int contvuoto = 0;
+			int contpieno = 0;
+			double totale = 0.0;
 			double tot = 0.0;
 			int ferie = 0;
 			int malattie = 0;
 			int ex_fs = 0;
-			int rol = 0;
+			double rol = 0;
 			double f1_f2_f3 = 0.0;
 			double straordinariSum = 0.0;
 
@@ -84,17 +89,18 @@ public class ExcelUtil {
 			CellStyle cellStyleDefault = createCellStyle(workbook, IndexedColors.WHITE, false);
 			CellStyle cellStyleAnnoMese = createCellStyle(workbook, IndexedColors.GOLD, false);
 			CellStyle cellStyleGiorni = createCellStyle(workbook, IndexedColors.GREEN, false);
-
+			CellStyle cellStyleGiorniFinali = createCellStyle(workbook, IndexedColors.GREY_80_PERCENT, false);
+			//CellStyle cellStyleGiorniFestivi = createCellStyle(workbook, IndexedColors.RED, false);
 			CellStyle cellStyleFerieLabel = createCellStyle(workbook, IndexedColors.YELLOW, false);
-			cellStyleFerieLabel.setRotation((short) -45);
+			//cellStyleFerieLabel.setRotation((short) -45);
 			CellStyle cellStyleTotaleLabel = createCellStyle(workbook, IndexedColors.YELLOW, false);
-			cellStyleTotaleLabel.setRotation((short) -45);
+		//	cellStyleTotaleLabel.setRotation((short) -45);
 			CellStyle cellStyleMalattiaLabel = createCellStyle(workbook, IndexedColors.LIGHT_GREEN, false);
-			cellStyleMalattiaLabel.setRotation((short) -45);
+			//cellStyleMalattiaLabel.setRotation((short) -45);
 			CellStyle cellStylePermessiLabel = createCellStyle(workbook, IndexedColors.LIGHT_ORANGE, false);
-			cellStylePermessiLabel.setRotation((short) -45);
+			//cellStylePermessiLabel.setRotation((short) -45);
 			CellStyle cellStyleRolLabel = createCellStyle(workbook, IndexedColors.LIGHT_TURQUOISE, false);
-			cellStyleRolLabel.setRotation((short) -45);
+			//cellStyleRolLabel.setRotation((short) -45);
 
 			CellStyle cellStyleFerie = createCellStyle(workbook, IndexedColors.YELLOW, false);
 			CellStyle cellStyleTotale = createCellStyle(workbook, IndexedColors.YELLOW, false);
@@ -102,7 +108,7 @@ public class ExcelUtil {
 //			CellStyle cellStylePermessi = createCellStyle(workbook, IndexedColors.LIGHT_ORANGE, false);
 //			CellStyle cellStyleRol = createCellStyle(workbook, IndexedColors.LIGHT_TURQUOISE, false);
 
-			CellStyle cellStyleSABDOM = createCellStyle(workbook, IndexedColors.GREEN, false);
+			CellStyle cellStyleSABDOM = createCellStyle(workbook, IndexedColors.RED, false);
 			CellStyle cellStyleNODAY = createCellStyle(workbook, IndexedColors.LIGHT_CORNFLOWER_BLUE, false);
 
 			int cellNum = 0;
@@ -132,7 +138,8 @@ public class ExcelUtil {
 			cell = row.createCell(34);
 			cell.setCellStyle(cellStyleMalattiaLabel);
 			cell.setCellValue("MALATTIE");
-
+		
+			
 			cell = row.createCell(35);
 			cell.setCellStyle(cellStylePermessiLabel);
 			cell.setCellValue("EX-FS");
@@ -148,7 +155,26 @@ public class ExcelUtil {
 			for (int i = 1; i < 32; i++) {
 				cell = row.createCell(i);
 				cell.setCellValue(i);
-				cell.setCellStyle(cellStyleGiorni);
+				calendar.set(anno, mese - 1, i);
+				int giornoweek = calendar.get(Calendar.DAY_OF_WEEK);
+				if(giornoweek==1 || giornoweek==7 || DateUtil.checkFestivitàNazionaleRapportino(mese,anno,i)) {
+				cell.setCellStyle(cellStyleSABDOM);
+				}else {
+					
+					cell.setCellStyle(cellStyleGiorni);
+					conttotalesenzafeste++;
+				}
+				int giornofinale = calendar.get(Calendar.DAY_OF_MONTH);
+			
+				
+				if(giornofinale>giornoprecedente) {
+					giornoprecedente=giornofinale;
+					
+				}else {
+					cell.setCellStyle(cellStyleGiorniFinali);
+					conttotalesenzafeste--;
+					giornofinaleprecendnte=giornoprecedente;
+				}
 				if (i == 31) {
 					cell = null;
 					cell = row.createCell(++i);
@@ -190,8 +216,9 @@ public class ExcelUtil {
 					cell.setCellValue(nomeCognomePrecedente);
 
 				}
-
-				cell = row.createCell(++cellNum);
+				
+				cell = row.createCell(rapportino.getGiorno());
+				
 				calendar.set(anno, mese - 1, cellNum);
 				int giorno = calendar.get(Calendar.DAY_OF_WEEK);
 				/**
@@ -212,160 +239,110 @@ public class ExcelUtil {
 					if (rapportino.getFascia3() != null) {
 						f1_f2_f3 += rapportino.getFascia3();
 					}
-					if (rapportino.getOre() != null) {
-						// CI SONO ORE REGISTRATE
-
-						if (rapportino.getOre() == 8.0) {
-							// SE SONO ESATTAMENTE 8
-
-							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
-								// SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
-								if (f1_f2_f3 != 0.0) {
-									cell.setCellStyle(cellStyleAnnoMese);
-									cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-									tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
-								} else {
-									cell.setCellStyle(cellStyleAnnoMese);
-									cell.setCellValue(rapportino.getOre());
-									tot++;
+					
+						calendar.set(anno, mese - 1, rapportino.getGiorno());
+						int giornoweek = calendar.get(Calendar.DAY_OF_WEEK);
+						if(giornoweek==1 || giornoweek==7 || DateUtil.checkFestivitàNazionaleRapportino(mese,anno,rapportino.getGiorno()) ) {
+							if(rapportino.getOre() !=null ) {
+							cell.setCellValue(rapportino.getOre() );
+							}
+							if(rapportino.getPermessiRole() !=null) {
+								System.out.println("role"+rapportino.getPermessiRole());
+								cell.setCellValue(rapportino.getPermessiRole() );
+								rol+=rapportino.getPermessiRole();
+								cell.setCellStyle(cellStyleRolLabel);
+							}
+							if(rapportino.getOre() !=null ) {
+							f1_f2_f3+=rapportino.getOre();
+							}
+							cell.setCellStyle(cellStyleSABDOM);
+							
+						System.out.println("1");
+							}else {
+								cell.setCellStyle(cellStyleDefault);
+								System.out.println("2");
+								if(rapportino.getOre() !=null ) {
+									cell.setCellValue(rapportino.getOre() );
+									System.out.println("3");
+									}
+								if(rapportino.getPermessiRole() !=null) {
+										cell.setCellValue(rapportino.getPermessiRole() );
+										rol+=rapportino.getPermessiRole();
+										cell.setCellStyle(cellStyleRolLabel);
+									
 								}
-								f1_f2_f3 += rapportino.getOre();
-
-							} else {
-								if (f1_f2_f3 != 0.0) {
-									cell.setCellStyle(cellStyleAnnoMese);
-									cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-									tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
-								} else {
-									cell.setCellStyle(cellStyleDefault);
-									cell.setCellValue("");
-									tot++;
+								
+								System.out.println("4");
+								if(rapportino.getMalattie()!=null) {
+								if(rapportino.getMalattie()==true ) {
+									malattie++;
+								}
+								}
+								if(rapportino.getFerie()!=null) {
+								if(rapportino.getFerie()==true ) {
+									ferie++;
+								}
+								}
+								if(rapportino.getPermessiExfestivita()!=null) {
+									if(rapportino.getPermessiExfestivita()==true ) {
+										ex_fs++;
+									}
+									}
+								if(rapportino.getOre() !=null ) {
+								if(rapportino.getOre()<=8) {
+								totale+=rapportino.getOre();
+								contpieno+=1;
+								}
+								}
+								if(rapportino.getOre()==null) {
+								contvuoto+=1;
 								}
 							}
-						} else {
-							// GESTISCO LE ORE INFERIORI AD 8
-
-							if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
-								cell.setCellStyle(cellStyleAnnoMese);
-								cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-								if (rapportino.getOre() + f1_f2_f3 < 8.0)
-									tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
-								else
-									tot += rapportino.getOre() + f1_f2_f3 / 8.0;
-								f1_f2_f3 += rapportino.getOre();
-							} else {
-								if (rapportino.getPermessi() != null) {
-									// SE E' STATO UN GIORNO DI PERMESSO
-									if (f1_f2_f3 != 0.0) {
-										cell.setCellStyle(cellStyleAnnoMese);
-										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-										if (rapportino.getOre() + f1_f2_f3 < 8.0)
-											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
-										else
-											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
-									} else {
-										cell.setCellStyle(cellStyleDefault);
-										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-										if (rapportino.getOre() + f1_f2_f3 < 8.0)
-											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
-										else
-											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
-									}
-									str = new XSSFRichTextString(
-											"Di cui " + rapportino.getPermessi() + " ore di permesso.");
-									Comment comment = sheet.createDrawingPatriarch()
-											.createCellComment(new XSSFClientAnchor());
-									comment.setString(str);
-									cell.setCellComment(comment);
-									ex_fs++;
-								} else {
-									if (f1_f2_f3 != 0.0) {
-										cell.setCellStyle(cellStyleAnnoMese);
-										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-										if (rapportino.getOre() + f1_f2_f3 < 8.0)
-											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
-										else
-											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
-									} else {
-										cell.setCellStyle(cellStyleDefault);
-										cell.setCellValue(rapportino.getOre() + f1_f2_f3);
-										if (rapportino.getOre() + f1_f2_f3 < 8.0)
-											tot += 1.0 - ((rapportino.getOre() + f1_f2_f3) / 8.0);
-										else
-											tot += (rapportino.getOre() + f1_f2_f3) / 8.0;
-									}
-								}
-							}
-						}
-					} else if (giorno == Calendar.SATURDAY || giorno == Calendar.SUNDAY) {
-						// SE IL GIORNO ATTUALE E' UN SABATO O UNA DOMENICA
-
-						cell.setCellStyle(cellStyleSABDOM);
-						cell.setCellValue("q");
-					} else if (rapportino.getFerie() != null) {
-						// SE E' STATO UN GIORNO DI FERIE
-
-						cell.setCellStyle(cellStyleFerie);
-						cell.setCellValue("F");
-						ferie++;
-					} else if (rapportino.getMalattie() != null) {
-						// SE E' STATO UN GIORNO DI MALATTIA
-
-						cell.setCellStyle(cellStyleMalattia);
-						cell.setCellValue("M");
-						malattie++;
-//					} else if (rapportino.getPermessi() != null) {
-//						// SE E' STATO UN GIORNO DI PERMESSO
-//
-//						cell.setCellStyle(cellStylePermessi);
-//						cell.setCellValue(rapportino.getPermessi() + "p");
-//						ex_fs++;
-
-//				    } else if (rapportino.getRol() != null) {
-//				        // SE E' STATO UN GIORNO DI ROL
-//				        cell.setCellStyle(cellStyleRol);
-//				        cell.setCellValue(rapportino.getRol() + "r");
-//						rol++;
-					}
+			
+					
 				}
-
+					tot=contvuoto +conttotalesenzafeste-(totale/8);
 				straordinariSum += f1_f2_f3;
 				f1_f2_f3 = 0.0; // RICOMINCIA A CONTARE LE ORE DI STRAORDINARIO DELLA GIORNATA
-
-				if (cellNum == 31) {
+				contvuoto=0;
+				contpieno=0;
+			//	if (rapportino.getGiorno() == 31) {
 					str = new XSSFRichTextString("Di cui " + straordinariSum + " ore di straordinari.");
 					Comment comment = sheet.createDrawingPatriarch().createCellComment(new XSSFClientAnchor());
 					comment.setString(str);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(32);
 					cell.setCellStyle(cellStyleTotale);
 					cell.setCellValue(tot);
 					cell.setCellComment(comment);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(33);
 					cell.setCellStyle(cellStyleDefault);
 					cell.setCellValue(ferie);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(34);
 					cell.setCellStyle(cellStyleDefault);
 					cell.setCellValue(malattie);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(35);
 					cell.setCellStyle(cellStyleDefault);
 					cell.setCellValue(ex_fs);
 
-					cell = row.createCell(++cellNum);
+					cell = row.createCell(36);
 					cell.setCellStyle(cellStyleDefault);
 					cell.setCellValue(rol);
 
 					/** RESET DELLE VARIABILI **/
 					cellNum = 0;
 					tot = 0.0;
-					ferie = 0;
-					malattie = 0;
-					ex_fs = 0;
-					rol = 0;
-				}
+				//	ferie = 0;
+					//malattie = 0;
+				//ex_fs = 0;
+					//rol = 0;
+				//}
+			/*	cell = row.createCell(32);
+				cell.setCellStyle(cellStyleTotale);
+				cell.setCellValue(tot);*/
 			}
 			try (FileOutputStream outputStream = new FileOutputStream(EXCELPATH)) {
 				workbook.write(outputStream);

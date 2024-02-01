@@ -6,7 +6,7 @@ public class TipologicheCompareContratto {
 
 	public static Boolean tipologicheCompare(Contratto contratto, Contratto ContrattoDb) {
 
-		return tipoAziendaCompare(contratto, ContrattoDb) && tipoCanaleReclutamentoCompare(contratto, ContrattoDb)
+		return tipoAziendaCompare(contratto, ContrattoDb) /* && tipoCanaleReclutamentoCompare(contratto, ContrattoDb) */
 				&& tipoCausaFineRapportoCompare(contratto, ContrattoDb) && tipoCcnlCompare(contratto, ContrattoDb)
 				&& tipoContrattoCompare(contratto, ContrattoDb) && tipoLivelloContrattoCompare(contratto, ContrattoDb);
 
@@ -50,42 +50,42 @@ public class TipologicheCompareContratto {
 
 	}
 
-	private static Boolean tipoCanaleReclutamentoCompare(Contratto contratto, Contratto ContrattoDb) {
-
-		Boolean check = false;
-
-		// tipoCanaleReclutamento
-
-		if (contratto.getTipoCanaleReclutamento() != null) {
-
-			if (contratto.getTipoCanaleReclutamento().equals(ContrattoDb.getTipoCanaleReclutamento())) {
-
-				check = true;
-
-			} else {
-
-				check = false;
-			}
-
-		} else if (ContrattoDb.getTipoCanaleReclutamento() != null) {
-
-			if (ContrattoDb.getTipoCanaleReclutamento().equals(contratto.getTipoCanaleReclutamento())) {
-
-				check = true;
-
-			} else {
-
-				check = false;
-			}
-
-		} else {
-
-			check = true;
-
-		}
-
-		return check;
-	}
+//	private static Boolean tipoCanaleReclutamentoCompare(Contratto contratto, Contratto ContrattoDb) {
+//
+//		Boolean check = false;
+//
+//		// tipoCanaleReclutamento
+//
+//		if (contratto.getTipoCanaleReclutamento() != null) {
+//
+//			if (contratto.getTipoCanaleReclutamento().equals(ContrattoDb.getTipoCanaleReclutamento())) {
+//
+//				check = true;
+//
+//			} else {
+//
+//				check = false;
+//			}
+//
+//		} else if (ContrattoDb.getTipoCanaleReclutamento() != null) {
+//
+//			if (ContrattoDb.getTipoCanaleReclutamento().equals(contratto.getTipoCanaleReclutamento())) {
+//
+//				check = true;
+//
+//			} else {
+//
+//				check = false;
+//			}
+//
+//		} else {
+//
+//			check = true;
+//
+//		}
+//
+//		return check;
+//	}
 
 	private static Boolean tipoCausaFineRapportoCompare(Contratto contratto, Contratto ContrattoDb) {
 

@@ -38,6 +38,29 @@ public class AnagraficaValidator {
 						return false;
 					}
 
+					if (anagrafica.getTipoCanaleReclutamento() == null
+							|| anagrafica.getTipoCanaleReclutamento().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Canale Reclutamento\" non è stato inserito");
+						return false;
+					}
+					
+					if (anagrafica.getIndirizzoResidenza() == null || anagrafica.getIndirizzoResidenza().equals("") ) {
+						LOGGER.log(Level.ERROR, "Dato \"Indirizzo di residenza \" non è stato inserito");
+						return false;
+					}					
+
+
+					if (anagrafica.getComuneResidenza() == null || anagrafica.getComuneResidenza().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Comune di residenza \" non è stato inserito");
+						return false;
+					}					
+
+					if (anagrafica.getProvinciaResidenza() == null || anagrafica.getProvinciaResidenza().getId() == null) {
+						LOGGER.log(Level.ERROR,
+								"Dato \"Provincia di residenza \" non è stato inserito");
+						return false;
+					}
+
 				} else {
 					LOGGER.log(Level.ERROR, "Id dell'anagrafica non deve essere valorizzato");
 					return false;
@@ -64,11 +87,34 @@ public class AnagraficaValidator {
 						LOGGER.log(Level.ERROR, "Nome Azienda dell'anagrafica non è valorizzato");
 						return false;
 					}
+					
+					if (anagrafica.getTipoCanaleReclutamento() == null
+							|| anagrafica.getTipoCanaleReclutamento().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Canale Reclutamento\" non è stato inserito");
+						return false;
+					}
+					
+					if (anagrafica.getIndirizzoResidenza() == null || anagrafica.getIndirizzoResidenza().equals("") ) {
+						LOGGER.log(Level.ERROR, "Dato \"Indirizzo di residenza \" non è stato inserito");
+						return false;
+					}
+
+					if (anagrafica.getComuneResidenza() == null || anagrafica.getComuneResidenza().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Comune di residenza\" non è stato inserito");
+						return false;
+					}			
+
+					if (anagrafica.getProvinciaResidenza() == null
+							|| anagrafica.getProvinciaResidenza().getId() == null) {
+						LOGGER.log(Level.ERROR, "Dato \"Provincia di residenza\" non è stato inserito");
+						return false;
+					}
 
 				} else {
 					LOGGER.log(Level.ERROR, "Id dell'anagrafica deve essere valorizzato");
 					return false;
 				}
+
 			}
 			return true;
 

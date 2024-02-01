@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import it.sincrono.repositories.AnagraficaRepository;
 import it.sincrono.repositories.RichiestaRepository;
 import it.sincrono.repositories.TipoRichiestaRepository;
 import it.sincrono.repositories.dto.RichiestaDto;
+import it.sincrono.requests.RichiestaRequest;
 import it.sincrono.services.EmailService;
 import it.sincrono.services.RichiestaService;
 import it.sincrono.services.costants.ServiceMessages;
@@ -27,6 +29,9 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaService {
+
+	@Value("${email-richieste.email}")
+	private String EMAIL;
 
 	@Autowired
 	RichiestaRepository richiestaRepository;
@@ -62,6 +67,8 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			convertInDto.convertInRichiestaDto(richiestaDto, tipoRichieste);
 
+			convertInDto.addNote(richiestaDto, id);
+
 			return richiestaDto;
 
 		} catch (Exception e) {
@@ -78,8 +85,10 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 		try {
 
-			if (!richiesteValidator.validateInsert(richiestaDto)) {
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " per i dati di richiesta");
+			String msg = null;
+
+			if ((msg = richiesteValidator.validateInsert(richiestaDto)) != null) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
 			}
 
 			Anagrafica anagrafica = anagraficaRepository
@@ -94,16 +103,16 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			richiestaDto.setId(idRichiesta);
 
-			emailService.sendMailRichieste(null, "d.saltarelli@sincrono.it", null,
+			emailService.sendMailRichieste(null, EMAIL, null,
 					emailUtil.createSubjectRichiesta(richiestaDto, anagrafica),
 					emailUtil.createBodyRichiesta(richiestaDto, anagrafica));
 
 		} catch (DataIntegrityViolationException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_INTEGRITA_DATI);
-			throw new ServiceException(ServiceMessages.ERRORE_INTEGRITA_DATI);
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
 		} catch (ServiceException e) {
-			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
-			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
 		} catch (Exception e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 			throw new ServiceException(e.getMessage());
@@ -129,6 +138,8 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 			if (tipoRichieste != null && tipoRichieste.size() > 0)
 				listRichiestaDto = convertInDto.convertInDifferentRichiestaDto(tipoRichieste);
+
+			convertInDto.addNote(listRichiestaDto);
 
 			return listRichiestaDto;
 
@@ -181,12 +192,16 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 
 		try {
 			if (!richiesteValidator.validateCambiaStato(richiestaDto)) {
-				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, " id,stato o note di richiesta non possono essere nulli");
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE,
+						" id,stato o note di richiesta non possono essere nulli");
 			}
 			richiestaRepository.saveAndFlush(new Richieste(richiestaDto.getId(),
 					anagraficaRepository.findByCodiceFiscale(richiestaDto.getCodiceFiscale()), richiestaDto.getAnno(),
 					richiestaDto.getMese(), richiestaDto.getStato(), richiestaDto.getNote()));
 
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, ServiceMessages.ERRORE_VALIDAZIONE);
+			throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE);
 		} catch (Exception e) {
 
 			LOGGER.log(Level.ERROR, e.getMessage());
@@ -195,4 +210,63 @@ public class RichiestaServiceImpl extends BaseServiceImpl implements RichiestaSe
 		}
 
 	}
+
+	@Override
+	@Transactional(rollbackOn = ServiceException.class)
+	public boolean checkElaborazione(RichiestaRequest richiestaRequest) throws ServiceException {
+
+		Richieste richiesta = richiestaRepository.findById(richiestaRequest.getRichiestaDto().getId()).get();
+
+		if (richiesta.getStato() == null) {
+			return true;
+
+		} else {
+
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional(rollbackOn = ServiceException.class)
+	public void modificaRichiesta(RichiestaRequest richiestaRequest) throws ServiceException {
+
+		try {
+
+			String msg = null;
+
+			if ((msg = richiesteValidator.validateUpdate(richiestaRequest.getRichiestaDto())) != null) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE, msg);
+			}
+
+			if (checkElaborazione(richiestaRequest)) {
+				throw new ServiceException(ServiceMessages.ERRORE_VALIDAZIONE,
+						"non puoi modificare una richiesta in fase di elaborazione");
+			}
+
+			Richieste richiesta = richiestaRepository.findById(richiestaRequest.getRichiestaDto().getId()).get();
+
+			List<TipoRichieste> tipoRichiesteList = tipoRichiestaRepository
+					.getTipoRichiesteByIdRichieste(richiesta.getId());
+
+			tipoRichiestaRepository.deleteAll(tipoRichiesteList);
+
+			richiestaRepository.delete(richiesta);
+			
+			richiestaRequest.getRichiestaDto().setId(null);
+
+			insertRichiesta(richiestaRequest.getRichiestaDto());
+
+		} catch (DataIntegrityViolationException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
+		} catch (ServiceException e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
+		} catch (Exception e) {
+			LOGGER.log(Level.ERROR, e.getMessage());
+			throw new ServiceException(e.getMessage());
+		}
+
+	}
+
 }

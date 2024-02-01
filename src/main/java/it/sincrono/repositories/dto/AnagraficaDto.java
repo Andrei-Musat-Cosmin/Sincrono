@@ -2,7 +2,6 @@ package it.sincrono.repositories.dto;
 
 import java.util.List;
 
-
 import it.sincrono.entities.Anagrafica;
 import it.sincrono.entities.Commessa;
 import it.sincrono.entities.Contratto;
@@ -18,12 +17,14 @@ public class AnagraficaDto {
 
 	private Ruolo ruolo;
 
-	public AnagraficaDto(Anagrafica anagrafica, Contratto contratto, List<Commessa> commesse, Ruolo ruolo) {
+	public AnagraficaDto(Anagrafica anagrafica, Contratto contratto, List<Commessa> commesse, Ruolo ruolo,
+			Boolean residenzaDomicilioUguali) {
 		super();
 		this.anagrafica = anagrafica;
 		this.contratto = contratto;
 		this.commesse = commesse;
 		this.ruolo = ruolo;
+
 	}
 
 	public AnagraficaDto() {

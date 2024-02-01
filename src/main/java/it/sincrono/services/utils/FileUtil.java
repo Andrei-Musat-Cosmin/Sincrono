@@ -16,6 +16,7 @@ import java.util.List;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,10 @@ import it.sincrono.services.exceptions.ServiceException;
 @Component
 public class FileUtil {
 	private static final Logger LOGGER = LogManager.getLogger(FileUtil.class);
+	
+	
+	@Autowired
+	StringUtil stringUtil;
 
 	public RapportinoDto readFile(String percorso) throws Exception {
 
@@ -49,8 +54,8 @@ public class FileUtil {
 
 			insertDayInRapportino(rapportinoDto, percorso);
 
-			DateUtil.checkFestivitàNazionale(rapportinoDto, Integer.valueOf(percorso.split("/")[8].split("\\.")[0]),
-					Integer.valueOf(percorso.split("/")[7]));
+			DateUtil.checkFestivitàNazionale(rapportinoDto, Integer.valueOf(stringUtil.yearAndMonthByPath(percorso)[1]) ,
+					Integer.valueOf(stringUtil.yearAndMonthByPath(percorso)[0]));
 
 			rapportinoDto.setNote(reader.readLine());
 
@@ -69,8 +74,8 @@ public class FileUtil {
 		for (GiornoDto giornoDto : rapportinoDto.getMese().getGiorni()) {
 
 			giornoDto.setNumeroGiorno(i);
-			giornoDto.setNomeGiorno(DateUtil.getNomeGiorno(i, Integer.valueOf(percorso.split("/")[7]),
-					Integer.valueOf(percorso.split("/")[8].split("\\.")[0])));
+			giornoDto.setNomeGiorno(DateUtil.getNomeGiorno(i, Integer.valueOf(stringUtil.yearAndMonthByPath(percorso)[0]),
+					Integer.valueOf(stringUtil.yearAndMonthByPath(percorso)[1])));
 			i++;
 
 		}
@@ -146,7 +151,7 @@ public class FileUtil {
 					giornoDto.setPermessi(Double.parseDouble(giornoSplit[3]));
 
 				if (giornoSplit[4] != null && !giornoSplit[4].isEmpty() && !giornoSplit[4].equals("null"))
-					giornoDto.setPermessiExfestivita(Double.parseDouble(giornoSplit[4]));
+					giornoDto.setPermessiExfestivita(Boolean.parseBoolean(giornoSplit[4]));
 
 				if (giornoSplit[5] != null && !giornoSplit[5].isEmpty() && !giornoSplit[5].equals("null"))
 					giornoDto.setPermessiRole(Double.parseDouble(giornoSplit[5]));
@@ -156,9 +161,12 @@ public class FileUtil {
 
 				if (giornoSplit[7] != null && !giornoSplit[7].isEmpty() && !giornoSplit[7].equals("null"))
 					giornoDto.setCheckSmartWorking(Boolean.parseBoolean(giornoSplit[7]));
-
+				
 				if (giornoSplit[8] != null && !giornoSplit[8].isEmpty() && !giornoSplit[8].equals("null"))
-					giornoDto.setCheckOnSite(Boolean.parseBoolean(giornoSplit[8]));
+					giornoDto.setCheckFestivita(Boolean.parseBoolean(giornoSplit[8]));
+
+				if (giornoSplit[9] != null && !giornoSplit[9].isEmpty() && !giornoSplit[9].equals("null"))
+					giornoDto.setCheckOnSite(Boolean.parseBoolean(giornoSplit[9]));
 
 				mese.add(giornoDto);
 
@@ -202,8 +210,8 @@ public class FileUtil {
 
 		DuplicazioniGiornoDto duplicazioniGiornoDto = new DuplicazioniGiornoDto();
 
-		for (int i = 0; i < getNumeroGiorniMese(Integer.valueOf(percorso.split("/")[7]),
-				Integer.valueOf(percorso.split("/")[8].split("\\.")[0])); i++) {
+		for (int i = 0; i < getNumeroGiorniMese(Integer.valueOf(stringUtil.yearAndMonthByPath(percorso)[0]),
+				Integer.valueOf(stringUtil.yearAndMonthByPath(percorso)[1])); i++) {
 
 			GiornoDto giornoDto = new GiornoDto();
 
@@ -296,6 +304,11 @@ public class FileUtil {
 
 						if (giornoDto.getCheckSmartWorking() != null) {
 							dati += "," + giornoDto.getCheckSmartWorking();
+						} else
+							dati += ",null";
+						
+						if (giornoDto.getCheckFestivita() != null) {
+							dati += "," + giornoDto.getCheckFestivita();
 						} else
 							dati += ",null";
 

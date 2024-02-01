@@ -57,6 +57,12 @@ public class FilterCustom {
 					&& anagrafica.getAttivo() != anagraficaFilter.getAttivo()) {
 				return false;
 			}
+			if (anagraficaFilter.getTipoCanaleReclutamento() != null) {
+				if (anagrafica.getTipoCanaleReclutamento() == null || anagrafica.getTipoCanaleReclutamento()
+						.getId() != anagraficaFilter.getTipoCanaleReclutamento().getId()) {
+					return false;
+				}
+			}
 		}
 		if (anagraficaRequestDto.getAnagraficaDto().getContratto() != null) {
 			Contratto contratto = anagraficaDto.getContratto();
@@ -103,13 +109,6 @@ public class FilterCustom {
 				if (contrattoFilter.getTipoCcnl() != null) {
 					if (contratto.getTipoCcnl() == null
 							|| contratto.getTipoCcnl().getId() != contrattoFilter.getTipoCcnl().getId()) {
-						return false;
-					}
-				}
-
-				if (contrattoFilter.getTipoCanaleReclutamento() != null) {
-					if (contratto.getTipoCanaleReclutamento() == null || contratto.getTipoCanaleReclutamento()
-							.getId() != contrattoFilter.getTipoCanaleReclutamento().getId()) {
 						return false;
 					}
 				}
@@ -430,21 +429,18 @@ public class FilterCustom {
 		return true;
 
 	}
-	
-	
-	public Boolean checkInList( AnagraficaDto anagraficaDto,List<RapportinoInviato> list) {
-		
-		
-		return list.stream().
-				filter(elem->elem.getCodiceFiscale().equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
-				.collect(Collectors.toList()).size()>0?true:false;
+
+	public Boolean checkInList(AnagraficaDto anagraficaDto, List<RapportinoInviato> list) {
+
+		return list.stream()
+				.filter(elem -> elem.getCodiceFiscale().equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
+				.collect(Collectors.toList()).size() > 0 ? true : false;
 	}
-	
-	public Boolean checkNotInList(AnagraficaDto anagraficaDto,List<RapportinoInviato> list) {
-		
-		
-		return list.stream().
-				filter(elem->elem.getCodiceFiscale().equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
-				.collect(Collectors.toList()).size()==0?true:false;
+
+	public Boolean checkNotInList(AnagraficaDto anagraficaDto, List<RapportinoInviato> list) {
+
+		return list.stream()
+				.filter(elem -> elem.getCodiceFiscale().equals(anagraficaDto.getAnagrafica().getCodiceFiscale()))
+				.collect(Collectors.toList()).size() == 0 ? true : false;
 	}
 }
