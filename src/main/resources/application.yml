@@ -1,79 +1,40 @@
 
 
-#---------------prod--------------------
-
-#spring:
-#  mail:
-#    host: smtps.aruba.it
-#    username: comunicazioni@sincrono.it
-#    password: x9$!4Eu48G
-#    port: 465
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          ssl:
-#            enable: true
-#            required: true
-#
-#anagrafiche-profili:
-#  #path-prefix: C:/Users/SINCRONO/Desktop/
-#  path-prefix: /bitnami/userdata/
-#  destinazione: profili-anagrafiche/
-#  
-#  anagrafiche-profili-rapportini:
-#    path-prefix-rapportini: /rapportini/
-#  
-#  
-#  anagrafiche-profili-documenti:
-#   path-prefix-documenti: /documenti/image-profile.txt
-#   
-#path-frontend:
-#
-#  path: http://192.168.58.196:8083/richieste/
-#
-#email-richieste:
-#
-#  email: m.pedrotti@sincrono.it
-   
-   
-   
-
-#---------------local---------------------------------
-
-
 spring:
-  mail:
-    host: smtp.gmail.com
-    username: andreimusat2000@gmail.com
-    password: vmja jqtg jpqn uryk
-    port: 587
+   mail:
+    host: smtps.aruba.it
+    username: comunicazioni@sincrono.it
+    password: x9$!4Eu48G
+    port: 465
     properties:
      mail:
-        smtp:
-          starttls:
+       smtp:
+         auth: true
+         ssl:
            enable: true
-          auth: true
+           required: true
 
 anagrafiche-profili:
-  #path-prefix: C:/Users/SINCRONO/Desktop/
-  path-prefix: C:/Users/User/Desktop/
+
+  path-prefix: /bitnami/userdata/
   destinazione: profili-anagrafiche/
   
   anagrafiche-profili-rapportini:
-    path-prefix-rapportini: /rapportini/
+   path-prefix-rapportini: /rapportini/
   
   
   anagrafiche-profili-documenti:
-   path-prefix-documenti: /documenti/image-profile.txt
-   
-   
+  path-prefix-documenti: /documenti/image-profile.txt
    
 path-frontend:
 
-  path: http://localhost:4200/richieste/
-  
-  
+  path: http://192.168.58.196:8083/richieste/
+
 email-richieste:
 
-  email: d.saltarelli@sincrono.it
+  email: m.pedrotti@sincrono.it
+   
+   
+ 
+
+
