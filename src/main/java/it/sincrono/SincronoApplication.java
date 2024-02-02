@@ -1,24 +1,21 @@
 package it.sincrono;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-public class SincronoApplication {
-
-	private static final Logger LOGGER = LogManager.getLogger(SincronoApplication.class);
+public class SincronoApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 
 		SpringApplication.run(SincronoApplication.class, args);
-
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			LOGGER.info("Shutting down application...");
-			LogManager.shutdown(); // This will flush and close all loggers
-		}));
-
 	}
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+
+		return application.sources(SincronoApplication.class);
+	}
 }
