@@ -35,8 +35,16 @@ public class Anagrafica {
 	private TipoCanaleReclutamento tipoCanaleReclutamento;
 
 	@ManyToOne
-	@JoinColumn(name = "id_stato_nascita")
+	@JoinColumn(name = "id_stato_nascita_estera")
 	private Nazione idStatoNascita;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_stato_residenza_estera")
+	private Nazione idStatoResidenzaEstera;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_stato_domicilio_estero")
+	private Nazione idStatoDomicilioEstero;
 
 	@ManyToOne
 	@JoinColumn(name = "id_cittadinanza_1")
@@ -136,7 +144,7 @@ public class Anagrafica {
 	@Column(name = "localita_nascita_estero")
 	private String localitaNascitaEstero;
 
-	@Column(name = "localita_domicilio_estero")
+	@Column(name = "localita_domicilio_estera")
 	private String localitaDomicilioEstero;
 
 	@Column(name = "piva")
