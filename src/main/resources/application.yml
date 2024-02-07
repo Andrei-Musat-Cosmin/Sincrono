@@ -1,5 +1,4 @@
 
-
 spring:
    mail:
     host: smtps.aruba.it
@@ -14,27 +13,30 @@ spring:
            enable: true
            required: true
 
+
 anagrafiche-profili:
 
   path-prefix: /bitnami/userdata/
   destinazione: profili-anagrafiche/
   
   anagrafiche-profili-rapportini:
+
    path-prefix-rapportini: /rapportini/
   
   
   anagrafiche-profili-documenti:
   path-prefix-documenti: /documenti/image-profile.txt
+
    
 path-frontend:
 
   path: http://192.168.58.196:8083/richieste/
 
+
+
 email-richieste:
 
-  email: m.pedrotti@sincrono.it
-   
-   
- 
+  email: p.giardina@sincrono.it
+
 
 
