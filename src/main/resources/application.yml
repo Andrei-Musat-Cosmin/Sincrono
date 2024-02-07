@@ -15,8 +15,7 @@ spring:
 
 
 anagrafiche-profili:
-
-  path-prefix: /bitnami/userdata/
+  #path-prefix: C:\Users\ruame\Desktop ---> Da modificare con directory locale desiderata 
   destinazione: profili-anagrafiche/
   
   anagrafiche-profili-rapportini:
@@ -25,7 +24,7 @@ anagrafiche-profili:
   
   
   anagrafiche-profili-documenti:
-  path-prefix-documenti: /documenti/image-profile.txt
+   path-prefix-documenti: /documenti/image-profile.txt
 
    
 path-frontend:
